@@ -1,123 +1,527 @@
+const { MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
-const { mem, cpu, os } = require("node-os-utils");
-const { stripIndent } = require("common-tags");
-
 const Guild = require("../../database/schemas/Guild");
+const { stripIndent } = require("common-tags");
+const emojis = require("../../assets/emojis.json");
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "stats",
-      aliases: ["s", "botinfo"],
-      description: "Displays Marksoft's Statistics",
+      name: "help",
+      aliases: ["menu", "bothelp", "commands"],
+      description: "Shows you every available command in the guild",
       category: "Information",
+      usage: "[command]",
+      examples: ["help userinfo", "help avatar"],
       cooldown: 3,
     });
   }
 
-  async run(message) {
-    const guildDB = await Guild.findOne({
-      guildId: message.guild.id,
-    });
-    const language = require(`../../data/language/${guildDB.language}.json`);
-    let uptime = this.client.uptime;
-    let seconds = uptime / 1000;
-    let days = parseInt(seconds / 86400);
-    seconds = seconds % 86400;
-    let hours = parseInt(seconds / 3600);
-    seconds = seconds % 3600;
-    let minutes = parseInt(seconds / 60);
-    seconds = parseInt(seconds % 60);
-    uptime = `${seconds}s`;
-    if (days) {
-      uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    } else if (hours) {
-      uptime = `${hours}h ${minutes}m ${seconds}s`;
-    } else if (minutes) {
-      uptime = `${minutes}m ${seconds}s`;
-    }
+  async run(message, args) {
+    const guildDB = await Guild.findOne({ guildId: message.guild.id });
 
-    let rss = process.memoryUsage().rss;
-    if (rss instanceof Array) {
-      rss = rss.reduce((sum, val) => sum + val, 0);
-    }
-    let heapUsed = process.memoryUsage().heapUsed;
-    if (heapUsed instanceof Array) {
-      heapUsed = heapUsed.reduce((sum, val) => sum + val, 0);
-    }
-    const { totalMemMb } = await mem.info();
-    const serverStats = stripIndent`
-      OS -- ${await os.oos()}
-      CPU -- ${cpu.model()}
-      Cores -- ${cpu.count()}
-      CPU Usage -- ${await cpu.usage()} %
-      RAM -- ${totalMemMb} MB
-      RAM Usage -- ${(heapUsed / 1024 / 1024).toFixed(2)} MB
-    `;
-    const tech = stripIndent`
-      Ping -- ${Math.round(message.client.ws.ping)}ms
-      Uptime  -- ${uptime}
-      ${language.pogyVersion} -- 2.0
-      Library -- Discord.js v13.6.0
-      Environment -- Node.js v16.9.1
-      Servers -- ${message.client.guilds.cache.size}
-      ${language.users} -- ${this.client.guilds.cache.reduce(
-      (a, b) => a + b.memberCount,
-      0
-    )}
-      ${language.channels} -- ${message.client.channels.cache.size}
-      ${language.pogyCommands} -- ${message.client.botCommands.size}
-      Aliases -- ${message.client.aliases.size}
-    `;
-    const devs = stripIndent`
-     -------
-     ${language.pogyOwners}
-    • Thomas#3267
-     ${language.pogyDevelopers}
-    • Thomas#3267
-    -------
-    `;
-    const embed = new MessageEmbed()
-      .setAuthor(
-        message.member.displayName,
+    let disabledCommands = guildDB.disabledCommands;
+    if (typeof disabledCommands === "string")
+      disabledCommands = disabledCommands.split(" ");
+
+    const prefix = guildDB.prefix;
+
+    const emoji = {
+      altdetector: `${emojis.altdetector}`,
+      applications: `${emojis.applications}`,
+      config: `${emojis.config}`,
+      utility: `${emojis.utility}`,
+      economy: `${emojis.economy}`,
+      fun: `${emojis.fun}`,
+      images: `${emojis.images}`,
+      information: `${emojis.information}`,
+      moderation: `${emojis.moderation}`,
+      reactionrole: `${emojis.reactionrole}`,
+      tickets: `${emojis.tickets}`,
+      owner: `${emojis.owner}`,
+    };
+
+    const green = "<:purple:826033456207233045>";
+    const red = "<:redsquare:803527843661217802>";
+
+    const embed = new MessageEmbed().setColor("PURPLE");
+
+    if (!args || args.length < 1) {
+      let categories;
+      categories = this.client.utils.removeDuplicates(
+        this.client.botCommands
+          .filter((cmd) => cmd.category !== "Owner")
+          .map((cmd) => cmd.category)
+      );
+
+      if (this.client.config.developers.includes(message.author.id))
+        categories = this.client.utils.removeDuplicates(
+          this.client.botCommands.map((cmd) => cmd.category)
+        );
+
+      for (const category of categories) {
+        embed.addField(
+          `${emoji[category.split(" ").join("").toLowerCase()]} **${capitalize(
+            category
+          )}**`,
+          `\`${prefix}help ${category.toLowerCase()}\``,
+          true
+        );
+      }
+
+      embed.setTitle(`Marksoft's Command List`);
+      embed.setDescription(stripIndent`
+        <:purple:826033456207233045> The Prefix for this server is \`${prefix}\`
+
+        `);
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+      embed.setTimestamp();
+
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args.join(" ").toLowerCase() == "alt detector") ||
+      (args && args[0].toLowerCase() == "alt")
+    ) {
+      embed.setTitle(` ${emojis.altdetector} - Alt Detector`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "alt detector")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(9 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (args && args[0].toLowerCase() == "owner") {
+      if (!this.client.config.developers.includes(message.author.id))
+        return message.channel.sendCustom(
+          `${message.client.emoji.fail} | You are not allowed to view this category`
+        );
+
+      embed.setTitle(`${emojis.owner} Owner Commands`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "owner")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "applications") ||
+      (args && args[0].toLowerCase() == "apps")
+    ) {
+      embed.setTitle(` ${emojis.applications} - applications`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "applications")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "config") ||
+      (args && args[0].toLowerCase() == "configuration")
+    ) {
+      embed.setTitle(` ${emojis.config} - Config`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "config")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(14 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "utility") ||
+      (args && args[0].toLowerCase() == "utils")
+    ) {
+      embed.setTitle(` ${emojis.utility} - Utility`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "utility")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(10 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "economy") ||
+      (args && args[0].toLowerCase() == "currency")
+    ) {
+      embed.setTitle(` ${emojis.economy} - Economy`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "economy")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(9 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (args && args[0].toLowerCase() == "fun") {
+      embed.setTitle(` ${emojis.fun} - Fun`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "fun")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(10 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "images") ||
+      (args && args[0].toLowerCase() == "image")
+    ) {
+      embed.setTitle(` ${emojis.images} - Image`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "images")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(14 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "information") ||
+      (args && args[0].toLowerCase() == "info")
+    ) {
+      embed.setTitle(` ${emojis.information} - Info`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "information")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "moderation") ||
+      (args && args[0].toLowerCase() == "mod")
+    ) {
+      embed.setTitle(` ${emojis.moderation} - Moderation`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "moderation")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args.slice(0).join(" ").toLowerCase() == "reaction role") ||
+      (args && args[0].toLowerCase() == "rr")
+    ) {
+      embed.setTitle(` ${emojis.reactionrole} - Reaction Roles`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "reaction role")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(12 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (
+      (args && args[0].toLowerCase() == "tickets") ||
+      (args && args[0].toLowerCase() == "ticketing")
+    ) {
+      embed.setTitle(` ${emojis.tickets} - Tickets`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "tickets")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+      embed.addField(
+        "\u200b",
+        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
+        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
+        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+      );
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else {
+      const cmd =
+        this.client.botCommands.get(args[0]) ||
+        this.client.botCommands.get(this.client.aliases.get(args[0]));
+
+      if (!cmd)
+        return message.channel.sendCustom(
+          `${message.client.emoji.fail} Could not find the Command you're looking for`
+        );
+
+      if (cmd.category === "Owner")
+        return message.channel.sendCustom(
+          `${message.client.emoji.fail} Could not find the Command you're looking for`
+        );
+
+      embed.setTitle(`Command: ${cmd.name}`);
+      embed.setDescription(cmd.description);
+      embed.setThumbnail(`https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`);
+      embed.setFooter(
+        cmd.disabled ||
+          disabledCommands.includes(args[0] || args[0].toLowerCase())
+          ? "This command is currently disabled."
+          : message.member.displayName,
         message.author.displayAvatarURL({ dynamic: true })
-      )
-      .setTitle(`${language.pogyInfo}`)
-      .addField(`${language.pogyGeneral}`, `\`\`\`css\n${tech}\`\`\``, true)
-      .addField(`${language.pogyTeam}`, `\`\`\`css\n${devs}\`\`\``, true)
-      .addField(`${language.pogyStats}`, `\`\`\`css\n${serverStats}\`\`\``)
-      .setFooter("https://Marksoft.ro")
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+      );
 
-    const inviteButton = new MessageButton()
-      .setStyle("LINK")
-      .setLabel("Invite")
-      .setURL("https://marksoft.13thomasbot.repl.co/invite");
+      embed.addField("Usage", `\`${cmd.usage}\``, true);
+      embed.addField("category", `\`${capitalize(cmd.category)}\``, true);
 
-    const supportButton = new MessageButton()
-      .setStyle("LINK")
-      .setLabel("Support Server")
-      .setURL("https://marksoft.13thomasbot.repl.co/support");
+      if (cmd.aliases && cmd.aliases.length && typeof cmd.aliases === "object")
+        embed.addField(
+          "Aliases",
+          cmd.aliases.map((alias) => `\`${alias}\``, true).join(", "),
+          true
+        );
+      if (cmd.cooldown && cmd.cooldown > 1)
+        embed.addField("Cooldown", `\`${cmd.cooldown}s\``, true);
+      if (cmd.examples && cmd.examples.length)
+        embed.addField(
+          "__**Examples**__",
+          cmd.examples
+            .map((example) => `<:purple:826033456207233045> \`${example}\``)
+            .join("\n")
+        );
 
-    const dashboardButton = new MessageButton()
-      .setStyle("LINK")
-      .setLabel("Dashboard")
-      .setURL("https://marksoft.13thomasbot.repl.co/");
-
-    const devTeamButton = new MessageButton()
-      .setStyle("LINK")
-      .setLabel("DevTeam")
-      .setURL("https://marksoft.13thomasbot.repl.co/team");
-
-    const row = new MessageActionRow().addComponents(
-      inviteButton,
-      supportButton,
-      dashboardButton,
-      devTeamButton
-    );
-
-    message.channel.send({ embeds: [embed], components: [row] });
+      return message.channel.sendCustom({ embeds: [embed] });
+    }
   }
 };
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

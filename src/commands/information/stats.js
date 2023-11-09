@@ -1,9 +1,10 @@
 const Command = require("../../structures/Command");
-const { MessageEmbed } = require("discord.js");
+const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const { mem, cpu, os } = require("node-os-utils");
 const { stripIndent } = require("common-tags");
 
 const Guild = require("../../database/schemas/Guild");
+
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
@@ -86,15 +87,37 @@ module.exports = class extends Command {
       .addField(`${language.pogyGeneral}`, `\`\`\`css\n${tech}\`\`\``, true)
       .addField(`${language.pogyTeam}`, `\`\`\`css\n${devs}\`\`\``, true)
       .addField(`${language.pogyStats}`, `\`\`\`css\n${serverStats}\`\`\``)
-      .setFooter({ text: `https://Marksoft.ro` })
+      .setFooter("https://Marksoft.ro")
       .setTimestamp()
-      .addField(
-        "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/) | " + "[DevTeam](https://marksoft.13thomasbot.repl.co/team)**"
-      )
       .setColor(message.guild.me.displayHexColor);
-    message.channel.sendCustom({ embeds: [embed] });
+
+    const inviteButton = new MessageButton()
+      .setStyle("LINK")
+      .setLabel("Invite")
+      .setURL("https://marksoft.13thomasbot.repl.co/invite");
+
+    const supportButton = new MessageButton()
+      .setStyle("LINK")
+      .setLabel("Support Server")
+      .setURL("https://marksoft.13thomasbot.repl.co/support");
+
+    const dashboardButton = new MessageButton()
+      .setStyle("LINK")
+      .setLabel("Dashboard")
+      .setURL("https://marksoft.13thomasbot.repl.co/");
+
+    const devTeamButton = new MessageButton()
+      .setStyle("LINK")
+      .setLabel("DevTeam")
+      .setURL("https://marksoft.13thomasbot.repl.co/team");
+
+    const row = new MessageActionRow().addComponents(
+      inviteButton,
+      supportButton,
+      dashboardButton,
+      devTeamButton
+    );
+
+    message.channel.send({ embeds: [embed], components: [row] });
   }
 };
