@@ -1,30 +1,121 @@
---- Are you ready to take your Discord server to the next level? ---
 
+# Discord Bot Documentation
 
-Our Multipurpose Discord Bot is here to help you create a vibrant and engaging community like never before. Say goodbye to complicated code and hello to an intuitive web-based customization platform that empowers you to shape your bot's functionalities to your heart's content.
+Welcome to the documentation for our versatile Discord bot. This document will guide you through the features and functionalities of our bot, helping you make the most of it to enhance your Discord server.
 
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Key Features](#key-features)
+   - [1. Alt Detector](#alt-detector)
+   - [2. Applications](#applications)
+   - [3. Config](#config)
+   - [4. Utility](#utility)
+   - [5. Economy](#economy)
+   - [6. Fun](#fun)
+   - [7. Images](#images)
+   - [8. Information](#information)
+   - [9. Moderation](#moderation)
+   - [10. Reaction Roles](#reaction-roles)
+   - [11. Tickets](#tickets)
+   - [12. Webhooks](#webhooks)
+3. [Website Features](#website-features)
+4. [Conclusion](#conclusion)
 
-𝙺𝚎𝚢 𝙵𝚎𝚊𝚝𝚞𝚛𝚎𝚜
+---
 
+### 1. Introduction<a name="introduction"></a>
 
-1. User-Friendly Web Interface: No more wrestling with code! Our bot comes with a user-friendly web interface that lets you effortlessly customize your bot's commands, responses, and features without any technical expertise.
+Our Discord bot is a comprehensive solution for managing, moderating, and engaging with your community on Discord. It offers a wide range of features designed to enhance your server experience and streamline your community management processes.
 
-2. Command Customization: Tailor your bot's responses to your server's unique needs. Add, edit, or remove commands at your convenience, ensuring that your members get quick and informative responses.
+### 2. Key Features<a name="key-features"></a>
 
-3. Role Management: Simplify the process of managing roles on your server. With our bot, you can easily create, assign, and automate roles to streamline your community's hierarchy.
+Our Discord bot provides the following key features:
 
-4. Automated Moderation: Keep your server safe and enjoyable with automated moderation features. Customize filters, warnings, and automatic actions to maintain a welcoming environment.
+#### 1. Alt Detector<a name="alt-detector"></a>
+- Prevent unauthorized multiple accounts (alts) from entering your server.
+- Ensure the safety and authenticity of your user base.
 
-5. Engaging Entertainment: Spice up your server with fun games, trivia, and activities. Our bot offers an array of entertainment options to keep your members entertained.
+#### 2. Applications<a name="applications"></a>
+- Easily manage applications submitted through your website.
+- Streamline your selection process for various roles or positions.
 
-6. Music Playback: Let your community groove to their favorite tunes with our bot's music playback capabilities. Create custom playlists or play songs from popular platforms.
+#### 3. Config<a name="config"></a>
+- Tailor your server settings with ease.
+- Control how your server operates to suit your community's needs.
 
-7. Server Insights: Stay informed about your server's activity. Our bot provides insights into server statistics, trends, and user behavior, helping you make data-driven decisions.
+#### 4. Utility<a name="utility"></a>
+- Access a variety of utility commands to simplify common tasks.
+- Enhance server functionality and user experience.
 
-8. 24/7 Support:** We're here for you around the clock! Our dedicated support team ensures that your questions are answered and issues are resolved promptly.
+#### 5. Economy<a name="economy"></a>
+- A work-in-progress feature to bring economy elements to your server.
+- Engage your members with exciting in-server currency and rewards.
 
+#### 6. Fun<a name="fun"></a>
+- A plethora of fun and interactive commands to keep your server lively.
+- Spice up conversations and activities with engaging features.
 
-With our Multipurpose Discord Bot, you have the power to create the server of your dreams. It's not just a bot; it's your server's loyal companion, always ready to adapt to your changing needs.
+#### 7. Images<a name="images"></a>
+- Enjoy image commands to share and create visual content.
+- Add creativity and visual appeal to your server.
 
-Check out the BETA web UI:
-https://marksoft.13thomasbot.repl.co/
+#### 8. Information<a name="information"></a>
+- Retrieve essential information using dedicated commands.
+- Stay informed about server statistics and data.
+
+#### 9. Moderation<a name="moderation"></a>
+- Administer your server effectively with moderation commands.
+- Ensure a safe and respectful environment for your members.
+
+#### 10. Reaction Roles<a name="reaction-roles"></a>
+- Enable reaction-based role assignment for users.
+- Simplify the process of users choosing their roles.
+
+#### 11. Tickets<a name="tickets"></a>
+- Offer support and assistance through guild tickets.
+- Streamline communication and issue resolution.
+
+#### 12. Webhooks<a name="webhooks"></a>
+- Developers can log events directly using webhooks from the configuration file.
+- Keep track of important server activities effortlessly.
+
+### 3. Website Features<a name="website-features"></a>
+
+In addition to the Discord bot, our system offers the following features on your website:
+
+- **Ticket Transcripts + Application Transcripts:**
+  - Keep a record of all ticket and application interactions for reference.
+
+- **Contact & Report Page:**
+  - Facilitate easy communication with your community.
+  - Enable users to report issues and concerns conveniently.
+
+- **Welcome and Farewell Messages:**
+  - Personalize greetings and farewells to engage and retain members.
+  - Embed support to make these messages more appealing.
+
+- **Customizable Logging and Moderation:**
+  - Tailor the bot to log and moderate as per your server's unique requirements.
+  - Maintain a healthy and controlled environment.
+
+- **Suggestions and Server Reports:**
+  - Enable members to provide feedback and report issues.
+  - Empower community involvement and improvement.
+
+- **Premium System:**
+  - Add value to your server with a built-in premium system.
+  - Offer exclusive features to supporters and donors.
+
+- **Maintenance Mode:**
+  - Control server access during maintenance and updates.
+  - Ensure a seamless user experience even during downtimes.
+
+- **Members Page:**
+  - Showcase your server's members and their contributions.
+  - Recognize and celebrate your community.
+
+### 4. Conclusion<a name="conclusion"></a>
+
+Our all-in-one Discord bot and web features offer an extensive array of tools to enhance your server's functionality, user engagement, and community management. Elevate your server today by incorporating our versatile bot and utilizing the website features.
+
+Thank you for choosing our Discord bot. If you have any questions or need further assistance, please refer to our support resources or contact our team. Enjoy enhancing your Discord server!
