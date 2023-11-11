@@ -226,15 +226,17 @@ module.exports = class extends Command {
       embed.setTitle(` ${emojis.utility} - Utility`);
       embed.setDescription(
         this.client.botCommands
-          .filter((cmd) => cmd.category.toLowerCase() === "utility")
-          .map(
-            (cmd) =>
-              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
-                ? red
-                : green
-              } \`${cmd.name} ${" ".repeat(10 - Number(cmd.name.length))}:\` ${cmd.description
-              }`
-          )
+        .filter((cmd) => cmd.category.toLowerCase() === "utility")
+        .map((cmd) => {
+          const name = cmd.name;
+          const count = 10 - name.length;
+          console.log(`Name: ${name}, Count: ${count}`);
+          const indentation = " ".repeat(count >= 0 ? count : 0);
+  
+          return `${
+            cmd.disabled || disabledCommands.includes(name) ? red : green
+          } \`${name}${indentation}:\` ${cmd.description}`;
+        })
           .join("\n")
       );
 
