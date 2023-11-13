@@ -45,7 +45,7 @@
     "node-os-utils": "^1.3.2",
     "nodemon": "^2.0.4",
     "parse-ms": "^2.1.0",
-    "passport": "^0.4.1",
+    "passport": "^0.6.0",
     "passport-oauth2": "^1.6.1",
     "pogy.db": "^1.5.5",
     "random": "^2.2.0",
