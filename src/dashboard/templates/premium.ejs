@@ -43,7 +43,7 @@
                 
             </header>
            <div style="padding-top: 50px;"></div>
-            <button onclick="window.location.href='#'">
+            <button onclick="window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601088'">
                Purchase
             </button>
         </div>
@@ -61,7 +61,7 @@
                <h3 id="2">7.99$/month</h3>
             </header>
            <div style="padding-top: 50px;"></div>
-            <button onclick="window.location.href='#'">
+            <button onclick="window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601103'">
                Purchase
             </button>
         </div>
@@ -76,7 +76,7 @@
                 <h3 id="3">11.99$/month</h3>
             </header>
            <div style="padding-top: 50px;"></div>
-            <button onclick="window.location.href='#'">
+            <button onclick="window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601114'">
                Purchase
             </button>
         </div>
@@ -952,22 +952,28 @@ const button = document.getElementById("switch").onclick = function(){
   var x = document.getElementById("1");
   if (x.innerHTML === "2.99$/month") {
     x.innerHTML = "29.99$/year";
+    document.querySelector(".item1 button").setAttribute("onclick", "window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601236'");
   } else {
     x.innerHTML = "2.99$/month";
+    document.querySelector(".item1 button").setAttribute("onclick", "window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601088'");
   }
 
     var x2 = document.getElementById("2");
   if (x2.innerHTML === "6.99$/month") {
     x2.innerHTML = "69.99$/year";
+    document.querySelector(".item2 button").setAttribute("onclick", "window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601243'");
   } else {
     x2.innerHTML = "6.99$/month";
+    document.querySelector(".item2 button").setAttribute("onclick", "window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601103'");
   }
 
       var x3 = document.getElementById("3");
   if (x3.innerHTML === "9.99$/month") {
     x3.innerHTML = "99.99$/year";
+    document.querySelector(".item3 button").setAttribute("onclick", "window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601247'");
   } else {
     x3.innerHTML = "9.99$/month";
+    document.querySelector(".item3 button").setAttribute("onclick", "window.location.href='https://www.patreon.com/checkout/MarksoftRO?rid=21601114'");
   }
 
 }
