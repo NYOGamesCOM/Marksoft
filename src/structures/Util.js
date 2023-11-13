@@ -2,6 +2,7 @@ const fs = require("fs").promises;
 const path = require("path");
 const Command = require("./Command.js");
 const Event = require("./Event.js");
+const logger = require("../utils/logger");
 
 module.exports = class Util {
   constructor(client) {
@@ -70,6 +71,8 @@ module.exports = class Util {
       if (command.aliases.length) {
         for (const alias of command.aliases) {
           this.client.aliases.set(alias, command.name);
+          //logger.info(`✅ loaded: ${event.name}`, { label: 'CMD' })
+          console.log(`✅ CMD loaded: ${command.name}`);
         }
       }
     }
@@ -88,6 +91,7 @@ module.exports = class Util {
       if (!(event instanceof Event))
         throw new TypeError(`Event ${name} doesn't belong in Events`);
       this.client.botEvents.set(event.name, event);
+      console.log(`✅ Event loaded: ${event.name}`);
       //logger.info(`✅ loaded: ${event.name}`, { label: 'Events' })
       event.emitter[event.type](name, (...args) => event.run(...args));
     }
