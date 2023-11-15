@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@discordjs/builders": "^1.6.5",
-    "@discordjs/rest": "^2.0.1",
+    "@discordjs/rest": "^2.1.0",
     "@top-gg/sdk": "^3.0.8",
     "axios": "^1.6.0",
     "body-parser": "^1.19.0",
