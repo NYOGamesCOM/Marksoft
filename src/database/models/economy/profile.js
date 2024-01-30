@@ -1,4 +1,4 @@
-/*const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 let profile = new mongoose.Schema({
   guildId: { type: String },
@@ -12,4 +12,4 @@ let profile = new mongoose.Schema({
   passiveUpdated: { type: Date }
 });
 
-module.exports = mongoose.model("profile", profile);*/
+module.exports = mongoose.model("profile", profile);
