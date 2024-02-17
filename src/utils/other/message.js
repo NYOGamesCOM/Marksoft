@@ -245,7 +245,7 @@ module.exports = function(client) {
       const command = JSON.parse(customCommandSettings.content);
       return message.channel.sendCustom(command).catch((e) => {
         message.channel.sendCustom(
-          `There was a problem sending your embed, which is probably a JSON error.\nRead more here --> https://marksoft.13thomasbot.repl.co/embeds\n\n__Error:__\n\`${e}\``
+          `There was a problem sending your embed, which is probably a JSON error.\nRead more here --> http://localhost:3000/embeds\n\n__Error:__\n\`${e}\``
         );
       });
     }

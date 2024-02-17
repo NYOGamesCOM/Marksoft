@@ -27,47 +27,47 @@ module.exports = class extends Command {
           .setTitle(`${language.serversettings1}`)
           .addField(
             `Main Settings`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id})`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id})`,
             true
           )
           .addField(
             `Welcome & Leave`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/welcome)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/welcome)`,
             true
           )
           .addField(
             `Logging`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/logging)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/logging)`,
             true
           )
           .addField(
             `Autorole`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/autorole)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/autorole)`,
             true
           )
           .addField(
             `Alt Detector`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/altdetector)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/altdetector)`,
             true
           )
           .addField(
             `Tickets`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/tickets)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/tickets)`,
             true
           )
           .addField(
             `Suggestions`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/Suggestions)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/Suggestions)`,
             true
           )
           .addField(
             `Server Reports`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/reports)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/reports)`,
             true
           )
           .addField(
             `Automod`,
-            `[\`Click here\`](https://marksoft.13thomasbot.repl.co/dashboard/${message.guild.id}/automod)`,
+            `[\`Click here\`](http://localhost:3000/dashboard/${message.guild.id}/automod)`,
             true
           )
 

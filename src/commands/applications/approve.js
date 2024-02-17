@@ -30,7 +30,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} | ${language.approvepremium}.\n\n[Check Premium Here](https://marksoft.13thomasbot.repl.co/premium)`
+              `${message.client.emoji.fail} | ${language.approvepremium}.\n\n[Check Premium Here](http://localhost:3000/premium)`
             ),
         ],
       });

@@ -1082,7 +1082,7 @@ window.onload = () => {
       return error("Command length exceeds 30 characters.", 4000);
 
     error(
-      'Successfully saved command, if not saved, <a href="https://marksoft.13thomasbot.repl.co/embeds">read here</a>',
+      'Successfully saved command, if not saved, <a href="http://localhost:3000/embeds">read here</a>',
       10000
     );
     e.preventDefault();

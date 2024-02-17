@@ -14,7 +14,7 @@ module.exports = class extends Command {
   async run(message) {
     const dashembed = new MessageEmbed()
       .setTitle("Need the bot's dashboard link? Here you go!")
-      .setDescription("https://marksoft.13thomasbot.repl.co/")
+      .setDescription("http://localhost:3000/")
       .setColor("RANDOM")
       .setFooter(`Requested by ${message.author.username}`)
       .setTimestamp();
@@ -22,22 +22,22 @@ module.exports = class extends Command {
     const inviteButton = new MessageButton()
       .setStyle("LINK")
       .setLabel("Invite")
-      .setURL("https://marksoft.13thomasbot.repl.co/invite");
+      .setURL("http://localhost:3000/invite");
 
     const supportButton = new MessageButton()
       .setStyle("LINK")
       .setLabel("Support Server")
-      .setURL("https://marksoft.13thomasbot.repl.co/support");
+      .setURL("http://localhost:3000/support");
 
     const dashboardButton = new MessageButton()
       .setStyle("LINK")
       .setLabel("Dashboard")
-      .setURL("https://marksoft.13thomasbot.repl.co/");
+      .setURL("http://localhost:3000/");
 
     const devTeamButton = new MessageButton()
       .setStyle("LINK")
       .setLabel("DevTeam")
-      .setURL("https://marksoft.13thomasbot.repl.co/team");
+      .setURL("http://localhost:3000/team");
 
     const row = new MessageActionRow().addComponents(
       inviteButton,

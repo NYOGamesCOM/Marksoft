@@ -83,9 +83,9 @@ module.exports = class extends Command {
 
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -114,9 +114,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "owner") {
@@ -148,9 +148,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -181,9 +181,9 @@ module.exports = class extends Command {
 
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
 
       return message.channel.sendCustom({ embeds: [embed] });
@@ -214,9 +214,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -248,9 +248,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -280,9 +280,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "fun") {
@@ -309,9 +309,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -341,9 +341,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -373,9 +373,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -404,9 +404,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -436,9 +436,9 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
 
       return message.channel.sendCustom({ embeds: [embed] });
@@ -462,9 +462,9 @@ module.exports = class extends Command {
       );
       embed.addField(
         "\u200b",
-        "**[Invite](https://marksoft.13thomasbot.repl.co/invite) | " +
-        "[Support Server](https://marksoft.13thomasbot.repl.co/support) | " +
-        "[Dashboard](https://marksoft.13thomasbot.repl.co/)**"
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
       );
       embed.setFooter({
         text: `Requested by ${message.author.username}`,

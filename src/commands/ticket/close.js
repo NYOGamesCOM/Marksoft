@@ -125,7 +125,7 @@ module.exports = class extends Command {
                 `**User:** ${message.author}\n**Ticket Channel:** #${message.channel.name
                 }\n**Reason:** ${reason}\n**Date:** ${moment(new Date()).format(
                   "dddd, MMMM Do YYYY"
-                )}\n**Transcript:** [here](https://marksoft.13thomasbot.repl.co/paste/${ticketID})`
+                )}\n**Transcript:** [here](http://localhost:3000/paste/${ticketID})`
               );
 
             channelReact.send({ embeds: [closeEmbed] });

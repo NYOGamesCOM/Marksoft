@@ -62,7 +62,7 @@ module.exports = class extends Command {
             .setColor(message.client.color.green)
             .setFooter({ text: "Powered by Marksoft.ro" })
             .setDescription(
-              `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](https://marksoft.13thomasbot.repl.co/apply/${message.guild.id})`
+              `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](http://localhost:3000/apply/${message.guild.id})`
             ),
         ],
       })

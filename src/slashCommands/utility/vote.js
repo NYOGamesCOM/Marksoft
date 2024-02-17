@@ -6,7 +6,7 @@ const ms = require("ms");
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("vote")
-  .setDescription("Pogys vote page"),
+  .setDescription("Marksoft's vote page"),
   async execute(interaction) {
     let user = await User.findOne({
       discordId: interaction.user.id

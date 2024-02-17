@@ -6,7 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("role")
     .setDescription("Adds a role to a user.")
-    .addSubCommand((subcommand) =>
+    .addSubcommand(subcommand =>
       subcommand
         .setName("all")
         .setDescription("Adds a role to all users.")
@@ -20,7 +20,7 @@ module.exports = {
           option.setName("remove").setDescription("Remove role or not"),
         ),
     )
-    .addSubCommand((subcommand) =>
+    .addSubcommand(subcommand =>
       subcommand
         .setName("bots")
         .setDescription("Adds a role to all bots.")
@@ -34,7 +34,7 @@ module.exports = {
           option.setName("remove").setDescription("Remove role or not"),
         ),
     )
-    .addSubCommand((subcommand) =>
+    .addSubcommand(subcommand =>
       subcommand
         .setName("humans")
         .setDescription("Adds a role to all humans.")
@@ -48,7 +48,7 @@ module.exports = {
           option.setName("remove").setDescription("Remove role or not"),
         ),
     )
-    .addSubCommand((subcommand) =>
+    .addSubcommand(subcommand =>
       subcommand
         .setName("add")
         .setDescription("Adds a role to a user.")
@@ -65,7 +65,7 @@ module.exports = {
             .setRequired(true),
         ),
     )
-    .addSubCommand((subcommand) =>
+    .addSubcommand(subcommand =>
       subcommand
         .setName("remove")
         .setDescription("Removes a role from a user.")
@@ -119,7 +119,7 @@ module.exports = {
           .setDescription(`${fail} | Please provide a valid role!`)
           .setTimestamp()
           .setFooter({
-            text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+            text: "http://localhost:3000",
           })
           .setColor(interaction.client.color.red);
         return interaction.reply({ embeds: [rolenotfound], ephmeral: true });
@@ -223,7 +223,7 @@ module.exports = {
           .setDescription(`${fail} | Please provide a valid role!`)
           .setTimestamp()
           .setFooter({
-            text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+            text: "http://localhost:3000",
           })
           .setColor(interaction.client.color.red);
         return interaction.reply({ embeds: [rolenotfound], ephmeral: true });
@@ -343,7 +343,7 @@ module.exports = {
           .setDescription(`${fail} | Please provide a valid role!`)
           .setTimestamp()
           .setFooter({
-            text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+            text: "http://localhost:3000",
           })
           .setColor(interaction.client.color.red);
         return interaction.reply({ embeds: [rolenotfound], ephmeral: true });
@@ -462,7 +462,7 @@ module.exports = {
           .setDescription(`${fail} | Please provide a valid role!`)
           .setTimestamp()
           .setFooter({
-            text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+            text: "http://localhost:3000",
           })
           .setColor(interaction.client.color.red);
         return interaction.reply({ embeds: [rolenotfound], ephmeral: true });
@@ -476,7 +476,7 @@ module.exports = {
             .setDescription(`${fail} | ${member} already has the role ${role}.`)
             .setTimestamp()
             .setFooter({
-              text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+              text: "http://localhost:3000",
             })
             .setColor(interaction.client.color.red);
           return interaction.reply({
@@ -512,7 +512,7 @@ module.exports = {
                 )
                 .setTimestamp()
                 .setFooter({
-                  text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+                  text: "http://localhost:3000",
                 })
                 .setColor(interaction.client.color.red);
               return interaction.reply({
@@ -548,7 +548,7 @@ module.exports = {
           .setDescription(`${fail} | Please provide a valid role!`)
           .setTimestamp()
           .setFooter({
-            text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+            text: "http://localhost:3000",
           })
           .setColor(interaction.client.color.red);
         return interaction.reply({ embeds: [rolenotfound], ephemeral: true });
@@ -564,7 +564,7 @@ module.exports = {
             )
             .setTimestamp()
             .setFooter({
-              text: "https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev",
+              text: "http://localhost:3000",
             })
             .setColor(interaction.client.color.red);
           return interaction.reply({ embeds: [nothasrole], ephemeral: true });
@@ -599,7 +599,7 @@ module.exports = {
                 )
                 .setTimestamp()
                 .setFooter({
-                  text: `https://6c7f021b-2514-4460-9d5a-64060cec1990-00-30w9y136gg7mt.riker.replit.dev`,
+                  text: `http://localhost:3000`,
                 })
                 .setColor(interaction.client.color.red);
               return interaction.reply({

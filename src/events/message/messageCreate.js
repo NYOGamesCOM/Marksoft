@@ -186,7 +186,7 @@ module.exports = class extends Event {
               ` ${message.client.emoji.fail
               } Please wait **${rateLimit}** before running the **${cmd}** command again - ${message.author
               }\n\n${number === 1
-                ? "*Did You know that Marksoft has its own dashboard? `https://marksoft.13thomasbot.repl.co/dashboard`*"
+                ? "*Did You know that Marksoft has its own dashboard? `http://localhost:3000/dashboard`*"
                 : ""
               }${number === 2
                 ? "*You can check our top.gg page at `https://vote.marksoft.ro`*"

@@ -84,7 +84,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} Auto Response Limit Reached **(10)**\n\n[Upgrade Premium Here for unlimited commands](https://marksoft.13thomasbot.repl.co/premium)`
+                `${message.client.emoji.fail} Auto Response Limit Reached **(10)**\n\n[Upgrade Premium Here for unlimited commands](http://localhost:3000/premium)`
               ),
           ],
         });
@@ -112,7 +112,7 @@ module.exports = class extends Command {
                   `**${language.cc3}** ${name}\n\nDelete the following auto response using \`${prefix}deleteresponse <command-name>\``
                 )
                 .setTimestamp()
-                .setFooter({ text: "https://marksoft.13thomasbot.repl.co/" })
+                .setFooter({ text: "http://localhost:3000/" })
                 .setColor(message.guild.me.displayHexColor),
             ],
           });
