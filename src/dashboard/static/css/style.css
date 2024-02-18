@@ -67,7 +67,7 @@ opacity: 1;
 width: 550px;
 height: 550px;
 position: absolute;
-background: url(https://replit.com/@13ThomasBot/Marksoft#src/dashboard/static/logo.png);
+background: url();
 top: 0;
 bottom: 0;
 left: 0;
@@ -81,12 +81,12 @@ opacity: 0
 }
 
 @keyframes spinning {
-  0%   {top: 0px; background: url(https://i.imgur.com/83q5LqX.png)}
-  12%  {top: 0px; background: url(https://i.imgur.com/83q5LqX.png) }
-  15%  {top: 0px; background: url(https://i.imgur.com/kPAqFEM.png) }
-  17%  {top: 0px; background: url(https://i.imgur.com/kPAqFEM.png) }
-  50%  {top: 80px; background: url(https://i.imgur.com/83q5LqX.png)}
-  100% {top: 0px; background: url(https://i.imgur.com/83q5LqX.png)}
+  0%   {top: 0px; background: url()}
+  12%  {top: 0px; background: url() }
+  15%  {top: 0px; background: url() }
+  17%  {top: 0px; background: url() }
+  50%  {top: 80px; background: url()}
+  100% {top: 0px; background: url()}
 }
 
 @keyframes comeUp {
