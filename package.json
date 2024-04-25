@@ -55,7 +55,7 @@
     "request-promise-native": "^1.0.5",
     "shortid": "^2.2.16",
     "snekfetch": "^4.0.4",
-    "superagent": "^6.1.0",
+    "superagent": "^9.0.1",
     "tiktok-scraper": "^1.4.12",
     "uniqid": "^5.3.0",
     "uuid": "^8.3.0",
