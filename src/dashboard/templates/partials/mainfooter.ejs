@@ -76,12 +76,12 @@
   #return-to-top {
     border: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    inset-block-end: 20px;
+    inset-inline-end: 20px;
     background: rgb(0, 0, 0);
     background: rgba(0, 0, 0, 0.7);
-    width: 50px;
-    height: 50px;
+    inline-size: 50px;
+    block-size: 50px;
     display: block;
     text-decoration: none;
     -webkit-border-radius: 35px;
@@ -98,8 +98,8 @@
     color: #fff;
     margin: 0;
     position: relative;
-    left: 1px;
-    top: 1px;
+    inset-inline-start: 1px;
+    inset-block-start: 1px;
     font-size: 19px;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -112,13 +112,13 @@
   }
   #return-to-top:hover i {
     color: #fff;
-    top: 5px;
+    inset-block-start: 5px;
   }
 
   .right {
     position: absolute;
-    right: 0;
-    margin-right: 80px;
+    inset-inline-end: 0;
+    margin-inline-end: 80px;
     background-color: #7289da;
     border: 2px solid #7289da;
     color: #fff;
@@ -128,21 +128,21 @@
     font-size: 11pt;
     border-radius: 3px;
     cursor: pointer;
-    height: 45px;
-    width: 250px;
+    block-size: 45px;
+    inline-size: 250px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
   }
-  .right:active {
+  .inset-inline-end:active {
     transform: translateY(2px);
   }
-  .right:hover {
+  .inset-inline-end:hover {
     transform: translateY(1px);
   }
   .ready {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    margin-right: 150px;
-    margin-left: 120px;
+    margin-block-start: 100px;
+    margin-block-end: 100px;
+    margin-inline-end: 150px;
+    margin-inline-start: 120px;
   }
   footer {
     background-color: #222222;
@@ -150,31 +150,32 @@
     padding: 85px 0 185px 0;
     border: 5px solid #2f2f2f;
     border-radius: 5px;
-    margin-left: 80px;
+    margin-inline-start: 80px;
 
-    margin-right: 80px;
+    margin-inline-end: 80px;
   }
 
   .footer-inner {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 120px;
+    inline-size: 90%;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    margin-block-end: 120px;
     position: relative;
   }
 
   .footer-item {
-    float: left;
+    float: inline-start;
     margin: 0 10% 0 0;
   }
 
   .footer-item:nth-of-type(4) {
     display: none;
+    border: 5px solid #2f2f2f;
   }
 
   .footer-item:nth-of-type(7) {
-    float: right;
-    margin-right: 0;
+    float: inline-end;
+    margin-inline-end: 0;
   }
 
   .footer-button {
@@ -190,11 +191,11 @@
   .footer-button:after {
     content: "";
     position: absolute;
-    top: 45px;
-    right: 13px;
+    inset-block-start: 45px;
+    inset-inline-end: 13px;
     background-color: white;
-    height: 1px;
-    width: 86px;
+    block-size: 1px;
+    inline-size: 86px;
     transition: 0.6s;
   }
 
@@ -204,8 +205,8 @@
   }
 
   .footer-button:hover:after {
-    width: 112px;
-    right: 0px;
+    inline-size: 112px;
+    inset-inline-end: 0px;
   }
 
   h1 {
@@ -214,7 +215,7 @@
     font-size: 24px;
     letter-spacing: 2px;
     margin: 0;
-    padding-bottom: 10px;
+    padding-block-end: 10px;
   }
 
   h2 {
@@ -236,12 +237,12 @@
     font-size: 13px;
     color: white;
     margin: 0;
-    padding-bottom: 9px;
+    padding-block-end: 9px;
     letter-spacing: 0.03em;
   }
 
   h3.desktop {
-    padding-top: 30px;
+    padding-block-start: 30px;
   }
 
   ul {
@@ -285,32 +286,32 @@
     font-size: 13px;
     color: #d1d1d1;
     position: absolute;
-    top: 260px;
+    inset-block-start: 260px;
     clear: both;
     display: block;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-inline-size: 1024px) {
     footer {
       padding: 50px 0 70px 0 !important;
     }
 
     .footer-inner {
-      border-bottom: 1px solid #333;
-      padding-bottom: 490px;
-      margin-bottom: 50px;
+      border-block-end: 1px solid #333;
+      padding-block-end: 490px;
+      margin-block-end: 50px;
     }
 
     .footer-item {
       margin: 0 0 42px 0;
-      width: 50%;
+      inline-size: 50%;
     }
 
     .footer-item:nth-of-type(1) {
-      border-bottom: 1px solid #333;
-      padding-bottom: 32px;
+      border-block-end: 1px solid #333;
+      padding-block-end: 32px;
       float: none;
-      width: 100%;
+      inline-size: 100%;
     }
 
     .footer-item:nth-of-type(2) {
@@ -328,7 +329,7 @@
 
     .footer-item:nth-of-type(7) {
       clear: both;
-      float: left;
+      float: inline-start;
       margin: 20px 0 0 -13px;
     }
 
@@ -337,13 +338,13 @@
     }
 
     .footer-inner:after {
-      top: 730px;
+      inset-block-start: 730px;
     }
   }
 
   .hover {
-    width: 200px;
-    height: 200px;
+    inline-size: 200px;
+    block-size: 200px;
     background-position: center;
     background-size: cover;
     position: relative;
@@ -352,20 +353,20 @@
   }
   @keyframes hover {
     0% {
-      top: 0px;
+      inset-block-start: 0px;
     }
     50% {
-      top: 80px;
+      inset-block-start: 80px;
     }
     100% {
-      top: 0px;
+      inset-block-start: 0px;
     }
   }
   #mobileScreen {
     display: block;
   }
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-inline-size: 1024px) {
     #mobileScreen {
       display: none;
     }
@@ -415,7 +416,7 @@
     // When arrow is clicked
     $("body,html").animate(
       {
-        scrollTop: 0, // Scroll to top of body
+        scrollinset-block-start: 0, // Scroll to top of body
       },
       500
     );
