@@ -44,16 +44,20 @@ module.exports = class extends Command {
             **• Responsabil de securitate:** \`${store.security_resp}\` \n
             **• Oras:** \`${store.city}\` | \`${store.county}\` \n
             **• Adresa:** \`${store.address}\` \n
-            **• Contact:** \`${store.contact_1}\` | \`${store.contact_2}\` \n
+            **• Contact:** \`${store.contact_1}\` | \`${store.contact_2}\` | \`${store.Email}\` \n
             **• Data deschiderii:** \`${store.opening_date}\` | **• NON-STOP:** \`${store.non_stop}\` \n
+            **• Numar case de marcat:** \`${store.checkouts}\` | **• Touchscreen:** \`${store.touchscreen}\` \n
             **• Partener:** \`${store.partnet}\` | **• Data preluare:** \`${store.partner_date}\` \n
-            **• Buget Angajati:** \`${store.employee_budget}\` | **• Numar Angajati:** \`${store.employees}\` \n
+            **• Buget Angajati:** \`${store.employee_budget}\` | **• Numar Angajati:** \`${store.employees}\` | **• Payroll:** \`${store.payroll}\` \n
             **• Orar L-V:** \`${store.schedule}\` | **• Orar S:** \`${store.schedule_saturday}\` | | **• Orar D:** \`${store.schedule_sunday}\` \n
             **• Tip:** \`${store.Tip}\` | **• Subtip:** \`${store.Subtip}\` | **• Concept:** \`${store.Concept}\` \n
             **• Suprafata totala:** \`${store.area}\` | **• Suprafata Vanzare:** \`${store.area_store}\` \n
+            **• Centru mentorat:** \`${store.mentoring}\` | **• Stivuitor:** \`${store.forklift}\` | OP: \`${store.forklift_op}\`\n
             **• Solutie CCTV:** \`${store.CCTV}\` | **• Furnizor CCTV:** \`${store.CCTV_maintenance}\` \n
+            **• IP DVR:** \`${store.DVR_IP}\` \n
             **• Furnizor sistem antiefractie:** \`${store.security_sec}\` \n
             **• Furnizor sistem detectie incendiu:** \`${store.security_safety}\` \n
+            **• Sectiune speciala:** \`${store.special_section}\` \n
             `);
 
             embed.setFooter({
