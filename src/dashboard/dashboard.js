@@ -333,6 +333,10 @@ module.exports = async (client) => {
     renderTemplate(res,req, "case.ejs");
   });
 
+  app.get("/changelog", (req, res) =>{
+    renderTemplate(res,req, "changelog.ejs");
+  });
+
   app.get("/policy", (req, res) => {
     renderTemplate(res, req, "policy.ejs");
   });
