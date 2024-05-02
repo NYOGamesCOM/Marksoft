@@ -45,7 +45,7 @@ module.exports = class extends Command {
             **• Oras:** \`${store.city}\` | \`${store.county}\` \n
             **• Adresa:** \`${store.address}\` \n
             **• Contact:** \`${store.contact_1}\` | \`${store.contact_2}\` | \`${store.Email}\` \n
-            **• Data deschiderii:** \`${store.opening_date}\` | **• NON-STOP:** \`${store.non_stop}\` \n
+            **• Data deschiderii:** \`${store.opening_date}\` | **• NON-Sinset-block-start:** \`${store.non_stop}\` \n
             **• Numar case de marcat:** \`${store.checkouts}\` | **• Touchscreen:** \`${store.touchscreen}\` \n
             **• Partener:** \`${store.partnet}\` | **• Data preluare:** \`${store.partner_date}\` \n
             **• Buget Angajati:** \`${store.employee_budget}\` | **• Numar Angajati:** \`${store.employees}\` | **• Payroll:** \`${store.payroll}\` \n
