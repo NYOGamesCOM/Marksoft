@@ -136,7 +136,7 @@
 
 .inner-width
 {
-	max-width: 1200px;
+	max-inline-size: 1200px;
 	margin: auto;
 	padding: 40px;
 	color: #333;
@@ -148,14 +148,14 @@
 	font-size: 20px;
 	text-transform: uppercase;
 	display: inline-block;
-	border-bottom: 4px solid;
-	padding-bottom: 10px;
+	border-block-end: 4px solid;
+	padding-block-end: 10px;
 }
 
 .pe
 {
-	float: left;
-	width: calc(100% / 3);
+	float: inline-start;
+	inline-size: calc(100% / 3);
 	overflow: hidden;
 	padding: 40px 0;
 	transition: 0.4s;
@@ -168,8 +168,8 @@
 
 .pe img
 {
-	width:240px;
-	height: 240px;
+	inline-size:240px;
+	block-size: 240px;
 	border-radius: 50%;
 }
 .pe img:hover
@@ -192,7 +192,7 @@ border: 5px solid black;
 
 .p-sm
 {
-	margin-top: 6px;
+	margin-block-start: 6px;
   color: white
 }
 
@@ -200,8 +200,8 @@ border: 5px solid black;
 {
 	margin: 0 4px;
 	display: inline-block;
-	width: 30px;
-	height: 30px;
+	inline-size: 30px;
+	block-size: 30px;
 	transition: 0.4s;
   color: white
 }
@@ -217,28 +217,28 @@ border: 5px solid black;
 	line-height: 30px;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-inline-size: 960px) {
 	.pe{
-		width: 45%;
+		inline-size: 45%;
 	}
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-inline-size: 768px) {
 	.pe{
-		width: 50%;
+		inline-size: 50%;
 	}
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-inline-size: 600px) {
 	.pe{
-		width: 100%;
+		inline-size: 100%;
 	}
 }
 .titlehover{
 animation: hover 3s infinite;
 } 
 @keyframes hover {
-  0%   {top: 0px;}
-  50%  {top: 80px;}
-  100% {top: 0px;}
+  0%   {inset-block-start: 0px;}
+  50%  {inset-block-start: 80px;}
+  100% {inset-block-start: 0px;}
 }
 </style>
 <%- include("partials/mainfooter") %>
