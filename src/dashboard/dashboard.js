@@ -328,7 +328,7 @@ module.exports = async (client) => {
   app.get("/team", (req, res) => {
     renderTemplate(res, req, "team.ejs");
   });
-
+/*
   app.get("/case", (req, res) =>{
     renderTemplate(res,req, "case.ejs");
   });
@@ -336,7 +336,7 @@ module.exports = async (client) => {
   app.get("/changelog", (req, res) =>{
     renderTemplate(res,req, "changelog.ejs");
   });
-
+*/
   app.get("/policy", (req, res) => {
     renderTemplate(res, req, "policy.ejs");
   });
