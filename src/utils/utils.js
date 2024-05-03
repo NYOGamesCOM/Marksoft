@@ -120,6 +120,27 @@ function getStatus(...args) {
   return "enabled";
 }
 
+async function createProfile(user, guild) {
+  const profile = await Profile.findOne({ userID: user.id, guildId: guild.id });
+  if (!profile) {
+    const newProfile = await new Profile({
+      guildId: guild.id,
+      userID: user.id,
+      wallet: 0,
+      bank: 0,
+      lastDaily: new Date() - 86400000,
+      lastWeekly: new Date() - 604800000,
+      lastMonthly: new Date() - 2592000000,
+      lastBeg: new Date() - 180000,
+      lastRobbed: new Date() - 600000,
+      passiveUpdated: new Date()
+    })
+    newProfile.save().catch(() => {});
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   capitalize,
   removeElement,
@@ -129,4 +150,5 @@ module.exports = {
   getOrdinalNumeral,
   getCaseNumber,
   getStatus,
+  createProfile,
 };

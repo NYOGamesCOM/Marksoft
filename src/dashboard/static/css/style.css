@@ -28,7 +28,6 @@
 
 .no-js {
 background: #f44336;
-font-family: 'Roboto', sans-serif;
 color: #fff;
 text-align: center;
 display: -ms-flexbox;
@@ -118,7 +117,7 @@ transform: rotateY(360deg);
 * {
 
 box-sizing: border-box;
-font-family: 'Roboto', sans-serif;
+
 scrollbar-color: #353535 transparent;
 scrollbar-width: thin;
 }
