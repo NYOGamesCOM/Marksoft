@@ -58,7 +58,7 @@ module.exports = class extends Command {
     const tech = stripIndent`
       Ping -- ${Math.round(message.client.ws.ping)}ms
       Uptime  -- ${uptime}
-      ${language.pogyVersion} -- 2.0
+      ${language.MarksoftVersion} -- 2.0
       Library -- Discord.js v13.6.0
       Environment -- Node.js v16.9.1
       Servers -- ${message.client.guilds.cache.size}
@@ -67,14 +67,14 @@ module.exports = class extends Command {
       0
     )}
       ${language.channels} -- ${message.client.channels.cache.size}
-      ${language.pogyCommands} -- ${message.client.botCommands.size}
+      ${language.MarksoftCommands} -- ${message.client.botCommands.size}
       Aliases -- ${message.client.aliases.size}
     `;
     const devs = stripIndent`
      -------
-     ${language.pogyOwners}
+     ${language.MarksoftOwners}
     • Thomas#3267
-     ${language.pogyDevelopers}
+     ${language.MarksoftDevelopers}
     • Thomas#3267
     -------
     `;
@@ -83,10 +83,10 @@ module.exports = class extends Command {
         message.member.displayName,
         message.author.displayAvatarURL({ dynamic: true })
       )
-      .setTitle(`${language.pogyInfo}`)
-      .addField(`${language.pogyGeneral}`, `\`\`\`css\n${tech}\`\`\``, true)
-      .addField(`${language.pogyTeam}`, `\`\`\`css\n${devs}\`\`\``, true)
-      .addField(`${language.pogyStats}`, `\`\`\`css\n${serverStats}\`\`\``)
+      .setTitle(`${language.MarksoftInfo}`)
+      .addField(`${language.MarksoftGeneral}`, `\`\`\`css\n${tech}\`\`\``, true)
+      .addField(`${language.MarksoftTeam}`, `\`\`\`css\n${devs}\`\`\``, true)
+      .addField(`${language.MarksoftStats}`, `\`\`\`css\n${serverStats}\`\`\``)
       .setFooter("https://Marksoft.ro")
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

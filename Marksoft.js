@@ -1,11 +1,11 @@
 const { Client, Collection } = require("discord.js");
-const Util = require("./src/structures/Util");
+const Util = require("./src/structures/Util.js");
 const config = require("./config.json");
 const fs = require("node:fs");
 const path = require("node:path");
 const { status } = config;
 
-module.exports = class PogyClient extends Client {
+module.exports = class MarksoftClient extends Client {
   constructor(options = {}) {
     super({
       partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER", "USER"],
@@ -38,7 +38,7 @@ module.exports = class PogyClient extends Client {
     this.botEvents = new Collection();
     this.aliases = new Collection();
     this.utils = require("./src/utils/utils.js");
-    this.mongoose = require("./src/utils/mongoose");
+    this.mongoose = require("./src/utils/mongoose.js");
     this.utils = new Util(this);
     this.config = require("./config.json");
   }
@@ -55,7 +55,7 @@ module.exports = class PogyClient extends Client {
   }
 
   async start(token) {
-    require("./src/utils/prototypes");
+    require("./src/utils/prototypes.js");
     await this.utils.loadCommands();
     await this.utils.loadEvents();
     await this.mongoose.init();

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const Guild = require("../../database/schemas/Pogy");
+const Guild = require("../../database/schemas/Marksoft");
 const Guildd = require("../../database/schemas/Guild");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");

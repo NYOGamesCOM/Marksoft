@@ -1,22 +1,22 @@
 require("dotenv").config();
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-const PogyClient = require("./Pogy");
+const MarksoftClient = require("./Marksoft");
 const config = require("./config.json");
 const deploy = require("./src/deployCommands.js");
 const path = require("node:path");
 const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
-const Pogy = new PogyClient(config);
+const Marksoft = new MarksoftClient(config);
 let messageCreateEventFired = false;
 
 const color = require("./src/data/colors");
-Pogy.color = color;
+Marksoft.color = color;
 
 const emoji = require("./src/data/emoji");
-Pogy.emoji = emoji;
+Marksoft.emoji = emoji;
 
-let client = Pogy;
+let client = Marksoft;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
@@ -142,10 +142,10 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-Pogy.react = new Map();
-Pogy.fetchforguild = new Map();
+Marksoft.react = new Map();
+Marksoft.fetchforguild = new Map();
 
-Pogy.start(process.env.TOKEN);
+Marksoft.start(process.env.TOKEN);
 
 process.on("unhandledRejection", (reason, p) => {
   logger.info(`[unhandledRejection] ${reason.message}`, { label: "ERROR" });

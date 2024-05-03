@@ -48,7 +48,7 @@
     "parse-ms": "^2.1.0",
     "passport": "^0.6.0",
     "passport-oauth2": "^1.6.1",
-    "pogy.db": "^1.5.5",
+    "Marksoft.db": "^1.5.5",
     "random": "^2.2.0",
     "random-email": "^1.0.3",
     "request": "^2.88.2",

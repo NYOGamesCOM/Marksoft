@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 const ZWS = " \u200B";
 
-module.exports = class PogyEmbed extends MessageEmbed {
+module.exports = class MarksoftEmbed extends MessageEmbed {
   splitFields(contentOrTitle, rawContent) {
     if (typeof contentOrTitle === "undefined") return this;
 

@@ -82,11 +82,11 @@ module.exports = class extends Command {
             });
           });
 
-        let pogy = message.guild.me;
+        let Marksoft = message.guild.me;
         let everyone = message.guild.roles.everyone;
 
         message.channel.permissionOverwrites
-          .edit(pogy, {
+          .edit(Marksoft, {
             VIEW_CHANNEL: true,
 
             SEND_MESSAGES: true,

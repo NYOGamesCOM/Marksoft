@@ -55,19 +55,19 @@ module.exports = {
     const tech = stripIndent`
     Ping -- ${Math.round(interaction.client.ws.ping)}ms
     Uptime -- ${uptime}
-    ${language.pogyVersion} -- 2.5
+    ${language.MarksoftVersion} -- 2.5
     Library -- Discord.js v13.6.0
     Evironment -- Node.js v16.9.0
     Servers -- ${interaction.client.guilds.cache.size}
     ${language.users} -- ${interaction.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}
     ${language.channels} -- ${interaction.client.channels.cache.size}
-    ${language.pogyCommands} -- ${interaction.client.slashCommands.size}
+    ${language.MarksoftCommands} -- ${interaction.client.slashCommands.size}
     `;
     const devs = stripIndent`
      -------
-     ${language.pogyOwners}
+     ${language.MarksoftOwners}
     • Thomas#3267
-     ${language.pogyDevelopers}
+     ${language.MarksoftDevelopers}
     • Thomas#3267
     -------
     `;
@@ -76,11 +76,11 @@ module.exports = {
       name: interaction.member.displayName,
       iconURL: interaction.member.displayAvatarURL({ dynamic: true })
     })
-    .setTitle(`${language.pogyInfo}`)
+    .setTitle(`${language.MarksoftInfo}`)
     .addFields(
-      { name: `${language.pogyGeneral}`, value: `\`\`\`css\n${tech}\`\`\``, inline: true },
-      { name: `${language.pogyTeam}`, value: `\`\`\`css\n${devs}\`\`\``, inline: true },
-      { name: `${language.pogyStats}`, value: `\`\`\`css\n${serverStats}\`\`\``}
+      { name: `${language.MarksoftGeneral}`, value: `\`\`\`css\n${tech}\`\`\``, inline: true },
+      { name: `${language.MarksoftTeam}`, value: `\`\`\`css\n${devs}\`\`\``, inline: true },
+      { name: `${language.MarksoftStats}`, value: `\`\`\`css\n${serverStats}\`\`\``}
     )
     .setFooter({ text: `https://Marksoft.ro` })
     .setTimestamp()
