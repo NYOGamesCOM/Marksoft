@@ -1,3 +1,4 @@
+![Alt](https://repobeats.axiom.co/api/embed/0f471f767a50b3f10f2c5a90a4efb1eb36fdaa8b.svg "Repobeats analytics image")
 
 # Discord Bot Documentation
 
