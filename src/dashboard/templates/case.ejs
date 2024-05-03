@@ -8,11 +8,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      block-size: 100vh;
     }
 
     #openCase {
-      margin-top: 20px;
+      margin-block-start: 20px;
       padding: 10px 20px;
       background-color: #007bff;
       color: #fff;
@@ -32,8 +32,8 @@
     }
 
     #cardList {
-      height: 100px;
-      width: 800px;
+      block-size: 100px;
+      inline-size: 800px;
       position: relative;
       border: 2px solid black;
       overflow: hidden;
@@ -44,29 +44,29 @@
       display: inline-block;
       background-color: red;
       text-align: center;
-      border-left: 1px solid black;
-      border-right: 1px solid black;
-      width: 100px;
-      height: 100px;
+      border-inline-start: 1px solid black;
+      border-inline-end: 1px solid black;
+      inline-size: 100px;
+      block-size: 100px;
     }
     
     .card>img {
-      width: 100px;
-      height: 100px;
+      inline-size: 100px;
+      block-size: 100px;
     }
     
     .arrow-down {
-      margin-left: 380px;
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-top: 20px solid #f00;
+      margin-inline-start: 380px;
+      inline-size: 0;
+      block-size: 0;
+      border-inline-start: 20px solid transparent;
+      border-inline-end: 20px solid transparent;
+      border-block-start: 20px solid #f00;
     }
     
     #dialog-msg>img {
-      width: 150px;
-      height: 150px;
+      inline-size: 150px;
+      block-size: 150px;
     }
     
     #dialog-msg {
@@ -132,7 +132,7 @@
   
       var mywidth = (rand * 100) / screen.width;
       $('.card').first().animate({
-        marginLeft: -mywidth + "%"
+        margininset-inline-start: -mywidth + "%"
       }, 5000, timing, function() {
         var src = $('#itemNumber' + childNumber + ' img').attr('src');
         $('#itemNumber' + childNumber).css({
@@ -146,7 +146,7 @@
           title: "New item!",
           resizeable: false,
           draggable: false,
-          width: 400,
+          inline-size: 400,
           buttons: {
             "Receive item": function() {
               $(this).dialog("close");

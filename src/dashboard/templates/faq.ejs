@@ -1,10 +1,10 @@
 <%- include("partials/head", { bot, user, path, description, title: "Marksoft - FAQ", url, image }) %>
 
-<h2 style="padding-top: 100px; text-align: center; font-size: 26px">
+<h2 style="padding-block-start: 100px; text-align: center; font-size: 26px">
   Frequently Asked Questions
 </h2>
 
-<div style="visibility: hidden; position: absolute; width: 0px; height: 0px">
+<div style="visibility: hidden; position: absolute; inline-size: 0px; block-size: 0px">
   <svg xmlns="http://www.w3.org/2000/svg">
     <symbol viewBox="0 0 24 24" id="expand-more">
       <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
@@ -253,9 +253,9 @@
 
 <style>
   details {
-    width: 75%;
-    min-height: 5px;
-    max-width: 700px;
+    inline-size: 75%;
+    min-block-size: 5px;
+    max-inline-size: 700px;
     padding: 45px 70px 45px 45px;
     margin: 0 auto;
     position: relative;
@@ -266,11 +266,11 @@
   }
 
   details + details {
-    margin-top: 20px;
+    margin-block-start: 20px;
   }
 
   details[open] {
-    min-height: 50px;
+    min-block-size: 50px;
     background-color: #2f2f2f;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
   }
@@ -295,12 +295,12 @@
 
   summary:focus::after {
     content: "";
-    height: 100%;
-    width: 100%;
+    block-size: 100%;
+    inline-size: 100%;
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
     box-shadow: 0 0 0 5px rebeccapurple;
   }
 
