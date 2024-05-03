@@ -14,7 +14,8 @@ module.exports = class extends Command {
             usage: "store ID",
             guildOnly: true,
         });
-        // #servicedesk
+        // #servicedesk - 1045732570148651170
+        // #general (testing) - 1166025888882757682
         this.allowedChannelID = '1045732570148651170';
         // @Profi IT - kernel
         //this.allowedRoleID = ['1045731837076574438', '1181351425272459347'];
@@ -33,6 +34,8 @@ module.exports = class extends Command {
         const store = storesData.stores.find(store => store.storeID === storeID);
         if (!store) return message.reply('Store ID not found.');
 
+        const mapsLink = `https://www.google.com/maps?q=${encodeURIComponent(store.address)}`;
+
         const embed = new MessageEmbed()
             .setAuthor(`${store.description}`)
             .setTitle(` :notebook_with_decorative_cover: Detalii magazin ${store.storeID}`)
@@ -43,7 +46,7 @@ module.exports = class extends Command {
             **• Director de format:** \`${store.format_director}\` \n
             **• Responsabil de securitate:** \`${store.security_resp}\` \n
             **• Oras:** \`${store.city}\` | \`${store.county}\` \n
-            **• Adresa:** \`${store.address}\` \n
+            **• Adresa:** \`${store.address}\`  [ :map: ](${mapsLink}) \n
             **• Contact:** \`${store.contact_1}\` | \`${store.contact_2}\` | \`${store.Email}\` \n
             **• Data deschiderii:** \`${store.opening_date}\` | **• NON-Sinset-block-start:** \`${store.non_stop}\` \n
             **• Numar case de marcat:** \`${store.checkouts}\` | **• Touchscreen:** \`${store.touchscreen}\` \n
