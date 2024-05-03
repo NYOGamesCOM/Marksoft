@@ -588,6 +588,45 @@ $('#return-to-top').click(function() {      // When arrow is clicked
     }, 500);
 });
 </script>
+<script>
 
+  function randomNum2(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  
+  
+  var myInt = setInterval(function () {
+  var size = document.getElementById("size").value || `180000`;
+  var max2 = parseInt(size) + 2000
+  var random2 = randomNum2(parseInt(size), parseInt(max2));
+  
+   odometer.innerHTML = random2
+  }, 2000);
+  
+  
+  
+  
+  </script>  
+  <script>
+  
+  function randomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  var myInt = setInterval(function () {
+  
+  var size2 = document.getElementById("size2").value;
+  var max = parseInt(size2) + 10
+  var random = randomNum(parseInt(size2), parseInt(max));
+   odometer2.innerHTML = random
+  
+  }, 2000);
+  
+  
+  
+  </script> 
+  
+  <script src='https://github.hubspot.com/odometer/odometer.js'></script>
 <%- include("partials/mainfooter") %>
 <%- include("partials/footer") %>
