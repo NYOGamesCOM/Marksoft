@@ -4766,7 +4766,7 @@ send
   });
 
   app.get("/dblwebhook", async (req, res) => {
-    res.send(`Top.gg API is currently working!`);
+    res.send(`API is currently working! :)`);
   });
 
   app.post("/dblwebhook", webhook.middleware(), async (req) => {
