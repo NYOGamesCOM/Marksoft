@@ -23,7 +23,7 @@ module.exports = class LevelingToggleCommand extends Command {
     }
 
     // Load the guild data
-    const guildDataPath = "/workspaces/Pogy/src/data/users.json";
+    const guildDataPath = "../../data/users.json";
     let guildData = {};
 
     try {

@@ -72,8 +72,6 @@ module.exports = class extends Command {
     `;
     const devs = stripIndent`
      -------
-     ${language.MarksoftOwners}
-    • Thomas#3267
      ${language.MarksoftDevelopers}
     • Thomas#3267
     -------

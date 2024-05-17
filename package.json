@@ -94,18 +94,18 @@
     "zalgolize": "^1.2.4",
     "zlib": "^1.0.5"
   },
-  "name": "pogy",
+  "name": "Marksoft",
   "version": "1.0.0",
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "description": "<h1 align=\"center\">  <br>   <a href=\"https://github.com/peterhanania\"><img src=\"https://dev.pogy.gg/favicon.ico\"></a>   <br>   Pogy the Discord Bot [DJS V13]  <br> </h1>",
+  "description": "<h1 align=\"center\">  <br>   <a href=\"https://github.com/NYOGamesCOM\"><img src=""></a>   <br>   Marksoft Discord Bot<br> </h1>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eYuM-coder/Pogy.git"
+    "url": "git+https://github.com/NYOGamesCOM/Marksoft.git"
   },
   "bugs": {
-    "url": "https://github.com/eYuM-coder/Pogy/issues"
+    "url": "https://github.com/NYOGamesCOM/Marksoft/issues"
   },
-  "homepage": "https://github.com/eYuM-coder/Pogy#readme"
+  "homepage": "https://github.com/NYOGamesCOM/Marksoft/blob/main/README.md"
 }

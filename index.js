@@ -39,6 +39,7 @@ client.on("messageCreate", async (message) => {
       if (!userData.guilds[guildId]) {
         userData.guilds[guildId] = {
           users: {},
+          levelingEnabled: true,
         };
       }
 

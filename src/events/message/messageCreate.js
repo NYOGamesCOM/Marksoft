@@ -66,16 +66,18 @@ module.exports = class extends Event {
       if (message.content.match(mentionRegex)) {
         //if (!settings) return message.channel.sendCustom('Oops, this server was not found in the database. Please try to run the command again now!');
 
-        const proofita = `\`\`\`css\n[     Prefix: ${settings.prefix || "!"
-          }     ]\`\`\``;
-        const proofitaa = `\`\`\`css\n[      Help: ${settings.prefix || "!"
-          }help    ]\`\`\``;
+        const proofita = `\`\`\`css\n[     Prefix: ${
+          settings.prefix || "!"
+        }     ]\`\`\``;
+        const proofitaa = `\`\`\`css\n[      Help: ${
+          settings.prefix || "!"
+        }help    ]\`\`\``;
         const embed = new MessageEmbed()
           .setTitle("Hello, I'm Marksoft. What's Up?")
           .addField(`Prefix`, proofita, true)
           .addField(`Usage`, proofitaa, true)
           .setDescription(
-            `\nIf you like Marksoft, Consider [voting](https://top.gg/bot/767705905235099658), or [inviting](${config.invite_link}) it to your server! Thank you for using Marksoft, we hope you enjoy it, as we always look forward to improve the bot`
+            `\nIf you like Marksoft, Consider [voting](https://top.gg/bot/=), or [inviting](${config.invite_link}) it to your server! Thank you for using Marksoft, we hope you enjoy it, as we always look forward to improve the bot`,
           )
           .setFooter("Thank you for using Marksoft!!")
           .setColor("#FF2C98");
@@ -120,7 +122,7 @@ module.exports = class extends Event {
           if (maintenanceCooldown.has(message.author.id)) return;
 
           message.channel.sendCustom(
-            `Marksoft is currently undergoing maintenance which won't allow anyone to access Marksoft's Commands. Feel free to try again later. For updates: ${config.discord}`
+            `Marksoft currently undergoing maintenance which won't allow anyone to access the bot's Commands. Feel free to try again later. For updates: ${config.discord}`,
           );
 
           maintenanceCooldown.add(message.author.id);
@@ -147,7 +149,7 @@ module.exports = class extends Event {
 
               newUser.save();
             }
-          }
+          },
         );
 
         let disabledCommands = settings.disabledCommands;
@@ -165,7 +167,7 @@ module.exports = class extends Event {
         if (userBlacklistSettings && userBlacklistSettings.isBlacklisted) {
           logger.warn(
             `${message.author.tag} tried to use "${cmd}" command but the user is blacklisted`,
-            { label: "Commands" }
+            { label: "Commands" },
           );
           return;
         }
@@ -174,7 +176,7 @@ module.exports = class extends Event {
         if (guildBlacklistSettings && guildBlacklistSettings.isBlacklisted) {
           logger.warn(
             `${message.author.tag} tried to use "${cmd}" command but the guild is blacklisted`,
-            { label: "Commands" }
+            { label: "Commands" },
           );
           return;
         }
@@ -183,23 +185,27 @@ module.exports = class extends Event {
         if (typeof rateLimit === "string")
           return message.channel
             .sendCustom(
-              ` ${message.client.emoji.fail
-              } Please wait **${rateLimit}** before running the **${cmd}** command again - ${message.author
-              }\n\n${number === 1
-                ? "*Did You know that Marksoft has its own dashboard? `http://localhost:3000/dashboard`*"
-                : ""
-              }${number === 2
-                ? "*You can check our top.gg page at `https://vote.marksoft.ro`*"
-                : ""
-              }`
+              ` ${
+                message.client.emoji.fail
+              } Please wait **${rateLimit}** before running the **${cmd}** command again - ${
+                message.author
+              }\n\n${
+                number === 1
+                  ? "*Did You know that Chaotichas its own dashboard? `https://marksoft.ro`*"
+                  : ""
+              }${
+                number === 2
+                  ? "*You can check our top.gg page at `https://marksoft.ro/vote`*"
+                  : ""
+              }`,
             )
             .then((s) => {
-              message.delete().catch(() => { });
+              message.delete().catch(() => {});
               setTimeout(() => {
-                s.delete().catch(() => { });
+                s.delete().catch(() => {});
               }, 4000);
             })
-            .catch(() => { });
+            .catch(() => {});
 
         if (command.botPermission) {
           const missingPermissions = message.channel
@@ -211,19 +217,20 @@ module.exports = class extends Event {
             const embed = new MessageEmbed()
               .setAuthor(
                 `${this.client.user.tag}`,
-                message.client.user.displayAvatarURL({ dynamic: true })
+                message.client.user.displayAvatarURL({ dynamic: true }),
               )
               .setTitle(`<:wrong:822376943763980348> Missing Bot Permissions`)
               .setDescription(
-                `Command Name: **${command.name
+                `Command Name: **${
+                  command.name
                 }**\nRequired Permission: **${missingPermissions
                   .map((p) => `${p}`)
-                  .join(" - ")}**`
+                  .join(" - ")}**`,
               )
               .setTimestamp()
-              .setFooter("https://Marksoft.ro")
+              .setFooter("https://marksoft.ro")
               .setColor(message.guild.me.displayHexColor);
-            return message.channel.sendCustom(embed).catch(() => { });
+            return message.channel.sendCustom(embed).catch(() => {});
           }
         }
 
@@ -236,19 +243,20 @@ module.exports = class extends Event {
             const embed = new MessageEmbed()
               .setAuthor(
                 `${message.author.tag}`,
-                message.author.displayAvatarURL({ dynamic: true })
+                message.author.displayAvatarURL({ dynamic: true }),
               )
               .setTitle(`<:wrong:822376943763980348> Missing User Permissions`)
               .setDescription(
-                `Command Name: **${command.name
+                `Command Name: **${
+                  command.name
                 }**\nRequired Permission: **${missingPermissions
                   .map((p) => `${p}`)
-                  .join("\n")}**`
+                  .join("\n")}**`,
               )
               .setTimestamp()
-              .setFooter("https://Marksoft.ro")
+              .setFooter("https://marksoft.ro")
               .setColor(message.guild.me.displayHexColor);
-            return message.channel.sendCustom(embed).catch(() => { });
+            return message.channel.sendCustom(embed).catch(() => {});
           }
         }
         if (disabledCommands.includes(command.name || command)) return;
@@ -262,7 +270,7 @@ module.exports = class extends Event {
 
         if (command.disabled)
           return message.channel.sendCustom(
-            `The owner has disabled the following command for now. Try again Later!\n\nFor Updates: ${config.discord}`
+            `The owner has disabled the following command for now. Try again Later!\n\nFor Updates: ${config.discord}`,
           );
 
         await this.runCommand(message, cmd, args).catch((error) => {
@@ -280,7 +288,7 @@ module.exports = class extends Event {
       !message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS")
     )
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} Missing bot Permissions - **Embeds Links**`
+        `${message.client.emoji.fail} Missing bot Permissions - **Embeds Links**`,
       );
 
     const command =
@@ -288,7 +296,7 @@ module.exports = class extends Event {
       this.client.botCommands.get(this.client.aliases.get(cmd.toLowerCase()));
     logger.info(
       `"${message.content}" (${command.name}) ran by "${message.author.tag}" (${message.author.id}) on guild "${message.guild.name}" (${message.guild.id}) channel "#${message.channel.name}" (${message.channel.id})`,
-      { label: "Command" }
+      { label: "Command" },
     );
 
     await command.run(message, args);

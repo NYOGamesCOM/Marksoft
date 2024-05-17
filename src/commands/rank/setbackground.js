@@ -32,7 +32,7 @@ module.exports = class BackgroundCommand extends Command {
 
     // Save updated data back to the JSON file
     fs.writeFile(
-      "/home/vboxuser/Pogy-1/src/data/users.json",
+      "/src/data/users.json",
       JSON.stringify(userData, null, 2),
       (err) => {
         if (err) {

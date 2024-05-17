@@ -37,7 +37,7 @@ module.exports = class extends Command {
             new MessageEmbed()
             .setColor("BLURPLE")
             .setTitle(`${message.author.username}'s Daily`)
-            .setDescription(`You have collected todays earnings ($50000).\nCome back tommorow to collect more.`)
+            .setDescription(`You have collected todays earnings ($50,000).\nCome back tommorow to collect more.`)
           ]
         });
       } else if (Date.now() - profile.lastDaily > 86400000) {

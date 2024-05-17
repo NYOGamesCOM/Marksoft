@@ -20,7 +20,7 @@ const randoStrings = require("../packages/randostrings.js");
 const random = new randoStrings();
 const sendingEmbed = new Set();
 const bodyParser = require("body-parser");
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const DBL = require("@top-gg/sdk");
 const User = require("../database/schemas/User");
 const TicketSettings = require("../database/models/tickets");
@@ -283,8 +283,8 @@ module.exports = async (client) => {
 
   // Features list redirect endpoint.
   app.get("/commands", (req, res) => {
+    renderTemplate(res, req, "404.ejs");
     //res.send("This feature is not yet available.");
-    renderTemplate(res, req, "commands.ejs");
   });
 
   app.get("/color", (req, res) => {
@@ -333,15 +333,7 @@ module.exports = async (client) => {
   app.get("/team", (req, res) => {
     renderTemplate(res, req, "team.ejs");
   });
-/*
-  app.get("/case", (req, res) =>{
-    renderTemplate(res,req, "case.ejs");
-  });
 
-  app.get("/changelog", (req, res) =>{
-    renderTemplate(res,req, "changelog.ejs");
-  });
-*/
   app.get("/policy", (req, res) => {
     renderTemplate(res, req, "policy.ejs");
   });
@@ -4766,7 +4758,7 @@ send
   });
 
   app.get("/dblwebhook", async (req, res) => {
-    res.send(`API is currently working! :)`);
+    res.send(`Top.gg API is currently working!`);
   });
 
   app.post("/dblwebhook", webhook.middleware(), async (req) => {
