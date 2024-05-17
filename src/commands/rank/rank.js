@@ -50,7 +50,7 @@ module.exports = class extends Command {
       // Load background (Replace 'default_background_url.jpg' with your default background URL)
       const backgroundURL =
         user.background ||
-        "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg";
+        "https://i.imgur.com/xymSRRO.png";
       const background = await loadImage(backgroundURL);
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 

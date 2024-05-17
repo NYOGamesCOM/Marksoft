@@ -39,7 +39,6 @@ client.on("messageCreate", async (message) => {
       if (!userData.guilds[guildId]) {
         userData.guilds[guildId] = {
           users: {},
-          levelingEnabled: true,
         };
       }
 
@@ -54,7 +53,7 @@ client.on("messageCreate", async (message) => {
 
       if (!userData.guilds[guildId].users[userId].background) {
         userData.guilds[guildId].users[userId].background =
-          "https://img.freepik.com/premium-photo/abstract-blue-black-gradient-plain-studio-background_570543-8893.jpg"; // Replace with your default background URL
+          "https://i.imgur.com/xymSRRO.png"; // Replace with your default background URL
       }
 
       //if(!userData.guilds[guildId].users[userId].messageTimeout)

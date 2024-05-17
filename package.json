@@ -94,12 +94,12 @@
     "zalgolize": "^1.2.4",
     "zlib": "^1.0.5"
   },
-  "name": "Marksoft",
+  "name": "Marks",
   "version": "1.0.0",
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "description": "<h1 align=\"center\">  <br>   <a href=\"https://github.com/NYOGamesCOM\"><img src=""></a>   <br>   Marksoft Discord Bot<br> </h1>",
+  "description": "<h1 align=\"center\">  <br>   <a href=\"https://github.com/NYOGamesCOM\">",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NYOGamesCOM/Marksoft.git"
