@@ -54,21 +54,27 @@ module.exports = class extends Command {
       const background = await loadImage(backgroundURL);
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
+      // Draw guild name
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = "bold 28px Arial";
+      ctx.textAlign = "left";
+      ctx.fillText(guild.name, 20, 30);
+      
       // Draw user details
       ctx.fillStyle = "#FFFFFF";
       ctx.font = "bold 36px Arial";
       ctx.textAlign = "left";
-      ctx.fillText(targetUser.username, 200, 100);
+      ctx.fillText(targetUser.username, 30, 100);
 
       // Avatar
       const avatar = await loadImage(
         targetUser.displayAvatarURL({ format: "png", size: 128 }),
       );
-      ctx.drawImage(avatar, 50, 50, 140, 150);
+      ctx.drawImage(avatar, 650, 66, 220, 220);
 
       ctx.font = "bold 48px Arial";
       const levelText = `Level ${user.level}`;
-      ctx.fillText(levelText, 670, 100);
+      ctx.fillText(levelText, 670, 50);
 
       const requiredXPForCurrentLevel = calculateRequiredXP(user.level - 1);
       const requiredXPForNextLevel = calculateRequiredXP(user.level);
@@ -80,16 +86,14 @@ module.exports = class extends Command {
 
       // XP details
       ctx.font = "24px Arial";
-      ctx.fillText(`Current XP: ${user.xp}`, 200, 150);
+      ctx.fillText(`Current XP: ${user.xp}`, 230, 100);
       ctx.fillText(
         `XP till Level Up: ${requiredXPForNextLevel - user.xp}`,
-        200,
+        230,
         200,
       );
-
       ctx.font = "24px Arial";
-      ctx.fillText(`Total XP: ${user.xp}/${requiredXPForNextLevel}`, 250, 250);
-
+      ctx.fillText(`Total XP: ${user.xp}/${requiredXPForNextLevel}`, 230, 150);
       // Rounded progress bar
       ctx.roundRect = function (x, y, width, height, radius, fill, stroke) {
         this.beginPath();
@@ -113,9 +117,9 @@ module.exports = class extends Command {
       };
 
       ctx.save();
-      ctx.roundRect(200, 250, progressWidth, 15, 7, true, false);
+      ctx.roundRect(230, 230, progressWidth, 15, 7, true, false);
 
-      const attachment = new MessageAttachment(canvas.toBuffer(), "rank.png");
+      const attachment = new MessageAttachment(canvas.toBuffer(), "marksoft_rank.png");
       message.channel.send({ files: [attachment] });
     } catch (error) {
       console.error("Error occurred:", error);

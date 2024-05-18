@@ -176,20 +176,48 @@
   <div class="welcomediv" id="welcomediv">
 <h2 class="welcomediv-header" style="font-family: 'Cairo', sans-serif">Welcome Message</h2>
 <br>
+<% if(settings.isPremium === "true") { %>
 <div id="textareaID">
-
-<textarea  style="max-width: 400px; min-width: 400px;
-max-height:200px; background-color: #2f2f2f; color: white;  "  name="welcomeMessage" id="myInput" value="<%= welcome.welcomeMessage %>" placeholder="Welcome Message" rows="3" wrap="soft" class="col-12 form-control" maxlength="1024" type="text"><%= (welcome.welcomeMessage || `Welcome {user} to {guild}! Hope you enjoy your stay!`) %></textarea>
-<small id="textareaHide"class="form-text text-muted" style="color: white">0 characters remaining</small>
-<br>
-<br>
+  <textarea style="max-width: 400px; min-width: 400px; max-height:200px; background-color: #2f2f2f; color: white;" 
+            name="welcomeMessage" id="myInput" placeholder="Welcome Message" rows="3" wrap="soft" 
+            class="col-12 form-control" maxlength="1024" type="text"><%= (welcome.welcomeMessage || `Welcome {user} to {guild}! Hope you enjoy your stay!`) %>
+  </textarea>
+  <small id="textareaHide" class="form-text text-muted" style="color: white">0 characters remaining</small>
+  <br><br>
 </div>
-<p>Embed Message</p>
-<% if(welcome.welcomeEmbed == "true") {%>
-<input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()" checked></input><label class="label-switch"for="switch">Toggle</label>
-<% } else {%>
-<input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()"/><label class="label-switch"for="switch" >Toggle</label>
-<% } %>
+<% } else { %>
+  <!-- Non-premium user content -->
+
+  <div class="premium">
+    <div id="textareaID">
+      
+      <textarea disabled style="max-width: 400px; min-width: 400px; max-height:200px; background-color: #2f2f2f; color: white;" 
+                name="welcomeMessage" id="myInput" placeholder="Welcome Message" rows="3" wrap="soft" 
+                class="col-12 form-control" maxlength="1024" type="text"><%= (welcome.welcomeMessage || `Welcome {user} to {guild}! Hope you enjoy your stay!`) %>
+      </textarea>
+      <small id="textareaHide" class="form-text text-muted" style="color: white">0 characters remaining</small>
+      <p color="red">Customize the message with premium!</p>
+    </div>
+  </div>
+  <% } %>
+  <p>Embed Message</p>
+<% if(settings.isPremium === "true") { %>
+  <% if(welcome.welcomeEmbed == "true") {%>
+  <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()" checked></input><label class="label-switch"for="switch">Toggle</label>
+  <% } else {%>
+  <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()"/><label class="label-switch"for="switch" >Toggle</label>
+  <% } %>
+  <% } else { %>
+    <% if(welcome.welcomeEmbed == "true") {%>
+      <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="" disabled/></input><label class="label-switch"for="switch">Toggle</label>
+      <% } else {%>
+      <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="" disabled/><label class="label-switch"for="switch" >Toggle</label>
+      <% } %>
+      <p color="red">Unlock embeds with premium!</p>
+      <button class="btn btn-danger" type="button" onclick="window.location.href='/premium'">Unlock now!</button>
+      <br>
+      <br>
+      <% } %>
 <p style="display: flex;
   align-items: center;">DM the user  &nbsp<i class="fa fa-info-circle" data-toggle="tooltip" title="Choose whether the user recieves the message or the welcome channel" style="font-size: 20px" id='dmhover'></i></p>
 <% if(welcome.welcomeDM == "true") {%>
@@ -362,19 +390,38 @@ max-height:200px; background-color: #2f2f2f; color: white;  "  name="welcomeMess
 
 <h2 class="welcomediv-header" style="font-family: 'Cairo', sans-serif">Leave Message</h2>
 <br>
+<% if(settings.isPremium === "true") { %>
 <div id="textareaID2">
 
 <textarea  name="leaveMessage" id="myInput2" value="<%= leave.leaveMessage %>" placeholder="Leave Message" rows="3" wrap="soft" class="col-12 form-control" maxlength="1024" type="text" style="max-width: 400px; min-width: 400px;
 max-height:200px; background-color: #2f2f2f; color: white;  "  ><%= (leave.leaveMessage)%></textarea>
 <small id="textareaHide"class="form-text text-muted" style="color: white">0 characters remaining</small>
-<br>
-<br>
 </div>
+<% } else { %>
+  <div id="textareaID2">
+    <textarea  name="leaveMessage" id="myInput2" value="<%= leave.leaveMessage %>" placeholder="Leave Message" rows="3" wrap="soft" class="col-12 form-control" maxlength="1024" type="text" style="max-width: 400px; min-width: 400px;
+    max-height:200px; background-color: #2f2f2f; color: white; " disabled ><%= (leave.leaveMessage)%></textarea>
+    <small id="textareaHide"class="form-text text-muted" style="color: white">0 characters remaining</small>
+    <p color="red">Customize the message with premium!</p>
+    </div>
+    <% } %>
 <p>Embed Message</p>
-<% if(leave.leaveEmbed == "true") {%>
-<input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="myFunction2()" checked></input><label class="label-switch"for="switch7">Toggle</label>
-<% } else {%>
-<input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="myFunction2()"/><label class="label-switch"for="switch7" >Toggle</label>
+<% if(settings.isPremium === "true") { %>
+  <% if(leave.leaveEmbed == "true") {%>
+  <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="myFunction2()" checked></input><label class="label-switch"for="switch7">Toggle</label>
+  <% } else {%>
+  <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="myFunction2()"/><label class="label-switch"for="switch7" >Toggle</label>
+  <% } %>
+  <% } else { %>
+    <% if(leave.leaveEmbed == "true") {%>
+      <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="" disabled></input><label class="label-switch"for="switch7">Toggle</label>
+      <% } else {%>
+      <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="" disabled/><label class="label-switch"for="switch7" >Toggle</label>
+      <p color="red">Unlock embeds with premium!</p>
+      <button class="btn btn-danger" type="button" onclick="window.location.href='/premium'">Unlock now!</button>
+      <br>
+      <br>
+      <% } %>
 <% } %>
 <p style="display: flex;
   align-items: center;">DM the user  &nbsp<i class="fa fa-info-circle" data-toggle="tooltip" title="Choose whether the user recieves the message or the Leave Channel" style="font-size: 20px" id='dmhover'></i></p>
@@ -2545,4 +2592,3 @@ $(function () {
 
 }(window.jQuery);
 </script>
-

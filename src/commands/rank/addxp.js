@@ -34,7 +34,7 @@ module.exports = class AddXPCommand extends Command {
     // Save updated data back to the JSON file
     // (Assuming your code for saving data is similar to what you provided previously)
     // Replace this with your logic to save updated data to the JSON file
-    fs.writeFile('../../data/users.json', JSON.stringify(userData, null, 2), (err) => {
+    fs.writeFile('./src/data/users.json', JSON.stringify(userData, null, 2), (err) => {
      if (err) console.error('Error writing file:', err);
     });
 
