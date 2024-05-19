@@ -20,7 +20,6 @@ let client = Marksoft;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
-// Load user data from the JSON file
 const userData = require("./src/data/users.json");
 
 client.on("messageCreate", async (message) => {
