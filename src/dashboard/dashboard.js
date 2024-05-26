@@ -337,6 +337,10 @@ module.exports = async (client) => {
   app.get("/team", (req, res) => {
     renderTemplate(res, req, "team.ejs");
   });
+
+  app.get("/profi", (req, res) => {
+    renderTemplate(res, req, "profi.ejs");
+  });
 /*
   app.get("/case", (req, res) =>{
     renderTemplate(res,req, "case.ejs");
