@@ -1,54 +1,43 @@
 <%- include("partials/head", { bot, user, path, title: "Marksoft - Profi Stores" }) %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profi Store Information</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        text-align: center;
+        width: 80%;
+        max-width: 600px;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    input, button {
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .store-details {
+        margin-top: 20px;
+        text-align: left;
+    }
+    .store-details p {
+        margin: 5px 0;
+    }
+</style>
 
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        input, button {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .store-details {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .store-details p {
-            margin: 5px 0;
-        }
-    </style>
-</head>
 <body>
     <div class="container">
         <h1>Store Information</h1>
@@ -74,8 +63,8 @@
 
             console.log('Fetching store information for ID:', storeID);
 
-            try { //const userData = require("./src/data/users.json");
-                const response = await fetch('./src/stores.json'); // Ensure this path is correct
+            try {
+                const response = await fetch('<%domain%>/stores.json'); // Adjusted the path to match the root project folder
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -102,7 +91,7 @@
                     <p><strong>Contact:</strong> ${store.contact_1} | ${store.contact_2} | ${store.Email}</p>
                     <p><strong>Opening Date:</strong> ${store.opening_date} | <strong>Nonstop:</strong> ${store.non_stop}</p>
                     <p><strong>Checkouts:</strong> ${store.checkouts} | <strong>Touchscreen:</strong> ${store.touchscreen}</p>
-                    <p><strong>Partner:</strong> ${store.partnet} | <strong>Partner Date:</strong> ${store.partner_date}</p>
+                    <p><strong>Partner:</strong> ${store.partner} | <strong>Partner Date:</strong> ${store.partner_date}</p>
                     <p><strong>Employee Budget:</strong> ${store.employee_budget} | <strong>Employees:</strong> ${store.employees} | <strong>Payroll:</strong> ${store.payroll}</p>
                     <p><strong>Schedule (Weekdays):</strong> ${store.schedule}</p>
                     <p><strong>Schedule (Saturday):</strong> ${store.schedule_saturday}</p>
@@ -125,4 +114,3 @@
         }
     </script>
 </body>
-</html>

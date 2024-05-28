@@ -1,0 +1,565 @@
+<%- include("partials/head", { bot, user, path, title: "Marksoft - Dota 2 Quiz" }) %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        #quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 1200px;
+            display: flex;
+        }
+
+        #left-container, #middle-container, #right-container {
+            flex: 1;
+        }
+
+        #left-container {
+            text-align: left;
+            padding: 10px;
+        }
+
+        #middle-container {
+            padding: 10px;
+        }
+
+        #right-container {
+            text-align: right;
+            padding: 10px;
+        }
+
+        #scoreboard {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #progress-bar {
+            width: 100px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        #progress-bar-inner {
+            width: 0%;
+            background-color: #007BFF;
+            height: 20px;
+            transition: width 0.5s ease;
+        }
+
+        #question-container {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        #options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .option {
+            flex: 0 0 48%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .option:hover {
+            background-color: #0056b3;
+        }
+
+        .option-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        #next-button {
+            display: none;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        #next-button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        #notification {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="name-input">
+        <input type="text" id="player-name" placeholder="Enter your name">
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+    <div id="quiz-container" class="quiz-container" style="display: none;">
+            <div id="left-container">
+                <div id="scoreboard"></div>
+            </div>
+            <div id="middle-container">
+                <div id="question-container">
+                    <h2 id="question">Loading question...</h2>
+                    <div id="options">
+                        <button class="option" onclick="selectOption(0)">
+                            <span class="option-label">A</span><span class="option-text">Option 1</span>
+                        </button>
+                        <button class="option" onclick="selectOption(1)">
+                            <span class="option-label">B</span><span class="option-text">Option 2</span>
+                        </button>
+                        <button class="option" onclick="selectOption(2)">
+                            <span class="option-label">C</span><span class="option-text">Option 3</span>
+                        </button>
+                        <button class="option" onclick="selectOption(3)">
+                            <span class="option-label">D</span><span class="option-text">Option 4</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="controls">
+                    <button id="next-button" onclick="nextQuestion()">Next Question</button>
+                </div>
+                <p id="result"></p>
+                <p id="notification"></p>
+            </div>
+            <div id="right-container">
+                <div id="progress-bar">
+                    <div id="progress-bar-inner"></div>
+                </div>
+            </div>
+    </div>
+    <div id="leaderboard" style="display: none;">
+        <h2>Leaderboard</h2>
+        <ol id="leaderboard-list"></ol>
+    </div>
+    <script>
+        const questions = [
+            {
+                "question": "Which hero is known as the 'Anti-Mage'?",
+                "options": ["Illidan", "Magina", "Terrorblade", "Spectre"],
+                "correct": 1
+            },
+            {
+                "question": "What is the name of the ultimate ability of Invoker?",
+                "options": ["Sun Strike", "Tornado", "Cataclysm", "Invoke"],
+                "correct": 3
+            },
+            {
+                "question": "Which item provides True Strike?",
+                "options": ["Monkey King Bar", "Butterfly", "Divine Rapier", "Manta Style"],
+                "correct": 0
+            },
+            {
+                "question": "What is the name of Pudge's hook ability?",
+                "options": ["Meat Hook", "Hookshot", "Life Drain", "Dismember"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can create an army of zombies?",
+                "options": ["Undying", "Necrophos", "Wraith King", "Shadow Shaman"],
+                "correct": 0
+            },
+            {
+                "question": "What is the main attribute of Phantom Assassin?",
+                "options": ["Strength", "Agility", "Intelligence", "None of the above"],
+                "correct": 1
+            },
+            {
+                "question": "Which hero has an ability called 'Black Hole'?",
+                "options": ["Enigma", "Rubick", "Dark Seer", "Void Spirit"],
+                "correct": 0
+            },
+            {
+                "question": "Which item grants invisibility after 1.5 seconds of not taking damage?",
+                "options": ["Shadow Blade", "Invisibility Cloak", "Silver Edge", "Glimmer Cape"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero is known as the 'Witch Doctor'?",
+                "options": ["Vol'jin", "Mal'Damba", "Zul'jin", "Maledictor"],
+                "correct": 0
+            },
+            {
+                "question": "What is the name of the map's boss monster?",
+                "options": ["Roshan", "Baron", "Ancient", "Dragon"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has a dog companion named 'Misha'?",
+                "options": ["Lone Druid", "Chen", "Beastmaster", "Lycan"],
+                "correct": 0
+            },
+            {
+                "question": "Which item increases movement speed and attack speed temporarily?",
+                "options": ["Phase Boots", "Power Treads", "Drum of Endurance", "Yasha"],
+                "correct": 0
+            },
+            {
+                "question": "What is the role of the hero 'Oracle'?",
+                "options": ["Carry", "Support", "Offlaner", "Mid"],
+                "correct": 1
+            },
+            {
+                "question": "Which hero can control a fire-breathing dragon?",
+                "options": ["Dragon Knight", "Jakiro", "Batrider", "Phoenix"],
+                "correct": 0
+            },
+            {
+                "question": "What is the name of the item that revives the hero upon death?",
+                "options": ["Aegis of the Immortal", "Cheese", "Refresher Shard", "Ethereal Blade"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero is known as 'Tiny'?",
+                "options": ["Stone Giant", "Rock Golem", "Earth Titan", "Gravel Golem"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can place wards that detect invisible units?",
+                "options": ["Shadow Shaman", "Witch Doctor", "Venomancer", "Pugna"],
+                "correct": 2
+            },
+            {
+                "question": "Which hero is known as the 'Templar Assassin'?",
+                "options": ["Lanaya", "Luna", "Mirana", "Terrorblade"],
+                "correct": 0
+            },
+            {
+                "question": "Which item provides spell immunity?",
+                "options": ["Black King Bar", "Linken's Sphere", "Lotus Orb", "Eul's Scepter"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has an ability called 'Song of the Siren'?",
+                "options": ["Naga Siren", "Siren", "Mermaid", "Slardar"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has a bear companion named 'Spirit Bear'?",
+                "options": ["Lone Druid", "Beastmaster", "Lycan", "Chen"],
+                "correct": 0
+            },
+            {
+                "question": "What is the main attribute of the hero 'Storm Spirit'?",
+                "options": ["Strength", "Agility", "Intelligence", "None of the above"],
+                "correct": 2
+            },
+            {
+                "question": "Which hero can summon 'Forge Spirits'?",
+                "options": ["Invoker", "Chen", "Lycan", "Warlock"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero is known as the 'Earthshaker'?",
+                "options": ["Raigor Stonehoof", "Crixalis", "Bradwarden", "Leviathan"],
+                "correct": 0
+            },
+            {
+                "question": "Which item provides an aura that increases armor?",
+                "options": ["Assault Cuirass", "Shiva's Guard", "Mekansm", "Crimson Guard"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has an ability called 'Epicenter'?",
+                "options": ["Sand King", "Earthshaker", "Magnus", "Tidehunter"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can teleport units with 'Relocate'?",
+                "options": ["Io", "Keeper of the Light", "Chen", "Furion"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has the ability 'Finger of Death'?",
+                "options": ["Lion", "Shadow Shaman", "Witch Doctor", "Warlock"],
+                "correct": 0
+            },
+            {
+                "question": "What is the name of the neutral item that grants invisibility?",
+                "options": ["Gossamer Cape", "Ghost Scepter", "Smoke of Deceit", "Shadow Amulet"],
+                "correct": 3
+            },
+            {
+                "question": "Which hero can become invisible with 'Wind Walk'?",
+                "options": ["Bounty Hunter", "Riki", "Clinkz", "Windranger"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero's ultimate ability is 'Primal Split'?",
+                "options": ["Brewmaster", "Lone Druid", "Earth Spirit", "Storm Spirit"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has the ability to 'Snowball'?",
+                "options": ["Tusk", "Earth Spirit", "Tiny", "Juggernaut"],
+                "correct": 0
+            },
+            {
+                "question": "What is the name of the item that gives mana regeneration and spell amplification?",
+                "options": ["Kaya", "Bloodstone", "Eul's Scepter", "Veil of Discord"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has an ability called 'Mana Void'?",
+                "options": ["Anti-Mage", "Lion", "Nyx Assassin", "Queen of Pain"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can 'Blink' short distances?",
+                "options": ["Anti-Mage", "Queen of Pain", "Phantom Assassin", "All of the above"],
+                "correct": 3
+            },
+            {
+                "question": "Which hero is known for their 'Tombstone' ability?",
+                "options": ["Undying", "Necrophos", "Wraith King", "Shadow Shaman"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero's ultimate ability is 'Ravage'?",
+                "options": ["Tidehunter", "Magnus", "Enigma", "Kunkka"],
+                "correct": 0
+            },
+            {
+                "question": "Which item increases attack speed and evasion?",
+                "options": ["Butterfly", "Monkey King Bar", "Satanic", "Desolator"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has a 'Power Shot' ability?",
+                "options": ["Windranger", "Sniper", "Gyrocopter", "Tinker"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can transform into a wolf?",
+                "options": ["Lycan", "Bane", "Beastmaster", "Lone Druid"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has the ability 'Freezing Field'?",
+                "options": ["Crystal Maiden", "Frost Wyrm", "Lich", "Winter Wyvern"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can steal intelligence from enemies?",
+                "options": ["Silencer", "Outworld Destroyer", "Rubick", "Skywrath Mage"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has the ability 'Battle Fury'?",
+                "options": ["Juggernaut", "Sven", "Tiny", "Faceless Void"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has the ability to 'Phase Shift'?",
+                "options": ["Puck", "Riki", "Clinkz", "Anti-Mage"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero's ultimate ability is 'Chain Frost'?",
+                "options": ["Lich", "Crystal Maiden", "Frost Wyrm", "Winter Wyvern"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero can control spirits with 'Exorcism'?",
+                "options": ["Death Prophet", "Necrophos", "Warlock", "Shadow Shaman"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero has the ability 'Fissure'?",
+                "options": ["Earthshaker", "Sand King", "Magnus", "Tidehunter"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero's ultimate ability is 'Dream Coil'?",
+                "options": ["Puck", "Bane", "Nightmare", "Keeper of the Light"],
+                "correct": 0
+            },
+            {
+                "question": "Which hero's ultimate ability is 'Thunder God's Wrath'?",
+                "options": ["Zeus", "Thor", "Storm Spirit", "Razor"],
+                "correct": 0
+            }
+        ];
+        
+        
+                let shuffledQuestions = [];
+                let currentQuestionIndex = 0;
+                let score = 0;
+        
+                document.addEventListener('DOMContentLoaded', () => {
+                    shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+                    showQuestion();
+                    updateScoreboard();
+                });
+        
+                function showQuestion() {
+                    if (currentQuestionIndex < shuffledQuestions.length) {
+                        const questionElement = document.getElementById('question');
+                        const optionsElements = document.querySelectorAll('.option');
+        
+                        questionElement.textContent = shuffledQuestions[currentQuestionIndex].question;
+                        optionsElements.forEach((button, index) => {
+                            button.querySelector('.option-text').textContent = shuffledQuestions[currentQuestionIndex].options[index];
+                            button.classList.remove('correct', 'incorrect');
+                            button.disabled = false;
+                        });
+        
+                        document.getElementById('next-button').style.display = 'none';
+                        document.getElementById('notification').textContent = '';
+                    } else {
+                        endQuiz();
+                    }
+                }
+        
+                function selectOption(selectedIndex) {
+                    const correctIndex = shuffledQuestions[currentQuestionIndex].correct;
+                    const optionsElements = document.querySelectorAll('.option');
+                    const notificationElement = document.getElementById('notification');
+        
+                    optionsElements.forEach((button, index) => {
+                        button.disabled = true;
+                        if (index === correctIndex) {
+                            button.classList.add('correct');
+                        } else if (index === selectedIndex) {
+                            button.classList.add('incorrect');
+                        }
+                    });
+        
+                    if (selectedIndex === correctIndex) {
+                        score++;
+                        notificationElement.textContent = "Correct!";
+                        notificationElement.style.color = "green";
+                    } else {
+                        notificationElement.textContent = `Incorrect! The correct answer is: ${shuffledQuestions[currentQuestionIndex].options[correctIndex]}`;
+                        notificationElement.style.color = "red";
+                    }
+        
+                    document.getElementById('next-button').style.display = 'block';
+                    updateScoreboard();
+                }
+        
+        
+                function nextQuestion() {
+                    currentQuestionIndex++;
+                    showQuestion();
+                    updateProgressBar();
+                }
+        
+                function endQuiz() {
+                    document.getElementById('question-container').style.display = 'none';
+                    document.getElementById('controls').style.display = 'none';
+                    document.getElementById('notification').style.display = 'none';
+                    document.getElementById('result').textContent = `You scored ${score} out of ${shuffledQuestions.length}!`;
+                }
+        
+                function updateScoreboard() {
+                    const scoreboardElement = document.getElementById('scoreboard');
+                    const numQuestions = shuffledQuestions.length;
+                    const numCorrect = score;
+                    const numWrong = currentQuestionIndex - score;
+                    
+                    scoreboardElement.textContent = `Score: ${score}/${numQuestions}`;
+                    scoreboardElement.innerHTML += `<br>Correct: ${numCorrect}`;
+                    scoreboardElement.innerHTML += `<br>Wrong: ${numWrong}`;
+                }
+
+                function updateProgressBar() {
+                    const progress = (currentQuestionIndex / shuffledQuestions.length) * 100;
+                    document.getElementById('progress-bar-inner').style.width = `${progress}%`;
+                }
+                // Define variables to store player's name and score
+                let playerName = "";
+                let playerScore = 0;
+
+                // Function to start the quiz
+                function startQuiz() {
+                    playerName = document.getElementById('player-name').value.trim();
+                    if (playerName !== "") {
+                        document.getElementById('name-input').style.display = 'none';
+                        document.getElementById('quiz-container').style.display = 'block';
+                        // Reset score and other quiz related variables
+                        resetQuiz();
+                    } else {
+                        alert("Please enter your name to start the quiz.");
+                    }
+                }
+
+                // Function to reset the quiz
+                function resetQuiz() {
+                    // Reset score and other quiz related variables
+                }
+
+                // Function to save the leaderboard data to local storage
+                function saveLeaderboard() {
+                    const leaderboardData = localStorage.getItem('leaderboard');
+                    const leaderboard = leaderboardData ? JSON.parse(leaderboardData) : {};
+                    leaderboard[playerName] = score;
+                    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+                }
+
+                // Function to load the leaderboard data from local storage
+                function loadLeaderboard() {
+                    const leaderboardData = localStorage.getItem('leaderboard');
+                    if (leaderboardData) {
+                        const leaderboard = JSON.parse(leaderboardData);
+                        const leaderboardList = document.getElementById('leaderboard-list');
+                        leaderboardList.innerHTML = '';
+                        for (const [player, playerScore] of Object.entries(leaderboard)) {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `${player}: ${playerScore}`;
+                            leaderboardList.appendChild(listItem);
+                        }
+                    }
+                }
+
+                // Function to end the quiz
+                function endQuiz() {
+                    saveLeaderboard();
+                    document.getElementById('leaderboard').style.display = 'block';
+                    loadLeaderboard();
+                }
+
+                // Function to update leaderboard
+                function updateLeaderboard() {
+                    // Display player's name and score in leaderboard
+                    const leaderboardList = document.getElementById('leaderboard-list');
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${playerName}: ${playerScore}`;
+                    leaderboardList.appendChild(listItem);
+                }
+            </script>
+        </body>
