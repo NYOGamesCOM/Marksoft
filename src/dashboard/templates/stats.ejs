@@ -1,77 +1,105 @@
 <%- include("partials/head", { bot, user, path, description, title: "Marksoft - Stats", url, image }) %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, #1c1c1d, #464646);
+            color: #61dafb;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .stats {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .stats h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .stats p {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        canvas {
+            margin-top: 2rem;
+            max-width: 800px; /* Adjust the max-width as needed */
+            width: 100%; /* Ensure the canvas fills its container */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .guild-list {
+            text-align: left;
+            width: 90%;
+            max-width: 600px;
+            margin-top: 2rem;
+        }
+        .guild-item {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        .guild-name {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="stats">
+        <h1>Marksoft Statistics</h1>
+        <p style="font-size: 13px">Serving <b><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in <b><%= bot.guilds.cache.size %> guilds</b> servers.</p>
+        <canvas id="botStatsChart"></canvas>
+    </div>
 
+    <div class="guild-list">
+        <h2>Discord servers using Marksoft</h2>
+        <% bot.guilds.cache.forEach(guild => { %>
+            <div class="guild-item">          
+                <span class="guild-name"><%= guild.name %></span>
+                <span><%= guild.memberCount %> members</span>
+            </div>
+        <% }) %>
+    </div>
 
-<%- include("partials/footer") %>
- <div id="content"><iframe src="https://p.datadoghq.com/sb/ms97lhcfwyn4s5m6-6f116a90f59792de7e482df20bc00624?amp%3Btheme=dark&from_ts=1618208565617&live=true&to_ts=1618212165617&tv_mode=false&theme=dark" style="position: absolute; height: 100%; border: none; width: 100%"></iframe></div>
-<style>
-
-#content{
-padding-left: 40px;
-padding-right: 40px;
-width:100%;
-height:100%;
-}
-
-details + details {
-  margin-top: 20px;
-}
-
-details[open] {
-  min-height: 50px;
-  background-color: #2f2f2f;
-  box-shadow: 2px 2px 20px rgba(0,0,0,.2);
-}
-
-details p {
-  color: #ffffff;
-  font-weight: 300;
-}
-
-summary {
-  display: flex;
-  color: white;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-summary:focus {
-  outline: none;
-  
-}
-
-summary:focus::after {
-  content: "";
-  height: 100%;
-  width: 100%;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-shadow: 0 0 0 5px rebeccapurple;
-}
-
-summary::-webkit-details-marker {
-  display: none
-}
-
-.control-icon {
-  fill: rebeccapurple;
-  transition: .3s ease;
-  pointer-events: none;
-}
-
-.control-icon-close {
-  display: none;
-}
-
-details[open] .control-icon-close {
-  display: initial;
-  transition: .3s ease;
-}
-
-details[open] .control-icon-expand {
-  display: none;
-}
-</style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('botStatsChart').getContext('2d');
+        const botStatsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Members', 'Servers'],
+                datasets: [
+                {
+                    label: 'Members',
+                    data: [0, <%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %>],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Servers',
+                    data: [0, <%= bot.guilds.cache.size %>],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script> 
+</body>
