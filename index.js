@@ -25,87 +25,124 @@ const userData = require("./src/data/users.json");
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
     return;
-  } else {
-    let delay =
-      userData.guilds[message.guild.id].users[message.author.id].messageTimeout;
-    if (delay >= Date.now() + 60000) {
-      if (message.author.bot) return;
+  }
 
-      const userId = message.author.id;
-      const guildId = message.guild.id;
+  const guildId = message.guild?.id;
 
-      // Check if the guild exists in userData, if not, initialize it
-      if (!userData.guilds[guildId]) {
-        userData.guilds[guildId] = {
-          users: {},
-        };
-      }
+  if (!guildId) {
+    console.error("Guild ID is undefined");
+    return;
+  }
 
-      if (!userData.guilds[guildId].users[userId]) {
-        userData.guilds[guildId].users[userId] = {
-          xp: 0,
-          level: 1,
-          messageTimeout: Date.now() - 60000, // Set the initial messageTimeout to 1 minute ago
-          username: message.author.username,
-        };
-      }
+  const guildConfig = getGuildConfig(guildId);
+  const userId = message.author.id;
+
+  // Load user data from file
+  const userDataPath = "./src/data/users.json";
+  let userData = {};
+  try {
+    const userDataFileContent = fs.readFileSync(userDataPath, "utf-8");
+    userData = JSON.parse(userDataFileContent);
+  } catch (error) {
+    console.error("Error reading user data file:", error);
+  }
+
+  // Ensure userData.guilds is defined
+  if (!userData.guilds) {
+    userData.guilds = {};
+  }
+
+  // Ensure userData.guilds[guildId] is defined
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+      levelingEnabled: true,
+    };
+  }
+
+  // Ensure userData.guilds[guildId].users[userId] is defined
+  if (!userData.guilds[guildId].users[userId]) {
+    userData.guilds[guildId].users[userId] = {
+      xp: 0,
+      level: 1,
+      messageTimeout: Date.now(),
+      username: message.author.username,
+    };
+  }
 
       if (!userData.guilds[guildId].users[userId].background) {
         userData.guilds[guildId].users[userId].background =
-          "https://i.imgur.com/xymSRRO.png"; // Replace with your default background URL
+          "https://imgur.com/xymSRRO"; // Replace with your default background URL
       }
 
-      //if(!userData.guilds[guildId].users[userId].messageTimeout)
+      if (!userData.guilds[guildId].users[userId].messageTimeout) {
+        userData.guilds[guildId].users[userId].messageTimeout = Date.now();
+      }
 
-      // Increment XP for the user in the specific guild
-      userData.guilds[guildId].users[userId].xp +=
-        Math.floor(Math.random() * 15) + 10;
+  // Increment XP for the user in the specific guild
+  userData.guilds[guildId].users[userId].xp +=
+    Math.floor(Math.random() * 15) + 10;
 
-      let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+  let nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+      userData.guilds[guildId].users[userId].messageTimeout = Date.now();
 
-      // Check for level-up logic
-      let xpNeededForNextLevel =
-        userData.guilds[guildId].users[userId].level * nextLevelXP;
-      if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
-        userData.guilds[guildId].users[userId].level += 1;
-        nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
-        xpNeededForNextLevel =
-          userData.guilds[guildId].users[userId].level * nextLevelXP;
+  // Check for level-up logic
+  let xpNeededForNextLevel =
+    userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-        const levelbed = new MessageEmbed()
-          .setColor(color.blue)
-          .setTitle("Level Up!")
-          .setAuthor(message.author.username, message.author.displayAvatarURL())
-          .setDescription(
-            `You have reached level ${userData.guilds[guildId].users[userId].level}!`,
-          )
-          .setFooter(
-            `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`,
-          );
+  if (userData.guilds[guildId].users[userId].xp >= xpNeededForNextLevel) {
+    userData.guilds[guildId].users[userId].level += 1;
+    nextLevelXP = userData.guilds[guildId].users[userId].level * 75;
+    xpNeededForNextLevel =
+      userData.guilds[guildId].users[userId].level * nextLevelXP;
 
-        const row = new MessageActionRow().addComponents(
-          new MessageButton()
-            .setCustomId("levelup")
-            .setLabel("Level Up")
-            .setStyle("SUCCESS"),
+        // Get the role ID for the current user's level
+        const roleForLevel = getRoleForLevel(
+          userData.guilds[guildId].users[userId].level,
+          guildId,
+          userId,
+          userData,
         );
-        message.channel.send({
-          embeds: [levelbed],
-          components: [row],
-        });
-      }
 
-      // Save updated data back to the JSON file
-      fs.writeFile(
-        "./src/data/users.json",
-        JSON.stringify(userData, null, 2),
-        (err) => {
-          if (err) console.error("Error writing file:", err);
-        },
-      );
-    } else {
-      return;
+    // Add the role to the user if a valid role ID is found
+    if (roleForLevel) {
+      const member = message.guild.members.cache.get(userId);
+      const role = message.guild.roles.cache.get(roleForLevel);
+      if (member && role) {
+        await member.roles.add(role);
+      }
     }
+
+    const levelbed = new MessageEmbed()
+      .setColor("#3498db")
+      .setTitle("Level Up!")
+      .setAuthor(message.author.username, message.author.displayAvatarURL())
+      .setDescription(
+        `You have reached level ${userData.guilds[guildId].users[userId].level}!`
+      )
+      .setFooter(
+        `XP: ${userData.guilds[guildId].users[userId].xp}/${xpNeededForNextLevel}`
+      );
+
+    const row = new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("levelup")
+        .setLabel("Level Up")
+        .setStyle("SUCCESS")
+    );
+    message.channel.send({
+      embeds: [levelbed],
+      components: [row],
+    });
+
+    // Save updated data back to the JSON file
+    fs.writeFile(
+      userDataPath,
+      JSON.stringify(userData, null, 2),
+      (err) => {
+        if (err) console.error("Error writing user data file:", err);
+      }
+    );
   }
 });
 

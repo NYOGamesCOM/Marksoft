@@ -1,103 +1,136 @@
-'use strict';
+<%- include("partials/head", {bot, user, path, title: "Marksoft - 404" }) %>
 
-var cnvs = document.querySelector('canvas');
-var ctx = cnvs.getContext('2d');
-
-function resize() {
-  cnvs.width = innerWidth;
-  cnvs.height = innerHeight;
+<style>
+@import 'https://fonts.googleapis.com/css?family=Inconsolata';
+html {
+  min-height: 100%;
+}
+.backgrd {
+  box-sizing: border-box;
+  height: 100%;
+  background-color: #000000;
+  background-image: radial-gradient(#11581E, #041607), url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Inconsolata', Helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow:
+      0 0 1ex rgba(51, 255, 51, 1),
+      0 0 2px rgba(255, 255, 255, 0.8);
 }
 
-var memes = [];
-var cap = 250;
-var hyper = false;
-
-function hyperEnable() {
-  hyper = true;
-  cap = 1000;
-  document.querySelector('#memeplane').style.animationName = 'fly-plane-extreme';
+.noise{
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  opacity: .02;
 }
 
-function hyperDisable() {
-  hyper = false;
-  cap = 250;
-  document.querySelector('#memeplane').style.animationName = 'fly-plane';
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 1;
 }
 
-function draw() {
-  ctx.clearRect(0, 0, cnvs.width, cnvs.height);
-
-  if (hyper) {
-    let h = (Date.now() / 10) % 360;
-    ctx.fillStyle = `hsla(${h}, 100%, 50%, 1)`;
-  } else {
-    ctx.fillStyle = '#7289DA'; // blurple
-  }
-  ctx.fillRect(0, 0, cnvs.width, cnvs.height);
-
-  for (var i = 0; i < memes.length; i++) {
-    let meme = memes[i];
-    ctx.save();
-    ctx.translate(meme.x, meme.y);
-    ctx.drawImage(meme.image, meme.x, meme.y, meme.width, meme.height);
-    ctx.restore();
-
-    meme.y += meme.speed;
-    meme.x -= meme.speed;
-  }
-
-  // remove sprites that fall off of the screen
-  for (var i = memes.length - 1; i > 0; i--) {
-    if (memes[i].y > innerHeight + memes[i].image.height) {
-      memes.splice(i, 1);
-    }
-  }
-
-  // draw again
-  requestAnimationFrame(draw);
+.overlay::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan 7.5s linear 0s infinite;
 }
 
-setInterval(function() {
-  if (hyper) {
-    for (var i = 0; i < 3; i++) {
-      spawnMeme();
-    }
-  } else {
-    spawnMeme();
-  }
-}, 8);
-
-// resize the canvas
-resize();
-window.addEventListener('resize', function() {
-  memes = [];
-  resize();
-});
-
-var images = document.querySelectorAll('.images img');
-
-function spawnMeme() {
-  // cap at 200 sprites
-  if (memes.length > cap) {
-    return;
-  }
-
-  var far = Math.random();
-  if (far > 0.35) far = 0.35;
-  var img = images[Math.floor(Math.random() * images.length)];
-  var x = Math.floor(Math.random() * innerWidth);
-  var y = 0 - img.height * 2;
-
-  memes.push({
-    image: img,
-    x: x, y: y,
-    width: img.width * far,
-    height: img.height * far,
-    speed: img.width * far / 15,
-    rot: Math.random() * 2
-  });
+@keyframes scan {
+  0%        { background-position: 0 -100vh; }
+  35%, 100% { background-position: 0 100vh; }
 }
 
-// draw
-draw();
-requestAnimationFrame(draw);
+.terminal {
+  box-sizing: inherit;
+  position: absolute;
+  height: 100%;
+  width: 1000px;
+  max-width: 100%;
+  padding: 4rem;
+  text-transform: uppercase;
+  align-content: center;
+  text-align: center;
+  padding-left: 50px;
+}
+.wee {
+  align-content: center;
+  border: 5px;
+}
+.output {
+  color: rgba(128, 255, 128, 0.8);
+  text-shadow:
+      0 0 1px rgba(51, 255, 51, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.output::before {
+  content: "> ";
+}
+
+a.fof {
+  color: #fff;
+  text-decoration: none;
+}
+
+a.fof::before {
+  content: "[";
+}
+
+a.fof::after {
+  content: "]";
+}
+
+.errorcode {
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="backgrd">
+  <div class="noise"></div>
+  <div class="overlay"></div>
+  <div class="terminal">
+    <div class="wee">
+      <h1>Error <span class="errorcode">404</span></h1>
+      <p class="output">The page you are looking for might have been removed, had its name changed or is temporarily unavailable.</p>
+      <p class="output">Please try to <a class="fof" href="http://localhost:3000/dashboard">go back</a> or <a class="fof" href="http://localhost:3000/">return to the homepage</a>.</p>
+      <p class="output">Good luck.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
