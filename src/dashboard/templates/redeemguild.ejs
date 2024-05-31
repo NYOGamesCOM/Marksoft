@@ -14,19 +14,6 @@
 
 </div>
 </div>
-  <% } else if(alert) { %>
-   <div class="container-contact">
-            <div class="wrap-contact">
-                
-                <span class="contact-form-title">Congrats!</span>
-                    <h4><%= guild.name %> Is now a premium guild!</h4>
-
-</div>
-</div>
-
-
-                    
-
   <% } else { %>
      <form id="form" role="form" action="/redeem/<%= guild.id %>" method="POST">
    <div class="container-contact">
