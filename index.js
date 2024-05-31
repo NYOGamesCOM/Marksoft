@@ -34,7 +34,7 @@ client.on("messageCreate", async (message) => {
     return;
   }
 
-  const guildConfig = getGuildConfig(guildId);
+  //const guildConfig = getGuildConfig(guildId);
   const userId = message.author.id;
 
   // Load user data from file

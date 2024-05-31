@@ -88,16 +88,16 @@ iconurl = "https://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-40
                   <small id="textareaHide" class="form-text text-muted" style="color: white">0 characters remaining</small>
                   <br><br>
               </div> <% } else { %>
-              <!-- Non-premium user content -->
-              <div class="premium">
+              <!-- Non-Premium user content -->
+              <div class="Premium">
                   <div id="textareaID">
                       <textarea disabled style="max-width: 400px; min-width: 400px; max-height:200px; background-color: #2f2f2f; color: white;" name="welcomeMessage" id="myInput" placeholder="Welcome Message" rows="3" wrap="soft" class="col-12 form-control" maxlength="1024" type="text"><%= (welcome.welcomeMessage || `Welcome {user} to {guild}! Hope you enjoy your stay!`) %>
     </textarea>
                       <small id="textareaHide" class="form-text text-muted" style="color: white">0 characters remaining</small>
-                      <p color="red">Customize the message with premium!</p>
+                      <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Customize the message with Premium!</p>
                   </div>
-              </div> <% } %> <p>Embed Message</p> <% if(settings.isPremium === "true") { %> <% if(welcome.welcomeEmbed == "true") {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()" checked></input><label class="label-switch" for="switch">Toggle</label> <% } else {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()" /><label class="label-switch" for="switch">Toggle</label> <% } %> <% } else { %> <% if(welcome.welcomeEmbed == "true") {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="" disabled /></input><label class="label-switch" for="switch">Toggle</label> <% } else {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="" disabled /><label class="label-switch" for="switch">Toggle</label> <% } %> <p color="red">Unlock embeds with premium!</p>
-              <button class="btn btn-danger" type="button" onclick="window.location.href='/premium'">Unlock now!</button>
+              </div> <% } %> <p>Embed Message</p> <% if(settings.isPremium === "true") { %> <% if(welcome.welcomeEmbed == "true") {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()" checked></input><label class="label-switch" for="switch">Toggle</label> <% } else {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="myFunction()" /><label class="label-switch" for="switch">Toggle</label> <% } %> <% } else { %> <% if(welcome.welcomeEmbed == "true") {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="" disabled /></input><label class="label-switch" for="switch">Toggle</label> <% } else {%> <input name="isEmbed" class="input-switch" type="checkbox" id="switch" onclick="" disabled /><label class="label-switch" for="switch">Toggle</label> <% } %>     <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">    <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Unlockl embed with Premium!</p>
+              <button class="btn btn-danger" type="button" onclick="window.location.href='/Premium'">Unlock now!</button>
               <br>
               <br> <% } %> <p style="display: flex;
 align-items: center;">DM the user &nbsp<i class="fa fa-info-circle" data-toggle="tooltip" title="Choose whether the user recieves the message or the welcome channel" style="font-size: 20px" id='dmhover'></i></p> <% if(welcome.welcomeDM == "true") {%> <input name="dmUser" class="input-switch" type="checkbox" id="switch2" checked></input><label class="label-switch" for="switch2">Toggle</label> <% } else {%> <input name="dmUser" class="input-switch" type="checkbox" id="switch2" /><label class="label-switch" for="switch2">Toggle</label> <% } %> <div id="boxfooter">
@@ -226,10 +226,10 @@ max-height:200px; background-color: #2f2f2f; color: white;  "><%= (leave.leaveMe
                   <textarea name="leaveMessage" id="myInput2" value="<%= leave.leaveMessage %>" placeholder="Leave Message" rows="3" wrap="soft" class="col-12 form-control" maxlength="1024" type="text" style="max-width: 400px; min-width: 400px;
   max-height:200px; background-color: #2f2f2f; color: white; " disabled><%= (leave.leaveMessage)%></textarea>
                   <small id="textareaHide" class="form-text text-muted" style="color: white">0 characters remaining</small>
-                  <p color="red">Customize the message with premium!</p>
+                  <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Customize the message with Premium!</p>
               </div> <% } %> <p>Embed Message</p> <% if(settings.isPremium === "true") { %> <% if(leave.leaveEmbed == "true") {%> <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="myFunction2()" checked></input><label class="label-switch" for="switch7">Toggle</label> <% } else {%> <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="myFunction2()" /><label class="label-switch" for="switch7">Toggle</label> <% } %> <% } else { %> <% if(leave.leaveEmbed == "true") {%> <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="" disabled></input><label class="label-switch" for="switch7">Toggle</label> <% } else {%> <input name="leaveEmbed" class="input-switch" type="checkbox" id="switch7" onclick="" disabled /><label class="label-switch" for="switch7">Toggle</label>
-              <p color="red">Unlock embeds with premium!</p>
-              <button class="btn btn-danger" type="button" onclick="window.location.href='/premium'">Unlock now!</button>
+              <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Unlock embeds with Premium!</p>
+              <button class="btn btn-danger" type="button" onclick="window.location.href='/Premium'">Unlock now!</button>
               <br>
               <br> <% } %> <% } %> <p style="display: flex;
 align-items: center;">DM the user &nbsp<i class="fa fa-info-circle" data-toggle="tooltip" title="Choose whether the user recieves the message or the Leave Channel" style="font-size: 20px" id='dmhover'></i></p> <% if(leave.leaveDM == "true") {%> <input name="leaveDM" class="input-switch" type="checkbox" id="switch4" checked></input><label class="label-switch" for="switch4">Toggle</label> <% } else {%> <input name="leaveDM" class="input-switch" type="checkbox" id="switch4" /><label class="label-switch" for="switch4">Toggle</label> <% } %> <div id="boxfooter2">
@@ -1287,7 +1287,7 @@ align-items: center;">DM the user &nbsp<i class="fa fa-info-circle" data-toggle=
       visibility: visible;
   }
 
-  .alertpremium {
+  .alertPremium {
       width: 1000px;
       padding: 12px 16px;
       border-radius: 4px;
@@ -1297,7 +1297,7 @@ align-items: center;">DM the user &nbsp<i class="fa fa-info-circle" data-toggle=
       font-size: 16px;
   }
 
-  .alertpremium.premium {
+  .alertPremium.Premium {
       background-color: rgba(248, 215, 218, 1);
       border-color: rgba(220, 53, 69, 1);
       color: rgba(114, 28, 36, 1);
