@@ -19,7 +19,7 @@
   <footer>
     <nav class="footer-inner">
       <section class="footer-item">
-        <h2> .</h2>
+        <h2>&nbsp;</h2>
       </section>
 
       <section class="footer-item">
@@ -35,7 +35,6 @@
       </section>
 
       <section class="footer-item">
-        <h3>Useful links</h3>
         <ul>
           <li><a href="/policy">Policy</a></li>
           <li><a href="/faq">FAQ</a></li>
@@ -44,7 +43,8 @@
         </ul>
       </section>
 
-      <section class="footer-item"></section>
+      <section class="footer-item">
+      </section>
 
       <section class="footer-item">
         <ul>
@@ -213,7 +213,7 @@
   h2 {
     font-weight: 300;
     line-height: 1.8;
-    font-size: 13px;
+    font-size: 15px;
     color: #d1d1d1;
     letter-spacing: 0.03em;
     padding: 15px 0 0 0;
@@ -408,7 +408,7 @@
     // When arrow is clicked
     $("body,html").animate(
       {
-        scrollinset-block-start: 0, // Scroll to top of body
+        scrollTop: 0, // Scroll to top of body
       },
       500
     );
