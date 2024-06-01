@@ -43,14 +43,14 @@
   <p>Settings</p>
   <li><a href="/dashboard/<%= guild.id %>"><span><i class="fa fa-gear" style="color: rgb(74, 61, 255); font-size: 17px"></i> Bot Settings</span></a></li>
   <li><a href="/dashboard/<%= guild.id %>/commands"><span><i class="fa fa-wrench" style="color: rgb(74, 61, 255); font-size: 17px"></i> Commands</span></a></li>
-  <li><a class="active" href="/dashboard/<%= guild.id %>/welcome"><span><i class="fa fa-sign-out" style="color: rgb(74, 61, 255); font-size: 17px"></i> Welcome</span></a></li>
+  <li><a href="/dashboard/<%= guild.id %>/welcome"><span><i class="fa fa-sign-out" style="color: rgb(74, 61, 255); font-size: 17px"></i> Welcome</span></a></li>
   <li><a  href="/dashboard/<%= guild.id %>/members" ><span><i class="fa fa-users" style="color: rgb(74, 61, 255); font-size: 17px"></i> Members</span></a></li>
   <p>Moderation</p>
   <li><a href="/dashboard/<%= guild.id %>/automod" ><span><i class="fa fa-shield" style="color: rgb(74, 61, 255); font-size: 17px"></i> Auto Mod</span></a></li>
   <li><a href="/dashboard/<%= guild.id %>/moderation" ><span><i class="	fa fa-legal" style="color: rgb(74, 61, 255); font-size: 17px"></i> Moderation</span></a></li>
   <li><a href="/dashboard/<%= guild.id %>/logging" ><span><i class="	fa fa-book" style="color: rgb(74, 61, 255); font-size: 17px"></i> Logging</span></a></li>
   <li><a href="/dashboard/<%= guild.id %>/autorole" ><span><i class="fa fa-user-plus" style="color: rgb(74, 61, 255); font-size: 17px"></i> Auto Role</span></a></li>
-  <li><a href="/dashboard/<%= guild.id %>/altdetector" ><span><i class="fa fa-address-card" style="color: rgb(55, 175, 95); font-size: 17px"></i> Alt Detector</span></a></li>
+  <li><a class="active" href="/dashboard/<%= guild.id %>/altdetector" ><span><i class="fa fa-address-card" style="color: rgb(55, 175, 95); font-size: 17px"></i> Alt Detector</span></a></li>
   <p>Utilities</p>
   <li><a href="/dashboard/<%= guild.id %>/reactionroles" ><span><i class="	fa fa-support" style="color: rgb(74, 61, 255); font-size: 17px" ></i> Reaction Roles</span></a></li>
   <li><a href="/dashboard/<%= guild.id %>/levels" ><span><i class="fa fa-signal" style="color: rgb(74, 61, 255); font-size: 17px"></i> Levels</span></a>
@@ -647,50 +647,58 @@
 
 
   .sidebar {
-    height: 100%;
-    width: 280px;
-    box-sizing: border-box;
-    box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
-    overflow: hidden;
-    transition: width 0.5s ease;
-    overflow-y: scroll !important;
+      height: 100%;
+      width: 280px;
+      box-sizing: border-box;
+      box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
+      overflow: hidden;
+      transition: width 0.5s ease;
+      overflow-y: scroll !important;
   }
+
   .container.nav-closed .sidebar,
   .container.nav-closed .header-logo {
-    width: 0;
+      width: 0;
   }
+
   .sidebar ul {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
   }
+
   .sidebar ul li {
-    display: flex;
-    align-items: center;
+      display: flex;
+      align-items: center;
   }
+
   .sidebar ul li a {
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-    white-space: nowrap;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      white-space: nowrap;
   }
+
   .sidebar ul li a.active,
   .sidebar ul li a:hover {
-    background: #2f2f2f;
+      background: #2f2f2f;
   }
+
   .sidebar ul li span {
-    margin-left: 16px;
-    font-size: 16px;
-    font-weight: 100;
+      margin-left: 16px;
+      font-size: 16px;
+      font-weight: 100;
   }
+
   .sidebar ul li i {
-    font-size: 18px;
-    color: #111;
-    font-weight: normal;
+      font-size: 18px;
+      color: #111;
+      font-weight: normal;
   }
+
   .header {
     height: 50px;
     background: #2f2f2f;

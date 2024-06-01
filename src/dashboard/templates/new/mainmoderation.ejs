@@ -1,22 +1,29 @@
 <head>
-<link rel="icon"
-    type="image/png"
-    href="<%=domain%>/logo.png"> 
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" type="image/png" href="<%=domain%>/logo.png">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <link rel="stylesheet" href="<%=domain%>/css/members.css">
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js" integrity="sha256-zG8v+NWiZxmjNi+CvUYnZwKtHzFtdO8cAKUIdB8+U9I=" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/v/bs4/dt-1.10.16/cr-1.4.1/r-2.2.0/datatables.min.js"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<%- include("../partials/dashMenu", { bot, user, path, description, title: `Marksoft - Dashboard`,  url})%>
+<%- include("../partials/dashMenu", { bot, user, path, description, title: `Marksoft - Moderation`,  url})%>
 
 
 
@@ -621,53 +628,57 @@ button:focus { outline: none; }
 
 
 .sidebar {
-  height: 100%;
-  width: 280px;
-  box-sizing: border-box;
-  box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
-  overflow: hidden;
-  transition: width 0.5s ease;
-  overflow-y: scroll;
-}
-.container.nav-closed .sidebar,
-.container.nav-closed .header-logo {
-  width: 0;
-}
-.top-rr{
-border-bottom: 1px solid #555
-}
-.sidebar ul {
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-}
-.sidebar ul li {
-  display: flex;
-  align-items: center;
-}
-.sidebar ul li a {
-  color: #fff;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  white-space: nowrap;
-}
-.sidebar ul li a.active,
-.sidebar ul li a:hover {
-  background: #2f2f2f;
-}
-.sidebar ul li span {
-  margin-left: 16px;
-  font-size: 16px;
-  font-weight: 100;
-}
-.sidebar ul li i {
-  font-size: 18px;
-  color: #111;
-  font-weight: normal;
-}
+      height: 100%;
+      width: 280px;
+      box-sizing: border-box;
+      box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
+      overflow: hidden;
+      transition: width 0.5s ease;
+      overflow-y: scroll !important;
+  }
+
+  .container.nav-closed .sidebar,
+  .container.nav-closed .header-logo {
+      width: 0;
+  }
+
+  .sidebar ul {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+  }
+
+  .sidebar ul li {
+      display: flex;
+      align-items: center;
+  }
+
+  .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      white-space: nowrap;
+  }
+
+  .sidebar ul li a.active,
+  .sidebar ul li a:hover {
+      background: #2f2f2f;
+  }
+
+  .sidebar ul li span {
+      margin-left: 16px;
+      font-size: 16px;
+      font-weight: 100;
+  }
+
+  .sidebar ul li i {
+      font-size: 18px;
+      color: #111;
+      font-weight: normal;
+  }
 .header {
   height: 50px;
   background: #2f2f2f;

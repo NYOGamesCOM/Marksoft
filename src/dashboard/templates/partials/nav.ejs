@@ -29,7 +29,11 @@
           <a href="/support" class="nav-link">Support</a>
         </li>
         <li class="nav-list-item">
-          <a href="/Stats" class="nav-link">Stats</a>
+          <a href="/stats" class="nav-link">Stats</a>
+        </li>
+        <li class="nav-list-item">
+          <a href="<%=domain%>/premium" target="_blank" rel="noopener" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(11, 134, 0, 0.7), 0 0 15px rgba(11, 134, 0, 0.7);">Premium</a>
+
         </li>
       </ul>
     </nav>
@@ -40,7 +44,11 @@
       <a href="<%=domain%>/server" target="_blank" rel="noopener">Support</a>
     </li>
     <li>
-      <a href="<%=domain%>/Stats" target="_blank" rel="noopener">Stats</a>
+      <a href="<%=domain%>/stats" target="_blank" rel="noopener">Stats</a>
+    </li>
+    <li>
+      <a href="<%=domain%>/premium" target="_blank" rel="noopener" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(11, 134, 0, 0.7), 0 0 15px rgba(11, 134, 0, 0.7);">Premium</a>
+
     </li>
     <% if (user.avatar) { avatar = "https://cdn.discordapp.com/avatars/" +
     user.id + "/" + user.avatar + ".png?size=128"; } else { avatar =
@@ -61,6 +69,10 @@
     </li>
     <li>
       <a href="<%=domain%>/Stats" target="_blank" rel="noopener">Stats</a>
+    </li>
+    <li>
+      <a href="<%=domain%>/premium" target="_blank" rel="noopener" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(11, 134, 0, 0.7), 0 0 15px rgba(11, 134, 0, 0.7);">Premium</a>
+
     </li>
     <li><a href="<%=domain%>/login">Login</a></li>
     <% } %>
