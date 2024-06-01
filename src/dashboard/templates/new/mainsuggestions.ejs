@@ -266,8 +266,18 @@ max-height:200px; background-color: #2f2f2f; color: white;" ><%= settings.sugges
 <% } %>
 
 <br>
-<button class="save-button-np" type="button">Save Changes</button>
+<button class="cd-popup-trigger" type="button">Save Changes</button>
 
+<div class="cd-popup" role="alert">
+  <div class="cd-popup-container">
+      <p style="color: 2f2f2f">This is a premium feature, would you like to become a premium member?</p>
+      <ul class="cd-buttons">
+        <li><button type="button" class="disable2" onclick="window.location.href='<%=domain%>/premium';">yes</button></li>
+        <li><button class="save2" type="button" id="close">No</button></li>
+      </ul>
+      <a class="cd-popup-close img-replace">Close</a>
+  </div> <!-- cd-popup-container -->
+</div>
 <% } else if(settings.isPremium == "true"){ %>
 <div class="customize">
 <h2>Customize Your Embed</h2>
@@ -1476,7 +1486,30 @@ helper to hide elements that are available only for screen readers.
 POPUP
 =====
 */
+.header-search {
+        height: 100%;
+        align-items: center;
+        display: flex;
+        padding: 0 20px;
+        flex: 1;
+    }
 
+    .header-search .button-menu {
+        width: 23px;
+        height: 23px;
+        margin-right: 15px;
+        background-color: #2f2f2f;
+        border: 0;
+        cursor: pointer;
+    }
+    .header-search .button-menu:focus {
+        outline: none;
+        border: none;
+    }
+
+    .header-search .button-menu svg path {
+        fill: #fff;
+    }
 /*
 1. Creating the top and bottom gaps for the modal so that content doesn't touches window's edges
 */
@@ -1638,22 +1671,299 @@ animation
   color: #ffffff;
 }
 
+.cd-popup-trigger {
+        display: inline-block;
+        font-family: Whitney, "Open Sans", Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 11pt;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 45px;
+        width: 200px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+        background-color: #43b581;
+        border: 2px solid #43b581;
+        color: #fff;
+    }
 
+    .cd-popup-trigger:hover {
+        transform: translateY(1px);
+    }
 
+    /* -------------------------------- 
+
+xpopup 
+
+-------------------------------- */
+.img-replace {
+        /* replace text with an image */
+        display: inline-block;
+        overflow: hidden;
+        text-indent: 100%;
+        color: transparent;
+        white-space: nowrap;
+    }
+    .cd-popup {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(94, 110, 141, 0.9);
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+        -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+        transition: opacity 0.3s 0s, visibility 0s 0.3s;
+    }
+
+    .cd-popup.is-visible {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+        -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+        transition: opacity 0.3s 0s, visibility 0s 0s;
+    }
+
+    .cd-popup-container {
+        position: relative;
+        width: 90%;
+        max-width: 400px;
+        margin: 4em auto;
+        background: #FFF;
+        border-radius: .25em .25em .4em .4em;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        -webkit-transform: translateY(-40px);
+        -moz-transform: translateY(-40px);
+        -ms-transform: translateY(-40px);
+        -o-transform: translateY(-40px);
+        transform: translateY(-40px);
+        /* Force Hardware Acceleration in WebKit */
+        -webkit-backface-visibility: hidden;
+        -webkit-transition-property: -webkit-transform;
+        -moz-transition-property: -moz-transform;
+        transition-property: transform;
+        -webkit-transition-duration: 0.3s;
+        -moz-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+    }
+
+    .cd-popup-container p {
+        padding: 3em 1em;
+    }
+
+    .cd-popup-container .cd-buttons:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .cd-popup-container .cd-buttons li {
+        float: left;
+        width: 50%;
+        list-style: none;
+    }
+
+    .cd-popup-container .cd-buttons a {
+        display: block;
+        height: 60px;
+        line-height: 60px;
+        text-transform: uppercase;
+        color: #FFF;
+        -webkit-transition: background-color 0.2s;
+        -moz-transition: background-color 0.2s;
+        transition: background-color 0.2s;
+    }
+
+    .cd-popup-container .cd-buttons li:first-child a {
+        background: #fc7169;
+        border-radius: 0 0 0 .25em;
+    }
+
+    .no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
+        background-color: #fc8982;
+    }
+
+    .cd-popup-container .cd-buttons li:last-child a {
+        background: #b6bece;
+        border-radius: 0 0 .25em 0;
+    }
+
+    .no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
+        background-color: #c5ccd8;
+    }
+
+    .cd-popup-container .cd-popup-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .cd-popup-container .cd-popup-close::before,
+    .cd-popup-container .cd-popup-close::after {
+        content: '';
+        position: absolute;
+        top: 12px;
+        width: 14px;
+        height: 3px;
+        background-color: #8f9cb5;
+    }
+
+    .cd-popup-container .cd-popup-close::before {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        left: 8px;
+    }
+
+    .cd-popup-container .cd-popup-close::after {
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        right: 8px;
+    }
+
+    .is-visible .cd-popup-container {
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    @media only screen and (min-width: 1170px) {
+        .cd-popup-container {
+            margin: 8em auto;
+        }
+    }
+    .toggle-div {
+        width: 70px height: 30px
+    }
+
+    .input-switch[type=checkbox] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+
+    .label-switch {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 40px;
+        height: 20px;
+        background: grey;
+        display: block;
+        border-radius: 100px;
+        position: relative;
+    }
+
+    .label-switch:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        border-radius: 40px;
+        transition: 0.6s;
+    }
+
+    .input-switch:checked+label {
+        background: #bada55;
+    }
+
+    .input-switch:checked+label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+
+    .label-switch:active:after {
+        width: 10px;
+    }
+    .save {
+        display: inline-block;
+        font-family: Whitney, "Open Sans", Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 11pt;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 45px;
+        width: 200px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+        background-color: #43b581;
+        border: 2px solid #43b581;
+        color: #fff;
+    }
+
+    .save:hover {
+        transform: translateY(1px);
+    }
+
+    .save2 {
+        display: inline-block;
+        font-family: Whitney, "Open Sans", Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 11pt;
+        cursor: pointer;
+        height: 45px;
+        width: 200px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+        background-color: #FF0000;
+        border: 2px solid #FF0000;
+        color: #fff;
+    }
+
+    .save2:hover {
+        transform: translateY(1px);
+    }
+
+    .disable {
+        display: inline-block;
+        font-family: Whitney, "Open Sans", Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 11pt;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 45px;
+        width: 100px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+        background-color: #43b581;
+        border: 2px solid #43b581;
+        color: #fff;
+    }
+
+    .disable:hover {
+        transform: translateY(1px);
+    }
+
+    .disable2 {
+        display: inline-block;
+        font-family: Whitney, "Open Sans", Helvetica, sans-serif;
+        font-weight: 400;
+        cursor: pointer;
+        height: 45px;
+        width: 200px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+        background-color: #43b581;
+        border: 2px solid #43b581;
+        color: #fff;
+    }
+
+    .disable2:hover {
+        transform: translateY(1px);
+    }
 </style>
 
 
 <%- include("../partials/footer") %>
-<script>
-  // Select the button using its class name
-  const saveButton = document.querySelector('.save-button-np');
-
-  // Add an event listener for the 'click' event
-  saveButton.addEventListener('click', function() {
-      // Display an alert message when the button is clicked
-      alert('This is a premium feature!');
-  });
-</script>
 <script>
 let menuButton = document.querySelector(".button-menu");
 let container = document.querySelector(".container");
@@ -2491,4 +2801,49 @@ $(function () {
 
 }(window.jQuery);
 </script>
-
+<script>
+  jQuery(document).ready(function($) {
+      $('.cd-popup-trigger').on('click', function(event) {
+          event.preventDefault();
+          $('.cd-popup').addClass('is-visible');
+      });
+      //close popup
+      $('.cd-popup').on('click', function(event) {
+          if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
+              event.preventDefault();
+              $(this).removeClass('is-visible');
+          }
+      });
+      //close popup when clicking the esc keyboard button
+      $(document).keyup(function(event) {
+          if (event.which == '27') {
+              $('.cd-popup').removeClass('is-visible');
+          }
+      });
+      $('#close').on('click', function() {
+          $('.cd-popup').removeClass('is-visible');
+      });
+  });
+</script>
+<script>
+  let menuButton = document.querySelector(".button-menu");
+  let container = document.querySelector(".container");
+  let pageContent = document.querySelector(".page-content");
+  let responsiveBreakpoint = 991;
+  if (window.innerWidth <= responsiveBreakpoint) {
+      container.classList.add("nav-closed");
+  }
+  menuButton.addEventListener("click", function() {
+      container.classList.toggle("nav-closed");
+  });
+  pageContent.addEventListener("click", function() {
+      if (window.innerWidth <= responsiveBreakpoint) {
+          container.classList.add("nav-closed");
+      }
+  });
+  window.addEventListener("resize", function() {
+      if (window.innerWidth > responsiveBreakpoint) {
+          container.classList.remove("nav-closed");
+      }
+  });
+</script>
