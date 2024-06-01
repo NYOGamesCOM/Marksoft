@@ -1,4 +1,4 @@
-<%- include("partials/head", { bot, user, path, description, title: "Marksoft - Premium",  url, image }) %>  
+<%- include("partials/head", { bot, user, path, description, title: "Marksoft - Statistics",  url, image }) %>  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:200,300,400,600,700'>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.5.0/css/all.css">
@@ -59,10 +59,10 @@
 </head>
 <body>
     <div class="stats">
-        <h1 >Marksoft Statistics</h1>
-        <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.466), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-            Serving <b><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
-            <b><%= bot.guilds.cache.size %> guilds</b> servers.
+        <h1 style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 0, 0, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">Marksoft Statistics</h1><br>
+        <p style="font-size: 15px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.466), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
+            Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
+            <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers.
           </p>
           
           
@@ -70,8 +70,8 @@
     </div>
 
     <div class="guild-list">
-        <h2 style="text-align: center;">Discord servers using Marksoft</h2>
-
+        <h1 style="text-align: center; font-size: 28px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 0, 0, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">Discord servers using Marksoft</h1>
+        <br><br><br>
         <% bot.guilds.cache.forEach(guild => { %>
             <div class="guild-item">          
                 <span class="guild-name"><%= guild.name %></span>

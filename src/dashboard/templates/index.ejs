@@ -8,41 +8,20 @@
   <input style="display: none" type="text" value="<%= bot.guilds.cache.size %>" id="size2">
   <% if (user) { %>
 
-  <script>
-    const colorThemes = [
-        { background: 'linear-gradient(to right, #1c1c1d, #182848)', color: '#333;' },
-        { background: 'linear-gradient(to right, #333, #333)', color: '#333' },
-        // Add more color themes as needed
-    ];
-
-    let themeIndex = 0;
-
-    function toggleTheme() {
-        const body = document.body;
-
-        // Cycle through color themes
-        themeIndex = (themeIndex + 1) % colorThemes.length;
-
-        // Apply the current color theme
-        body.style.background = colorThemes[themeIndex].background;
-        body.style.color = colorThemes[themeIndex].color;
-    }
-</script>
-
 </style>
     <div class="full-height">
       <div class="section-title-wrap">
         <div class="container">
           <div class="row">
             <div class="col-12 text-center parallax-fade-top">
-              <p style="font-size: 40px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
+              <p style="font-size: 68px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
                 Marksoft
               </p>
-              <h1>The best Multipurpose <br>Discord Bot</h1>
+              <h1 style="font-size: 40px;">The best Multipurpose <br>Discord Bot</h1><br>
               <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-                Serving <b><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
-                <b><%= bot.guilds.cache.size %> guilds</b> servers.
-              </p>
+                Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
+                <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers.
+              </p><br><br>
             <div class='buttons flex'>
                       <a class='button btn btn-blurple' href='/invite'><span><i class="fab fa-discord fa-2x"></i> Add
                               to Discord</span></a>
@@ -58,89 +37,60 @@
 
 
     <div class="content-container">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
-    	<div id="os2" class="product-row">
+    	<div class="product-row">
         <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
         <div class="product-text">
           <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Advanced Logging</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Maintain a healthy and controlled environment.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Customize logging settings according to your preferences.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p> 
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Maintain a healthy and controlled environment.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Customize logging settings according to your preferences.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p> 
+        </div>
       </div>
-      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="product-row">
         <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
         <div class="product-text">
           <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Design Embeds</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Create visually appealing and structured messages using embeds.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Send embeds as your own webhook or save it as a Custom Command!</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create visually appealing and structured messages using embeds.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Send embeds as your own webhook or save it as a Custom Command!</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
         </div>
       </div>
-
+      <br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="product-row">
         <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
         <div class="product-text">
           <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Create Applications</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
         </div>
       </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="product-row">
         <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
         <div class="product-text">
           <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Ticket System</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
         </div>
       </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="product-row">
         <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
         <div class="product-text">
           <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Reaction Roles</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Allow users to assign themselves roles by reacting to specific messages. </p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> This feature streamlines the role assignment process and encourages user engagement.</p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Allow users to assign themselves roles by reacting to specific messages. </p>
+          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature streamlines the role assignment process and encourages user engagement.</p>
         </div>
       </div>
-            <div style="padding-top: 150px"></div>
-          </div>
-</div>
+      <br><br><br><br><br><br><br><br><br><br>
+      <div style="padding-top: 150px"></div>
+    </div>
+    </div>
 
 
     </section>
@@ -162,14 +112,14 @@
           <div class="container">
             <div class="row">
               <div class="col-12 text-center parallax-fade-top">
-                <p style="font-size: 40px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
+                <p style="font-size: 48px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
                   Marksoft
                 </p>
-                <h1>The best Multipurpose <br>Discord Bot</h1>
+                <h1>The best Multipurpose <br>Discord Bot</h1><br>
                 <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-                  Serving <b><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
-                  <b><%= bot.guilds.cache.size %> guilds</b> servers.
-                </p>
+                  Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
+                  <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers.
+                </p><br><br>
           <div class='buttons flex'>
                         <a class='button btn btn-blurple' href='/invite'><span><i class="fab fa-discord fa-2x"></i> Add
                                 to Discord</span></a>
@@ -183,117 +133,63 @@
     </section>
 
     <section>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-      <div class="glow"></div>
-      <style>
-        .glow {
-          width: 80%;
-          height: 60px;
-          background: linear-gradient(90deg, #03b840, #002400);
-          position: absolute;
-          margin: 0 auto;
-          left: 0;
-          right: 0;
-          border-radius: 50%;
-          transform: translateY(-20%);
-          filter: blur(160px);
-        }
-      </style>
-
-
-<div class="content-container">
-  <div id="os2" class="product-row">
-    <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
-    <div class="product-text">
-      <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Advanced Logging</h2>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Maintain a healthy and controlled environment.</p>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Customize logging settings according to your preferences.</p>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p> 
-    </div>
-  </div>
-  <div class="product-row">
-    <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
-    <div class="product-text">
-      <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Design Embeds</h2>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Create visually appealing and structured messages using embeds.</p>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Send embeds as your own webhook or save it as a Custom Command!</p>
-        <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
+      <div class="content-container">
+        <div class="product-row">
+          <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
+          <div class="product-text">
+            <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Advanced Logging</h2>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Maintain a healthy and controlled environment.</p>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Customize logging settings according to your preferences.</p>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p> 
+          </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="product-row">
+          <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
+          <div class="product-text">
+            <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Design Embeds</h2>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create visually appealing and structured messages using embeds.</p>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Send embeds as your own webhook or save it as a Custom Command!</p>
+              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="product-row">
+          <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
+          <div class="product-text">
+            <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Create Applications</h2>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
+          </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="product-row">
+          <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
+          <div class="product-text">
+            <h2 class="product-title" >Ticket System</h2>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
+          </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="product-row">
+          <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
+          <div class="product-text">
+            <h2 class="product-title">Reaction Roles</h2>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Allow users to assign themselves roles by reacting to specific messages. </p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature streamlines the role assignment process and encourages user engagement.</p>
+          </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br>
+        <div style="padding-top: 150px"></div>
       </div>
-  </div>
-
-  <div class="product-row">
-    <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
-    <div class="product-text">
-      <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Create Applications</h2>
-      <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
-      <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
-    </div>
-  </div>
-  <div class="product-row">
-    <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
-    <div class="product-text">
-      <h2 class="product-title" >Ticket System</h2>
-      <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
-      <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
-    </div>
-  </div>
-  <div class="product-row">
-    <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
-    <div class="product-text">
-      <h2 class="product-title">Reaction Roles</h2>
-      <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> Allow users to assign themselves roles by reacting to specific messages. </p>
-      <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">-</span> This feature streamlines the role assignment process and encourages user engagement.</p>
-    </div>
-  </div>
-        <div style="padding-top: 145px"></div>
-      </div>
-
-
+      
     </section>
-
-
-
+    
   </body>
-
-
-
 
   <% } %>
 </div>
@@ -566,9 +462,9 @@
   .odometer.odometer-theme-default {
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
-    *zoom: 1;
-    *display: inline;
+    vertical-align: auto;
+    zoom: 1;
+    display: inline;
     position: relative;
     font-size: 13px;
   }
@@ -577,9 +473,9 @@
   .odometer.odometer-theme-default .odometer-digit {
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
-    *zoom: 1;
-    *display: inline;
+    vertical-align: auto;
+    zoom: 1;
+    display: inline;
     position: relative;
     font-size: 13px;
   }
@@ -588,9 +484,9 @@
   .odometer.odometer-theme-default .odometer-digit .odometer-digit-spacer {
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
-    *zoom: 1;
-    *display: inline;
+    vertical-align: auto;
+    zoom: 1;
+    display: inline;
     visibility: hidden;
     font-size: 13px;
   }
@@ -616,13 +512,20 @@
   .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner,
   .odometer.odometer-theme-default .odometer-digit .odometer-ribbon-inner {
     display: block;
-    -webkit-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* For Safari, Chrome */
+    -moz-backface-visibility: hidden;    /* For Firefox */
+    -ms-backface-visibility: hidden;     /* For Internet Explorer */
+    backface-visibility: hidden;         /* Standard property */
   }
 
   .odometer.odometer-auto-theme .odometer-digit .odometer-value,
   .odometer.odometer-theme-default .odometer-digit .odometer-value {
     display: block;
     -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);    /* For Firefox */
+    -ms-transform: translateZ(0);     /* For Internet Explorer */
+    -o-transform: translateZ(0);      /* For Opera */
+    transform: translateZ(0);         /* Standard property */
   }
 
   .odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value,
@@ -714,7 +617,7 @@
 
   .login-button {
     position: relative;
-    display: inline-block;
+    /*display: inline-block;*/
     float: right;
     margin-top: 37px;
     margin-right: 10px;
@@ -737,8 +640,9 @@
     background: linear-gradient(90deg,
         rgba(200, 200, 200, 0),
         rgba(200, 200, 200, 0.35));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;        /* For Safari, Chrome */
+    background-clip: text;                /* Standard property */
+    -webkit-text-fill-color: transparent; /* For Safari, Chrome */
     font-weight: 900;
     z-index: -1;
   }
