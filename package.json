@@ -78,6 +78,7 @@
     "shortid": "^2.2.16",
     "snekfetch": "^4.0.4",
     "spicycord": "^1.1.5",
+    "stripe": "^15.8.0",
     "superagent": "^6.1.0",
     "svg2img": "^0.9.4",
     "svg2png": "^4.1.1",
