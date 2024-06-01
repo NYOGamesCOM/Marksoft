@@ -124,20 +124,21 @@
     </style>
 </head>
 <body>
-    <div id="name-input">
-        <input type="text" id="player-name" placeholder="Enter your name">
-        <button onclick="startQuiz()">Start Quiz</button>
-    </div>
+    <div id="name-input" style="text-align: center;">
+        <input type="text" id="player-name" placeholder="Enter your name" style="padding: 10px; border: 2px solid #ccc; border-radius: 5px; margin-bottom: 10px;">
+        <br>
+        <button onclick="startQuiz()" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">Start Quiz</button>
+    </div>    
     <div id="quiz-container" class="quiz-container" style="display: none;">
             <div id="left-container">
                 <div id="scoreboard"></div>
             </div>
             <div id="middle-container">
                 <div id="question-container">
-                    <h2 id="question">Loading question...</h2>
+                    <h2 id="question" style="text-align: center;">Loading question...</h2>
                     <div id="options">
                         <button class="option" onclick="selectOption(0)">
-                            <span class="option-label">A</span><span class="option-text">Option 1</span>
+                            <span class="option-label">A</span><span class="option-text" >Option 1</span>
                         </button>
                         <button class="option" onclick="selectOption(1)">
                             <span class="option-label">B</span><span class="option-text">Option 2</span>

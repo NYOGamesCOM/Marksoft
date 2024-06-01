@@ -1,0 +1,128 @@
+<%- include("partials/head", { bot,  user, path, description, title: "Marksoft - Test",  url, image }) %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<body style="text-align: center;">
+
+  <div class="container">
+    <textarea id="text-to-read" placeholder="Enter text here..." rows="4" cols="50"></textarea><br>
+    <select id="voices-select">
+      <!-- Options for selecting voices will be added dynamically using JavaScript -->
+    </select>
+    <button id="speak-button">Speak</button>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <script>
+    // Check if the browser supports the SpeechSynthesis API
+    if ('speechSynthesis' in window) {
+      const synth = window.speechSynthesis;
+
+      // Function to populate the voices dropdown with available voices
+      function populateVoices() {
+        const voices = synth.getVoices();
+        const voicesSelect = document.getElementById('voices-select');
+
+        voicesSelect.innerHTML = '';
+
+        voices.forEach((voice, index) => {
+          const option = document.createElement('option');
+          option.value = index;
+          option.textContent = voice.name + ' (' + voice.lang + ')';
+          voicesSelect.appendChild(option);
+        });
+      }
+
+      // Populate the voices dropdown when the page loads
+      populateVoices();
+
+      // Event listener for when voices change
+      synth.onvoiceschanged = populateVoices;
+
+      // Function to speak the text
+      function speakText(text, voiceIndex) {
+        // Create a new SpeechSynthesisUtterance object
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Set the voice based on the selected index
+        utterance.voice = synth.getVoices()[voiceIndex];
+
+        // Speak the text
+        synth.speak(utterance);
+      }
+
+      // Event listener for the speak button
+      document.getElementById('speak-button').addEventListener('click', function() {
+        const textToRead = document.getElementById('text-to-read').value;
+        const voiceIndex = document.getElementById('voices-select').value;
+        speakText(textToRead, voiceIndex);
+      });
+    } else {
+      // SpeechSynthesis API not supported
+      console.log('Speech synthesis not supported.');
+    }
+  </script>
+
+</body>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #text-to-read {
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+
+  #voices-select {
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  #speak-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  #speak-button:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<%- include("partials/mainfooter") %>
+<%- include("partials/footer") %>

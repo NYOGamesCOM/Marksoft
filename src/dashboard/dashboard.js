@@ -302,6 +302,14 @@ module.exports = async (client) => {
     renderTemplate(res, req, "stats.ejs");
   });
 
+  app.get("/tts", (req, res) => {
+    renderTemplate(res, req, "tts.ejs");
+  });
+
+  app.get("/snake", (req, res) => {
+    renderTemplate(res, req, "snake.ejs");
+  });
+
   app.get("/test", (req, res) => {
     renderTemplate(res, req, "test.ejs");
   });
