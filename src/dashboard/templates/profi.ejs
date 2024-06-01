@@ -1,116 +1,146 @@
-<%- include("partials/head", { bot, user, path, title: "Marksoft - Profi Stores" }) %>
+<%- include("partials/head", { bot,  user, path, description, title: "Marksoft - Test",  url, image }) %>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<body style="text-align: center;">
+
+  <div class="container">
+   <h1 style="margin-bottom: 20px;">Store Information</h1>
+    <input type="number" id="storeID" placeholder="Enter store ID" style="padding: 10px; margin: 10px 0; width: 100%; box-sizing: border-box;">
+    <button onclick="fetchStoreInfo()" style="padding: 10px; margin: 10px 0; width: 100%; box-sizing: border-box; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease;">Get Store Info</button>
+    <div id="storeDetails" class="store-details" style="margin-top: 20px; text-align: left;"></div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('storeID').addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+          fetchStoreInfo();
+        }
+      });
+    });
+
+    async function fetchStoreInfo() {
+      const storeID = parseInt(document.getElementById('storeID').value);
+      if (isNaN(storeID)) {
+        alert('Please provide a valid store ID.');
+        return;
+      }
+
+      console.log('Fetching store information for ID:', storeID);
+
+      try {
+        const response = await fetch('<%domain%>/stores.json'); // Adjusted the path to match the root project folder
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const storesData = await response.json();
+        console.log('Stores data:', storesData);
+
+        const store = storesData.stores.find(store => store.storeID === storeID);
+        if (!store) {
+          document.getElementById('storeDetails').innerHTML = 'Store ID not found.';
+          return;
+        }
+
+        const mapsLink = `https://www.google.com/maps?q=${encodeURIComponent(store.address)}`;
+        const storeDetails = `
+          <h2>Store Details for ID ${store.storeID}</h2>
+          <p><strong>Store Manager:</strong> ${store.store_manager} | <strong>ID:</strong> ${store.store_manager_ID}</p>
+          <p><strong>Zone Manager:</strong> ${store.ASD} | <strong>ID:</strong> ${store.asd_ID}</p>
+          <p><strong>Region Manager:</strong> ${store.RD} | <strong>ID:</strong> ${store.RD_ID}</p>
+          <p><strong>HR Responsible:</strong> ${store.HR}</p>
+          <p><strong>Format Director:</strong> ${store.format_director}</p>
+          <p><strong>Security Responsible:</strong> ${store.security_resp}</p>
+          <p><strong>City:</strong> ${store.city} | ${store.county}</p>
+          <p><strong>Address:</strong> ${store.address} <a href="${mapsLink}" target="_blank">[Map]</a></p>
+          <p><strong>Contact:</strong> ${store.contact_1} | ${store.contact_2} | ${store.Email}</p>
+          <p><strong>Opening Date:</strong> ${store.opening_date} | <strong>Nonstop:</strong> ${store.non_stop}</p>
+          <p><strong>Checkouts:</strong> ${store.checkouts} | <strong>Touchscreen:</strong> ${store.touchscreen}</p>
+          <p><strong>Partner:</strong> ${store.partner} | <strong>Partner Date:</strong> ${store.partner_date}</p>
+          <p><strong>Employee Budget:</strong> ${store.employee_budget} | <strong>Employees:</strong> ${store.employees} | <strong>Payroll:</strong> ${store.payroll}</p>
+          <p><strong>Schedule (Weekdays):</strong> ${store.schedule}</p>
+          <p><strong>Schedule (Saturday):</strong> ${store.schedule_saturday}</p>
+          <p><strong>Schedule (Sunday):</strong> ${store.schedule_sunday}</p>
+          <p><strong>Type:</strong> ${store.Tip} | <strong>Subtype:</strong> ${store.Subtip} | <strong>Concept:</strong> ${store.Concept}</p>
+          <p><strong>Total Area:</strong> ${store.area} | <strong>Store Area:</strong> ${store.area_store}</p>
+          <p><strong>Mentoring Center:</strong> ${store.mentoring} | <strong>Forklift:</strong> ${store.forklift} | <strong>Forklift OP:</strong> ${store.forklift_op}</p>
+          <p><strong>CCTV Solution:</strong> ${store.CCTV} | <strong>CCTV Provider:</strong> ${store.CCTV_maintenance}</p>
+          <p><strong>DVR IP:</strong> ${store.DVR_IP}</p>
+          <p><strong>Security System Provider:</strong> ${store.security_sec}</p>
+          <p><strong>Fire Detection Provider:</strong> ${store.security_safety}</p>
+          <p><strong>Special Section:</strong> ${store.special_section}</p>
+        `;
+
+        document.getElementById('storeDetails').innerHTML = storeDetails;
+      } catch (error) {
+        console.error('Error fetching store data:', error);
+        document.getElementById('storeDetails').innerHTML = 'Error fetching store data.';
+      }
+    }
+  </script>
+
+</body>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    .container {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        text-align: center;
-        width: 80%;
-        max-width: 600px;
-    }
-    h1 {
-        margin-bottom: 20px;
-    }
-    input, button {
-        padding: 10px;
-        margin: 10px 0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .store-details {
-        margin-top: 20px;
-        text-align: left;
-    }
-    .store-details p {
-        margin: 5px 0;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #text-to-read {
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+
+  #voices-select {
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  #speak-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  #speak-button:hover {
+    background-color: #45a049;
+  }
 </style>
 
-<body>
-    <div class="container">
-        <h1>Store Information</h1>
-        <input type="number" id="storeID" placeholder="Enter store ID">
-        <button onclick="fetchStoreInfo()">Get Store Info</button>
-        <div id="storeDetails" class="store-details"></div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('storeID').addEventListener('keydown', event => {
-                if (event.key === 'Enter') {
-                    fetchStoreInfo();
-                }
-            });
-        });
-
-        async function fetchStoreInfo() {
-            const storeID = parseInt(document.getElementById('storeID').value);
-            if (isNaN(storeID)) {
-                alert('Please provide a valid store ID.');
-                return;
-            }
-
-            console.log('Fetching store information for ID:', storeID);
-
-            try {
-                const response = await fetch('<%domain%>/stores.json'); // Adjusted the path to match the root project folder
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const storesData = await response.json();
-                console.log('Stores data:', storesData);
-
-                const store = storesData.stores.find(store => store.storeID === storeID);
-                if (!store) {
-                    document.getElementById('storeDetails').innerHTML = 'Store ID not found.';
-                    return;
-                }
-
-                const mapsLink = `https://www.google.com/maps?q=${encodeURIComponent(store.address)}`;
-                const storeDetails = `
-                    <h2>Store Details for ID ${store.storeID}</h2>
-                    <p><strong>Store Manager:</strong> ${store.store_manager} | <strong>ID:</strong> ${store.store_manager_ID}</p>
-                    <p><strong>Zone Manager:</strong> ${store.ASD} | <strong>ID:</strong> ${store.asd_ID}</p>
-                    <p><strong>Region Manager:</strong> ${store.RD} | <strong>ID:</strong> ${store.RD_ID}</p>
-                    <p><strong>HR Responsible:</strong> ${store.HR}</p>
-                    <p><strong>Format Director:</strong> ${store.format_director}</p>
-                    <p><strong>Security Responsible:</strong> ${store.security_resp}</p>
-                    <p><strong>City:</strong> ${store.city} | ${store.county}</p>
-                    <p><strong>Address:</strong> ${store.address} <a href="${mapsLink}" target="_blank">[Map]</a></p>
-                    <p><strong>Contact:</strong> ${store.contact_1} | ${store.contact_2} | ${store.Email}</p>
-                    <p><strong>Opening Date:</strong> ${store.opening_date} | <strong>Nonstop:</strong> ${store.non_stop}</p>
-                    <p><strong>Checkouts:</strong> ${store.checkouts} | <strong>Touchscreen:</strong> ${store.touchscreen}</p>
-                    <p><strong>Partner:</strong> ${store.partner} | <strong>Partner Date:</strong> ${store.partner_date}</p>
-                    <p><strong>Employee Budget:</strong> ${store.employee_budget} | <strong>Employees:</strong> ${store.employees} | <strong>Payroll:</strong> ${store.payroll}</p>
-                    <p><strong>Schedule (Weekdays):</strong> ${store.schedule}</p>
-                    <p><strong>Schedule (Saturday):</strong> ${store.schedule_saturday}</p>
-                    <p><strong>Schedule (Sunday):</strong> ${store.schedule_sunday}</p>
-                    <p><strong>Type:</strong> ${store.Tip} | <strong>Subtype:</strong> ${store.Subtip} | <strong>Concept:</strong> ${store.Concept}</p>
-                    <p><strong>Total Area:</strong> ${store.area} | <strong>Store Area:</strong> ${store.area_store}</p>
-                    <p><strong>Mentoring Center:</strong> ${store.mentoring} | <strong>Forklift:</strong> ${store.forklift} | <strong>Forklift OP:</strong> ${store.forklift_op}</p>
-                    <p><strong>CCTV Solution:</strong> ${store.CCTV} | <strong>CCTV Provider:</strong> ${store.CCTV_maintenance}</p>
-                    <p><strong>DVR IP:</strong> ${store.DVR_IP}</p>
-                    <p><strong>Security System Provider:</strong> ${store.security_sec}</p>
-                    <p><strong>Fire Detection Provider:</strong> ${store.security_safety}</p>
-                    <p><strong>Special Section:</strong> ${store.special_section}</p>
-                `;
-
-                document.getElementById('storeDetails').innerHTML = storeDetails;
-            } catch (error) {
-                console.error('Error fetching store data:', error);
-                document.getElementById('storeDetails').innerHTML = 'Error fetching store data.';
-            }
-        }
-    </script>
-</body>
+<%- include("partials/mainfooter") %>
+<%- include("partials/footer") %>
