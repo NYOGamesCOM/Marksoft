@@ -20,11 +20,11 @@ module.exports = class extends Command {
         let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty :KEKW: \n`;
 
         if (randomNumber === 69) {
-            responseMessage += '\n🎉 Congratulations! You hit the lucky number 69! 🎉';
+            responseMessage += '\n :bankai1NaughtyCorner: Congratulations! :bankai1NaughtyCorner: ';
         }
 
         const embed = new MessageEmbed()
-            .setTitle('Naughty calculator 101')
+            .setTitle('Naughty')
             .setDescription(responseMessage)
             .setColor('#0099ff')
             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
@@ -33,7 +33,7 @@ module.exports = class extends Command {
                 iconURL: message.author.displayAvatarURL({ dynamic: true }),
             })
             .setTimestamp();
-            
+
         await message.channel.send({ embeds: [embed] });
         message.delete().catch(err => console.error('Failed to delete the message:', err));
     }

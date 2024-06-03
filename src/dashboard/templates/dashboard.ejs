@@ -81,7 +81,7 @@
         <img class="server-icon" src="<%= iconurl %>" alt="<% guild.name %>" />
         <p class="guild-name"><%= guild.name %></p>
       </div>
-      <a href="<%= `${https}discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot%20applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`${domain}/window`)}&permissions=1642761419863` %>" class="add button">Add Bot</a>
+      <a href="<%= `${https}discordapp.com/oauth2/authorize?client_id=${clientID}&scope=bot%20applications.commands&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`${domain}/window`)}&permissions=8&scope=bot%20applications.commands` %>" class="add button">Add Bot</a>
     </div>
     <% } %> <% }); %>
   </div>
