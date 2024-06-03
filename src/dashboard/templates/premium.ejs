@@ -9,13 +9,14 @@
 
 <section>
 
-<h1 style="text-align: center; font-size: 28px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgba(255, 0, 0, 0.7); font-size: 64px; text-align: center; padding-top: 200px; color: white; font-family: 'Cairo', sans-serif">PREMIUM</h1><br><br>
+<h1 style="text-align: center; font-size: 28px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgba(255, 0, 0, 0.7); font-size: 64px; text-align: center; padding-top: 130px; color: white; font-family: 'Cairo', sans-serif">PREMIUM</h1><br><br>
 <h4 style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(11, 134, 0, 0.7), 0 0 15px rgba(11, 134, 0, 0.7); font-size: 34px; text-align: center; color: white;">Take your server to a next level</h4>
   
 <div style="padding-top: 50px"></div>
       <button type="button" id="switch" class="btn btn-secondary btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
         <div class="handle"></div>
       </button>
+      <br><br>
 <div class="con-items">
         <div class="item item1" >
             <header>      
@@ -28,7 +29,7 @@
                 <h3 id="1">2.99$/month</h3>
             </header>
            <div style="padding-top: 50px;"></div>
-            <button class="custom-button">Purchase</button>
+           <button class="purchaseBtn" data-plan="1">Purchase</button>
         </div>
         <div class="item color item2">
             <span class="badge">
@@ -44,7 +45,7 @@
                <h3 id="2">9.99$/month</h3>
             </header>
            <div style="padding-top: 50px;"></div>
-           <button>Purchase</button>
+           <button class="purchaseBtn" data-plan="2">Purchase</button>
         </div>
         <div class="item item3">
               <header>
@@ -936,25 +937,41 @@ function topFunction() {
 <%- include("partials/footer") %>
 
 <script>
-  document.getElementById("switch").onclick = function() {
+  document.addEventListener("DOMContentLoaded", function() {
       const plans = [
           { id: "1", monthly: "2.99$/month", yearly: "29.99$/year", monthlyUrl: "https://buymeacoffee.com/13thomas", yearlyUrl: "https://buymeacoffee.com/13thomas" },
           { id: "2", monthly: "9.99$/month", yearly: "99.99$/year", monthlyUrl: "https://buymeacoffee.com/13thomas", yearlyUrl: "https://buymeacoffee.com/13thomas" },
           { id: "3", monthly: "29.99$/month", yearly: "299.99$/year", monthlyUrl: "https://buymeacoffee.com/13thomas", yearlyUrl: "https://buymeacoffee.com/13thomas" }
       ];
-  
-      plans.forEach(plan => {
-          const priceElement = document.getElementById(plan.id);
-          const button = document.querySelector(`.item${plan.id} button`);
-          
-          if (priceElement.innerHTML.includes("month")) {
-              priceElement.innerHTML = plan.yearly;
-              button.setAttribute("onclick", `window.location.href='${plan.yearlyUrl}'`);
-          } else {
-              priceElement.innerHTML = plan.monthly;
-              button.setAttribute("onclick", `window.location.href='${plan.monthlyUrl}'`);
-          }
+
+      document.getElementById("switch").onclick = function() {
+          plans.forEach(plan => {
+              const priceElement = document.getElementById(plan.id);
+              const button = document.querySelector(`button[data-plan='${plan.id}']`);
+              
+              if (priceElement.innerHTML.includes("month")) {
+                  priceElement.innerHTML = plan.yearly;
+                  button.setAttribute("onclick", `window.location.href='${plan.yearlyUrl}'`);
+              } else {
+                  priceElement.innerHTML = plan.monthly;
+                  button.setAttribute("onclick", `window.location.href='${plan.monthlyUrl}'`);
+              }
+          });
+      };
+
+      document.querySelectorAll('.purchaseBtn').forEach(button => {
+          button.addEventListener('click', function() {
+              const planId = this.getAttribute('data-plan');
+              const plan = plans.find(p => p.id === planId);
+              const priceElement = document.getElementById(plan.id);
+
+              if (priceElement.innerHTML.includes("month")) {
+                  window.location.href = plan.monthlyUrl;
+              } else {
+                  window.location.href = plan.yearlyUrl;
+              }
+          });
       });
-  };
-  </script>
+  });
+</script>
   
