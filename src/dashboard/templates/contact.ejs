@@ -1,94 +1,108 @@
 <%- include("partials/head", {bot, user, path, description, title: "Marksoft - Contact"}) %>
 
-        <link rel="stylesheet" href="<%domain%>/css/contact.css" />
-        <script src="<%domain%>/js/contact.js"></script>
+<link rel="stylesheet" href="<%= domain %>/css/contact.css" />
+<script src="<%= domain %>/js/contact.js"></script>
 
-    <body>
-     <% if (user) { %>
-     <script>var userID = <%= user.
-     id %> </script>
-        <div class="container-contact">
-            <div class="wrap-contact">
-                <form class="contact-form validate-form">
-                    <span class="contact-form-title"></span>
-                    <div class="wrap-input rs1-wrap-input">
-                        <span class="label">Discord Name</span>
-                        <input disabled class="input" type="text" name="name" placeholder="Discord Name"
-                            
-                                value="<%= user.username %>#<%= user.discriminator %>"/>
-
-                        <span class="input-line"></span>
-                    </div>
-                    <div class="wrap-input rs1-wrap-input">
-                        <span class="label">Email (optional)</span>
-                        <input class="input" type="email" name="email" placeholder="Your Email"
-                            
-                        />
-                        <span class="input-line"></span>
-                    </div>
-
-                    <div class="wrap-input">
-                        <span class="label">Message</span>
-                        <textarea class="input" name="message" placeholder="Your Message" required></textarea>
-                        <span class="input-line"></span>
-                    </div>
-                    <div>
-      
-      <br>
-      <div id="example1"></div>
-     </div>
-       <br>
-                    <br>
-                     <br>
-                    <br>
-                      <br>
-                      <br>
-                    <div class="container-contact-form-btn">
-                    
-      
-                        <button type="submit">Send</button>
-                    </div>
-                </form>
-              
+<body>
+<% if (user) { %>
+<script>
+    var userID = <%= user.id %>
+</script>
+<div class="container-contact">
+    <div class="wrap-contact">
+        <form class="contact-form validate-form" id="contactForm">
+            <span class="contact-form-title"></span>
+            <div class="wrap-input rs1-wrap-input">
+                <span class="label">Discord Name</span>
+                <input disabled class="input" type="text" name="name" placeholder="Discord Name" value="<%= user.username %>#<%= user.discriminator %>"/>
+                <span class="input-line"></span>
             </div>
-        </div>
-         <% } else { %>
-   <div class="container-contact">
-            <div class="wrap-contact">
-                <form class="contact-form validate-form">
-                    <span class="contact-form-title"></span>
-                    <div class="wrap-input rs1-wrap-input">
-                        <span class="label">Discord Name</span>
- <input class="input" type="text" name="name" placeholder="Discord Name" disabled/>
-                        <span class="input-line"></span>
-                    </div>
-                    <div class="wrap-input rs1-wrap-input">
-                        <span class="label">Email (optional)</span>
-                        <input class="input" type="email" name="email" placeholder="Email"
-                            
-                        />
-                        <span class="input-line"></span>
-                    </div>
-                    <div class="wrap-input">
-                        <span class="label">Message</span>
-                        <textarea class="input" name="message" placeholder="Your Message"></textarea>
-                        <span class="input-line"></span>
-                    </div>
-                    <div class="container-contact-form-btn">
-                    <p>You must be logged in to contact us.</p>
-                   
-                    </div>
-                    <br>
-                    <br>
-                 
-                     <div class="container-contact-form-btn">
-             <button  onclick="window.location.href='/login';" type="button">Login</button>
-             </div>
-                </form>
-              
+            <div class="wrap-input rs1-wrap-input">
+                <span class="label">Email<span style="color: red">*</span></span>
+                <input class="input" type="email" name="email" placeholder="Your Email" required/>
+                <span class="input-line"></span>
             </div>
-        </div>
-          <% } %>
-    </body>
+            <div class="wrap-input">
+                <span class="label">Message<span style="color: red">*</span></span>
+                <textarea class="input" name="message" placeholder="Your Message" required></textarea>
+                <span class="input-line"></span>
+            </div>
+            <div class="container-contact-form-btn">
+                <button type="submit">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+<% } else { %>
+<div class="container-contact">
+    <div class="wrap-contact">
+        <form class="contact-form validate-form">
+            <span class="contact-form-title"></span>
+            <div class="wrap-input rs1-wrap-input">
+                <span class="label">Discord Name</span>
+                <input class="input" type="text" name="name" placeholder="Discord Name" disabled/>
+                <span class="input-line"></span>
+            </div>
+            <div class="wrap-input rs1-wrap-input">
+                <span class="label">Email<span style="color: red">*</span></span>
+                <input class="input" type="email" name="email" placeholder="Email"/>
+                <span class="input-line"></span>
+            </div>
+            <div class="wrap-input">
+                <span class="label">Message<span style="color: red">*</span></span>
+                <textarea class="input" name="message" placeholder="Your Message"></textarea>
+                <span class="input-line"></span>
+            </div>
+            <div class="container-contact-form-btn">
+                <p>You must be logged in to contact us.</p>
+            </div>
+            <br><br>
+            <div class="container-contact-form-btn">
+                <button onclick="window.location.href='/login';" type="button">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+<% } %>
+</body>
 </html>
-  <%- include("partials/footer") %>
+<%- include("partials/footer") %>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const webhookURL = 'https://discord.com/api/webhooks/1170825589326884868/blNsq753_u4ntmI4f1mfd49BAtabTwvp81w9oUts4ybhs_sx35Xp7jHAfsYlYgUYfIW2';
+    const formData = new FormData(event.target);
+
+    const embed = {
+        title: 'New Message',
+        description: `**From:** ${formData.get('name')} (Email: ${formData.get('email')})\n\n${formData.get('message')}`,
+        color: 0x00ff00, // Green color
+        timestamp: new Date().toISOString()
+    };
+
+    const messageContent = {
+        embeds: [embed]
+    };
+
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(messageContent)
+    }).then(response => {
+        if (response.ok) {
+            alert('Message sent successfully!');
+            event.target.reset();
+        } else {
+            alert('Failed to send message.');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('Error sending message.');
+    });
+});
+
+</script>

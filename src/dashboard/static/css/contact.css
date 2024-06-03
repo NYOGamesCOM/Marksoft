@@ -113,8 +113,12 @@ button {
   background-color: #43b581;
   border: 2px solid #43b581;
   color: #fff;
+  margin: 0 auto; /* Center horizontally */
 }
-
+#charCount {
+    font-size: smaller;
+    font-style: italic;
+}
 
 button:hover {
     cursor: pointer;
@@ -141,13 +145,6 @@ iframe {
     align-items: center;
     justify-content: center;
 }
-
-
-
-
-
-
-
 
 .contact-map {
     top: 0;
@@ -189,6 +186,8 @@ iframe {
     text-align: left;
     padding-bottom: 44px;
     font-family: var(--font3);
+    text-align: center;
+    text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(11, 134, 0, 0.7), 0 0 15px rgba(11, 134, 0, 0.7);
 }
 
 .wrap-input {
@@ -219,6 +218,8 @@ iframe {
     background: 0 0;
     line-height: 1.2;
     font-weight: 500;
+}
+.input2 {
 }
 
 .input-line {
