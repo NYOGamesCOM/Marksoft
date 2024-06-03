@@ -61,7 +61,7 @@ module.exports = class extends Command {
 
       for (const category of categories) {
         embed.addField(
-          `${emoji[category.split(" ").join("").toLowerCase()]} **${capitalize(
+          `**${capitalize(
             category
           )}**`,
           `\`${prefix}help ${category.toLowerCase()}\``,
@@ -69,9 +69,9 @@ module.exports = class extends Command {
         );
       }
 
-      embed.setTitle(`Marksoft's Command List`);
+      embed.setTitle(`Marksoft's command List`);
       embed.setDescription(stripIndent`
-        <:purple:826033456207233045> The Prefix for this server is \`${prefix}\`
+        The Prefix for this server is \`${prefix}\`
 
         `);
 
@@ -92,7 +92,7 @@ module.exports = class extends Command {
       (args && args.join(" ").toLowerCase() == "alt detector") ||
       (args && args[0].toLowerCase() == "alt")
     ) {
-      embed.setTitle(` ${emojis.altdetector} - Alt Detector`);
+      embed.setTitle(`Alt Detector`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "alt detector")
@@ -125,7 +125,7 @@ module.exports = class extends Command {
           `${message.client.emoji.fail} | You are not allowed to view this category`
         );
 
-      embed.setTitle(`${emojis.owner} Owner Commands`);
+      embed.setTitle(`Owner Commands`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "owner")
@@ -157,7 +157,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "applications") ||
       (args && args[0].toLowerCase() == "apps")
     ) {
-      embed.setTitle(` ${emojis.applications} - applications`);
+      embed.setTitle(` Applications`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "applications")
@@ -191,7 +191,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "config") ||
       (args && args[0].toLowerCase() == "configuration")
     ) {
-      embed.setTitle(` ${emojis.config} - Config`);
+      embed.setTitle(`Config`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "config")
@@ -223,7 +223,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "utility") ||
       (args && args[0].toLowerCase() == "utils")
     ) {
-      embed.setTitle(` ${emojis.utility} - Utility`);
+      embed.setTitle(`Utility`);
       embed.setDescription(
         this.client.botCommands
         .filter((cmd) => cmd.category.toLowerCase() === "utility")
@@ -257,7 +257,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "economy") ||
       (args && args[0].toLowerCase() == "currency")
     ) {
-      embed.setTitle(` ${emojis.economy} - Economy`);
+      embed.setTitle(`Economy`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "economy")
@@ -286,7 +286,7 @@ module.exports = class extends Command {
       );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "fun") {
-      embed.setTitle(` ${emojis.fun} - Fun`);
+      embed.setTitle(`Fun`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "fun")
@@ -318,7 +318,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "images") ||
       (args && args[0].toLowerCase() == "image")
     ) {
-      embed.setTitle(` ${emojis.images} - Image`);
+      embed.setTitle(`Image`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "images")
@@ -350,7 +350,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "information") ||
       (args && args[0].toLowerCase() == "info")
     ) {
-      embed.setTitle(` ${emojis.information} - Info`);
+      embed.setTitle(`Info`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "information")
@@ -382,7 +382,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "moderation") ||
       (args && args[0].toLowerCase() == "mod")
     ) {
-      embed.setTitle(` ${emojis.moderation} - Moderation`);
+      embed.setTitle(`Moderation`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "moderation")
@@ -413,7 +413,7 @@ module.exports = class extends Command {
       (args && args.slice(0).join(" ").toLowerCase() == "reaction role") ||
       (args && args[0].toLowerCase() == "rr")
     ) {
-      embed.setTitle(` ${emojis.reactionrole} - Reaction Roles`);
+      embed.setTitle(`Reaction Roles`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "reaction role")
@@ -446,7 +446,7 @@ module.exports = class extends Command {
       (args && args[0].toLowerCase() == "tickets") ||
       (args && args[0].toLowerCase() == "ticketing")
     ) {
-      embed.setTitle(` ${emojis.tickets} - Tickets`);
+      embed.setTitle(`Tickets`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "tickets")
@@ -481,12 +481,12 @@ module.exports = class extends Command {
 
       if (!cmd)
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} Could not find the Command you're looking for`
+          `:x: Could not find the Command you're looking for`
         );
 
       if (cmd.category === "Owner")
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} Could not find the Command you're looking for`
+          `:x: Could not find the Command you're looking for`
         );
 
       embed.setTitle(`Command: ${cmd.name}`);

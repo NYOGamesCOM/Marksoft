@@ -18,7 +18,7 @@ module.exports = class extends Command {
         const randomNumber = Math.floor(Math.random() * 69) + 1;
 
         // Create the base message
-        let responseMessage = `${message.author.username} is **${randomNumber}** out of **69** naughty`;
+        let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty :KEKW: \n`;
 
         // Add a congratulatory message if the number is 69
         if (randomNumber === 69) {
@@ -27,9 +27,10 @@ module.exports = class extends Command {
 
         // Create the embed message
         const embed = new MessageEmbed()
-            .setTitle('Naughty geiger')
+            .setTitle('Naughty calculator 101')
             .setDescription(responseMessage)
             .setColor('#0099ff')
+            .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
             .setFooter({
                 text: `Requested by ${message.author.username}`,
                 iconURL: message.author.displayAvatarURL({ dynamic: true }),
@@ -37,6 +38,7 @@ module.exports = class extends Command {
             .setTimestamp();
 
         // Send the embed message to the channel
-        message.channel.send({ embeds: [embed] });
+        await message.channel.send({ embeds: [embed] });
+        message.delete().catch(err => console.error('Failed to delete the message:', err));
     }
 };

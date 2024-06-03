@@ -185,9 +185,7 @@ module.exports = class extends Event {
         if (typeof rateLimit === "string")
           return message.channel
             .sendCustom(
-              ` ${
-                message.client.emoji.fail
-              } Please wait **${rateLimit}** before running the **${cmd}** command again - ${
+              `:x: Please wait **${rateLimit}** before running the **${cmd}** command again - ${
                 message.author
               }\n\n${
                 number === 1
@@ -219,7 +217,7 @@ module.exports = class extends Event {
                 `${this.client.user.tag}`,
                 message.client.user.displayAvatarURL({ dynamic: true }),
               )
-              .setTitle(`<:wrong:822376943763980348> Missing Bot Permissions`)
+              .setTitle(`:x: Missing Bot Permissions`)
               .setDescription(
                 `Command Name: **${
                   command.name
@@ -288,7 +286,7 @@ module.exports = class extends Event {
       !message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS")
     )
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} Missing bot Permissions - **Embeds Links**`,
+        `:x: Missing bot Permissions - **Embeds Links**`,
       );
 
     const command =
