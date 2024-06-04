@@ -29,17 +29,82 @@
                   </div>
             </div>
           </div>
+          <br><br><br><br><br><br><br>
+          <div class="slider-container" style="display: flex; justify-content: center;">
+            <div class="slider">
+                <div class="slider-wrapper">
+                    <div class="slide">
+                        <div class="slide-content">
+                            <h2 class="slider-title">Review</h2>
+                            <h2 class="slider-message">This bot is amazing! It has so many useful features that make managing our Discord server a breeze.</h2>
+                            <h2 class="slider-author">by Unknown</h2>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                          <h2 class="slider-title">Review</h2>
+                          <h2 class="slider-message">I've tried several Discord bots before, but this one stands out with its versatility and reliability. Highly recommended!</h2>
+                          <h2 class="slider-author">by Unknown</h2>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                          <h2 class="slider-title">Review</h2>
+                          <h2 class="slider-message">Incredible bot! It's like having a Swiss Army knife for Discord. It does everything I need and more.</h2>
+                          <h2 class="slider-author">by Unknown</h2>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slide-content">
+                          <h2 class="slider-title">Review</h2>
+                          <h2 class="slider-message">Love the customization options and user-friendly interface. This bot has definitely improved our server experience.</h2>
+                          <h2 class="slider-author">by Unknown</h2>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                      <div class="slide-content">
+                        <h2 class="slider-title">Review</h2>
+                        <h2 class="slider-message">The moderation tools are top-notch, and the support team is always quick to address any issues. 5 stars!</h2>
+                        <h2 class="slider-author">by Unknown</h2>
+                      </div>
+                  </div>
+                  <div class="slide">
+                      <div class="slide-content">
+                        <h2 class="slider-title">Review</h2>
+                        <h2 class="slider-message">I've been using this bot for a while now, and it just keeps getting better with each update. Keep up the great work!</h2>
+                        <h2 class="slider-author">by Unknown</h2>
+                      </div>
+                  </div>
+                  <div class="slide">
+                      <div class="slide-content">
+                        <h2 class="slider-title">Review</h2>
+                        <h2 class="slider-message">This bot has revolutionized the way we interact on Discord. From fun games to useful utilities, it has something for everyone.</h2>
+                        <h2 class="slider-author">by Unknown</h2>
+                      </div>
+                  </div>
+                  <div class="slide">
+                      <div class="slide-content">
+                        <h2 class="slider-title">Review</h2>
+                        <h2 class="slider-message">I can't imagine running our Discord server without this bot. It's become an essential part of our community.</h2>
+                        <h2 class="slider-author">by Unknown</h2>
+                      </div>
+                  </div>     
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
         </div>
       </div>
     </div>
 
-
-
+    
 
     <div class="content-container">
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
+      <br><br><br>
     	<div class="product-row">
         <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
         <div class="product-text">
@@ -739,6 +804,70 @@
   .background-dark {
     background-color: #ffffff;
   }
+  .slider {
+            width: 70%; /* Fixed width */
+            height: 260px; /* Increased height to accommodate padding */
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 20px; /* Rounded corners */
+            padding: 20px 0; /* Added padding on top and bottom */
+        }
+
+        .slider-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 100%;
+            animation: slide 50s linear infinite; /* Increased duration to 30s */
+        }
+
+        .slide {
+            min-width: 260px; /* Reduced width */
+            box-sizing: border-box;
+            padding: 20px;
+            margin: 0 30px; /* Increased margin between slides */
+            text-align: center;
+            background: #f1f1f1;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px; /* Rounded corners */
+        }
+        .slider-title {
+        position: fixed;
+        top: 10px; /* Adjust the top position as needed */
+        text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        z-index: 1000; /* Ensure the title stays on top of the slider */
+    }
+    .slider-author{
+      position:fixed;
+      bottom: 5px;
+      text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);
+    }
+        .slide-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+    .slider-message {
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-style:italic;
+    }
+    .slide-content h2 {
+        margin: 0;
+    }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
 </style>
 <br>
 <br>
@@ -788,7 +917,41 @@
 
   }, 2000);
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+      const sliderWrapper = document.querySelector('.slider-wrapper');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const slideWidth = slides[0].offsetWidth + 20; // Adjust margin as needed
+      const totalWidth = slideWidth * slides.length;
 
+      // Clone slides to create infinite loop effect
+      slides.forEach(slide => {
+          const clone = slide.cloneNode(true);
+          sliderWrapper.appendChild(clone);
+      });
+
+      // Set slider wrapper width
+      sliderWrapper.style.width = `${totalWidth}px`;
+
+      // Define animation function
+      const animateSlider = () => {
+          sliderWrapper.style.transition = 'transform 1s ease-in-out';
+          sliderWrapper.style.transform = `translateX(-${slideWidth}px)`;
+
+          // Reset the position to the beginning after animation ends
+          setTimeout(() => {
+              sliderWrapper.style.transition = 'none';
+              sliderWrapper.style.transform = 'translateX(0)';
+              setTimeout(() => {
+                  sliderWrapper.style.transition = 'transform 1s ease-in-out';
+              });
+          }, 1000); // Adjust delay based on animation duration
+      };
+
+      // Call the animation function at regular intervals
+      setInterval(animateSlider, 3000); // Adjust the interval time as needed
+  });
+</script>
 <script src='https://github.hubspot.com/odometer/odometer.js'></script>
 <%- include("partials/mainfooter") %>
 <%- include("partials/footer") %>
