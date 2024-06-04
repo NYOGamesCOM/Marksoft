@@ -120,3 +120,19 @@ In addition to the Discord bot, our system offers the following features on your
 Our all-in-one Discord bot and web features offer an extensive array of tools to enhance your server's functionality, user engagement, and community management. Elevate your server today by incorporating our versatile bot and utilizing the website features.
 
 Thank you for choosing our Discord bot. If you have any questions or need further assistance, please refer to our support resources or contact our team. Enjoy enhancing your Discord server!
+
+
+![Alt](https://i.imgur.com/TAhjYdi.png "index")
+![Alt](https://i.imgur.com/OHmTHyg.png "stats")
+![Alt](https://i.imgur.com/V7d8b1Q.png "dashboard")
+![Alt](https://i.imgur.com/7e5oHPz.png "main dashboard")
+![Alt](https://i.imgur.com/oBIjDKi.png "dashboard")
+![Alt](https://i.imgur.com/qBwr83h.png "dashboard")
+![Alt](https://i.imgur.com/pf1sgaO.png "dashboard")
+![Alt](https://i.imgur.com/8tOGCho.png "dashboard")
+![Alt](https://i.imgur.com/T13MQFp.png "dashboard")
+![Alt](https://i.imgur.com/W8dNI76.png "dashboard")
+![Alt](https://i.imgur.com/zexmlaw.png "dashboard")
+![Alt](https://i.imgur.com/uhARayz.png "dashboard")
+![Alt](https://i.imgur.com/m1zwxoX.png "dashboard")
+![Alt](https://i.imgur.com/xVjSrNv.png "dashboard")
