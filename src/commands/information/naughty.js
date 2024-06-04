@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            name: "xnaughty",
+            name: "ngty",
             aliases: ["69", "xxxrng"],
             description: "Naughty generator",
             category: "Fun",
