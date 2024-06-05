@@ -1,921 +1,1001 @@
 <%- include("partials/head", {bot, user, path, description, title: "Marksoft - Home" , url, image }) %>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
 <div class="page-content">
-  
-  <input style="display: none" type="text" value="<%=  bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %>" id="size">
-  <input style="display: none" type="text" value="<%= bot.guilds.cache.size %>" id="size2">
-  <% if (user) { %>
-
-</style>
-    <div class="full-height">
-      <div class="section-title-wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center parallax-fade-top">
-              <p style="font-size: 68px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-                Marksoft
-              </p>
-              <h1 style="font-size: 40px;">The best Multipurpose <br>Discord Bot</h1><br>
-              <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-                Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
-                <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers.
-              </p><br><br>
-            <div class='buttons flex'>
-                      <a class='button btn btn-blurple' href='/invite'><span><i class="fab fa-discord fa-2x"></i> Add
-                              to Discord</span></a>
-                      <a class='button btn btn-default' href='/dashboard'><span><i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard</span></a>
-                  </div>
-            </div>
-          </div>
-          <br><br><br><br><br><br><br>
-          <div class="slider-container" style="display: flex; justify-content: center;">
-            <div class="slider">
-                <div class="slider-wrapper">
-                    <div class="slide">
-                        <div class="slide-content">
-                            <h2 class="slider-title">Review</h2>
-                            <h2 class="slider-message">This bot is amazing! It has so many useful features that make managing our Discord server a breeze.</h2>
-                            <h2 class="slider-author">by Unknown</h2>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                          <h2 class="slider-title">Review</h2>
-                          <h2 class="slider-message">I've tried several Discord bots before, but this one stands out with its versatility and reliability. Highly recommended!</h2>
-                          <h2 class="slider-author">by Unknown</h2>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                          <h2 class="slider-title">Review</h2>
-                          <h2 class="slider-message">Incredible bot! It's like having a Swiss Army knife for Discord. It does everything I need and more.</h2>
-                          <h2 class="slider-author">by Unknown</h2>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                          <h2 class="slider-title">Review</h2>
-                          <h2 class="slider-message">Love the customization options and user-friendly interface. This bot has definitely improved our server experience.</h2>
-                          <h2 class="slider-author">by Unknown</h2>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                      <div class="slide-content">
-                        <h2 class="slider-title">Review</h2>
-                        <h2 class="slider-message">The moderation tools are top-notch, and the support team is always quick to address any issues. 5 stars!</h2>
-                        <h2 class="slider-author">by Unknown</h2>
-                      </div>
-                  </div>
-                  <div class="slide">
-                      <div class="slide-content">
-                        <h2 class="slider-title">Review</h2>
-                        <h2 class="slider-message">I've been using this bot for a while now, and it just keeps getting better with each update. Keep up the great work!</h2>
-                        <h2 class="slider-author">by Unknown</h2>
-                      </div>
-                  </div>
-                  <div class="slide">
-                      <div class="slide-content">
-                        <h2 class="slider-title">Review</h2>
-                        <h2 class="slider-message">This bot has revolutionized the way we interact on Discord. From fun games to useful utilities, it has something for everyone.</h2>
-                        <h2 class="slider-author">by Unknown</h2>
-                      </div>
-                  </div>
-                  <div class="slide">
-                      <div class="slide-content">
-                        <h2 class="slider-title">Review</h2>
-                        <h2 class="slider-message">I can't imagine running our Discord server without this bot. It's become an essential part of our community.</h2>
-                        <h2 class="slider-author">by Unknown</h2>
-                      </div>
-                  </div>     
-
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-      </div>
-    </div>
-
-    
-
-    <div class="content-container">
-      <br><br><br>
-    	<div class="product-row">
-        <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
-        <div class="product-text">
-          <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Advanced Logging</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Maintain a healthy and controlled environment.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Customize logging settings according to your preferences.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p> 
-        </div>
-      </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-      <div class="product-row">
-        <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
-        <div class="product-text">
-          <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Design Embeds</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create visually appealing and structured messages using embeds.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Send embeds as your own webhook or save it as a Custom Command!</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
-        </div>
-      </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-      <div class="product-row">
-        <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
-        <div class="product-text">
-          <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Create Applications</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
-        </div>
-      </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-      <div class="product-row">
-        <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
-        <div class="product-text">
-          <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Ticket System</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
-        </div>
-      </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-      <div class="product-row">
-        <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
-        <div class="product-text">
-          <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Reaction Roles</h2>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Allow users to assign themselves roles by reacting to specific messages. </p>
-          <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature streamlines the role assignment process and encourages user engagement.</p>
-        </div>
-      </div>
-      <br><br><br><br><br><br><br><br><br><br>
-      <div style="padding-top: 150px"></div>
-    </div>
-    </div>
-
-
-    </section>
-
-
-  </body>
-
-
-  <% } else { %>
-
-
-
-  <body>
-
-    <section>
-
-      <div class="full-height" >
+    <input style="display: none" type="text" value="<%=  bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %>" id="size">
+    <input style="display: none" type="text" value="<%= bot.guilds.cache.size %>" id="size2"> <% if (user) { %> <div class="full-height">
         <div class="section-title-wrap">
-          <div class="container">
-            <div class="row">
-              <div class="col-12 text-center parallax-fade-top">
-                <p style="font-size: 48px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-                  Marksoft
-                </p>
-                <h1>The best Multipurpose <br>Discord Bot</h1><br>
-                <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">
-                  Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in 
-                  <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers.
-                </p><br><br>
-          <div class='buttons flex'>
-                        <a class='button btn btn-blurple' href='/invite'><span><i class="fab fa-discord fa-2x"></i> Add
-                                to Discord</span></a>
-                        <a class='button btn btn-default' href='/dashboard'><span><i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard</span></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center parallax-fade-top">
+                        <p style="font-size: 68px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);"> Marksoft </p>
+                        <h1 style="font-size: 40px;">The best Multipurpose <br>Discord Bot</h1><br>
+                        <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);"> Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers. </p><br><br>
+                        <div class='buttons flex'>
+                            <a class='button btn btn-blurple' href='/invite'><span><i class="fab fa-discord fa-2x"></i> Add to Discord</span></a>
+                            <a class='button btn btn-default' href='/dashboard'><span><i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard</span></a>
+                        </div>
                     </div>
-                    <br><br><br><br><br><br><br>
-                    <div class="slider-container" style="display: flex; justify-content: center;">
-                      <div class="slider">
-                          <div class="slider-wrapper">
-                              <div class="slide">
-                                  <div class="slide-content">
-                                      <h2 class="slider-title">Review</h2>
-                                      <h2 class="slider-message">This bot is amazing! It has so many useful features that make managing our Discord server a breeze.</h2>
-                                      <h2 class="slider-author">by Unknown</h2>
-                                  </div>
-                              </div>
-                              <div class="slide">
-                                  <div class="slide-content">
+                </div>
+                <br><br><br><br><br><br><br>
+                <div class="slider-container" style="display: flex; justify-content: center;">
+                    <div class="slider">
+                        <div class="slider-wrapper">
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <h2 class="slider-title">Review</h2>
+                                    <h2 class="slider-message">This bot is amazing! It has so many useful features that make managing our Discord server a breeze.</h2>
+                                    <h2 class="slider-author">by Unknown</h2>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
                                     <h2 class="slider-title">Review</h2>
                                     <h2 class="slider-message">I've tried several Discord bots before, but this one stands out with its versatility and reliability. Highly recommended!</h2>
                                     <h2 class="slider-author">by Unknown</h2>
-                                  </div>
-                              </div>
-                              <div class="slide">
-                                  <div class="slide-content">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
                                     <h2 class="slider-title">Review</h2>
                                     <h2 class="slider-message">Incredible bot! It's like having a Swiss Army knife for Discord. It does everything I need and more.</h2>
                                     <h2 class="slider-author">by Unknown</h2>
-                                  </div>
-                              </div>
-                              <div class="slide">
-                                  <div class="slide-content">
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
                                     <h2 class="slider-title">Review</h2>
                                     <h2 class="slider-message">Love the customization options and user-friendly interface. This bot has definitely improved our server experience.</h2>
                                     <h2 class="slider-author">by Unknown</h2>
-                                  </div>
-                              </div>
-          
-                              <div class="slide">
-                                <div class="slide-content">
-                                  <h2 class="slider-title">Review</h2>
-                                  <h2 class="slider-message">The moderation tools are top-notch, and the support team is always quick to address any issues. 5 stars!</h2>
-                                  <h2 class="slider-author">by Unknown</h2>
                                 </div>
                             </div>
                             <div class="slide">
                                 <div class="slide-content">
-                                  <h2 class="slider-title">Review</h2>
-                                  <h2 class="slider-message">I've been using this bot for a while now, and it just keeps getting better with each update. Keep up the great work!</h2>
-                                  <h2 class="slider-author">by Unknown</h2>
+                                    <h2 class="slider-title">Review</h2>
+                                    <h2 class="slider-message">The moderation tools are top-notch, and the support team is always quick to address any issues. 5 stars!</h2>
+                                    <h2 class="slider-author">by Unknown</h2>
                                 </div>
                             </div>
                             <div class="slide">
                                 <div class="slide-content">
-                                  <h2 class="slider-title">Review</h2>
-                                  <h2 class="slider-message">This bot has revolutionized the way we interact on Discord. From fun games to useful utilities, it has something for everyone.</h2>
-                                  <h2 class="slider-author">by Unknown</h2>
+                                    <h2 class="slider-title">Review</h2>
+                                    <h2 class="slider-message">I've been using this bot for a while now, and it just keeps getting better with each update. Keep up the great work!</h2>
+                                    <h2 class="slider-author">by Unknown</h2>
                                 </div>
                             </div>
                             <div class="slide">
                                 <div class="slide-content">
-                                  <h2 class="slider-title">Review</h2>
-                                  <h2 class="slider-message">I can't imagine running our Discord server without this bot. It's become an essential part of our community.</h2>
-                                  <h2 class="slider-author">by Unknown</h2>
+                                    <h2 class="slider-title">Review</h2>
+                                    <h2 class="slider-message">This bot has revolutionized the way we interact on Discord. From fun games to useful utilities, it has something for everyone.</h2>
+                                    <h2 class="slider-author">by Unknown</h2>
                                 </div>
-                            </div>     
-          
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <h2 class="slider-title">Review</h2>
+                                    <h2 class="slider-message">I can't imagine running our Discord server without this bot. It's become an essential part of our community.</h2>
+                                    <h2 class="slider-author">by Unknown</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="container"><BR><BR><BR><BR><BR><BR><BR></div>
+<div class="feature-container">
+  <div class="feature-box">
+      <div class="feature">
+          <i class="fas fa-user-lock"></i>
+          <h3>Authentication</h3>
+          <p>Marksoft is locked with a secure authentication method that only allows users who are admins in the server.</p>
       </div>
-    </section>
+      <div class="feature">
+          <i class="fas fa-lock"></i>
+          <h3>Security</h3>
+          <p>Marksoft ensures that your application is secure.</p>
+      </div>
+      <div class="feature">
+          <i class="far fa-gem"></i>
+          <h3>Modern UI</h3>
+          <p>Marksoft is built with a modern UI to ensure its ease of use for anyone.</p>
+      </div>
+      <div class="feature">
+          <i class="fab fa-github"></i>
+          <h3>Open Source</h3>
+          <p>Marksoft is an open source project meaning anyone can contribute to make it even better.</p>
+      </div>
+      <div class="feature">
+          <i class="fas fa-bug"></i>
+          <h3>Stability</h3>
+          <p>Running your application using Marksoft ensures that it is stable and you wont have any errors.</p>
+      </div>
+      <div class="feature">
+          <i class="far fa-clock"></i>
+          <h3>24/7 Uptime</h3>
+          <p>Running you application using Marksoft allows you to have 24/7 uptime.</p>
+      </div>
+      <div class="feature">
+          <i class="fas fa-tools"></i>
+          <h3>Multiple Tools</h3>
+          <p>Marksoft is packed with multiple tools that are easy to use.</p>
+      </div>
+      <div class="feature">
+          <i class="fas fa-plug"></i>
+          <h3>Plugins</h3>
+          <p>Develop and share plugins that can be imported into your project.</p>
+      </div>
+      <div class="feature">
+          <i class="fas fa-cubes"></i>
+          <h3>And more</h3>
+          <p>There is loads of features included in Marksoft but we cannot list them all!</p>
+      </div>
+  </div>
+</div>
 
-    <section>
-      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-      <div class="content-container">
-        <br><br><br><br><br><br><br>
-        <div class="product-row">
-          <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
-          <div class="product-text">
+<div class="content-container">
+    <br><br><br>
+    <div class="product-row">
+        <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
+        <div class="product-text">
             <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Advanced Logging</h2>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Maintain a healthy and controlled environment.</p>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Customize logging settings according to your preferences.</p>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p> 
-          </div>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Maintain a healthy and controlled environment.</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Customize logging settings according to your preferences.</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-        <div class="product-row">
-          <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
-          <div class="product-text">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="product-row">
+        <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
+        <div class="product-text">
             <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Design Embeds</h2>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create visually appealing and structured messages using embeds.</p>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Send embeds as your own webhook or save it as a Custom Command!</p>
-              <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
-            </div>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create visually appealing and structured messages using embeds.</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Send embeds as your own webhook or save it as a Custom Command!</p>
+            <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-        <div class="product-row">
-          <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
-          <div class="product-text">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="product-row">
+        <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
+        <div class="product-text">
             <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Create Applications</h2>
             <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
             <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
-          </div>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-        <div class="product-row">
-          <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
-          <div class="product-text">
-            <h2 class="product-title" >Ticket System</h2>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="product-row">
+        <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
+        <div class="product-text">
+            <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Ticket System</h2>
             <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
             <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
-          </div>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-        <div class="product-row">
-          <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
-          <div class="product-text">
-            <h2 class="product-title">Reaction Roles</h2>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="product-row">
+        <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
+        <div class="product-text">
+            <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Reaction Roles</h2>
             <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Allow users to assign themselves roles by reacting to specific messages. </p>
             <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature streamlines the role assignment process and encourages user engagement.</p>
-          </div>
         </div>
-        <br><br><br><br><br><br><br><br><br><br>
-        <div style="padding-top: 150px"></div>
-      </div>
-      
-    </section>
-    
-  </body>
-
-  <% } %>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+    <div style="padding-top: 150px"></div>
 </div>
+</div>
+</section>
+</body> <% } else { %>
+
+<body>
+    <section>
+        <div class="full-height">
+            <div class="section-title-wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center parallax-fade-top">
+                            <p style="font-size: 48px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);"> Marksoft </p>
+                            <h1>The best Multipurpose <br>Discord Bot</h1><br>
+                            <p style="font-size: 13px; text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);"> Serving <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></b> members in <b style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);"><%= bot.guilds.cache.size %></b> guilds servers. </p><br><br>
+                            <div class='buttons flex'>
+                                <a class='button btn btn-blurple' href='/invite'><span><i class="fab fa-discord fa-2x"></i> Add to Discord</span></a>
+                                <a class='button btn btn-default' href='/dashboard'><span><i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard</span></a>
+                            </div>
+                            <br><br><br><br><br><br><br>
+                            <div class="slider-container" style="display: flex; justify-content: center;">
+                                <div class="slider">
+                                    <div class="slider-wrapper">
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">This bot is amazing! It has so many useful features that make managing our Discord server a breeze.</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">I've tried several Discord bots before, but this one stands out with its versatility and reliability. Highly recommended!</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">Incredible bot! It's like having a Swiss Army knife for Discord. It does everything I need and more.</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">Love the customization options and user-friendly interface. This bot has definitely improved our server experience.</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">The moderation tools are top-notch, and the support team is always quick to address any issues. 5 stars!</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">I've been using this bot for a while now, and it just keeps getting better with each update. Keep up the great work!</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">This bot has revolutionized the way we interact on Discord. From fun games to useful utilities, it has something for everyone.</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                        <div class="slide">
+                                            <div class="slide-content">
+                                                <h2 class="slider-title">Review</h2>
+                                                <h2 class="slider-message">I can't imagine running our Discord server without this bot. It's become an essential part of our community.</h2>
+                                                <h2 class="slider-author">by Unknown</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="content-container">
+            <br><br><br><br><br><br><br>
+            <div class="container"><BR><BR><BR><BR><BR><BR><BR></div>
+              <div class="feature-container">
+                <div class="feature-box">
+                    <div class="feature">
+                        <i class="fas fa-user-lock"></i>
+                        <h3>Authentication</h3>
+                        <p>Marksoft is locked with a secure authentication method that only allows users who are admins in the server.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-lock"></i>
+                        <h3>Security</h3>
+                        <p>Marksoft ensures that your application is secure.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="far fa-gem"></i>
+                        <h3>Modern UI</h3>
+                        <p>Marksoft is built with a modern UI to ensure its ease of use for anyone.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fab fa-github"></i>
+                        <h3>Open Source</h3>
+                        <p>Marksoft is an open source project meaning anyone can contribute to make it even better.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-bug"></i>
+                        <h3>Stability</h3>
+                        <p>Running your application using Marksoft ensures that it is stable and you wont have any errors.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="far fa-clock"></i>
+                        <h3>24/7 Uptime</h3>
+                        <p>Running you application using Marksoft allows you to have 24/7 uptime.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-tools"></i>
+                        <h3>Multiple Tools</h3>
+                        <p>Marksoft is packed with multiple tools that are easy to use.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-plug"></i>
+                        <h3>Plugins</h3>
+                        <p>Develop and share plugins that can be imported into your project.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-cubes"></i>
+                        <h3>And more</h3>
+                        <p>There is loads of features included in Marksoft but we cannot list them all!</p>
+                    </div>
+                </div>
+              </div>
+            <div class="product-row">
+                <div class="product-image"><img src="<%= domain %>/cards/logging.png"></div>
+                <div class="product-text">
+                    <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Advanced Logging</h2>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Tailor the bot to log and moderate as per your server's unique requirements.</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(110, 102, 102, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Maintain a healthy and controlled environment.</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Customize logging settings according to your preferences.</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Keep track of server activities with detailed logging options for moderation, server events, member events, and message events.</p>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="product-row">
+                <div class="product-image"><img src="<%= domain %>/cards/embeds.png"></div>
+                <div class="product-text">
+                    <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Design Embeds</h2>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create visually appealing and structured messages using embeds.</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Send embeds as your own webhook or save it as a Custom Command!</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Embeds can include rich media such as images, videos, and links, enhancing the presentation of information within your server.</p>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="product-row">
+                <div class="product-image"><img src="<%= domain %>/cards/application.png"></div>
+                <div class="product-text">
+                    <h2 class="product-title" style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 15px rgb(255, 23, 6);">Create Applications</h2>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Create custom application forms for users to apply for specific roles, access, or privileges within the server</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Applications can be used for various purposes, such as staff recruitment or event participation.</p>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="product-row">
+                <div class="product-image"><img src="<%= domain %>/cards/ticket.png"></div>
+                <div class="product-text">
+                    <h2 class="product-title">Ticket System</h2>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Set up a ticketing system for users to submit inquiries, bug reports, or requests privately.</p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature facilitates efficient communication between server members and staff, ensuring timely resolution of issues.</p>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="product-row">
+                <div class="product-image"><img src="<%= domain %>/cards/rr.png"></div>
+                <div class="product-text">
+                    <h2 class="product-title">Reaction Roles</h2>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> Allow users to assign themselves roles by reacting to specific messages. </p>
+                    <p><span style="text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);">•</span> This feature streamlines the role assignment process and encourages user engagement.</p>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            <div style="padding-top: 150px"></div>
+        </div>
+    </section>
+</body> <% } %> </div>
 <style>
+    .button {
+        background-color: #04AA6D;
+        /* Green */
+        border: none;
+        color: white;
+        padding: 13px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+    }
 
-.button {
-  background-color: #04AA6D; /* Green */
-  border: none;
-  color: white;
-  padding: 13px 30px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
-}
-.button:hover{
-            transform: translateY(-5px); /* Move the image up by 5 pixels on hover */
-        }
-  #myBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.7);
-    width: 50px;
-    height: 50px;
-    display: block;
-    text-decoration: none;
-    -webkit-border-radius: 35px;
-    -moz-border-radius: 35px;
-    border-radius: 35px;
-    display: none;
-    -webkit-transition: all 0.3s linear;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-  }
-  .theme-toggle {
-            margin-top: 20px;
-        }
-  #myBtn i {
-    color: #fff;
-    margin: 0;
-    position: relative;
-    left: 16px;
-    top: 13px;
-    font-size: 19px;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-  }
+    .button:hover {
+        transform: translateY(-5px);
+        /* Move the image up by 5 pixels on hover */
+    }
 
+    #myBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.7);
+        width: 50px;
+        height: 50px;
+        display: block;
+        text-decoration: none;
+        -webkit-border-radius: 35px;
+        -moz-border-radius: 35px;
+        border-radius: 35px;
+        display: none;
+        -webkit-transition: all 0.3s linear;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
 
-  #myBtn:hover {
-    background: rgba(0, 0, 0, 0.9);
-  }
+    .theme-toggle {
+        margin-top: 20px;
+    }
 
-  .btn {
-    border: none;
-    margin: 10px;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 30px;
-    border-radius: 5px;
-    display: inline-block;
-    background-color: var(--secondary-color);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.5s;
-  }
+    #myBtn i {
+        color: #fff;
+        margin: 0;
+        position: relative;
+        left: 16px;
+        top: 13px;
+        font-size: 19px;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
 
-  .btn {
-    border: none;
-    margin: 10px;
-    color: #b3b3b3;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 30px;
-    border-radius: 5px;
-    display: inline-block;
-    background-color: var(--secondary-color);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.5s;
-    
-  }
+    #myBtn:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
 
-  .btn-blurple {
-    background-color: #3b59c7;
-    box-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 51, 145, 0.7), 0 0 15px rgb(0, 51, 145, 0.7);
-  }
+    .btn {
+        border: none;
+        margin: 10px;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 30px;
+        border-radius: 5px;
+        display: inline-block;
+        background-color: var(--secondary-color);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.5s;
+    }
 
-  .btn-default {
-    background-color: #000000;
-    box-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.7);
-  }
+    .btn {
+        border: none;
+        margin: 10px;
+        color: #b3b3b3;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 30px;
+        border-radius: 5px;
+        display: inline-block;
+        background-color: var(--secondary-color);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.5s;
+    }
 
-  .btn i {
-    top: 3px;
-    font-size: 125%;
-    margin: 0 4px 0 0;
-    position: relative;
-  }
+    .btn-blurple {
+        background-color: #3b59c7;
+        box-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 51, 145, 0.7), 0 0 15px rgb(0, 51, 145, 0.7);
+    }
 
-  #myBtn:hover i {
-    color: #005704;
-    top: 5px;
-  }
+    .btn-default {
+        background-color: #000000;
+        box-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.7);
+    }
 
-  /* #images
+    .btn i {
+        top: 3px;
+        font-size: 125%;
+        margin: 0 4px 0 0;
+        position: relative;
+    }
+
+    #myBtn:hover i {
+        color: #005704;
+        top: 5px;
+    }
+
+    /* #images
 ================================================== */
-
-
-  img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    border-radius: 0.6em;
-  }
-
-  @keyframes hover {
-    0% {
-      top: 0px;
+    img {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        border-radius: 0.6em;
     }
 
-    50% {
-      top: 50px;
+    @keyframes hover {
+        0% {
+            top: 0px;
+        }
+
+        50% {
+            top: 50px;
+        }
+
+        100% {
+            top: 0px;
+        }
     }
 
-    100% {
-      top: 0px;
-    }
-  }
-
-  .content-container {
-    width: 100%;
-    max-width: 1150px;
-    padding: 0 20px;
-    margin: 0 auto;
-  }
-
-  .product-row {
-    padding: 120px 0 0;
-    height: 60vh;
-    -webkit-box-align: center;
-    align-items: center;
-  }
-
-  .product-row .product-image {
-    width: 70%;
-    margin: 0 auto;
-    animation: goUpandDown 5s ease-in-out infinite;
-  }
-
-  /* .product-row .product-image:hover {
-	transform: scale(1.1);
-} */
-  body {
-    transition: background 0.3s ease, color 0.3s ease;
-    background: linear-gradient(90deg, #1c1c1d, #464646 50%, #1c1c1d);
-    font-family: Arial, sans-serif;
-    color: #ffffff;
-  }
-
-  @keyframes goUpandDown {
-    0% {
-      -webkit-transform: translatey(+60px);
-      transform: translatey(+60px);
-    }
-
-    50% {
-      -webkit-transform: translatey(+80px);
-      transform: translatey(+80px);
-    }
-
-    100% {
-      -webkit-transform: translatey(+60px);
-      transform: translatey(+60px);
-    }
-  }
-
-
-  .product-row .product-text {
-
-    background: transparent;
-    width: 90%;
-    margin: 10px auto;
-    text-align: center;
-  }
-
-  .product-row .product-title {
-    font-size: 2em;
-    color: #ffffff;
-    font-weight: 700;
-  }
-
-  .product-row p {
-    line-height: 1.5;
-    font-size: 1.2em;
-  }
-
-  .product-row {
-    margin: 1em 0;
-  }
-
-  .product-row::after {
-    content: "";
-    display: block;
-    clear: both;
-    float: none;
-  }
-
-  .product-row:nth-child(odd) {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    flex-direction: row-reverse;
-  }
-
-  @media only screen and (min-width: 800px) {
-
-    .product-row:nth-child(odd) .product-image {
-      padding-left: 5%;
-      padding-right: 0;
+    .content-container {
+        width: 100%;
+        max-width: 1150px;
+        padding: 0 20px;
+        margin: 0 auto;
     }
 
     .product-row {
-      display: -webkit-box;
-      display: flex;
-      margin-bottom: 0;
-      min-height: 380px;
-      -webkit-box-align: center;
-      align-items: center;
+        padding: 120px 0 0;
+        height: 60vh;
+        -webkit-box-align: center;
+        align-items: center;
     }
 
     .product-row .product-image {
-      width: 55%;
-      float: left;
-      -webkit-box-flex: 1;
-      flex: 1 1 55%;
-      padding-right: 5%;
-      max-width: 55% !important;
-      min-width: 320px;
+        width: 70%;
+        margin: 0 auto;
+        animation: goUpandDown 5s ease-in-out infinite;
+    }
+
+    /* .product-row .product-image:hover {
+	transform: scale(1.1);
+} */
+    body {
+        transition: background 0.3s ease, color 0.3s ease;
+        background: linear-gradient(90deg, #1c1c1d, #464646 50%, #1c1c1d);
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+    }
+
+    @keyframes goUpandDown {
+        0% {
+            -webkit-transform: translatey(+60px);
+            transform: translatey(+60px);
+        }
+
+        50% {
+            -webkit-transform: translatey(+80px);
+            transform: translatey(+80px);
+        }
+
+        100% {
+            -webkit-transform: translatey(+60px);
+            transform: translatey(+60px);
+        }
     }
 
     .product-row .product-text {
-      position: relative;
-      width: 45%;
-      text-align: left;
-      float: right;
-      -webkit-box-flex: 1;
-      flex: 1 1 45%;
-      max-width: 45%;
+        background: transparent;
+        width: 90%;
+        margin: 10px auto;
+        text-align: center;
     }
 
-    .product-row .product-text {
-      margin-right: 1em;
+    .product-row .product-title {
+        font-size: 2em;
+        color: #ffffff;
+        font-weight: 700;
     }
-  }
 
-
-
-
-  .odometer {
-    font-size: 13px;
-  }
-
-  .odometer.odometer-auto-theme,
-  .odometer.odometer-theme-default {
-    display: inline-block;
-    vertical-align: middle;
-    vertical-align: auto;
-    zoom: 1;
-    display: inline;
-    position: relative;
-    font-size: 13px;
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit,
-  .odometer.odometer-theme-default .odometer-digit {
-    display: inline-block;
-    vertical-align: middle;
-    vertical-align: auto;
-    zoom: 1;
-    display: inline;
-    position: relative;
-    font-size: 13px;
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer,
-  .odometer.odometer-theme-default .odometer-digit .odometer-digit-spacer {
-    display: inline-block;
-    vertical-align: middle;
-    vertical-align: auto;
-    zoom: 1;
-    display: inline;
-    visibility: hidden;
-    font-size: 13px;
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner,
-  .odometer.odometer-theme-default .odometer-digit .odometer-digit-inner {
-    text-align: left;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    font-size: 13px;
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon,
-  .odometer.odometer-theme-default .odometer-digit .odometer-ribbon {
-    display: block;
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner,
-  .odometer.odometer-theme-default .odometer-digit .odometer-ribbon-inner {
-    display: block;
-    -webkit-backface-visibility: hidden; /* For Safari, Chrome */
-    -moz-backface-visibility: hidden;    /* For Firefox */
-    -ms-backface-visibility: hidden;     /* For Internet Explorer */
-    backface-visibility: hidden;         /* Standard property */
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit .odometer-value,
-  .odometer.odometer-theme-default .odometer-digit .odometer-value {
-    display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);    /* For Firefox */
-    -ms-transform: translateZ(0);     /* For Internet Explorer */
-    -o-transform: translateZ(0);      /* For Opera */
-    transform: translateZ(0);         /* Standard property */
-  }
-
-  .odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value,
-  .odometer.odometer-theme-default .odometer-digit .odometer-value.odometer-last-value {
-    position: absolute;
-  }
-
-  .odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner,
-  .odometer.odometer-theme-default.odometer-animating-up .odometer-ribbon-inner {
-    -webkit-transition: -webkit-transform 2s;
-    -moz-transition: -moz-transform 2s;
-    -ms-transition: -ms-transform 2s;
-    -o-transition: -o-transform 2s;
-    transition: transform 2s;
-  }
-
-  .odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner,
-  .odometer.odometer-theme-default.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
-    -webkit-transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    -o-transform: translateY(-100%);
-    transform: translateY(-100%);
-  }
-
-  .odometer.odometer-auto-theme.odometer-animating-down .odometer-ribbon-inner,
-  .odometer.odometer-theme-default.odometer-animating-down .odometer-ribbon-inner {
-    -webkit-transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    -o-transform: translateY(-100%);
-    transform: translateY(-100%);
-  }
-
-  .odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner,
-  .odometer.odometer-theme-default.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
-    -webkit-transition: -webkit-transform 2s;
-    -moz-transition: -moz-transform 2s;
-    -ms-transition: -ms-transform 2s;
-    -o-transition: -o-transform 2s;
-    transition: transform 2s;
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
-    transform: translateY(0);
-  }
-
-  .odometer.odometer-auto-theme,
-  .odometer.odometer-theme-default {
-    font-family: sans-serif;
-    line-height: 1.1em;
-  }
-
-  .odometer.odometer-auto-theme .odometer-value,
-  .odometer.odometer-theme-default .odometer-value {
-    text-align: center;
-  }
-
-  .fourth {
-    height: 45px;
-    width: 250px;
-    border: 2px solid #ffffff;
-    color: #fff;
-    background-image: linear-gradient(45deg, #ffffff 50%, transparent 50%);
-    background-position: 100%;
-    background-size: 400%;
-    -webkit-transition: background 300ms ease-in-out;
-    transition: background 300ms ease-in-out;
-  }
-
-  .fourth:hover {
-    background-position: 0;
-  }
-
-  .section {
-    position: relative;
-    width: 100%;
-    display: block;
-  }
-
-  .over-hide {
-    overflow: hidden;
-  }
-
-  .full-height {
-    height: 100vh;
-  }
-
-  .login-button {
-    position: relative;
-    /*display: inline-block;*/
-    float: right;
-    margin-top: 37px;
-    margin-right: 10px;
-  }
-
-  .shadow-title {
-    position: fixed;
-    top: 0;
-    margin-top: 30px;
-    left: 20px;
-    width: 100%;
-    height: 300%;
-    text-align: left;
-    font-family: "Muli", sans-serif;
-    -webkit-writing-mode: vertical-lr;
-    writing-mode: vertical-lr;
-    font-size: 18vw;
-    line-height: 1;
-    color: rgba(200, 200, 200, 0.1);
-    background: linear-gradient(90deg,
-        rgba(200, 200, 200, 0),
-        rgba(200, 200, 200, 0.35));
-    -webkit-background-clip: text;        /* For Safari, Chrome */
-    background-clip: text;                /* Standard property */
-    -webkit-text-fill-color: transparent; /* For Safari, Chrome */
-    font-weight: 900;
-    z-index: -1;
-  }
-
-  @keyframes comeUp {
-    from {
-      opacity: 0;
-      bottom: -50px;
+    .product-row p {
+        line-height: 1.5;
+        font-size: 1.2em;
     }
-  }
 
-  .section-parallax {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-    z-index: -2;
-  }
+    .product-row {
+        margin: 1em 0;
+    }
 
-  button:focus {
-    outline: none;
-  }
+    .product-row::after {
+        content: "";
+        display: block;
+        clear: both;
+        float: none;
+    }
 
-  .section.z-bigger {
-    z-index: 100;
-  }
+    .product-row:nth-child(odd) {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        flex-direction: row-reverse;
+    }
 
-  .button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-
-  .button span:after {
-    font-size: 25px;
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: -3px;
-    right: -20px;
-    transition: 0.5s;
-  }
-
-  .button:hover span {
-    padding-right: 25px;
-  }
-
-  .button:hover span:after {
-    opacity: 1;
-    right: 0;
-  }
-
-  .section.z-bigger-2 {
-    z-index: 200;
-  }
-
-  .section-title-wrap {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    transform: translateY(-50%);
-    z-index: 3;
-  }
-
-  .section-title-wrap p {
-    letter-spacing: 2px;
-    font-size: 1.7em;
-    font-weight: 700;
-    padding: 0;
-    color: #ffffff;
-  }
-
-  .section-title-wrap h1 {
-    margin: 0;
-    padding: 0;
-    font-size: 3.5vw;
-    letter-spacing: 8px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .padding-top-bottom {
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-
-  .background-dark {
-    background-color: #ffffff;
-  }
-  .slider {
-            width: 70%; /* Fixed width */
-            height: 260px; /* Increased height to accommodate padding */
-            overflow: hidden;
-            position: relative;
-            border: 1px solid #ddd;
-            border-radius: 20px; /* Rounded corners */
-            padding: 20px 0; /* Added padding on top and bottom */
+    @media only screen and (min-width: 800px) {
+        .product-row:nth-child(odd) .product-image {
+            padding-left: 5%;
+            padding-right: 0;
         }
 
-        .slider-wrapper {
+        .product-row {
+            display: -webkit-box;
             display: flex;
-            flex-wrap: nowrap;
-            height: 100%;
-            animation: slide 50s linear infinite; /* Increased duration to 30s */
-        }
-
-        .slide {
-            min-width: 260px; /* Reduced width */
-            box-sizing: border-box;
-            padding: 20px;
-            margin: 0 30px; /* Increased margin between slides */
-            text-align: center;
-            background: #f1f1f1;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
+            margin-bottom: 0;
+            min-height: 380px;
+            -webkit-box-align: center;
             align-items: center;
-            border-radius: 20px; /* Rounded corners */
         }
-        .slider-title {
+
+        .product-row .product-image {
+            width: 55%;
+            float: left;
+            -webkit-box-flex: 1;
+            flex: 1 1 55%;
+            padding-right: 5%;
+            max-width: 55% !important;
+            min-width: 320px;
+        }
+
+        .product-row .product-text {
+            position: relative;
+            width: 45%;
+            text-align: left;
+            float: right;
+            -webkit-box-flex: 1;
+            flex: 1 1 45%;
+            max-width: 45%;
+        }
+
+        .product-row .product-text {
+            margin-right: 1em;
+        }
+    }
+
+    .odometer {
+        font-size: 13px;
+    }
+
+    .odometer.odometer-auto-theme,
+    .odometer.odometer-theme-default {
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: auto;
+        zoom: 1;
+        display: inline;
+        position: relative;
+        font-size: 13px;
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit,
+    .odometer.odometer-theme-default .odometer-digit {
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: auto;
+        zoom: 1;
+        display: inline;
+        position: relative;
+        font-size: 13px;
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer,
+    .odometer.odometer-theme-default .odometer-digit .odometer-digit-spacer {
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: auto;
+        zoom: 1;
+        display: inline;
+        visibility: hidden;
+        font-size: 13px;
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner,
+    .odometer.odometer-theme-default .odometer-digit .odometer-digit-inner {
+        text-align: left;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        font-size: 13px;
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon,
+    .odometer.odometer-theme-default .odometer-digit .odometer-ribbon {
+        display: block;
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner,
+    .odometer.odometer-theme-default .odometer-digit .odometer-ribbon-inner {
+        display: block;
+        -webkit-backface-visibility: hidden;
+        /* For Safari, Chrome */
+        -moz-backface-visibility: hidden;
+        /* For Firefox */
+        -ms-backface-visibility: hidden;
+        /* For Internet Explorer */
+        backface-visibility: hidden;
+        /* Standard property */
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit .odometer-value,
+    .odometer.odometer-theme-default .odometer-digit .odometer-value {
+        display: block;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        /* For Firefox */
+        -ms-transform: translateZ(0);
+        /* For Internet Explorer */
+        -o-transform: translateZ(0);
+        /* For Opera */
+        transform: translateZ(0);
+        /* Standard property */
+    }
+
+    .odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value,
+    .odometer.odometer-theme-default .odometer-digit .odometer-value.odometer-last-value {
+        position: absolute;
+    }
+
+    .odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner,
+    .odometer.odometer-theme-default.odometer-animating-up .odometer-ribbon-inner {
+        -webkit-transition: -webkit-transform 2s;
+        -moz-transition: -moz-transform 2s;
+        -ms-transition: -ms-transform 2s;
+        -o-transition: -o-transform 2s;
+        transition: transform 2s;
+    }
+
+    .odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner,
+    .odometer.odometer-theme-default.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+
+    .odometer.odometer-auto-theme.odometer-animating-down .odometer-ribbon-inner,
+    .odometer.odometer-theme-default.odometer-animating-down .odometer-ribbon-inner {
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+
+    .odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner,
+    .odometer.odometer-theme-default.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
+        -webkit-transition: -webkit-transform 2s;
+        -moz-transition: -moz-transform 2s;
+        -ms-transition: -ms-transform 2s;
+        -o-transition: -o-transform 2s;
+        transition: transform 2s;
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    .odometer.odometer-auto-theme,
+    .odometer.odometer-theme-default {
+        font-family: sans-serif;
+        line-height: 1.1em;
+    }
+
+    .odometer.odometer-auto-theme .odometer-value,
+    .odometer.odometer-theme-default .odometer-value {
+        text-align: center;
+    }
+
+    .fourth {
+        height: 45px;
+        width: 250px;
+        border: 2px solid #ffffff;
+        color: #fff;
+        background-image: linear-gradient(45deg, #ffffff 50%, transparent 50%);
+        background-position: 100%;
+        background-size: 400%;
+        -webkit-transition: background 300ms ease-in-out;
+        transition: background 300ms ease-in-out;
+    }
+
+    .fourth:hover {
+        background-position: 0;
+    }
+
+    .section {
+        position: relative;
+        width: 100%;
+        display: block;
+    }
+
+    .over-hide {
+        overflow: hidden;
+    }
+
+    .full-height {
+        height: 100vh;
+    }
+
+    .login-button {
+        position: relative;
+        /*display: inline-block;*/
+        float: right;
+        margin-top: 37px;
+        margin-right: 10px;
+    }
+
+    .shadow-title {
         position: fixed;
-        top: 10px; /* Adjust the top position as needed */
+        top: 0;
+        margin-top: 30px;
+        left: 20px;
+        width: 100%;
+        height: 300%;
+        text-align: left;
+        font-family: "Muli", sans-serif;
+        -webkit-writing-mode: vertical-lr;
+        writing-mode: vertical-lr;
+        font-size: 18vw;
+        line-height: 1;
+        color: rgba(200, 200, 200, 0.1);
+        background: linear-gradient(90deg,
+                rgba(200, 200, 200, 0),
+                rgba(200, 200, 200, 0.35));
+        -webkit-background-clip: text;
+        /* For Safari, Chrome */
+        background-clip: text;
+        /* Standard property */
+        -webkit-text-fill-color: transparent;
+        /* For Safari, Chrome */
+        font-weight: 900;
+        z-index: -1;
+    }
+
+    @keyframes comeUp {
+        from {
+            opacity: 0;
+            bottom: -50px;
+        }
+    }
+
+    .section-parallax {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        z-index: -2;
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    .section.z-bigger {
+        z-index: 100;
+    }
+
+    .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+    .button span:after {
+        font-size: 25px;
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: -3px;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+    .button:hover span {
+        padding-right: 25px;
+    }
+
+    .button:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+
+    .section.z-bigger-2 {
+        z-index: 200;
+    }
+
+    .section-title-wrap {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+        z-index: 3;
+    }
+
+    .section-title-wrap p {
+        letter-spacing: 2px;
+        font-size: 1.7em;
+        font-weight: 700;
+        padding: 0;
+        color: #ffffff;
+    }
+
+    .section-title-wrap h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 3.5vw;
+        letter-spacing: 8px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .padding-top-bottom {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    .background-dark {
+        background-color: #ffffff;
+    }
+
+    .slider {
+        width: 70%;
+        /* Fixed width */
+        height: 260px;
+        /* Increased height to accommodate padding */
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        /* Rounded corners */
+        padding: 20px 0;
+        /* Added padding on top and bottom */
+    }
+
+    .slider-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        height: 100%;
+        animation: slide 50s linear infinite;
+        /* Increased duration to 30s */
+    }
+
+    .slide {
+        min-width: 260px;
+        /* Reduced width */
+        box-sizing: border-box;
+        padding: 20px;
+        margin: 0 30px;
+        /* Increased margin between slides */
+        text-align: center;
+        background: #f1f1f1;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        /* Rounded corners */
+    }
+
+    .slider-title {
+        position: fixed;
+        top: 10px;
+        /* Adjust the top position as needed */
         text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);
         width: 100%;
         text-align: center;
         padding: 10px 0;
-        z-index: 1000; /* Ensure the title stays on top of the slider */
+        z-index: 1000;
+        /* Ensure the title stays on top of the slider */
     }
-    .slider-author{
-      position:fixed;
-      bottom: 5px;
-      text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);
+
+    .slider-author {
+        position: fixed;
+        bottom: 5px;
+        text-shadow: 0 0 5px rgba(168, 168, 168, 0.5), 0 0 10px rgba(0, 255, 64, 0.7), 0 0 15px rgb(0, 255, 64, 0.7);
     }
-        .slide-content {
+
+    .slide-content {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -923,101 +1003,121 @@
         text-align: center;
         height: 100%;
     }
+
     .slider-message {
-      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      font-style:italic;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-style: italic;
     }
+
     .slide-content h2 {
         margin: 0;
     }
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .feature-container {
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        .feature-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .feature {
+            padding: 20px;
+            text-align: center;
+        }
+        .feature i {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #007bff; /* Change the color as needed */
+        }
+        .feature h3 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .feature p{
+          font-size: 14px;
+          text-align: left;
         }
 </style>
 <br>
 <br>
-
 <script>
-  // ===== Scroll to Top ==== 
-  $(window).scroll(function() {
-    if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
-      $('#return-to-top').fadeIn(200); // Fade in the arrow
-    } else {
-      $('#return-to-top').fadeOut(200); // Else fade out the arrow
+    // ===== Scroll to Top ==== 
+    $(window).scroll(function() {
+        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200); // Fade in the arrow
+        } else {
+            $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function() { // When arrow is clicked
+        $('body,html').animate({
+            scrollTop: 0 // Scroll to top of body
+        }, 500);
+    });
+</script>
+<script>
+    function randomNum2(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-  });
-  $('#return-to-top').click(function() { // When arrow is clicked
-    $('body,html').animate({
-      scrollTop: 0 // Scroll to top of body
-    }, 500);
-  });
-</script>
-
-<script>
-  function randomNum2(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-
-
-  var myInt = setInterval(function() {
-    var size = document.getElementById("size").value || `180000`;
-    var max2 = parseInt(size) + 2000
-    var random2 = randomNum2(parseInt(size), parseInt(max2));
-
-    odometer.innerHTML = random2
-  }, 2000);
+    var myInt = setInterval(function() {
+        var size = document.getElementById("size").value || `180000`;
+        var max2 = parseInt(size) + 2000
+        var random2 = randomNum2(parseInt(size), parseInt(max2));
+        odometer.innerHTML = random2
+    }, 2000);
 </script>
 <script>
-  function randomNum(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  var myInt = setInterval(function() {
-
-    var size2 = document.getElementById("size2").value;
-    var max = parseInt(size2) + 10
-    var random = randomNum(parseInt(size2), parseInt(max));
-    odometer2.innerHTML = random
-
-  }, 2000);
+    function randomNum(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var myInt = setInterval(function() {
+        var size2 = document.getElementById("size2").value;
+        var max = parseInt(size2) + 10
+        var random = randomNum(parseInt(size2), parseInt(max));
+        odometer2.innerHTML = random
+    }, 2000);
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-      const sliderWrapper = document.querySelector('.slider-wrapper');
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const slideWidth = slides[0].offsetWidth + 20; // Adjust margin as needed
-      const totalWidth = slideWidth * slides.length;
-
-      // Clone slides to create infinite loop effect
-      slides.forEach(slide => {
-          const clone = slide.cloneNode(true);
-          sliderWrapper.appendChild(clone);
-      });
-
-      // Set slider wrapper width
-      sliderWrapper.style.width = `${totalWidth}px`;
-
-      // Define animation function
-      const animateSlider = () => {
-          sliderWrapper.style.transition = 'transform 1s ease-in-out';
-          sliderWrapper.style.transform = `translateX(-${slideWidth}px)`;
-
-          // Reset the position to the beginning after animation ends
-          setTimeout(() => {
-              sliderWrapper.style.transition = 'none';
-              sliderWrapper.style.transform = 'translateX(0)';
-              setTimeout(() => {
-                  sliderWrapper.style.transition = 'transform 1s ease-in-out';
-              });
-          }, 1000); // Adjust delay based on animation duration
-      };
-
-      // Call the animation function at regular intervals
-      setInterval(animateSlider, 3000); // Adjust the interval time as needed
-  });
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const slides = Array.from(document.querySelectorAll('.slide'));
+        const slideWidth = slides[0].offsetWidth + 20; // Adjust margin as needed
+        const totalWidth = slideWidth * slides.length;
+        // Clone slides to create infinite loop effect
+        slides.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            sliderWrapper.appendChild(clone);
+        });
+        // Set slider wrapper width
+        sliderWrapper.style.width = `${totalWidth}px`;
+        // Define animation function
+        const animateSlider = () => {
+            sliderWrapper.style.transition = 'transform 1s ease-in-out';
+            sliderWrapper.style.transform = `translateX(-${slideWidth}px)`;
+            // Reset the position to the beginning after animation ends
+            setTimeout(() => {
+                sliderWrapper.style.transition = 'none';
+                sliderWrapper.style.transform = 'translateX(0)';
+                setTimeout(() => {
+                    sliderWrapper.style.transition = 'transform 1s ease-in-out';
+                });
+            }, 1000); // Adjust delay based on animation duration
+        };
+        // Call the animation function at regular intervals
+        setInterval(animateSlider, 3000); // Adjust the interval time as needed
+    });
 </script>
-<script src='https://github.hubspot.com/odometer/odometer.js'></script>
-<%- include("partials/mainfooter") %>
-<%- include("partials/footer") %>
+<script src='https://github.hubspot.com/odometer/odometer.js'></script> <%- include("partials/mainfooter") %> <%- include("partials/footer") %>
