@@ -1541,7 +1541,7 @@ body {
 .sep {
     width: 100%;
     height: 2px;
-    background: linear-gradient(to right, #2f313600, #2f3136, #2f313600);
+    background: linear-gradient(90deg, #1c1c1d, #464646 50%, #1c1c1d);
 }
 
 .imgParent {
