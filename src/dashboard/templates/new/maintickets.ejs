@@ -60,7 +60,7 @@
                 </div> <% }  %> <h2 class="tickets-header" style="font-family: 'Cairo', sans-serif">Main Settings</h2>
                 <br>
                 <p>Welcome Message <a href="/variables" style="color: red">(Check Variables Here)</a></p>
-<% if(settings.isPremium === "true") { %>}
+<% if(settings.isPremium === "true") { %>
                 <textarea style="max-width: 380px; min-width: 380px; height:150px; 
 max-height:200px; min-height:60px; background-color: #2f2f2f; color: white;" id="textarea5" rows="3" name="ticketWelcomeMessage" class="form-control" required><%= ticket.ticketWelcomeMessage || `Hey {user} Welcome to your ticket!\n\nThank you for creating a ticket, the support team will be with you shortly\n\nIn the mean time, please explain your issue below `%></textarea>
 <% } else { %>
@@ -103,7 +103,7 @@ max-height:200px; min-height:60px; background-color: #2f2f2f; color: white;" id=
                     <bold>Reaction Title</bold>
                 </p>
                 <div class="user-box">
-                    <% if(settings.isPremium === "true") { %>}
+                    <% if(settings.isPremium === "true") { %>
                     <input type="text" style="width: 400px; min-width: 400px; max-width: 400px;background-color: #2f2f2f; color: white; border-radius: 5px;" class="form-control" name="reactionTitle" value="<%= ticket.ticketTitle || `Server Tickets` %>" placeholder="Reaction Title">
                     <% } else { %>
                         <input disabled type="text" style="width: 400px; min-width: 400px; max-width: 400px;background-color: #2f2f2f; color: white; border-radius: 5px;" class="form-control" name="reactionTitle" value="<%= ticket.ticketTitle || `Server Tickets` %>" placeholder="Reaction Title">
@@ -114,7 +114,7 @@ max-height:200px; min-height:60px; background-color: #2f2f2f; color: white;" id=
                 <p>
                     <bold>Reaction description</bold>(Max 1024)
                 </p>
-                <% if(settings.isPremium === "true") { %>}
+                <% if(settings.isPremium === "true") { %>
                 <textarea style="background-color: #2f2f2f; color: white; border-radius: 5px; width: 400px; min-width: 400px; max-width: 400px; height: 70px; min-height: 70px; max-height: 150px" ; id="textarea6" rows="3" name="reactionDescription" class="form-control" required><%= ticket.ticketDescription || `Please react to open a ticket!`%></textarea>
                 <% } else { %>
                     <textarea disabled style="background-color: #2f2f2f; color: white; border-radius: 5px; width: 400px; min-width: 400px; max-width: 400px; height: 70px; min-height: 70px; max-height: 150px" ; id="textarea6" rows="3" name="reactionDescription" class="form-control" required><%= ticket.ticketDescription || `Please react to open a ticket!`%></textarea>

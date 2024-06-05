@@ -71,10 +71,11 @@ module.exports = class extends Command {
       Aliases -- ${message.client.aliases.size}
     `;
     const devs = stripIndent`
-     -------
      ${language.MarksoftDevelopers}
+
     • Thomas#3267
-    -------
+    • ChatGPT
+    
     `;
     const embed = new MessageEmbed()
       .setAuthor(
