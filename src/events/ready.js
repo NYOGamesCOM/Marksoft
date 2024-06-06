@@ -3,6 +3,8 @@ const Event = require("../structures/Event");
 const Discord = require("discord.js");
 const config = require("../../config.json");
 const Guild = require("../database/schemas/Guild");
+const WelcomeModule = require("../database/schemas/welcome");
+const LeaveModule = require("../database/schemas/leave");
 const { WebhookClient } = require("discord.js");
 const premiumrip = new WebhookClient({ url: config.webhooks.premium });
 const Message = require("../utils/other/message");
@@ -75,6 +77,22 @@ module.exports = class extends Event {
               result.premium.expiresAt = null;
               result.premium.plan = null;
 
+              // Update the welcome message in the welcome module
+              const welcomeConfig = await WelcomeModule.findOne({ guildId: result.guildId });
+              if (welcomeConfig) {
+                welcomeConfig.welcomeMessage = "Welcome {user} to {guild}! We now have {memberCount} Members!";
+                await welcomeConfig.save().catch(() => { });
+              }
+
+              // Update the leave message in the leave module
+              const leaveConfig = await LeaveModule.findOne({ guildId: result.guildId });
+              if (leaveConfig) {
+                leaveConfig.leaveMessage = "[ {user_tag} ] just left [ {guild} ], we now have {memberCount} Members!";
+                await leaveConfig.save().catch(() => { });
+              }
+              
+              // Reset suggestion footer message
+              result.suggestion.footer = "Suggested by {user_tag}";
               await result.save().catch(() => { });
             }
           }

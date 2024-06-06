@@ -189,7 +189,7 @@ module.exports = class extends Event {
                 message.author
               }\n\n${
                 number === 1
-                  ? "*Did You know that Chaotichas its own dashboard? `https://marksoft.ro`*"
+                  ? "*Did You know that Marksoft has its own dashboard? `https://marksoft.ro`*"
                   : ""
               }${
                 number === 2
@@ -243,7 +243,7 @@ module.exports = class extends Event {
                 `${message.author.tag}`,
                 message.author.displayAvatarURL({ dynamic: true }),
               )
-              .setTitle(`<:wrong:822376943763980348> Missing User Permissions`)
+              .setTitle(`:x: Missing User Permissions`)
               .setDescription(
                 `Command Name: **${
                   command.name

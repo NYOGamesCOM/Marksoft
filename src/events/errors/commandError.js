@@ -16,7 +16,7 @@ module.exports = class extends Event {
     ) {
       message.channel
         .sendCustom(
-          `${message.client.emoji.fail} Hey! An error just occured, make sure to report it @ !support`
+          `:x: Hey! An error just occured, make sure to report it @ !support`
         )
         .catch(() => { });
     }
