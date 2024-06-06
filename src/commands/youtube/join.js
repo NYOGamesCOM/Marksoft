@@ -35,7 +35,7 @@ module.exports = class extends Command {
       embeds: [
         new MessageEmbed()
           .setColor("GREEN")
-          .setDescription("Joined the voice channel!"),
+          .setDescription(`Joined the voice channel: **${message.member.voice.channel.name}**!`),
       ],
     });
   }

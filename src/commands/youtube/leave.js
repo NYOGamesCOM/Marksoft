@@ -21,7 +21,7 @@ module.exports = class extends Command {
       message.channel.send({
         embeds: [
           new MessageEmbed()
-            .setColor("GREEN")
+            .setColor("RED")
             .setDescription("Left the voice channel."),
         ],
       });

@@ -19,12 +19,11 @@ module.exports = class extends Command {
     if (connection) {
       const player = connection.state.subscription.player;
       player.stop();
-      connection.destroy();
       message.channel.send({
         embeds: [
           new MessageEmbed()
-            .setColor("GREEN")
-            .setDescription("Stopped playing and left the voice channel."),
+            .setColor("RED")
+            .setDescription("Stopped playing"),
         ],
       });
     } else {
