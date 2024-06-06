@@ -20,8 +20,12 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor("#FF0000")
           .setTitle("Premium Status")
-          .setDescription("This guild does not have a premium subscription.")
-          .setTimestamp();
+          .setDescription(`**${message.guild.name}** does not have a premium subscription.`);
+          embed.setFooter({
+            text: `Requested by ${message.author.username}`,
+            iconURL: message.author.displayAvatarURL({ dynamic: true }),
+          });
+          embed.setTimestamp();
         return message.channel.sendCustom({ embeds: [embed] });    
       }
 
@@ -33,8 +37,12 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor("#FF0000")
           .setTitle("Premium Status")
-          .setDescription("This guild's premium subscription has expired.")
-          .setTimestamp();
+          .setDescription(`**${message.guild.name}** premium subscription has expired.`);
+          embed.setFooter({
+            text: `Requested by ${message.author.username}`,
+            iconURL: message.author.displayAvatarURL({ dynamic: true }),
+          });
+          embed.setTimestamp();
         return message.channel.sendCustom({ embeds: [embed] });    
       }
 
@@ -45,8 +53,16 @@ module.exports = class extends Command {
       const embed = new MessageEmbed()
         .setColor("#00FF00")
         .setTitle("Premium Status")
-        .setDescription(`This guild is premium.\nExpires in: ${daysRemaining} days, ${hoursRemaining} hours, and ${minutesRemaining} minutes.\nExpiry Date: ${expiresAt.toDateString()}`)
-        .setTimestamp();
+        .setDescription(`**${message.guild.name}** is premium.\n
+        Expires in: ${daysRemaining} days, ${hoursRemaining} hours, and ${minutesRemaining} minutes.
+        Expiry Date: ${expiresAt.toDateString()}
+        Plan: ${guildConfig.premium.plan}
+        Receipt: ${guildConfig._id}\n`);
+        embed.setFooter({
+          text: `Requested by ${message.author.username}`,
+          iconURL: message.author.displayAvatarURL({ dynamic: true }),
+        });
+        embed.setTimestamp();
       return message.channel.sendCustom({ embeds: [embed] });    
     } catch (error) {
       console.error(error);
