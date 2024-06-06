@@ -9,6 +9,7 @@ module.exports = class extends Command {
       description: "Checks if the guild is premium and shows the remaining time and expiry date.",
       category: "Premium",
       guildOnly: true,
+      userPermission: ["MANAGE_GUILD"],
     });
   }
 
