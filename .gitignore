@@ -3,6 +3,7 @@ src/assets/logs/Marksoft.log
 config.json
 node_modules
 .env
+.env.template
 package-lock.json
 package.json
 w
