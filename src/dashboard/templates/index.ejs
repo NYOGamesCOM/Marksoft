@@ -1,8 +1,35 @@
 <%- include("partials/head", {bot, user, path, description, title: "Marksoft - Home" , url, image }) %>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
+<div class="cookie-popup" id="cookiePopup">
+    <span>This website uses cookies to ensure you get the best experience. By continuing to use this site, you accept our use of cookies.</span>
+    <button onclick="acceptCookies()">Accept</button>
+    <button onclick="rejectCookies()">Reject</button>
+</div>
+<script>
+    // Check if the user has already made a decision
+    window.onload = function() {
+        if (localStorage.getItem("cookieAccepted")) {
+            document.getElementById("cookiePopup").style.display = "none";
+        } else {
+            document.getElementById("cookiePopup").style.display = "block";
+        }
+    };
+    // Function to set a flag indicating that the user has accepted cookies
+    function acceptCookies() {
+        localStorage.setItem("cookieAccepted", true);
+        document.getElementById("cookiePopup").style.display = "none";
+        document.cookie = "cookieBy= Marksoft; max=age=" + 60 * 60 * 24 *30; 
+    }
+    // Function to set a flag indicating that the user has rejected cookies
+    function rejectCookies() {
+        localStorage.setItem("cookieAccepted", false);
+        document.getElementById("cookiePopup").style.display = "none";
+        // Here you can add your code to handle the case when the user rejects cookies
+    }
+</script>
+
 <div class="page-content">
     <input style="display: none" type="text" value="<%=  bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %>" id="size">
     <input style="display: none" type="text" value="<%= bot.guilds.cache.size %>" id="size2"> <% if (user) { %> <div class="full-height">
@@ -1050,6 +1077,35 @@
           font-size: 14px;
           text-align: left;
         }
+
+        .cookie-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            z-index: 10000; /* Adjust z-index to ensure it appears on top */
+        }
+        .cookie-popup button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .cookie-popup button:hover {
+            background-color: #45a049;
+        }
+        .cookie-popup span {
+            display: block;
+            margin-bottom: 10px;
 </style>
 <br>
 <br>
@@ -1120,4 +1176,8 @@
         setInterval(animateSlider, 3000); // Adjust the interval time as needed
     });
 </script>
-<script src='https://github.hubspot.com/odometer/odometer.js'></script> <%- include("partials/mainfooter") %> <%- include("partials/footer") %>
+
+<script src='https://github.hubspot.com/odometer/odometer.js'></script>
+
+<%- include("partials/mainfooter") %>
+<%- include("partials/footer") %>
