@@ -20,7 +20,12 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("You need to join a voice channel first!"),
+            .setDescription("You need to join a voice channel first!")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     }
@@ -35,7 +40,12 @@ module.exports = class extends Command {
       embeds: [
         new MessageEmbed()
           .setColor("GREEN")
-          .setDescription(`Joined the voice channel: **${message.member.voice.channel.name}**!`),
+          .setDescription(`Joined the voice channel: **${message.member.voice.channel.name}**!`)
+          .setFooter({
+            text: `Requested by ${message.author.username}`,
+            iconURL: message.author.displayAvatarURL({ dynamic: true }),
+          })
+          .setTimestamp(),
       ],
     });
   }

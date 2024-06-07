@@ -22,7 +22,12 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("Left the voice channel."),
+            .setDescription("Left the voice channel.")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     } else {
@@ -30,7 +35,12 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("I am not in a voice channel."),
+            .setDescription("I am not in a voice channel.")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     }

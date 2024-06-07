@@ -19,11 +19,18 @@ module.exports = class extends Command {
     if (connection) {
       const player = connection.state.subscription.player;
       player.stop();
+      connection.destroy();
+      
       message.channel.send({
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("Stopped playing"),
+            .setDescription("Stopped playing")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     } else {
@@ -31,7 +38,12 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("I am not playing anything."),
+            .setDescription("I am not playing anything.")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     }
