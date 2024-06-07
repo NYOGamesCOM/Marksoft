@@ -1,3 +1,4 @@
+// Importing required modules
 const Event = require("../../structures/Event");
 const Logging = require("../../database/schemas/logging");
 const discord = require("discord.js");
