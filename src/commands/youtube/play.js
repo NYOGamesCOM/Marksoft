@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const ytdl = require("ytdl-core");
-const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, getVoiceConnection } = require('@discordjs/voice');
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -16,15 +16,18 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    // Delete the user's message
-    message.delete().catch(err => console.error('Failed to delete the message:', err));
 
     if (!message.member.voice.channel) {
       return message.channel.send({
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("You need to join a voice channel first!"),
+            .setDescription("You need to join a voice channel first!")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     }
@@ -34,7 +37,12 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("Please provide a valid YouTube URL."),
+            .setDescription("Please provide a valid YouTube URL.")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     }
@@ -51,6 +59,8 @@ module.exports = class extends Command {
       const resource = createAudioResource(stream);
       const player = createAudioPlayer();
 
+      let volume = 1.0; // Default volume
+
       player.on(AudioPlayerStatus.Playing, () => {
         const embed = new MessageEmbed()
           .setColor("GREEN")
@@ -65,16 +75,34 @@ module.exports = class extends Command {
           })
           .setTimestamp();
 
-        message.channel.send({ embeds: [embed] });
+        const row = new MessageActionRow()
+          .addComponents(
+            new MessageButton()
+              .setCustomId('volume_down')
+              .setLabel('-')
+              .setStyle('DANGER'),
+            new MessageButton()
+              .setCustomId('volume_up')
+              .setLabel('+')
+              .setStyle('SUCCESS')
+          );
+
+        message.channel.send({ embeds: [embed], components: [row] });
       });
 
       player.on(AudioPlayerStatus.Idle, () => {
         player.stop();
+        connection.destroy();
         message.channel.send({
           embeds: [
             new MessageEmbed()
               .setColor("GREEN")
-              .setDescription("Finished playing."),
+              .setDescription("Finished playing.")
+              .setFooter({
+                text: `Requested by ${message.author.username}`,
+                iconURL: message.author.displayAvatarURL({ dynamic: true }),
+              })
+              .setTimestamp(),
           ],
         });
       });
@@ -87,20 +115,48 @@ module.exports = class extends Command {
           embeds: [
             new MessageEmbed()
               .setColor("RED")
-              .setDescription("An error occurred while playing the audio."),
+              .setDescription("An error occurred while playing the audio.")
+              .setFooter({
+                text: `Requested by ${message.author.username}`,
+                iconURL: message.author.displayAvatarURL({ dynamic: true }),
+              })
+              .setTimestamp(),
           ],
         });
       });
 
       connection.subscribe(player);
       player.play(resource);
+
+      const filter = i => i.customId === 'volume_up' || i.customId === 'volume_down';
+      const collector = message.channel.createMessageComponentCollector({ filter, time: songInfo.videoDetails.lengthSeconds * 1000 });
+
+      collector.on('collect', async i => {
+        if (i.customId === 'volume_up') {
+          volume = Math.min(volume + 0.1, 2.0); // Increase volume, max 2.0
+        } else if (i.customId === 'volume_down') {
+          volume = Math.max(volume - 0.1, 0.1); // Decrease volume, min 0.1
+        }
+        resource.volume.setVolume(volume); // Adjust volume
+        await i.update({ content: `Volume: ${(volume * 100).toFixed(0)}%`, components: [] });
+      });
+
+      collector.on('end', collected => {
+        message.channel.send({ content: 'Volume control ended.', components: [] });
+      });
+
     } catch (error) {
       console.error(error);
       message.channel.send({
         embeds: [
           new MessageEmbed()
             .setColor("RED")
-            .setDescription("Failed to play the song. Please ensure the URL is correct."),
+            .setDescription("Failed to play the song. Please ensure the URL is correct.")
+            .setFooter({
+              text: `Requested by ${message.author.username}`,
+              iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp(),
         ],
       });
     }

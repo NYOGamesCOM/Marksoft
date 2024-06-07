@@ -15,7 +15,6 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    message.delete().catch(err => console.error('Failed to delete the message:', err));
 
     if (!args[0] || isNaN(args[0]) || args[0] < 0 || args[0] > 100) {
       return message.channel.send({
