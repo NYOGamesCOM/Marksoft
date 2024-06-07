@@ -33,40 +33,52 @@ module.exports = class extends Event {
           let color = logging.server_events.color;
           if (color == "#000000") color = newRole.client.color.green;
 
-          if (logging.server_events.role_update == "true") {
-            const embed = new discord.MessageEmbed()
-              .setDescription(`:pencil: ***Role Updated***`)
+          const embed = new discord.MessageEmbed()
+            .setDescription(`:pencil: ***Role Updated:*** ${oldRole.name}`)
+            .setFooter({ text: `Role ID: ${newRole.id}` })
+            .setTimestamp()
+            .setColor(color);
 
-              .setFooter({ text: `Role ID: ${newRole.id}` })
-              .setTimestamp()
-              .setColor(color);
+          // Check for name update
+          if (oldRole.name !== newRole.name) {
+            embed.addField("Name Update", `${oldRole.name} --> ${newRole.name}`, true);
+          }
 
-            if (oldRole.name !== newRole.name) {
-              embed.addField(
-                "Name Update",
-                `${oldRole.name} --> ${newRole.name}`,
-                true
-              );
-            } else {
-              embed.addField("Name Update", `Name not updated`, true);
-            }
+          // Check for color update
+          if (oldRole.color !== newRole.color) {
+            embed.addField(
+              "Color Update",
+              `#${makehex(oldRole.color)} --> #${makehex(newRole.color)}`,
+              true
+            );
+          }
 
-            if (oldRole.color !== newRole.color) {
-              embed.addField(
-                "Color Update",
-                `#${makehex(oldRole.color)} --> #${makehex(newRole.color)}`,
-                true
-              );
-            }
+          // Check for mentionable update
+          if (oldRole.mentionable !== newRole.mentionable) {
+            embed.addField(
+              "Mentionable",
+              `${oldRole.mentionable} --> ${newRole.mentionable}`,
+              true
+            );
+          }
 
-            if (oldRole.mentionable !== newRole.mentionable) {
-              embed.addField(
-                "mentionable",
-                `${oldRole.mentionable} --> ${newRole.mentionable}`,
-                true
-              );
-            }
+          // Check for permission updates
+          const oldPermissions = oldRole.permissions.toArray().sort();
+          const newPermissions = newRole.permissions.toArray().sort();
 
+          const addedPermissions = newPermissions.filter(permission => !oldPermissions.includes(permission));
+          const removedPermissions = oldPermissions.filter(permission => !newPermissions.includes(permission));
+
+          if (addedPermissions.length > 0) {
+            embed.addField("Added Permissions", addedPermissions.join(", "), true);
+          }
+
+          if (removedPermissions.length > 0) {
+            embed.addField("Removed Permissions", removedPermissions.join(", "), true);
+          }
+
+          // Send the embed if there are updates
+          if (embed.fields.length > 0) {
             if (
               channelEmbed &&
               channelEmbed.viewable &&
