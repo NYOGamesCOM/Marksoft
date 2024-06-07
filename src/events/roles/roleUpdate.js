@@ -3,6 +3,7 @@ const Logging = require("../../database/schemas/logging");
 const discord = require("discord.js");
 const Maintenance = require("../../database/schemas/maintenance");
 
+//Function to convert RGB to hexadecimal
 function makehex(rgb) {
   var hex = Number(rgb).toString(16);
   if (hex.length < 2) {
@@ -10,33 +11,45 @@ function makehex(rgb) {
   }
   return hex;
 }
-
+// Exporting the class as a module
 module.exports = class extends Event {
+  // Defining the run function
   async run(oldRole, newRole) {
+    // Check if newRole is not defined
     if (!newRole) return;
+    // Check if newRole is managed by an external service
     if (newRole.managed) return;
+    // Retrieve logging settings for the guild
     const logging = await Logging.findOne({ guildId: oldRole.guild.id });
-
+    // Retrieve maintenance settings
     const maintenance = await Maintenance.findOne({
       maintenance: "maintenance",
     });
-
+    // Check if maintenance mode is enabled
     if (maintenance && maintenance.toggle == "true") return;
-
+    // Check if logging settings exist
     if (logging) {
+      // Check if server events logging is enabled
       if (logging.server_events.toggle == "true") {
+        // Get the channel for logging
         const channelEmbed = await newRole.guild.channels.cache.get(
           logging.server_events.channel
         );
-
+        // Check if the logging channel exists
         if (channelEmbed) {
+          // Get the color for the embed
           let color = logging.server_events.color;
+          // Default color
           if (color == "#000000") color = newRole.client.color.green;
-
+          // Create a new embed
           const embed = new discord.MessageEmbed()
+            // Set embed description
             .setDescription(`:pencil: ***Role Updated:*** ${oldRole.name}`)
+            // Set embed footer
             .setFooter({ text: `Role ID: ${newRole.id}` })
+            // Set embed timestamp
             .setTimestamp()
+            // Set embed color
             .setColor(color);
 
           // Check for name update
