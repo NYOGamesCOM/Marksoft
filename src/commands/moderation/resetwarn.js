@@ -99,7 +99,7 @@ module.exports = class extends Command {
 
     const removeEmbed = new discord.MessageEmbed()
       .setDescription(
-        `${message.client.emoji.success} | Cleared all Warn of **${
+        `:white_check_mark: Cleared all Warn of **${
           mentionedMember.user.tag
         }** ${
           logging && logging.moderation.include_reason === "true"

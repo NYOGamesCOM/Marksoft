@@ -38,7 +38,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} ${language.setPrefixMissingArgument}`
+              `:x: ${language.setPrefixMissingArgument}`
             ),
         ],
       });
@@ -49,7 +49,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} ${language.setPrefixLongLength}`
+              `:x: ${language.setPrefixLongLength}`
             ),
         ],
       });
@@ -59,7 +59,7 @@ module.exports = class extends Command {
         new discord.MessageEmbed()
           .setColor(message.client.color.green)
           .setDescription(
-            `${message.client.emoji.success} ${language.setPrefixChange.replace(
+            `:white_check_mark: ${language.setPrefixChange.replace(
               "{prefix}",
               args[0]
             )}`

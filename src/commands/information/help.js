@@ -122,7 +122,7 @@ module.exports = class extends Command {
     } else if (args && args[0].toLowerCase() == "owner") {
       if (!this.client.config.developers.includes(message.author.id))
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} | You are not allowed to view this category`
+          `:x: You are not allowed to view this category`
         );
 
       embed.setTitle(`Owner Commands`);

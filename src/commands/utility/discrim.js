@@ -34,7 +34,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.client.color.blue)
             .setDescription(
-              `${message.client.emoji.fail} ${language.discrim1}`
+              `:x: ${language.discrim1}`
             ),
         ],
       });

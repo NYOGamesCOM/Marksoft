@@ -92,7 +92,7 @@ module.exports = function(client) {
       if (maintenance && maintenance.toggle == "true") return;
       if (autoResponseCooldown.has(message.author.id))
         return message.channel.sendCustom(
-          `${message.client.emoji.fail} Slow Down - ${message.author}`
+          `:x: Slow Down - ${message.author}`
         );
 
       message.channel.sendCustom(

@@ -233,7 +233,7 @@ module.exports = class extends Command {
       }
     } catch {
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} | Could not purge messages`
+        `:x: Could not purge messages`
       );
     }
   }

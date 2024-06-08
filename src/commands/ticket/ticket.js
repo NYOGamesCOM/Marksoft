@@ -38,7 +38,7 @@ module.exports = class extends Command {
                   message.author.displayAvatarURL({ format: "png" })
                 )
                 .setDescription(
-                  `${message.client.emoji.fail} This Feature is disabled in the current guild`
+                  `:x: This Feature is disabled in the current guild`
                 )
                 .setFooter({ text: "https://Marksoft.ro" })
                 .setTimestamp()
@@ -55,7 +55,7 @@ module.exports = class extends Command {
                   message.author.displayAvatarURL({ format: "png" })
                 )
                 .setDescription(
-                  `${message.client.emoji.fail} This Feature is disabled in the current guild`
+                  `:x: This Feature is disabled in the current guild`
                 )
                 .setFooter({ text: "https://Marksoft.ro" })
                 .setTimestamp()
@@ -84,7 +84,7 @@ module.exports = class extends Command {
                     message.author.displayAvatarURL({ format: "png" })
                   )
                   .setDescription(
-                    `${message.client.emoji.fail} Please provide a reason`
+                    `:x: Please provide a reason`
                   )
                   .setFooter({ text: "https://Marksoft.ro" })
                   .setTimestamp()

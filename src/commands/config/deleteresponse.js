@@ -47,7 +47,7 @@ module.exports = class extends Command {
 
     if (name.length > 30)
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} ${language.cc1}`
+        `:x: ${language.cc1}`
       );
 
     autoResponse.findOne(
@@ -67,7 +67,7 @@ module.exports = class extends Command {
                   message.author.displayAvatarURL({ dynamic: true })
                 )
                 .setTitle(
-                  `${message.client.emoji.success} Delete Auto Response`
+                  `:white_check_mark: Delete Auto Response`
                 )
                 .setDescription(`${language.deletecmd1} **${name}**`)
                 .setTimestamp()
@@ -76,7 +76,7 @@ module.exports = class extends Command {
           });
         } else {
           message.channel.sendCustom(
-            `${message.client.emoji.fail} ${language.deletecmd2}`
+            `:x: ${language.deletecmd2}`
           );
         }
       }

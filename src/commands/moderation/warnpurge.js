@@ -209,7 +209,7 @@ module.exports = class extends Command {
             new discord.MessageEmbed()
               .setColor(message.client.color.green)
               .setDescription(
-                `Auto Punish triggered, ${action} **${mentionedMember.user.tag}** ${message.client.emoji.success}`
+                `Auto Punish triggered, ${action} **${mentionedMember.user.tag}** :white_check_mark:`
               ),
           ],
         });
@@ -218,9 +218,9 @@ module.exports = class extends Command {
         if (auto.dm && auto.dm !== "1") {
           let dmEmbed;
           if (auto.dm === "2") {
-            dmEmbed = `${message.client.emoji.fail} You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__`;
+            dmEmbed = `:x: You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__`;
           } else if (auto.dm === "3") {
-            dmEmbed = `${message.client.emoji.fail} You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__\n\n**Warn Count:** ${warnDoc.warnings.length}`;
+            dmEmbed = `:x: You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__\n\n**Warn Count:** ${warnDoc.warnings.length}`;
           }
 
           mentionedMember.send({

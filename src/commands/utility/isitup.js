@@ -28,7 +28,7 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor(message.client.color.blue)
-            .setDescription(`${message.client.emoji.fail} ${language.isitup2}`),
+            .setDescription(`:x: ${language.isitup2}`),
         ],
       });
     }
@@ -48,7 +48,7 @@ module.exports = class extends Command {
         );
     } else {
       embed.setColor(message.client.color.blue);
-      embed.setDescription(`${message.client.emoji.fail} ${language.isitup3}`);
+      embed.setDescription(`:x: ${language.isitup3}`);
     }
     message.channel.sendCustom({ embeds: [embed] });
   }

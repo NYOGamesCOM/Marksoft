@@ -59,7 +59,7 @@ module.exports = class extends Event {
 
         let slowDownEmbed = new MessageEmbed()
           .setDescription(
-            `${message.client.emoji.fail} Slow Down There, You're on a cooldown\n\n**Role Name:** ${rrRole.name}\n**Guild Name:** ${guildName}`
+            `:x: Slow Down There, You're on a cooldown\n\n**Role Name:** ${rrRole.name}\n**Guild Name:** ${guildName}`
           )
           .setColor(message.client.color.red);
 
@@ -94,7 +94,7 @@ module.exports = class extends Event {
             `${message.url}`
           )
           .setDescription(
-            `${message.client.emoji.fail} Failed to Add the role, since I'm Missing the Manage Roles Permission.\n\nPlease let an admin Know.`
+            `:x: Failed to Add the role, since I'm Missing the Manage Roles Permission.\n\nPlease let an admin Know.`
           )
           .setFooter({ text: "https://Marksoft.ro" })
           .setColor(message.client.color.green);

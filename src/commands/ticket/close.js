@@ -68,7 +68,7 @@ module.exports = class extends Command {
                       message.author.displayAvatarURL({ format: "png" })
                     )
                     .setDescription(
-                      `${message.client.emoji.fail} Only users with the support team role Can Close this Ticket`
+                      `:x: Only users with the support team role can close this ticket`
                     )
                     .setFooter({ text: "https://Marksoft.ro" })
                     .setTimestamp()

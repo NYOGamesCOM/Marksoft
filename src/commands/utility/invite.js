@@ -22,7 +22,7 @@ module.exports = class extends Command {
     const embed = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(
-        `${language.invite}(https://discord.com/api/oauth2/authorize?client_id=1003423081123033108&permissions=8&scope=bot%20applications.commands) ${message.client.emoji.success}`
+        `${language.invite}(https://discord.com/api/oauth2/authorize?client_id=1003423081123033108&permissions=8&scope=bot%20applications.commands) :white_check_mark:`
       );
 
     await message.channel.sendCustom({ embeds: [embed] });

@@ -65,11 +65,11 @@ module.exports = class extends Command {
 
     if (namee.length > 30)
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} ${language.cc1}`
+        `:x: ${language.cc1}`
       );
     if (content.length > 2000)
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} ${language.cc2}`
+        `:x: ${language.cc2}`
       );
 
     if (guildDB.isPremium === "false") {
@@ -84,7 +84,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} Auto Response Limit Reached **(10)**\n\n[Upgrade Premium Here for unlimited commands](http://localhost:3000/premium)`
+                `:x: Auto Response Limit Reached **(10)**\n\n[Upgrade Premium Here for unlimited commands](http://localhost:3000/premium)`
               ),
           ],
         });
@@ -118,7 +118,7 @@ module.exports = class extends Command {
           });
         } else {
           return message.channel.sendCustom(
-            `${message.client.emoji.fail} ${language.cc4}`
+            `:x: ${language.cc4}`
           );
         }
       }

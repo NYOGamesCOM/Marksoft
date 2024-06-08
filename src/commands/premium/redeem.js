@@ -32,7 +32,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor("RED")
             .setDescription(
-              `${message.client.emoji.fail} Please Specify a code to redeem`
+              `:x: Please Specify a code to redeem`
             ),
         ],
       });
@@ -43,7 +43,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor("RED")
             .setDescription(
-              `${message.client.emoji.fail} the current guild is already premium`
+              `:x: the current guild is already premium`
             ),
         ],
       });
@@ -129,7 +129,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor("RED")
             .setDescription(
-              `${message.client.emoji.fail} I could not the following Code.`
+              `:x: I could not the following Code.`
             ),
         ],
       });

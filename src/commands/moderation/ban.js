@@ -195,11 +195,11 @@ module.exports = class extends Command {
       logging.moderation.ban_action !== "1"
     ) {
       if (logging.moderation.ban_action === "2") {
-        dmEmbed = `${message.client.emoji.fail} You've been banned in **${message.guild.name}**`;
+        dmEmbed = `:x: You've been banned in **${message.guild.name}**`;
       } else if (logging.moderation.ban_action === "3") {
-        dmEmbed = `${message.client.emoji.fail} You've been banned in **${message.guild.name}**\n\n__**Reason:**__ ${reason}`;
+        dmEmbed = `:x: You've been banned in **${message.guild.name}**\n\n__**Reason:**__ ${reason}`;
       } else if (logging.moderation.ban_action === "4") {
-        dmEmbed = `${message.client.emoji.fail} You've been banned in **${message.guild.name}**\n\n__**Moderator:**__ ${message.author} **(${message.author.tag})**\n__**Reason:**__ ${reason}`;
+        dmEmbed = `:x: You've been banned in **${message.guild.name}**\n\n__**Moderator:**__ ${message.author} **(${message.author.tag})**\n__**Reason:**__ ${reason}`;
       }
 
       member

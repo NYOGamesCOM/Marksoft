@@ -107,11 +107,11 @@ module.exports = class extends Command {
       logging.moderation.warn_action !== "1"
     ) {
       if (logging.moderation.warn_action === "2") {
-        dmEmbed = `${message.client.emoji.fail} You've been warned in **${message.guild.name}**`;
+        dmEmbed = `:x: You've been warned in **${message.guild.name}**`;
       } else if (logging.moderation.warn_action === "3") {
-        dmEmbed = `${message.client.emoji.fail} You've been warned in **${message.guild.name}**\n\n__**Reason:**__ ${reason}`;
+        dmEmbed = `:x: You've been warned in **${message.guild.name}**\n\n__**Reason:**__ ${reason}`;
       } else if (logging.moderation.warn_action === "4") {
-        dmEmbed = `${message.client.emoji.fail} You've been warned in **${message.guild.name}**\n\n__**Moderator:**__ ${message.author} **(${message.author.tag})**\n__**Reason:**__ ${reason}`;
+        dmEmbed = `:x: You've been warned in **${message.guild.name}**\n\n__**Moderator:**__ ${message.author} **(${message.author.tag})**\n__**Reason:**__ ${reason}`;
       }
 
       mentionedMember
@@ -190,7 +190,7 @@ module.exports = class extends Command {
             new discord.MessageEmbed()
               .setColor(message.client.color.green)
               .setDescription(
-                `Auto Punish triggered, ${action} **${mentionedMember.user.tag}** ${message.client.emoji.success}`
+                `Auto Punish triggered, ${action} **${mentionedMember.user.tag}** :white_check_mark:`
               ),
           ],
         });
@@ -199,9 +199,9 @@ module.exports = class extends Command {
         if (auto.dm && auto.dm !== "1") {
           let dmEmbed;
           if (auto.dm === "2") {
-            dmEmbed = `${message.client.emoji.fail} You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__`;
+            dmEmbed = `:x: You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__`;
           } else if (auto.dm === "3") {
-            dmEmbed = `${message.client.emoji.fail} You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__\n\n**Warn Count:** ${warnDoc.warnings.length}`;
+            dmEmbed = `:x: You've been ${action} from **${message.guild.name}**\n__(Auto Punish Triggered)__\n\n**Warn Count:** ${warnDoc.warnings.length}`;
           }
 
           mentionedMember.send({

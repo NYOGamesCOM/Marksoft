@@ -23,13 +23,13 @@ module.exports = class extends Command {
     const language = require(`../../data/language/${guildDB.language}.json`);
     const closed = new discord.MessageEmbed()
       .setDescription(
-        `${message.client.emoji.fail} | ${language.closedapplay1} `
+        `:x: ${language.closedapplay1} `
       )
       .setColor(message.client.color.red);
 
     const closed2 = new discord.MessageEmbed()
       .setDescription(
-        `${message.client.emoji.fail} | ${language.closedapplay2}.`
+        `:x: ${language.closedapplay2}.`
       )
       .setColor(message.client.color.red);
 
@@ -62,7 +62,7 @@ module.exports = class extends Command {
             .setColor(message.client.color.green)
             .setFooter({ text: "Powered by Marksoft.ro" })
             .setDescription(
-              `${message.client.emoji.success} | ${language.applaydone} **${message.guild.name}** [by clicking here](http://localhost:3000/apply/${message.guild.id})`
+              `:white_check_mark: ${language.applaydone} **${message.guild.name}** [by clicking here](http://localhost:3000/apply/${message.guild.id})`
             ),
         ],
       })

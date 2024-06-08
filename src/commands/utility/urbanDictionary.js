@@ -27,7 +27,7 @@ module.exports = class extends Command {
         embeds: [
           new discord.MessageEmbed()
             .setColor(message.client.color.blue)
-            .setDescription(`${message.client.emoji.fail} ${language.define1}`),
+            .setDescription(`:x: ${language.define1}`),
         ],
       });
     }
@@ -46,7 +46,7 @@ module.exports = class extends Command {
         embeds: [
           new discord.MessageEmbed()
             .setColor(message.client.color.blue)
-            .setDescription(`${message.client.emoji.fail} ${language.define2}`),
+            .setDescription(`:x: ${language.define2}`),
         ],
       });
     }

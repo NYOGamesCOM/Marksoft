@@ -73,7 +73,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.report4}`
+                `:x: ${language.report4}`
               )
               .setFooter({ text: "https://Marksoft.ro" }),
           ],
@@ -91,7 +91,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.report5}`
+                  `:white_check_mark: ${language.report5}`
                 )
                 .setFooter({ text: "https://Marksoft.ro" }),
             ],
@@ -141,7 +141,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.report7} ${channel}`
+                  `:white_check_mark: ${language.report7} ${channel}`
                 ),
             ],
           });
@@ -152,7 +152,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor(message.guild.me.displayHexColor)
           .setDescription(
-            `Issue Reports are disabled in the current guild ${message.client.emoji.fail}`
+            `Issue Reports are disabled in the current guild :x:`
           );
 
         return message.channel.sendCustom({ embeds: [embed] });
@@ -296,7 +296,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `User Reports are disabled in the current guild ${message.client.emoji.fail}`
+                `User Reports are disabled in the current guild :x:`
               ),
           ],
         });

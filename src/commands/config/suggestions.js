@@ -48,7 +48,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.suggesting8}`
+                `:x: ${language.suggesting8}`
               )
               .setFooter({ text: "https://Marksoft.ro" }),
           ],
@@ -66,7 +66,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.suggesting9}`
+                  `:white_check_mark: ${language.suggesting9}`
                 )
                 .setFooter({ text: "https://Marksoft.ro" }),
             ],
@@ -100,7 +100,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.suggesting11} ${channel}`
+                  `:white_check_mark: ${language.suggesting11} ${channel}`
                 ),
             ],
           });
@@ -262,7 +262,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(
-                `${message.client.emoji.success} ${language.suggesting20} ${channel}\n\n__**${language.reason}**__ ${acceptReason}`
+                `:white_check_mark: ${language.suggesting20} ${channel}\n\n__**${language.reason}**__ ${acceptReason}`
               )
               .setFooter({ text: "https://Marksoft.ro" })
               .setTimestamp()
@@ -423,7 +423,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(
-                `${message.client.emoji.success} ${language.suggesting24} ${channel}\n\n__**${language.reason}**__ ${acceptReason}`
+                `:white_check_mark: ${language.suggesting24} ${channel}\n\n__**${language.reason}**__ ${acceptReason}`
               )
               .setFooter({ text: "https://Marksoft.ro" })
               .setTimestamp()

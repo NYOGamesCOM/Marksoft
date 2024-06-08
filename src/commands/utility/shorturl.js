@@ -161,7 +161,7 @@ module.exports = class extends Command {
           embeds: [
             new discord.MessageEmbed()
               .setDescription(
-                `${message.client.emoji.fail} | ${language.shortUrlError}`
+                `:x: ${language.shortUrlError}`
               )
               .setColor(message.client.color.red),
           ],
@@ -194,7 +194,7 @@ module.exports = class extends Command {
           embeds: [
             new discord.MessageEmbed()
               .setDescription(
-                `${message.client.emoji.fail} | ${language.shortUrlError}`
+                `:x: ${language.shortUrlError}`
               )
               .setColor(message.client.color.red),
           ],

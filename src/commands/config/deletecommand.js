@@ -47,7 +47,7 @@ module.exports = class extends Command {
 
     if (name.length > 30)
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} ${language.cc1}`
+        `:x: ${language.cc1}`
       );
 
     customCommand.findOne(
@@ -66,7 +66,7 @@ module.exports = class extends Command {
                   `${message.author.tag}`,
                   message.author.displayAvatarURL({ dynamic: true })
                 )
-                .setTitle(`${message.client.emoji.success} Delete Command`)
+                .setTitle(`:white_check_mark: Delete Command`)
                 .setDescription(`${language.deletecmd1} **${name}**`)
                 .setTimestamp()
                 .setFooter({ text: "https://Marksoft.ro" }),
@@ -74,7 +74,7 @@ module.exports = class extends Command {
           });
         } else {
           message.channel.sendCustom(
-            `${message.client.emoji.fail} ${language.deletecmd2}`
+            `:x: ${language.deletecmd2}`
           );
         }
       }

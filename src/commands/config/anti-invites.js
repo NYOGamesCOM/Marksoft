@@ -29,7 +29,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} ${language.antiinvites1}`
+              `:x: ${language.antiinvites1}`
             ),
         ],
       });
@@ -44,7 +44,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} ${language.antiinvites1}`
+              `:x: ${language.antiinvites1}`
             ),
         ],
       });
@@ -57,7 +57,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.moduleDisabled}`
+                `:x: ${language.moduleDisabled}`
               ),
           ],
         });
@@ -78,7 +78,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.antiinvites3}`
+                  `:white_check_mark: ${language.antiinvites3}`
                 ),
             ],
           });
@@ -94,7 +94,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.moduleEnabled}`
+                `:x: ${language.moduleEnabled}`
               ),
           ],
         });
@@ -115,7 +115,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.antiinvites4}`
+                  `:white_check_mark: ${language.antiinvites4}`
                 ),
             ],
           });

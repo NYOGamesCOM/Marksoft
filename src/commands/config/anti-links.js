@@ -28,7 +28,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} ${language.antiinvites1}`
+              `:x: ${language.antiinvites1}`
             ),
         ],
       });
@@ -43,7 +43,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} ${language.antiinvites1}`
+              `:x: ${language.antiinvites1}`
             ),
         ],
       });
@@ -56,7 +56,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.moduleDisabled}`
+                `:x: ${language.moduleDisabled}`
               ),
           ],
         });
@@ -77,7 +77,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.antilinks3}`
+                  `:white_check_mark: ${language.antilinks3}`
                 ),
             ],
           });
@@ -93,7 +93,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.moduleEnabled}`
+                `:x: ${language.moduleEnabled}`
               ),
           ],
         });
@@ -114,7 +114,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.antilinks4}`
+                  `:white_check_mark: ${language.antilinks4}`
                 ),
             ],
           });

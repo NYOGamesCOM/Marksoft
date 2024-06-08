@@ -88,8 +88,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(
-                `${message.client.emoji.success
-                } ${language.aactionSuccess.replace("{action}", args[0])}`
+                `:white_check_mark: ${language.aactionSuccess.replace("{action}", args[0])}`
               )
               .setFooter({ text: "https://Marksoft.ro" })
               .setTimestamp()
@@ -109,8 +108,7 @@ module.exports = class extends Command {
               message.author.displayAvatarURL({ format: "png" })
             )
             .setDescription(
-              `${message.client.emoji.success
-              } ${language.aactionSuccess.replace("{action}", args[0])}`
+              `:white_check_mark: ${language.aactionSuccess.replace("{action}", args[0])}`
             )
             .setFooter({ text: "https://Marksoft.ro" })
             .setTimestamp()

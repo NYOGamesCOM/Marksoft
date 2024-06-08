@@ -30,7 +30,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} | ${language.applylogerrorchannel}`
+              `:x: ${language.applylogerrorchannel}`
             ),
         ],
       });
@@ -53,7 +53,7 @@ module.exports = class extends Command {
               new discord.MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.fail} | ${language.applylogdisabled}`
+                  `:x: | ${language.applylogdisabled}`
                 ),
             ],
           });
@@ -70,7 +70,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setColor(message.guild.me.displayHexColor)
             .setDescription(
-              `${message.client.emoji.fail} | ${language.applylogvalidchannel}`
+              `:x: | ${language.applylogvalidchannel}`
             ),
         ],
       });
@@ -91,7 +91,7 @@ module.exports = class extends Command {
             new discord.MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.success} | ${language.applylogSuccess} ${channel}`
+                `:white_check_mark: ${language.applylogSuccess} ${channel}`
               ),
           ],
         });

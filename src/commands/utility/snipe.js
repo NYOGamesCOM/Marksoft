@@ -30,7 +30,7 @@ module.exports = class extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(
-        `${message.client.emoji.fail} | Couldn't find any deleted message in **${channel.name}**`
+        `:x: Couldn't find any deleted message in **${channel.name}**`
       );
 
     if (!snipe) {

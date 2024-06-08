@@ -32,7 +32,7 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor(message.client.color.blue)
-            .setDescription(`${message.client.emoji.fail} ${language.report1}`),
+            .setDescription(`:x: ${language.report1}`),
         ],
       });
     }
@@ -42,7 +42,7 @@ module.exports = class extends Command {
         embeds: [
           new MessageEmbed()
             .setColor(message.client.color.blue)
-            .setDescription(`${message.client.emoji.fail} ${language.report2}`),
+            .setDescription(`:x: ${language.report2}`),
         ],
       });
     }

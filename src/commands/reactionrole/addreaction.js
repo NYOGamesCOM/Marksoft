@@ -84,7 +84,7 @@ module.exports = class extends Command {
 
     if (role.managed) {
       return message.channel.sendCustom(
-        `${message.client.emoji.fail} Please do not use a integration role.`
+        `:x: Please do not use a integration role.`
       );
     }
 

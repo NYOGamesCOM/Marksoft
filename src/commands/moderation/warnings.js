@@ -47,7 +47,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setAuthor(message.author.tag, message.author.avatarURL())
             .setDescription(
-              `${message.client.emoji.fail} | **${mentionedMember.user.tag}** ${language.warningsNoError}`
+              `:x: | **${mentionedMember.user.tag}** ${language.warningsNoError}`
             )
             .setTimestamp(message.createdAt)
             .setColor(client.color.red),

@@ -28,7 +28,7 @@ module.exports = class extends Command {
       (err, data) => {
         if (!data && !data.name)
           return message.channel.sendCustom(
-            `${message.client.emoji.fail} ${language.cc5}`
+            `:x: ${language.cc5}`
           );
         let array = [];
         data.map((d) => array.push(d.name));

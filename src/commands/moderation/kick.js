@@ -115,11 +115,11 @@ module.exports = class extends Command {
       logging.moderation.kick_action !== "1"
     ) {
       if (logging.moderation.kick_action === "2") {
-        dmEmbed = `${message.client.emoji.fail} You've been kicked in **${message.guild.name}**`;
+        dmEmbed = `:x: You've been kicked in **${message.guild.name}**`;
       } else if (logging.moderation.kick_action === "3") {
-        dmEmbed = `${message.client.emoji.fail} You've been kicked in **${message.guild.name}**\n\n__**Reason:**__ ${reason}`;
+        dmEmbed = `:x: You've been kicked in **${message.guild.name}**\n\n__**Reason:**__ ${reason}`;
       } else if (logging.moderation.kick_action === "4") {
-        dmEmbed = `${message.client.emoji.fail} You've been kicked in **${message.guild.name}**\n\n__**Moderator:**__ ${message.author} **(${message.author.tag})**\n__**Reason:**__ ${reason}`;
+        dmEmbed = `:x: You've been kicked in **${message.guild.name}**\n\n__**Moderator:**__ ${message.author} **(${message.author.tag})**\n__**Reason:**__ ${reason}`;
       }
 
       member

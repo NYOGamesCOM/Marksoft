@@ -93,7 +93,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(
-                `${message.client.emoji.fail} ${language.tempvc3}`
+                `:x: ${language.tempvc3}`
               )
               .setFooter({ text: "https://Marksoft.ro" }),
           ],
@@ -134,7 +134,7 @@ module.exports = class extends Command {
               new MessageEmbed()
                 .setColor(message.guild.me.displayHexColor)
                 .setDescription(
-                  `${message.client.emoji.success} ${language.tempvc4}`
+                  `:white_check_mark: ${language.tempvc4}`
                 )
                 .setFooter({ text: "https://Marksoft.ro" }),
             ],

@@ -50,7 +50,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} Please do not exceed the length of 100 days.`
+              `:x: Please do not exceed the length of 100 days.`
             ),
         ],
       });

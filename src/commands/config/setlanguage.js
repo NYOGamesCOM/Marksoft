@@ -29,7 +29,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} | ${language.setLangMissingArgument}`
+              `:x: | ${language.setLangMissingArgument}`
             ),
         ],
       });
@@ -44,7 +44,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(message.client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} | ${setLangInvalidOption}`
+              `:x: | ${setLangInvalidOption}`
             ),
         ],
       });
@@ -57,7 +57,7 @@ module.exports = class extends Command {
       embeds: [
         new discord.MessageEmbed()
           .setColor(message.client.color.green)
-          .setDescription(`${message.client.emoji.success} | ${setLangChange}`),
+          .setDescription(`:white_check_mark: ${setLangChange}`),
       ],
     });
 

@@ -30,7 +30,7 @@ module.exports = class extends Command {
       return message.channel
         .sendCustom(
           new MessageEmbed()
-            .setDescription(`${message.client.emoji.fail} ${language.embedd1} `)
+            .setDescription(`:x: ${language.embedd1} `)
             .setColor(message.guild.me.displayHexColor)
         )
         .catch((e) => {
@@ -40,7 +40,7 @@ module.exports = class extends Command {
       .sendCustom(
         new MessageEmbed()
           .setDescription(
-            `${message.client.emoji.success} ${language.embedd2} `
+            `:white_check_mark: ${language.embedd2} `
           )
           .setColor(message.guild.me.displayHexColor)
       )
@@ -75,7 +75,7 @@ module.exports = class extends Command {
                     message.channel.sendCustom(
                       new MessageEmbed()
                         .setDescription(
-                          `${message.client.emoji.fail} ${language.embed15} `
+                          `:x: ${language.embed15} `
                         )
                         .setColor(message.guild.me.displayHexColor)
                     ) + embedstarted.delete(message.author.id)
@@ -96,7 +96,7 @@ module.exports = class extends Command {
                           message.channel.sendCustom(
                             new MessageEmbed()
                               .setDescription(
-                                `${message.client.emoji.fail} ${language.embed15} `
+                                `:x: ${language.embed15} `
                               )
                               .setColor(message.guild.me.displayHexColor)
                           ) + embedstarted.delete(message.author.id)
@@ -124,7 +124,7 @@ module.exports = class extends Command {
                                 message.channel.sendCustom(
                                   new MessageEmbed()
                                     .setDescription(
-                                      `${message.client.emoji.fail} ${language.embed15} `
+                                      `:x: ${language.embed15} `
                                     )
                                     .setColor(message.guild.me.displayHexColor)
                                 ) + embedstarted.delete(message.author.id)
@@ -212,7 +212,7 @@ module.exports = class extends Command {
                                                   message.channel.sendCustom(
                                                     new MessageEmbed()
                                                       .setDescription(
-                                                        `${message.client.emoji.fail} ${language.embed15} `
+                                                        `:x: ${language.embed15} `
                                                       )
                                                       .setColor(
                                                         message.guild.me
@@ -267,7 +267,7 @@ module.exports = class extends Command {
                                                         message.channel.sendCustom(
                                                           new MessageEmbed()
                                                             .setDescription(
-                                                              `${message.client.emoji.fail} ${language.embed15} `
+                                                              `:x: ${language.embed15} `
                                                             )
                                                             .setColor(
                                                               message.guild.me
@@ -324,7 +324,7 @@ module.exports = class extends Command {
                                                               message.channel.sendCustom(
                                                                 new MessageEmbed()
                                                                   .setDescription(
-                                                                    `${message.client.emoji.fail} ${language.embed15} `
+                                                                    `:x: ${language.embed15} `
                                                                   )
                                                                   .setColor(
                                                                     message
@@ -381,7 +381,7 @@ module.exports = class extends Command {
                                                                       message.channel.sendCustom(
                                                                         new MessageEmbed()
                                                                           .setDescription(
-                                                                            `${message.client.emoji.fail} ${language.embed15} `
+                                                                            `:x: ${language.embed15} `
                                                                           )
                                                                           .setColor(
                                                                             message
@@ -496,7 +496,7 @@ module.exports = class extends Command {
                                                                         } else {
                                                                           return (
                                                                             message.channel.sendCustom(
-                                                                              `${message.client.emoji.fail} ${language.embedd14}`
+                                                                              `:x: ${language.embedd14}`
                                                                             ) +
                                                                             embedstarted.delete(
                                                                               message
@@ -513,7 +513,7 @@ module.exports = class extends Command {
                                                                     message.channel.sendCustom(
                                                                       new MessageEmbed()
                                                                         .setDescription(
-                                                                          `${message.client.emoji.fail} ${language.embed15} `
+                                                                          `:x: ${language.embed15} `
                                                                         )
                                                                         .setColor(
                                                                           message
@@ -534,7 +534,7 @@ module.exports = class extends Command {
                                                                 message.channel.sendCustom(
                                                                   new MessageEmbed()
                                                                     .setDescription(
-                                                                      `${message.client.emoji.fail} ${language.embedd16} `
+                                                                      `:x: ${language.embedd16} `
                                                                     )
                                                                     .setColor(
                                                                       message
@@ -643,7 +643,7 @@ module.exports = class extends Command {
                                                                       .sendCustom(
                                                                         new MessageEmbed()
                                                                           .setDescription(
-                                                                            `${message.client.emoji.fail} ${language.embed15} `
+                                                                            `:x: ${language.embed15} `
                                                                           )
                                                                           .setColor(
                                                                             message
@@ -667,7 +667,7 @@ module.exports = class extends Command {
                                                                   .sendCustom(
                                                                     new MessageEmbed()
                                                                       .setDescription(
-                                                                        `${message.client.emoji.fail} ${language.embedd16} `
+                                                                        `:x: ${language.embedd16} `
                                                                       )
                                                                       .setColor(
                                                                         message
@@ -690,7 +690,7 @@ module.exports = class extends Command {
                                                             .sendCustom(
                                                               new MessageEmbed()
                                                                 .setDescription(
-                                                                  `${message.client.emoji.fail} ${language.embed15} `
+                                                                  `:x: ${language.embed15} `
                                                                 )
                                                                 .setColor(
                                                                   message.guild
@@ -707,7 +707,7 @@ module.exports = class extends Command {
                                                         message.channel.sendCustom(
                                                           new MessageEmbed()
                                                             .setDescription(
-                                                              `${message.client.emoji.fail} ${language.embedd16} `
+                                                              `:x: ${language.embedd16} `
                                                             )
                                                             .setColor(
                                                               message.guild.me
@@ -720,7 +720,7 @@ module.exports = class extends Command {
                                                       .sendCustom(
                                                         new MessageEmbed()
                                                           .setDescription(
-                                                            `${message.client.emoji.fail} ${language.embed15} `
+                                                            `:x: ${language.embed15} `
                                                           )
                                                           .setColor(
                                                             message.guild.me
@@ -737,7 +737,7 @@ module.exports = class extends Command {
                                                     .sendCustom(
                                                       new MessageEmbed()
                                                         .setDescription(
-                                                          `${message.client.emoji.fail} ${language.embedd16} `
+                                                          `:x: ${language.embedd16} `
                                                         )
                                                         .setColor(
                                                           message.guild.me
@@ -758,7 +758,7 @@ module.exports = class extends Command {
                                                 .sendCustom(
                                                   new MessageEmbed()
                                                     .setDescription(
-                                                      `${message.client.emoji.fail} ${language.embed15}`
+                                                      `:x: ${language.embed15}`
                                                     )
                                                     .setColor(
                                                       message.guild.me
@@ -778,7 +778,7 @@ module.exports = class extends Command {
                                               .sendCustom(
                                                 new MessageEmbed()
                                                   .setDescription(
-                                                    `${message.client.emoji.fail} ${language.embedd16} `
+                                                    `:x: ${language.embedd16} `
                                                   )
                                                   .setColor(
                                                     message.guild.me
@@ -798,7 +798,7 @@ module.exports = class extends Command {
                                           .sendCustom(
                                             new MessageEmbed()
                                               .setDescription(
-                                                `${message.client.emoji.fail} ${language.embed15} `
+                                                `:x: ${language.embed15} `
                                               )
                                               .setColor(
                                                 message.guild.me.displayHexColor
@@ -815,7 +815,7 @@ module.exports = class extends Command {
                                         .sendCustom(
                                           new MessageEmbed()
                                             .setDescription(
-                                              `${message.client.emoji.fail} ${language.embedd16} `
+                                              `:x: ${language.embedd16} `
                                             )
                                             .setColor(
                                               message.guild.me.displayHexColor
@@ -833,7 +833,7 @@ module.exports = class extends Command {
                                     .sendCustom(
                                       new MessageEmbed()
                                         .setDescription(
-                                          `${message.client.emoji.fail} ${language.embed15} `
+                                          `:x: ${language.embed15} `
                                         )
                                         .setColor(
                                           message.guild.me.displayHexColor
@@ -850,7 +850,7 @@ module.exports = class extends Command {
                                   .sendCustom(
                                     new MessageEmbed()
                                       .setDescription(
-                                        `${message.client.emoji.fail} ${language.embedd16}`
+                                        `:x: ${language.embedd16}`
                                       )
                                       .setColor(
                                         message.guild.me.displayHexColor
@@ -868,7 +868,7 @@ module.exports = class extends Command {
                               .sendCustom(
                                 new MessageEmbed()
                                   .setDescription(
-                                    `${message.client.emoji.fail} ${language.embed15} `
+                                    `:x: ${language.embed15} `
                                   )
                                   .setColor(message.guild.me.displayHexColor)
                               )
@@ -883,7 +883,7 @@ module.exports = class extends Command {
                             .sendCustom(
                               new MessageEmbed()
                                 .setDescription(
-                                  `${message.client.emoji.fail} ${language.embedd16} `
+                                  `:x: ${language.embedd16} `
                                 )
                                 .setColor(message.guild.me.displayHexColor)
                             )
@@ -899,7 +899,7 @@ module.exports = class extends Command {
                         .sendCustom(
                           new MessageEmbed()
                             .setDescription(
-                              `${message.client.emoji.fail} ${language.embed15} `
+                              `:x: ${language.embed15} `
                             )
                             .setColor(message.guild.me.displayHexColor)
                         )
@@ -914,7 +914,7 @@ module.exports = class extends Command {
                       .sendCustom(
                         new MessageEmbed()
                           .setDescription(
-                            `${message.client.emoji.fail} ${language.embedd16}d `
+                            `:x: ${language.embedd16}d `
                           )
                           .setColor(message.guild.me.displayHexColor)
                       )
@@ -934,7 +934,7 @@ module.exports = class extends Command {
                 .sendCustom(
                   new MessageEmbed()
                     .setDescription(
-                      `${message.client.emoji.fail} ${language.embedd16} `
+                      `:x: ${language.embedd16} `
                     )
                     .setColor(message.guild.me.displayHexColor)
                 )
@@ -950,7 +950,7 @@ module.exports = class extends Command {
           .sendCustom(
             new MessageEmbed()
               .setDescription(
-                `${message.client.emoji.fail} ${language.embed15} `
+                `:x: ${language.embed15} `
               )
               .setColor(message.guild.me.displayHexColor)
           )
@@ -964,7 +964,7 @@ module.exports = class extends Command {
         message.channel.sendCustom(
           new MessageEmbed()
             .setDescription(
-              `${message.client.emoji.fail} ${language.embedd16} `
+              `:x: ${language.embedd16} `
             )
             .setColor(message.guild.me.displayHexColor)
         );

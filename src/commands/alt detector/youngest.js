@@ -24,7 +24,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} | Please provide a valid Days Duration`
+              `:x: Please provide a valid Days Duration`
             ),
         ],
       });
@@ -35,7 +35,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} | Please provide a valid Days Duration`
+              `:x: Please provide a valid Days Duration`
             ),
         ],
       });
@@ -48,7 +48,7 @@ module.exports = class extends Command {
           new discord.MessageEmbed()
             .setColor(client.color.red)
             .setDescription(
-              `${message.client.emoji.fail} | You may only find alts of an account age of **100 days** or below`
+              `:x: You may only find alts of an account age of **100 days** or below`
             ),
         ],
       });

@@ -49,7 +49,7 @@ module.exports = class extends Command {
                     if (!isNaN(ms(collected.first().content))) {
                       if (time > 86400000) {
                         message.channel.sendCustom(
-                          `${message.client.emoji.fail} Please provide a date less than **1 day**`
+                          `:x: Please provide a date less than **1 day**`
                         );
                         reminderstarted.delete(message.author.id);
                         return;
@@ -115,14 +115,14 @@ module.exports = class extends Command {
                             return;
                           } else {
                             message.reply(
-                              `${message.client.emoji.fail} ${language.remind14}`
+                              `:x: ${language.remind14}`
                             );
                             reminderstarted.delete(message.author.id);
                           }
                         })
                         .catch(() => {
                           message.reply(
-                            `${message.client.emoji.fail} ${language.remind15}`
+                            `:x: ${language.remind15}`
                           );
                           reminderstarted.delete(message.author.id);
                         });
@@ -130,14 +130,14 @@ module.exports = class extends Command {
                       return;
                     } else {
                       message.reply(
-                        `${message.client.emoji.fail} ${language.remind14}`
+                        `:x: ${language.remind14}`
                       );
                       reminderstarted.delete(message.author.id);
                     }
                   })
                   .catch(() => {
                     message.reply(
-                      `${message.client.emoji.fail} ${language.remind15}`
+                      `:x: ${language.remind15}`
                     );
                     reminderstarted.delete(message.author.id);
                   });
@@ -145,25 +145,25 @@ module.exports = class extends Command {
                 return;
               } else {
                 message.reply(
-                  `${message.client.emoji.fail} ${language.remind14}`
+                  `:x: ${language.remind14}`
                 );
                 reminderstarted.delete(message.author.id);
               }
             })
             .catch(() => {
               message.reply(
-                `${message.client.emoji.fail} ${language.remind15}`
+                `:x: ${language.remind15}`
               );
               reminderstarted.delete(message.author.id);
             });
 
           return;
         } else
-          message.reply(`${message.client.emoji.fail} ${language.remind14}`);
+          message.reply(`:x: ${language.remind14}`);
         reminderstarted.delete(message.author.id);
       })
       .catch(() => {
-        message.reply(`${message.client.emoji.fail} ${language.remind15}`);
+        message.reply(`:x: ${language.remind15}`);
         reminderstarted.delete(message.author.id);
       });
   }
