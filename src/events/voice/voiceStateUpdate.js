@@ -67,7 +67,7 @@ module.exports = class extends Event {
 
           if (oldState.channelId && oldState.channel) {
             if (typeof oldState.channel.parent !== "undefined") {
-              oldChannelName = `**Category:** ${oldparentname}\n\t**Name:** ${oldchannelname}\n**ID: **${oldchanelid}`;
+              oldChannelName = `**Category:** ${oldparentname}\n\t**VC Name:** ${oldchannelname}\n**ID: **${oldchanelid}`;
             } else {
               oldChannelName = `-\n\t**Name:** ${oldparentname}\n**ID:** ${oldchanelid}`;
             }
@@ -76,7 +76,7 @@ module.exports = class extends Event {
           }
           if (newState.channelId && newState.channel) {
             if (typeof newState.channel.parent !== "undefined") {
-              newChannelName = `**Category:** ${newparentname}\n\t**Name:** ${newchannelname}\n**ID:** ${newchanelid}`;
+              newChannelName = `**Category:** ${newparentname}\n\t**VC Name:** ${newchannelname}\n**ID:** ${newchanelid}`;
             } else {
               newChannelName = `-\n\t**Name:** ${newchannelname}**\n**ID:** ${newchanelid}`;
             }
