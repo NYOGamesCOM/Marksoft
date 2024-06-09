@@ -1258,6 +1258,7 @@ module.exports = async (client) => {
       leave: leaveSettings,
       settings: storedSettings,
       welcome: welcomeSettings,
+      welcomeMessage: welcomeSettings.welcomeMessage,  // Pass the welcomeMessage
     });
   });
 
@@ -1313,7 +1314,9 @@ module.exports = async (client) => {
         welcomeSettings.welcomeChannel = guild.channels.cache.find(
           (ch) => `# ${ch.name}` === data.welcomeChannel
         ).id;
+        storedSettings.welcomeSettings.welcomeMessage = data.welcomeMessage;
       } else {
+        storedSettings.welcomeSettings.welcomeMessage = `Welcome {user} to {guild}! We now have {memberCount} Members!`
         welcomeSettings.welcomeChannel = null;
       }
     }
