@@ -23,7 +23,11 @@ module.exports = class extends Command {
     const embed = new MessageEmbed()
       .setDescription(`\`${language.pinging}\``)
       .setColor(message.guild.me.displayHexColor)
-      .setFooter({ text: `Powered By https://Marksoft.ro` });
+      .setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      })
+      .setTimestamp();
 
     const msg = await message.channel.sendCustom({ embeds: [embed] });
 

@@ -20,15 +20,15 @@ module.exports = class extends Command {
 
         const randomNumber = Math.floor(Math.random() * 69) + 1;
 
-        let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty :KEKW: \n`;
+        let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty!\n`;
 
         if (randomNumber === 69) {
-            responseMessage += '\n :bankai1NaughtyCorner: Congratulations! :bankai1NaughtyCorner: ';
+            responseMessage += '\n Congratulations!';
             
             // Send a webhook message when the number is 69
             const embedWebhook = new MessageEmbed()
                 .setTitle('Special Naughty Achievement')
-                .setDescription(`\n **${message.author.username}** hit the magic number **69**! :bankai1NaughtyCorner:`)
+                .setDescription(`\n **${message.author.username}** hit the magic number **69**!`)
                 .setColor('#FF4500') // Bright orange color
                 .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                 .setFooter({
@@ -46,6 +46,44 @@ module.exports = class extends Command {
             }).catch(error => {
                 console.error('Error sending webhook message:', error);
             });
+            
+            // Store the username and counter in a JSON file
+            const filePath = path.join(__dirname, "../../../naughty_users.json");
+            let users = [];
+
+            // Read existing data from the file
+            try {
+                if (fs.existsSync(filePath)) {
+                    const fileData = fs.readFileSync(filePath, 'utf8');
+                    users = JSON.parse(fileData);
+                }
+            } catch (err) {
+                console.error('Error reading the JSON file:', err);
+            }
+
+            // Check if the user already exists
+            const userIndex = users.findIndex(user => user.userId === message.author.id);
+
+            if (userIndex !== -1) {
+                // User exists, increment the counter
+                users[userIndex].counter += 1;
+            } else {
+                // New user, add them with a counter of 1
+                users.push({
+                    username: message.author.username,
+                    userId: message.author.id,
+                    counter: 1,
+                    date: new Date().toISOString()
+                });
+            }
+
+            // Write updated data back to the file
+            try {
+                fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+                console.log('User data updated in naughty_users.json');
+            } catch (err) {
+                console.error('Error writing to the JSON file:', err);
+            }
         }
 
         const embed = new MessageEmbed()

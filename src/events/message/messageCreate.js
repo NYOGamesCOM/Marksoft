@@ -193,7 +193,7 @@ module.exports = class extends Event {
                   : ""
               }${
                 number === 2
-                  ? "*You can check our top.gg page at `https://marksoft.ro/vote`*"
+                  ? "*Did You know that Marksoft has its own dashboard? `https://marksoft.ro`*"
                   : ""
               }`,
             )
