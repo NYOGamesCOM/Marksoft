@@ -66,7 +66,7 @@ module.exports = class extends Event {
         let addEmbed = new MessageEmbed()
           .setAuthor(
             "Role Added",
-            `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+            `https://i.imgur.com/sFoSPK7.png`,
             `${message.url}`
           )
           .setDescription(
@@ -78,7 +78,7 @@ module.exports = class extends Event {
         let remEmbed = new MessageEmbed()
           .setAuthor(
             "Role Removed",
-            `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+            `https://i.imgur.com/sFoSPK7.png`,
             `${message.url}`
           )
           .setDescription(
@@ -90,7 +90,7 @@ module.exports = class extends Event {
         let errorReaction = new MessageEmbed()
           .setAuthor(
             "Reaction Role Error",
-            `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+            `https://i.imgur.com/sFoSPK7.png`,
             `${message.url}`
           )
           .setDescription(
@@ -563,7 +563,7 @@ module.exports = class extends Event {
                     send(ticketLog, {
                       embeds: [embedLog],
                       name: `Ticket Logs`,
-                      icon: `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+                      icon: `https://i.imgur.com/sFoSPK7.png`,
                     }).catch(() => { });
                   }
                 })

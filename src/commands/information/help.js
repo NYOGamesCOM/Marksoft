@@ -491,7 +491,7 @@ module.exports = class extends Command {
 
       embed.setTitle(`Command: ${cmd.name}`);
       embed.setDescription(cmd.description);
-      embed.setThumbnail(`https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`);
+      embed.setThumbnail(`https://i.imgur.com/sFoSPK7.png`);
       embed.setFooter(
         cmd.disabled ||
           disabledCommands.includes(args[0] || args[0].toLowerCase())

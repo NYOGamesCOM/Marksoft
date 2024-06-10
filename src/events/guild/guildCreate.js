@@ -123,18 +123,18 @@ module.exports = class extends Event {
     const welcomeEmbed = new Discord.MessageEmbed()
       .setColor(`PURPLE`)
       .setTitle("New Server")
-      .setThumbnail(`https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`)
+      .setThumbnail(`https://i.imgur.com/sFoSPK7.png`)
       .setDescription(`Marksoft was added to a new Server!`)
       .addField(`Server Name`, `\`${guild.name}\``, true)
       .addField(`Server ID`, `\`${guild.id}\``, true)
       .setFooter({
         text: `${this.client.guilds.cache.size} guilds `,
-        iconURL: "https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png",
+        iconURL: "https://i.imgur.com/sFoSPK7.png",
       });
 
     welcomeClient.sendCustom({
       username: "Marksoft",
-      avatarURL: "https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png",
+      avatarURL: "https://i.imgur.com/sFoSPK7.png",
       embeds: [welcomeEmbed],
     });
 
@@ -157,7 +157,7 @@ module.exports = class extends Event {
 
     webhookClient.sendCustom({
       username: "Marksoft",
-      avatarURL: "https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png",
+      avatarURL: "https://i.imgur.com/sFoSPK7.png",
       embeds: [embed],
     });
   }

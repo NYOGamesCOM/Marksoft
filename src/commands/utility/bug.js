@@ -87,7 +87,7 @@ module.exports = class extends Command {
 
     webhookClient.sendCustom({
       username: "Marksoft Bug Report",
-      avatarURL: `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+      avatarURL: `https://i.imgur.com/sFoSPK7.png`,
       embeds: [embed],
     });
 

@@ -122,7 +122,7 @@ module.exports = class extends Command {
         send(channelLog, {
           embeds: [log],
           name: `Suggestion Logs`,
-          icon: `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+          icon: `https://i.imgur.com/sFoSPK7.png`,
         }).catch(() => { });
       }
     }

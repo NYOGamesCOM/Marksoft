@@ -48,7 +48,7 @@ module.exports = class extends Event {
         let addEmbed = new MessageEmbed()
           .setAuthor(
             "Role Added",
-            `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+            `https://i.imgur.com/sFoSPK7.png`,
             `${message.url}`
           )
           .setDescription(
@@ -60,7 +60,7 @@ module.exports = class extends Event {
         let remEmbed = new MessageEmbed()
           .setAuthor(
             "Role Removed",
-            `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+            `https://i.imgur.com/sFoSPK7.png`,
             `${message.url}`
           )
           .setDescription(
@@ -72,7 +72,7 @@ module.exports = class extends Event {
         let errorReaction = new MessageEmbed()
           .setAuthor(
             "Reaction Error",
-            `https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png`,
+            `https://i.imgur.com/sFoSPK7.png`,
             `${message.url}`
           )
           .setDescription(`A reaction error has occured!`)
