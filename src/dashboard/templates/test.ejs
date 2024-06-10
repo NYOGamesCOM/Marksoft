@@ -1,106 +1,41 @@
-<%- include("partials/head", { bot,  user, path, description, title: "Marksoft - Test",  url, image }) %>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Race</title>
+    <style>
+        .car {
+            width: 50px;
+            height: 30px;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: left 5s linear;
+        }
+    </style>
+</head>
 <body>
-  <div class="container">
-    <h1 style="font-size: 36px;">Hangman Game</h1>
-    <div id="word" style="font-size: 28px;"></div>
-    <div id="wrong" style="font-size: 20px;"></div>
-    <div id="guesses" style="font-size: 20px;"></div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <script>
-    const words = ["javascript", "programming", "hangman", "computer", "developer", "website"];
-    let chosenWord = words[Math.floor(Math.random() * words.length)];
-    let guessedLetters = [];
-    let wrongGuesses = 0;
+    <div class="track" style="position: relative; width: 600px; height: 100px; border: 1px solid black;">
+        <div class="car" id="car"></div>
+    </div>
 
-    function displayWord() {
-      let display = "";
-      for (let char of chosenWord) {
-        if (guessedLetters.includes(char)) {
-          display += char;
-        } else {
-          display += " _ ";
+    <button onclick="startRace()">Start Race</button>
+
+    <script>
+        function startRace() {
+            const car = document.getElementById('car');
+            const trackWidth = document.querySelector('.track').offsetWidth;
+            car.style.transition = 'none';
+            car.style.left = '0px';
+
+            // Move the car to the end of the track
+            setTimeout(() => {
+                car.style.transition = `left 5s linear`;
+                car.style.left = `${trackWidth - car.offsetWidth}px`;
+            }, 100);
         }
-      }
-      document.getElementById("word").innerText = display;
-    }
-
-    function displayWrongGuesses() {
-      document.getElementById("wrong").innerText = `Wrong guesses: ${wrongGuesses}`;
-    }
-
-    function displayGuessedLetters() {
-      document.getElementById("guesses").innerText = `Guessed letters: ${guessedLetters.join(", ")}`;
-    }
-
-    function checkWin() {
-      if (document.getElementById("word").innerText === chosenWord) {
-        alert("Congratulations! You won!");
-        resetGame();
-      }
-    }
-
-    function checkLoss() {
-      if (wrongGuesses >= 6) {
-        alert(`You lost! The word was "${chosenWord}"`);
-        resetGame();
-      }
-    }
-
-    function resetGame() {
-      chosenWord = words[Math.floor(Math.random() * words.length)];
-      guessedLetters = [];
-      wrongGuesses = 0;
-      displayWord();
-      displayWrongGuesses();
-      displayGuessedLetters();
-    }
-
-    document.addEventListener("keypress", function(event) {
-      const letter = String.fromCharCode(event.keyCode).toLowerCase();
-      if (!guessedLetters.includes(letter)) {
-        guessedLetters.push(letter);
-        if (!chosenWord.includes(letter)) {
-          wrongGuesses++;
-        }
-        displayWord();
-        displayWrongGuesses();
-        displayGuessedLetters();
-        checkWin();
-        checkLoss();
-      }
-    });
-
-    displayWord();
-    displayWrongGuesses();
-    displayGuessedLetters();
-  </script>
-
-  <style>
-    .container {
-      text-align: center;
-      margin: 0 auto;
-      max-width: 800px; /* Increased container width */
-    }
-  </style>
+    </script>
 </body>
+</html>

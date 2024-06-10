@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Live Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #leaderboard {
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .leaderboard-item {
+            display: grid;
+            grid-template-columns: 50px 1fr 1fr 1fr;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-item span {
+            padding: 0 10px;
+            text-align: left;
+        }
+
+        .leaderboard-item img {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+
+        .leaderboard-item .team {
+            display: flex;
+            align-items: center;
+        }
+
+        .position {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .driver {
+            font-size: 1.1em;
+            color: #222;
+        }
+
+        .team-name {
+            font-size: 1em;
+            color: #666;
+        }
+
+        .time {
+            font-size: 0.9em;
+            color: #888;
+            text-align: right;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>F1 Live Leaderboard</h1>
+    <div id="leaderboard">
+        <!-- Leaderboard will be populated here -->
+    </div>
+    <script>
+        const API_URL = 'https://ergast.com/api/f1/current/last/results.json';
+        const leaderboardElement = document.getElementById('leaderboard');
+
+        // Team Logos for 2024 season
+        const teamLogos = {
+            'Mercedes': 'https://www.formula1.com/content/dam/fom-website/teams/2024/mercedes-logo.png.transform/6col/image.png',
+            'Red Bull': 'https://www.formula1.com/content/dam/fom-website/teams/2024/red-bull-racing-logo.png.transform/6col/image.png',
+            'Ferrari': 'https://www.formula1.com/content/dam/fom-website/teams/2024/ferrari-logo.png.transform/6col/image.png',
+            'McLaren': 'https://www.formula1.com/content/dam/fom-website/teams/2024/mclaren-logo.png.transform/6col/image.png',
+            'Alpine F1 Team': 'https://www.formula1.com/content/dam/fom-website/teams/2024/alpine-logo.png.transform/6col/image.png',
+            'AlphaTauri': 'https://www.formula1.com/content/dam/fom-website/teams/2024/alphatauri-logo.png.transform/6col/image.png',
+            'Aston Martin': 'https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin-logo.png.transform/6col/image.png',
+            'Williams': 'https://www.formula1.com/content/dam/fom-website/teams/2024/williams-logo.png.transform/6col/image.png',
+            'Alfa Romeo': 'https://www.formula1.com/content/dam/fom-website/teams/2024/alfa-romeo-logo.png.transform/6col/image.png',
+            'Haas F1 Team': 'https://www.formula1.com/content/dam/fom-website/teams/2024/haas-logo.png.transform/6col/image.png'
+        };
+
+        async function fetchRaceData() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (data.MRData.RaceTable.Races.length === 0) {
+                    throw new Error('No race data available');
+                }
+                updateLeaderboard(data.MRData.RaceTable.Races[0].Results);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                leaderboardElement.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        function updateLeaderboard(results) {
+            leaderboardElement.innerHTML = results.map(driver => `
+                <div class="leaderboard-item">
+                    <span class="position">${driver.position}</span>
+                    <span class="driver">${driver.Driver.familyName}</span>
+                    <span class="team">
+                        <img src="${teamLogos[driver.Constructor.name] || 'https://via.placeholder.com/30x20'}" alt="${driver.Constructor.name}">
+                        <span class="team-name">${driver.Constructor.name}</span>
+                    </span>
+                    <span class="time">${driver.Time?.time || 'N/A'}</span>
+                </div>
+            `).join('');
+        }
+
+        // Fetch data initially and then every 10 seconds
+        fetchRaceData();
+        setInterval(fetchRaceData, 10000);
+    </script>
+</body>
+</html>

@@ -1,15 +1,49 @@
 <%- include("partials/head", { bot,  user, path, description, title: "Marksoft - Test",  url, image }) %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  #gameContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  #gameCanvas {
+    border: 2px solid red;
+    margin-top: 25px;
+  }
+
+  #leaderboardContainer {
+    margin-left: 20px;
+  }
+
+  #leaderboard {
+    width: 200px; /* Adjust as needed */
+    border: 1px solid black;
+    padding: 10px;
+    list-style: none;
+  }
+
+  #leaderboard li {
+    margin-bottom: 5px;
+  }
+</style>
 
 <body>
-  <canvas id="gameCanvas" width="1200" height="800" style="border: 2px solid red; margin: 0 auto; display: block;"></canvas>
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="1200" height="800"></canvas>
+    <div id="leaderboardContainer">
+      <h2>Leaderboard</h2>
+      <ol id="leaderboard"></ol>
+    </div>
+  </div>
 
   <script>
     const canvas = document.getElementById("gameCanvas");
@@ -20,8 +54,19 @@
     let score = 0;
 
     let d;
+    let playerName;
 
-    document.addEventListener("keydown", direction);
+    function startGame() {
+      playerName = prompt("Enter your name:");
+      if (!playerName) {
+        playerName = "Anonymous";
+      }
+      document.removeEventListener("keydown", startGame);
+      document.addEventListener("keydown", direction);
+      game = setInterval(draw, 100);
+    }
+
+    document.addEventListener("keydown", startGame);
 
     function direction(event) {
       if (event.keyCode == 37 && d != "RIGHT") {
@@ -56,8 +101,9 @@
       if (d == "RIGHT") snakeX += box;
       if (d == "DOWN") snakeY += box;
 
-      if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height) {
+      if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision({x: snakeX, y: snakeY}, snake.slice(1))) {
         clearInterval(game);
+        updateLeaderboard();
       }
 
       let newHead = {
@@ -79,8 +125,6 @@
       ctx.fillText(score, 2 * box, 1.6 * box);
     }
 
-    let game = setInterval(draw, 100);
-
     function collision(head, array) {
       for (let i = 0; i < array.length; i++) {
         if (head.x == array[i].x && head.y == array[i].y) {
@@ -89,5 +133,38 @@
       }
       return false;
     }
+
+    function updateLeaderboard() {
+      let scores = localStorage.getItem("snake_scores");
+      scores = scores ? JSON.parse(scores) : [];
+      scores.push({ name: playerName, score: score });
+      scores.sort((a, b) => b.score - a.score);
+      scores = scores.slice(0, 10); // Display top 5 scores
+      localStorage.setItem("snake_scores", JSON.stringify(scores));
+
+      const leaderboard = document.getElementById("leaderboard");
+      leaderboard.innerHTML = "";
+      scores.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}. ${entry.name}: ${entry.score}`;
+        leaderboard.appendChild(li);
+      });
+    }
+
+    // Initialize leaderboard when the page loads
+    window.onload = function() {
+      const scores = localStorage.getItem("snake_scores");
+      if (scores) {
+        const parsedScores = JSON.parse(scores);
+        const leaderboard = document.getElementById("leaderboard");
+        leaderboard.innerHTML = "";
+        parsedScores.forEach((entry, index) => {
+          const li = document.createElement("li");
+          li.textContent = `${index + 1}. ${entry.name}: ${entry.score}`;
+          leaderboard.appendChild(li);
+        });
+      }
+    };
+
   </script>
 </body>

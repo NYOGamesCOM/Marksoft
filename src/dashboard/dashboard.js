@@ -1213,52 +1213,51 @@ module.exports = async (client) => {
   app.get("/dashboard/:guildID/welcome", checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.redirect("/dashboard");
+    
     const member = await guild.members.fetch(req.user.id);
     if (!member) return res.redirect("/dashboard");
+    
     if (!member.permissions.has("MANAGE_GUILD"))
       return res.redirect("/dashboard");
-
-    const maintenance = await Maintenance.findOne({
-      maintenance: "maintenance",
-    });
-
+  
+    const maintenance = await Maintenance.findOne({ maintenance: "maintenance" });
+  
     if (maintenance && maintenance.toggle == "true") {
       return renderTemplate(res, req, "maintenance.ejs");
     }
-
-    var storedSettings = await GuildSettings.findOne({ guildId: guild.id });
+  
+    // Fetch or create guild settings
+    let storedSettings = await GuildSettings.findOne({ guildId: guild.id });
     if (!storedSettings) {
-      const newSettings = new GuildSettings({
-        guildId: guild.id,
-      });
-      await newSettings.save().catch(() => { });
+      const newSettings = new GuildSettings({ guildId: guild.id });
+      await newSettings.save().catch(() => {});
       storedSettings = await GuildSettings.findOne({ guildId: guild.id });
     }
-    var welcomeSettings = await WelcomeSchema.findOne({ guildId: guild.id });
+  
+    // Fetch or create welcome settings
+    let welcomeSettings = await WelcomeSchema.findOne({ guildId: guild.id });
     if (!welcomeSettings) {
-      const newSettings = new WelcomeSchema({
-        guildId: guild.id,
-      });
-      await newSettings.save().catch(() => { });
+      const newSettings = new WelcomeSchema({ guildId: guild.id });
+      await newSettings.save().catch(() => {});
       welcomeSettings = await WelcomeSchema.findOne({ guildId: guild.id });
     }
-
-    var leaveSettings = await LeaveSchema.findOne({ guildId: guild.id });
+  
+    // Fetch or create leave settings
+    let leaveSettings = await LeaveSchema.findOne({ guildId: guild.id });
     if (!leaveSettings) {
-      const newSettings = new LeaveSchema({
-        guildId: guild.id,
-      });
-      await newSettings.save().catch(() => { });
+      const newSettings = new LeaveSchema({ guildId: guild.id });
+      await newSettings.save().catch(() => {});
       leaveSettings = await LeaveSchema.findOne({ guildId: guild.id });
     }
-
+  
     renderTemplate(res, req, "./new/mainwelcome.ejs", {
       guild: guild,
       alert: null,
       leave: leaveSettings,
       settings: storedSettings,
       welcome: welcomeSettings,
-      welcomeMessage: welcomeSettings.welcomeMessage,  // Pass the welcomeMessage
+      welcomeMessage: welcomeSettings.welcomeMessage,
+      leaveMessage: leaveSettings.leaveMessage
     });
   });
 
@@ -1305,36 +1304,31 @@ module.exports = async (client) => {
 
     let data = req.body;
 
-    if (Object.prototype.hasOwnProperty.call(data, "welcomeSave")) {
-      let welcomeValid = await guild.channels.cache.find(
-        (ch) => `# ${ch.name}` === data.welcomeChannel
-      );
+  // Update welcome settings
+  if (Object.prototype.hasOwnProperty.call(data, "welcomeSave")) {
+    let welcomeValid = await guild.channels.cache.find(ch => `# ${ch.name}` === data.welcomeChannel);
 
-      if (welcomeValid) {
-        welcomeSettings.welcomeChannel = guild.channels.cache.find(
-          (ch) => `# ${ch.name}` === data.welcomeChannel
-        ).id;
-        storedSettings.welcomeSettings.welcomeMessage = data.welcomeMessage;
-      } else {
-        storedSettings.welcomeSettings.welcomeMessage = `Welcome {user} to {guild}! We now have {memberCount} Members!`
-        welcomeSettings.welcomeChannel = null;
-      }
+    if (welcomeValid) {
+      welcomeSettings.welcomeChannel = guild.channels.cache.find(ch => `# ${ch.name}` === data.welcomeChannel).id;
+    } else {
+      welcomeSettings.welcomeChannel = null;
     }
 
-    // leave save
-    if (Object.prototype.hasOwnProperty.call(data, "leaveSave")) {
-      let leaveValid = await guild.channels.cache.find(
-        (ch) => `# ${ch.name}` === data.leaveChannel
-      );
-
-      if (leaveValid) {
-        leaveSettings.leaveChannel = guild.channels.cache.find(
-          (ch) => `# ${ch.name}` === data.leaveChannel
-        ).id;
-      } else {
-        leaveSettings.leaveChannel = null;
-      }
+    if (data.welcomeMessage) {
+      welcomeSettings.welcomeMessage = data.welcomeMessage;
     }
+  }
+
+  // Update leave settings
+  if (Object.prototype.hasOwnProperty.call(data, "leaveSave")) {
+    let leaveValid = await guild.channels.cache.find(ch => `# ${ch.name}` === data.leaveChannel);
+
+    if (leaveValid) {
+      leaveSettings.leaveChannel = guild.channels.cache.find(ch => `# ${ch.name}` === data.leaveChannel).id;
+    } else {
+      leaveSettings.leaveChannel = null;
+    }
+  }
 
     // leave start
 
@@ -1687,6 +1681,7 @@ module.exports = async (client) => {
             settings: storedSettings,
             welcome: welcomeSettings,
             leave: leaveSettings,
+            welcomeMessage: welcomeSettings.welcomeMessage,
           });
           return;
         }
@@ -1705,6 +1700,7 @@ module.exports = async (client) => {
             settings: storedSettings,
             welcome: welcomeSettings,
             leave: leaveSettings,
+            welcomeMessage: welcomeSettings.welcomeMessage,
           });
           return;
         }
@@ -1717,6 +1713,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
             return;
           }
@@ -1729,6 +1726,7 @@ module.exports = async (client) => {
             settings: storedSettings,
             welcome: welcomeSettings,
             leave: leaveSettings,
+            welcomeMessage: welcomeSettings.welcomeMessage,
           });
 
           return;
@@ -1767,6 +1765,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
             return;
           }
@@ -1791,6 +1790,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
             return;
           }
@@ -1812,6 +1812,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
             return;
           }
@@ -1828,6 +1829,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
             return;
           }
@@ -1840,6 +1842,7 @@ module.exports = async (client) => {
             settings: storedSettings,
             welcome: welcomeSettings,
             leave: leaveSettings,
+            welcomeMessage: welcomeSettings.welcomeMessage,
           });
           return;
         }
@@ -1856,6 +1859,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
             return;
           }
@@ -1873,6 +1877,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
 
             return;
@@ -1886,6 +1891,7 @@ module.exports = async (client) => {
             settings: storedSettings,
             welcome: welcomeSettings,
             leave: leaveSettings,
+            welcomeMessage: welcomeSettings.welcomeMessage,
           });
 
           return;
@@ -1906,6 +1912,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
 
             return;
@@ -1927,6 +1934,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
 
             return;
@@ -1945,6 +1953,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
 
             return;
@@ -1966,6 +1975,7 @@ module.exports = async (client) => {
               settings: storedSettings,
               welcome: welcomeSettings,
               leave: leaveSettings,
+              welcomeMessage: welcomeSettings.welcomeMessage,
             });
 
             return;
@@ -2007,16 +2017,19 @@ module.exports = async (client) => {
       leaveSettings.leaveToggle = false;
     }
 
-    await welcomeSettings.save().catch(() => { });
-    await leaveSettings.save().catch(() => { });
-    renderTemplate(res, req, "./new/mainwelcome.ejs", {
-      guild: guild,
-      alert: `Your Changes have been saved! ✅`,
-      settings: storedSettings,
-      welcome: welcomeSettings,
-      leave: leaveSettings,
-    });
+  // Save updated settings
+  await welcomeSettings.save().catch(() => {});
+  await leaveSettings.save().catch(() => {});
+
+  renderTemplate(res, req, "./new/mainwelcome.ejs", {
+    guild: guild,
+    alert: `Your Changes have been saved! ✅`,
+    settings: storedSettings,
+    welcome: welcomeSettings,
+    leave: leaveSettings,
+    welcomeMessage: welcomeSettings.welcomeMessage
   });
+});
 
   //members
   app.get("/dashboard/:guildID/members", checkAuth, async (req, res) => {
