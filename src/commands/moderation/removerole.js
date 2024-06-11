@@ -10,7 +10,7 @@ module.exports = class extends Command {
       description: "Removes the specified role from the mentioned user",
       category: "Moderation",
       usage: "<user>",
-      examples: ["removerole @peter"],
+      examples: ["removerole @Thomas"],
       guildOnly: true,
       botPermission: ["MANAGE_ROLES"],
       userPermission: ["MANAGE_ROLES"],

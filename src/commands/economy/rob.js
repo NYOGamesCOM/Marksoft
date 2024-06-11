@@ -10,7 +10,7 @@ module.exports = class extends Command {
             description: "Rob someone!",
             category: "Economy",
             usage: "<user>",
-            examples: "rob @Peter"
+            examples: "rob @Thomas"
         })
     }
     async run(message, args) {

@@ -482,7 +482,7 @@
   "suggesting24": "He rechazado la sugerencia en",
   "reason": "Razón:",
 
-  "reportt1": "__**Uso adecuado**__\n`1-` {prefix}report enable #canal\n`2-` {prefix}report disable\n`3-` {prefix}report user @usuario <razón>\n`4-` {prefix}report issue <asunto>\n\n__**Ejemplos**__\n`1-` {prefix}report enable #informes del servidor\n`2-` {prefix}report disable\n`3-` {prefix}report user @peter Mods irrespetuosos\n`4-` {prefix}report issue el boleto no funciona",
+  "reportt1": "__**Uso adecuado**__\n`1-` {prefix}report enable #canal\n`2-` {prefix}report disable\n`3-` {prefix}report user @usuario <razón>\n`4-` {prefix}report issue <asunto>\n\n__**Ejemplos**__\n`1-` {prefix}report enable #informes del servidor\n`2-` {prefix}report disable\n`3-` {prefix}report user @Thomas Mods irrespetuosos\n`4-` {prefix}report issue el boleto no funciona",
   "report4": "Los informes ya están deshabilitados",
   "report5": "He desactivado el módulo de informes!",
   "report6": "Ya es un canal de informes",

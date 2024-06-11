@@ -12,7 +12,7 @@ module.exports = class extends Command {
       description: "Clear all the users warns",
       category: "Moderation",
       usage: "<user> [reason]",
-      examples: ["kick @Peter Breaking the rules"],
+      examples: ["kick @Thomas Breaking the rules"],
       guildOnly: true,
       userPermission: ["MANAGE_ROLES"],
     });

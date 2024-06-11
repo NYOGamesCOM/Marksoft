@@ -11,7 +11,7 @@ module.exports = class extends Command {
       description: "Add money to a user's wallet!",
       category: "Economy",
       usage: "<user> <amount>",
-      examples: ["addmoney @Peter 400"],
+      examples: ["addmoney @Thomas 400"],
       cooldown: 3,
     });
   }

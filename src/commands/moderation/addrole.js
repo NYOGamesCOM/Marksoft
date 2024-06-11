@@ -10,7 +10,7 @@ module.exports = class extends Command {
       description: "Adds the specified role to the mentioned user",
       category: "Moderation",
       usage: "<user>",
-      examples: ["addrole @peter"],
+      examples: ["addrole @Thomas"],
       guildOnly: true,
       botPermission: ["MANAGE_ROLES"],
       userPermission: ["MANAGE_ROLES"],

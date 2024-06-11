@@ -10,7 +10,7 @@ module.exports = class extends Command {
             description: "Pay a user some money from your wallet",
             category: "Economy",
             usage: "pay <user> <amount>",
-            examples: "pay @Peter 500",
+            examples: "pay @Thomas 500",
             cooldown: 5,
         });
     }

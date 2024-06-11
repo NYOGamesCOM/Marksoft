@@ -11,7 +11,7 @@ module.exports = class extends Command {
       description: "Remove money from a users wallet!",
       category: "Economy",
       usage: "<user> <amount>",
-      examples: ["removemoney @Peter 400"],
+      examples: ["removemoney @Thomas 400"],
       cooldown: 3,
     })
   }

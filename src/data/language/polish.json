@@ -488,7 +488,7 @@
   "suggesting24": "Odrzuciłem sugestię w",
   "reason": "Przyczyna:",
 
-  "reportt1": "__**Właściwe użycie**__\n`1-` {prefix}report enable #channel\n`2-` {prefix}report disable\n`3-` {prefix}report user @użytkownik <powód>\n`4-` {prefix}report issue <problem>\n\n__**Przykłady**__\n`1-` {prefix}report enable #report-serwerów\n`2-` {prefix}report disable\n`3-` {prefix}report user @peter Brak szacunku dla modów\n`4-` {prefix}report issue bilet nie działa",
+  "reportt1": "__**Właściwe użycie**__\n`1-` {prefix}report enable #channel\n`2-` {prefix}report disable\n`3-` {prefix}report user @użytkownik <powód>\n`4-` {prefix}report issue <problem>\n\n__**Przykłady**__\n`1-` {prefix}report enable #report-serwerów\n`2-` {prefix}report disable\n`3-` {prefix}report user @Thomas Brak szacunku dla modów\n`4-` {prefix}report issue bilet nie działa",
   "report4": "Raportowanie jest już wyłączone",
   "report5": "Wyłączyłem moduł raportów!",
   "report6": "Jest już kanałem raportu",

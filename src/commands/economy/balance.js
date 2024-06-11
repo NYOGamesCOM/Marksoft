@@ -11,7 +11,7 @@ module.exports = class extends Command {
       description: "Check a user's balance",
       category: "Economy",
       usage: "[user]",
-      examples: ["balance", "balance @Peter"],
+      examples: ["balance", "balance @Thomas"],
       cooldown: 3,
     })
   }

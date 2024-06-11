@@ -485,7 +485,7 @@
   "suggesting24": "J'ai refusé la suggestion en",
   "reason": "Raison:",
 
-  "reportt1": "__**Utilisation correcte**__\n`1-` {prefix}report enable #channel\n`2-` {prefix}report disable\n`3-` {prefix}report user @utilisateur <raison>\n`4-` {prefix}report issue <problème> \n\n __**Exemples**__\n`1-` {prefix}report enable #rapportsdeserveur\n`2-` {prefix}report disable\n `3-` {prefix}report user @peter Mods irrespectueux\n`4-` {prefix}report issue de ticket ne fonctionne pas",
+  "reportt1": "__**Utilisation correcte**__\n`1-` {prefix}report enable #channel\n`2-` {prefix}report disable\n`3-` {prefix}report user @utilisateur <raison>\n`4-` {prefix}report issue <problème> \n\n __**Exemples**__\n`1-` {prefix}report enable #rapportsdeserveur\n`2-` {prefix}report disable\n `3-` {prefix}report user @Thomas Mods irrespectueux\n`4-` {prefix}report issue de ticket ne fonctionne pas",
   "report4": "La création de rapports est déjà désactivée",
   "report5": "J'ai désactivé le module de rapport!",
   "report6": "Est déjà un canal de rapport",

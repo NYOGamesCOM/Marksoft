@@ -10,7 +10,7 @@ module.exports = class extends Command {
       aliases: ["approveapplication", "approveapplication", "approveform"],
       usage: "<user> <app ID> <reason>",
       category: "Applications",
-      examples: ["approve @peter OERKSOAE"],
+      examples: ["approve @Thomas OERKSOAE"],
       description: "Approve an application in the guild.",
       cooldown: 5,
       userPermission: ["MANAGE_GUILD"],

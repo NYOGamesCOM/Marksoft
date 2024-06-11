@@ -11,8 +11,8 @@ module.exports = class extends Command {
       category: "Moderation",
       usage: "<user> [reason]",
       examples: [
-        "setnickname @peter Pogger",
-        'setnickname @peter "this is a nickname" ',
+        "setnickname @Thomas WarlordGodGamer",
+        'setnickname @Thomas "this is a nickname" ',
       ],
       guildOnly: true,
       botPermission: ["SEND_MESSAGES", "EMBED_LINKS", "MANAGE_NICKNAMES"],
