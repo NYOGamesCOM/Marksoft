@@ -91,7 +91,7 @@ module.exports = class extends Command {
                     .setTimestamp();
 
                 webhookClient.send({
-                    username: 'Naughty Bot',
+                    username: 'Naughty Achievement',
                     avatarURL: 'https://i.imgur.com/sFoSPK7.png', // Replace with your avatar URL if needed
                     embeds: [embedWebhook],
                 }).then(() => {
