@@ -1,3 +1,5 @@
+/* MADE FOR BANKAI COMMUNITY */
+
 const Command = require("../../structures/Command");
 const path = require('path');
 const fs = require("node:fs");

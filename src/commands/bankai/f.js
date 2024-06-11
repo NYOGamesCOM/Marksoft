@@ -1,3 +1,5 @@
+/* MADE FOR BANKAI COMMUNITY */
+
 const discord = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");

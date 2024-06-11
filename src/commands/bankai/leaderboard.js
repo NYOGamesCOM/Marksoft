@@ -1,3 +1,5 @@
+/* MADE FOR BANKAI COMMUNITY */
+
 const Command = require("../../structures/Command");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const fs = require('fs');

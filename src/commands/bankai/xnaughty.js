@@ -1,3 +1,5 @@
+/* MADE FOR BANKAI COMMUNITY */
+
 const Command = require("../../structures/Command");
 const { MessageEmbed, WebhookClient } = require("discord.js");
 const path = require('path');

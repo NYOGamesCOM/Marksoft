@@ -1,3 +1,5 @@
+/* MADE FOR BANKAI COMMUNITY */
+
 const Command = require("../../structures/Command");
 const Discord = require("discord.js");
 const got = require("got");
