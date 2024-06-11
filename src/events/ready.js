@@ -80,14 +80,14 @@ module.exports = class extends Event {
               // Update the welcome message in the welcome module
               const welcomeConfig = await WelcomeModule.findOne({ guildId: result.guildId });
               if (welcomeConfig) {
-                welcomeConfig.welcomeMessage = "Welcome {user} to {guild}! We now have {memberCount} Members!";
+                welcomeConfig.welcomeMessage = "Welcome {user} to {guild}! We now have {memberCount} members!";
                 await welcomeConfig.save().catch(() => { });
               }
 
               // Update the leave message in the leave module
               const leaveConfig = await LeaveModule.findOne({ guildId: result.guildId });
               if (leaveConfig) {
-                leaveConfig.leaveMessage = "[ {user_tag} ] just left [ {guild} ], we now have {memberCount} Members!";
+                leaveConfig.leaveMessage = "{user_tag} just left {guild}, we now have {memberCount} members!";
                 await leaveConfig.save().catch(() => { });
               }
               

@@ -20,7 +20,7 @@ const guildConfigSchema = mongoose.Schema({
   },
   leaveMessage: {
     type: mongoose.SchemaTypes.String,
-    default: `[ {user_tag} ] just left [ {guild} ], we now have {memberCount} Members!`,
+    default: `{user_tag} just left {guild}, we now have {memberCount} members!`,
   },
   leaveEmbed: {
     type: mongoose.SchemaTypes.String,
@@ -40,7 +40,7 @@ const guildConfigSchema = mongoose.Schema({
 
     description: {
       type: mongoose.SchemaTypes.String,
-      default: `[ {user_tag} ] just left [ {guild} ], we now have {memberCount} Members!`,
+      default: `{user_tag} just left {guild}, we now have {memberCount} members!`,
     },
     footer: {
       type: mongoose.SchemaTypes.String,
