@@ -221,15 +221,6 @@ module.exports = class extends Command {
             .setTimestamp()
             .setColor("GREEN"),
         ],
-      })
-      .then((k) => {
-        if (guildDB.deleteSuggestion == "true") {
-          message.delete().catch(() => { });
-        }
-
-        setTimeout(() => {
-          k.delete().catch(() => { });
-        }, 10000);
       });
   }
 };
