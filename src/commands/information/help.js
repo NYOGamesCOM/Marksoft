@@ -7,8 +7,8 @@ const emojis = require("../../assets/emojis.json");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "help",
-      aliases: ["menu", "bothelp", "commands"],
+      name: "123help",
+      aliases: ["123menu", "123bothelp", "123commands"],
       description: "Shows you every available command in the guild",
       category: "Information",
       usage: "[command]",
