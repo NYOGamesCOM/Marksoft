@@ -3,6 +3,8 @@ const { MessageEmbed } = require("discord.js");
 const config = require("../../../config.json");
 const discord = require("discord.js");
 const webhookClient = new discord.WebhookClient({ url: config.webhooks.naughty });
+const path = require('path');
+const fs = require("node:fs");
 
 module.exports = class extends Command {
     constructor(...args) {
@@ -46,7 +48,7 @@ module.exports = class extends Command {
             }).catch(error => {
                 console.error('Error sending webhook message:', error);
             });
-            
+
             // Store the username and counter in a JSON file
             const filePath = path.join(__dirname, "../../../naughty_users.json");
             let users = [];
