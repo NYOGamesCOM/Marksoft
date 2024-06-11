@@ -49,7 +49,7 @@ module.exports = class extends Command {
                 leaderboardMessage += "No users to display on this page.";
             } else {
                 usersOnPage.forEach((user, index) => {
-                    leaderboardMessage += `**${startIndex + index + 1}.** ${user.username} - ${user.counter} times\n`;
+                    leaderboardMessage += `\`${startIndex + index + 1}.\` **${user.username}** - \`${user.counter} times\`\n`;
                 });
             }
 
