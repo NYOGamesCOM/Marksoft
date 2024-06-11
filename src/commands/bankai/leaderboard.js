@@ -46,7 +46,7 @@ module.exports = class extends Command {
         const totalPages = Math.ceil(guildUsers.length / USERS_PER_PAGE);
     
         // Parse page number from the command argument
-        const page = parseInt(args[0]) || 1;
+        let page = parseInt(args[0]) || 1;
     
         if (isNaN(page) || page < 1 || page > totalPages) {
             return message.channel.send(`Invalid page number. Please enter a number between 1 and ${totalPages}.`);
@@ -57,20 +57,19 @@ module.exports = class extends Command {
         const endIndex = Math.min(startIndex + USERS_PER_PAGE, guildUsers.length);
     
         // Generate the leaderboard message for the current page
-        let leaderboardMessage = `**Page ${page}/${totalPages}**\n\n`;
+        let leaderboardMessage = `**Page ${page}/${totalPages}**\n\n\`\`\`\n`;
+        leaderboardMessage += `No.  | Username            | Total 69s\n`;
+        leaderboardMessage += `-----|---------------------|----------\n`;
         if (guildUsers.length === 0) {
             leaderboardMessage += "No one has hit the magic number 69 yet!";
         } else {
             for (let i = startIndex; i < endIndex; i++) {
                 const user = guildUsers[i];
-                leaderboardMessage += `\`${i + 1}.\` **${user.username}** - \`${user.counter} times\`\n`;
-                //leaderboardMessage += `\`${i + 1}.\` **${user.username.padEnd(20)}** - \`${user.counter.toString().padStart(5)} times\`\n`;
-
-
-                /*.addField("Left", `${oldChannelName}`, true)
-                .addField("Joined", `${newChannelName}`, true)*/
+                leaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.counter.toString().padEnd(5, ' ')}\n`;
             }
         }
+
+        leaderboardMessage += `\`\`\``;
     
         const embed = new MessageEmbed()
             .setTitle('Special Naughty Achievement Leaderboard')
@@ -95,23 +94,50 @@ module.exports = class extends Command {
     
             const msg = await message.channel.send({ embeds: [embed], components: [row] });
     
-            // Collect button interactions
             const filter = i => i.user.id === message.author.id && (i.customId === 'previousPage' || i.customId === 'nextPage');
             const collector = msg.createMessageComponentCollector({ filter, time: 60000 });
-    
+
             collector.on('collect', async interaction => {
-                if (interaction.customId === 'previousPage') {
-                    if (page > 1) {
-                        this.run(message, [page - 1]);
-                    }
-                } else if (interaction.customId === 'nextPage') {
-                    if (page < totalPages) {
-                        this.run(message, [page + 1]);
+                if (interaction.customId === 'previousPage' && page > 1) {
+                    page--;
+                } else if (interaction.customId === 'nextPage' && page < totalPages) {
+                    page++;
+                } else {
+                    return interaction.deferUpdate();
+                }
+
+                // Calculate the new starting and ending indices for the current page
+                const newStartIndex = (page - 1) * USERS_PER_PAGE;
+                const newEndIndex = Math.min(newStartIndex + USERS_PER_PAGE, guildUsers.length);
+
+                // Generate the updated leaderboard message for the current page
+                let newLeaderboardMessage = `**Page ${page}/${totalPages}**\n\n\`\`\`\n`;
+                newLeaderboardMessage += `No.  | Username            | Total 69s\n`;
+                newLeaderboardMessage += `-----|---------------------|----------\n`;
+                //leaderboardMessage += `No.  | Username             | Usage | Total 69s\n`;
+                //leaderboardMessage += `-----|----------------------|-------|----------\n`;
+                if (guildUsers.length === 0) {
+                    newLeaderboardMessage += "No one has hit the magic number 69 yet!";
+                } else {
+                    for (let i = newStartIndex; i < newEndIndex; i++) {
+                        const user = guildUsers[i];
+                        newLeaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.counter.toString().padEnd(5, ' ')}\n`;
+                        //leaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.usage.toString().padEnd(7, ' ')}| ${user.counter.toString().padEnd(5, ' ')}\n`;
                     }
                 }
-    
+
+                newLeaderboardMessage += `\`\`\``;
+
+                const newEmbed = new MessageEmbed()
+                    .setTitle('Special Naughty Achievement Leaderboard')
+                    .setDescription(newLeaderboardMessage)
+                    .setColor('#FFD700') // Gold color for leaderboard
+                    .setTimestamp();
+                
+                // Edit the existing message with the updated embed
+                interaction.message.edit({ embeds: [newEmbed], components: [row] });
+
                 await interaction.deferUpdate();
-                collector.stop();
             });
     
             collector.on('end', () => {

@@ -19,6 +19,10 @@ module.exports = class extends Command {
         const randomNumber = Math.floor(Math.random() * 69) + 1;
         let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty!\n`;
 
+        // Increment command usage counter
+        //this.incrementCommandUsage(message.guild.id);
+        this.incrementCommandUsage(message.guild.id, message.author.id);
+
         if (randomNumber === 69) {
             responseMessage += '\n Congratulations!';
             
@@ -89,7 +93,7 @@ module.exports = class extends Command {
                     avatarURL: 'https://i.imgur.com/sFoSPK7.png', // Replace with your avatar URL if needed
                     embeds: [embedWebhook],
                 }).then(() => {
-                    console.log('Webhook message sent successfully!');
+                    console.log('Special Naughty Achievement message sent successfully!');
                 }).catch(error => {
                     console.error('Error sending webhook message:', error);
                 });
@@ -97,7 +101,7 @@ module.exports = class extends Command {
                 console.warn(`No webhook set for guild ${message.guild.id}`);
             }
         }
-
+        
         const embed = new MessageEmbed()
             .setTitle('Naughty')
             .setDescription(responseMessage)
@@ -111,5 +115,37 @@ module.exports = class extends Command {
 
         await message.channel.send({ embeds: [embed] });
         //message.delete().catch(err => console.error('Failed to delete the message:', err));
+    }
+    incrementCommandUsage(guildId, userId) {
+        const filePath = path.join(__dirname, "../../../naughty_users.json");
+        let data = {};
+    
+        try {
+            if (fs.existsSync(filePath)) {
+                const fileData = fs.readFileSync(filePath, 'utf8');
+                data = JSON.parse(fileData);
+            }
+        } catch (err) {
+            console.error('Error reading the JSON file:', err);
+        }
+    
+        // Update usage count for the user in the guild
+        if (data[guildId]) {
+            const guildData = data[guildId];
+            if (guildData.users) {
+                const user = guildData.users.find(user => user.userId === userId);
+                if (user) {
+                    user.usage = (user.usage || 0) + 1;
+                }
+            }
+        }
+    
+        // Write updated data back to the file
+        try {
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+            //console.log('User data updated in naughty_users.json');
+        } catch (err) {
+            console.error('Error writing to the JSON file:', err);
+        }
     }
 };
