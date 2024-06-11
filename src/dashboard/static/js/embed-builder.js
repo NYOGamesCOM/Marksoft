@@ -54,17 +54,17 @@ window.onload = () => {
         author: {
           name: "Author name",
           url: "https://Marksoft.ro",
-          icon_url: "https://i.imgur.com/sGUVicW.png",
+          icon_url: "https://i.imgur.com/sFoSPK7.png",
         },
         thumbnail: {
-          url: "https://blog.logomyway.com/wp-content/uploads/2020/12/discord-mascot.png",
+          url: "https://i.imgur.com/sFoSPK7.png",
         },
         image: {
-          url: "https://1000logos.net/wp-content/uploads/2020/10/Discord-logo.png",
+          url: "https://i.imgur.com/jxrBSSS.png",
         },
         footer: {
           text: "This is a footer text",
-          icon_url: "https://i.imgur.com/sGUVicW.png",
+          icon_url: "https://i.imgur.com/sFoSPK7.png",
         },
         fields: [
           {
