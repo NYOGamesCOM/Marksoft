@@ -11,7 +11,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: "69usage",
-            aliases: ["69usagelb"],
+            aliases: ["69ers"],
             description: "Shows the 69 usage leaderboard",
             category: "Fun",
             guildOnly: true,
@@ -74,7 +74,7 @@ module.exports = class extends Command {
         leaderboardMessage += `\`\`\``;
     
         const embed = new MessageEmbed()
-            .setTitle('Command usage counter')
+            .setTitle('TOP 69ers')
             .setDescription(leaderboardMessage)
             .setColor('#FFD700') // Gold color for leaderboard
             .setTimestamp();
@@ -131,7 +131,7 @@ module.exports = class extends Command {
                 newLeaderboardMessage += `\`\`\``;
 
                 const newEmbed = new MessageEmbed()
-                    .setTitle('Command usage counter')
+                    .setTitle('TOP 69ers')
                     .setDescription(newLeaderboardMessage)
                     .setColor('#FFD700') // Gold color for leaderboard
                     .setTimestamp();
