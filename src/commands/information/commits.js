@@ -10,6 +10,7 @@ module.exports = class CommitsCommand extends Command {
       description: "Display github commits",
       category: "General",
       cooldown: 5,
+      ownerOnly: true,
     });
   }
 

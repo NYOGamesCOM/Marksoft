@@ -7,8 +7,8 @@ const emojis = require("../../assets/emojis.json");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      name: "123help",
-      aliases: ["123menu", "123bothelp", "123commands"],
+      name: "help",
+      aliases: ["menu", "bothelp", "commands"],
       description: "Shows you every available command in the guild",
       category: "Information",
       usage: "[command]",
@@ -515,7 +515,7 @@ module.exports = class extends Command {
         embed.addField(
           "__**Examples**__",
           cmd.examples
-            .map((example) => `<:purple:826033456207233045> \`${example}\``)
+            .map((example) => `:purple_circle:  \`${example}\``)
             .join("\n")
         );
 

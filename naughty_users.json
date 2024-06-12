@@ -7,14 +7,14 @@
         "userId": "94154416197734400",
         "counter": 1,
         "date": "2024-06-11T14:30:00.000Z",
-        "usage": 31
+        "usage": 38
       },
       {
         "username": "zeynepm35",
         "userId": "769646367143362570",
-        "counter": 4,
+        "counter": 6,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 497
+        "usage": 543
       },
       {
         "username": "gamegirlnaomi4",
@@ -26,37 +26,37 @@
       {
         "username": "hannah_h713",
         "userId": "785314096413016124",
-        "counter": 17,
+        "counter": 23,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 676
+        "usage": 985
       },
       {
         "username": "meg2731",
         "userId": "1172716872769216593",
         "counter": 2,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 79
+        "usage": 95
       },
       {
         "username": "izz_aldin",
         "userId": "222014474968629248",
         "counter": 13,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 757
+        "usage": 763
       },
       {
         "username": "hails442",
         "userId": "1161695223194337421",
-        "counter": 3,
+        "counter": 6,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 271
+        "usage": 445
       },
       {
         "username": "meryem_16209",
         "userId": "1206692785202274316",
         "counter": 1,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 107
+        "usage": 123
       },
       {
         "username": "dazzle19",
@@ -75,16 +75,29 @@
       {
         "username": "avili",
         "userId": "481395898937507851",
-        "counter": 1,
+        "counter": 2,
         "date": "2024-06-11T01:58:59.856Z",
-        "usage": 24
+        "usage": 60
       },
       {
         "username": "krissemarie",
         "userId": "747761668192469062",
-        "counter": 1,
+        "counter": 2,
         "date": "2024-06-11T20:53:54.692Z",
-        "usage": 61
+        "usage": 342
+      },
+      {
+        "username": "finble",
+        "userId": "395592162156478465",
+        "counter": 1,
+        "date": "2024-06-11T23:07:20.478Z",
+        "usage": 4
+      },
+      {
+        "username": "amagicspark",
+        "userId": "759351619132456980",
+        "counter": 1,
+        "date": "2024-06-12T20:42:30.899Z"
       }
     ]
   },
