@@ -59,7 +59,7 @@ module.exports = class extends Command {
       const resource = createAudioResource(stream);
       const player = createAudioPlayer();
 
-      let volume = 1.0; // Default volume
+      let volume = 0.7; // Default volume
 
       player.on(AudioPlayerStatus.Playing, () => {
         const embed = new MessageEmbed()
@@ -92,7 +92,7 @@ module.exports = class extends Command {
 
       player.on(AudioPlayerStatus.Idle, () => {
         player.stop();
-        connection.destroy();
+        //connection.destroy();
         message.channel.send({
           embeds: [
             new MessageEmbed()

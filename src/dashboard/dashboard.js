@@ -38,6 +38,7 @@ const metrics = require("datadog-metrics");
 const { cpu } = require("node-os-utils");
 const Application = require("../database/models/application/application.js");
 const customCommand = require("../database/schemas/customCommand.js");
+const Premium = require('../database/schemas/GuildPremium.js')
 //dont touch here
 const Hook = new Discord.WebhookClient({ url: jsonconfig.webhooks.votes });
 
@@ -649,7 +650,7 @@ module.exports = async (client) => {
         }
       }
       member
-        .sendCustom({
+        .send({
           embeds: [
             new MessageEmbed()
               .setColor("GREEN")
@@ -718,100 +719,105 @@ module.exports = async (client) => {
     if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/redeem");
 
     const maintenance = await Maintenance.findOne({
-      maintenance: "maintenance",
+        maintenance: "maintenance",
     });
 
     if (maintenance && maintenance.toggle == "true") {
-      return renderTemplate(res, req, "maintenance.ejs");
+        return renderTemplate(res, req, "maintenance.ejs");
     }
 
     var storedSettings = await GuildSettings.findOne({ guildId: guild.id });
     if (!storedSettings) {
-      const newSettings = new GuildSettings({
-        guildId: guild.id,
-      });
-      await newSettings.save().catch(() => { });
-      storedSettings = await GuildSettings.findOne({ guildId: guild.id });
+        const newSettings = new GuildSettings({
+            guildId: guild.id,
+        });
+        await newSettings.save().catch(() => {});
+        storedSettings = await GuildSettings.findOne({ guildId: guild.id });
     }
 
     renderTemplate(res, req, "redeemguild.ejs", {
-      guild: guild,
-      alert: null,
-      settings: storedSettings,
+        guild: guild,
+        alert: null,
+        settings: storedSettings,
+        result: null  // No result on initial load
     });
+});
+
+
+app.post("/redeem/:guildID", checkAuth, async (req, res) => {
+  const guild = client.guilds.cache.get(req.params.guildID);
+  if (!guild) return res.redirect("/redeem");
+  const member = await guild.members.fetch(req.user.id);
+  if (!member) return res.redirect("/redeem");
+  if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/redeem");
+
+  const maintenance = await Maintenance.findOne({
+      maintenance: "maintenance",
   });
 
-  app.post("/redeem/:guildID", checkAuth, async (req, res) => {
-    const guild = client.guilds.cache.get(req.params.guildID);
-    if (!guild) return res.redirect("/redeem");
-    const member = await guild.members.fetch(req.user.id);
-    if (!member) return res.redirect("/redeem");
-    if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/redeem");
-
-    const maintenance = await Maintenance.findOne({
-      maintenance: "maintenance",
-    });
-
-    if (maintenance && maintenance.toggle == "true") {
+  if (maintenance && maintenance.toggle == "true") {
       return renderTemplate(res, req, "maintenance.ejs");
-    }
+  }
 
-    var storedSettings = await GuildSettings.findOne({ guildId: guild.id });
-    if (!storedSettings) {
-      const newSettings = new GuildSettings({
-        guildId: guild.id,
+  var storedSettings = await GuildSettings.findOne({ guildId: guild.id }) || new GuildSettings({ guildId: guild.id });
+  await storedSettings.save().catch(() => {});
+
+  const code = req.body.code;
+  const premium = await Premium.findOne({ code: code });
+
+  if (!premium) {
+      return renderTemplate(res, req, "redeemguild.ejs", {
+          guild: guild,
+          alert: null,
+          settings: storedSettings,
+          result: { success: false, message: "Invalid or expired premium code." }
       });
-      await newSettings.save().catch(() => { });
-      storedSettings = await GuildSettings.findOne({ guildId: guild.id });
-    }
+  }
 
-    const expires = moment(Date.now() + 2592000000 * 12).format(
-      "dddd, MMMM Do YYYY HH:mm:ss"
-    );
+  // Valid code, apply premium
+  const expires = moment(Date.now() + 2592000000 * 12).format("dddd, MMMM Do YYYY HH:mm:ss");
+  let ID = uniqid(undefined, ``);
+  const date = require("date-and-time");
+  const now = new Date();
+  let DDate = date.format(now, "YYYY/MM/DD HH:mm:ss");
 
-    let ID = uniqid(undefined, ``);
-    const date = require("date-and-time");
-    const now = new Date();
-    let DDate = date.format(now, "YYYY/MM/DD HH:mm:ss");
-    member
-      .send({
-        embeds: [
+  storedSettings.isPremium = "true";
+  storedSettings.premium.redeemedBy.id = member.id;
+  storedSettings.premium.redeemedBy.tag = member.user.tag;
+  storedSettings.premium.redeemedAt = Date.now();
+  storedSettings.premium.expiresAt = Date.now() + 2592000000 * 12;
+  storedSettings.premium.plan = "year";
+
+  await storedSettings.save().catch(() => {});
+  await premium.deleteOne().catch(() => {});
+
+  member.send({
+      embeds: [
           new Discord.MessageEmbed()
-            .setDescription(
-              `**Congratulations!**\n\n**${guild.name}** Is now a premium guild! Thanks a ton!\n\nIf you have any questions please contact me [here](${jsonconfig.discord})\n\n__**Receipt:**__\n**Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n\n**Please make sure to keep this information safe, you might need it if you ever wanna refund / transfer servers.**\n\n**Expires At:** ${expires}`
-            )
-            .setColor("GREEN")
-            .setFooter(guild.name),
-        ],
-      })
-      .catch(() => { });
+              .setDescription(`**Congratulations!**\n\n**${guild.name}** is now a premium guild! Thanks a ton!\n\nIf you have any questions, please contact us [here](${jsonconfig.discord})\n\n__**Receipt:**__\n**Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n\n**Please make sure to keep this information safe, you might need it if you ever want to refund / transfer servers.**\n\n**Expires At:** ${expires}`)
+              .setColor("GREEN")
+              .setFooter(guild.name),
+      ],
+  }).catch(() => {});
 
-    storedSettings.isPremium = "true";
-    storedSettings.premium.redeemedBy.id = member.id;
-    storedSettings.premium.redeemedBy.tag = member.user.tag;
-    storedSettings.premium.redeemedAt = Date.now();
-    storedSettings.premium.expiresAt = Date.now() + 2592000000 * 12;
-    storedSettings.premium.plan = "year";
-
-    await storedSettings.save().catch(() => { });
-
-    const embedPremium = new Discord.MessageEmbed()
-      .setDescription(
-        `**Premium Subscription**\n\n**${member.user.tag}** Redeemed a code in **${guild.name}**\n\n **Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n**Redeemer Tag:** ${member.user.tag}\n**Redeemer ID:** ${member.user.id}\n\n**Expires At:** ${expires}`
-      )
+  const embedPremium = new Discord.MessageEmbed()
+      .setDescription(`**Premium Subscription**\n\n**${member.user.tag}** redeemed a code in **${guild.name}**\n\n **Receipt ID:** ${ID}\n**Redeem Date:** ${DDate}\n**Guild Name:** ${guild.name}\n**Guild ID:** ${guild.id}\n**Redeemer Tag:** ${member.user.tag}\n**Redeemer ID:** ${member.user.id}\n\n**Expires At:** ${expires}`)
       .setColor(guild.me.displayHexColor);
 
-    premiumWeb.send({
-      username: "Marksoft Premium",
+  premiumWeb.send({
+      username: "ChaoticPremium",
       avatarURL: `${domain}/logo.png`,
       embeds: [embedPremium],
-    });
-    renderTemplate(res, req, "redeemguild.ejs", {
-      guild: guild,
-      alert: `${guild.name} Is now a premium guild!!`,
-      settings: storedSettings,
-    });
   });
+
+  renderTemplate(res, req, "redeemguild.ejs", {
+      guild: guild,
+      alert: `${guild.name} is now a premium guild!!`,
+      settings: storedSettings,
+      result: { success: true, message: `Code is valid! Expires on ${expires}.` }
+  });
+});
+
 
   app.get("/dashboard/:guildID", checkAuth, async (req, res) => {
     const guild = client.guilds.cache.get(req.params.guildID);

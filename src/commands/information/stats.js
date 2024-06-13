@@ -59,8 +59,8 @@ module.exports = class extends Command {
       Ping -- ${Math.round(message.client.ws.ping)}ms
       Uptime  -- ${uptime}
       ${language.MarksoftVersion} -- 2.0
-      Library -- Discord.js v13.6.0
-      Environment -- Node.js v16.9.1
+      Library -- Discord.js v 13.6.0
+      Environment -- Node.js v 16.9.1
       Servers -- ${message.client.guilds.cache.size}
       ${language.users} -- ${this.client.guilds.cache.reduce(
       (a, b) => a + b.memberCount,
@@ -73,7 +73,7 @@ module.exports = class extends Command {
     const devs = stripIndent`
      ${language.MarksoftDevelopers}
 
-    • 13Thomas#3267
+    • Thomas#3267
     
     `;
     const embed = new MessageEmbed()

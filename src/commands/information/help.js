@@ -321,7 +321,7 @@ module.exports = class extends Command {
               `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
                 ? red
                 : green
-              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
+              } \`${cmd.name} ${" ".repeat(17 - Number(cmd.name.length))}:\` ${cmd.description
               }`
           )
           .join("\n")

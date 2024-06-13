@@ -19,7 +19,7 @@ module.exports = class extends Command {
     if (connection) {
       const player = connection.state.subscription.player;
       player.stop();
-      connection.destroy();
+      //connection.destroy();
       
       message.channel.send({
         embeds: [

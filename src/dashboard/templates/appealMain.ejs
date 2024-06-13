@@ -75,33 +75,6 @@ body.done .contact-form-title::after {
     
     </body>
 </html>
-    <script type="text/javascript">
-      var verifyCallback = function(response) {
-        alert(response);
-      };
-      var widgetId1;
-      var widgetId2;
-      var onloadCallback = function() {
-        // Renders the HTML element with id 'example1' as a reCAPTCHA widget.
-        // The id of the reCAPTCHA widget is assigned to 'widgetId1'.
-        widgetId1 = grecaptcha.render('example1', {
-          'sitekey' : '6LfG_H8aAAAAAKFRc2P0w5-slk2yz--FCuhQhS4O',
-          'theme' : 'dark'
-        });
-        widgetId2 = grecaptcha.render(document.getElementById('example2'), {
-          'sitekey' : '6LfG_H8aAAAAAKFRc2P0w5-slk2yz--FCuhQhS4O'
-        });
-        grecaptcha.render('example3', {
-          'sitekey' : '6LfG_H8aAAAAAKFRc2P0w5-slk2yz--FCuhQhS4O',
-          'callback' : verifyCallback,
-          'theme' : 'dark'
-        });
-      };
-    </script>
-
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-        async defer>
-    </script>
 
   <%- include("partials/footer") %>
   <style>
@@ -114,13 +87,7 @@ window.onload = () => {
     
     document.querySelector('form').addEventListener('submit', e => {
 e.preventDefault();  
-var v = grecaptcha.getResponse();
-if(v.length == 0)
-{
-    document.getElementById('captcha').innerHTML="Invalid Captcha Attempt.";
-    return false;
 
- }
 
 document.getElementById("form").submit();
     });
