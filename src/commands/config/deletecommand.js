@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "deletecommand",
       description: "Deletes a custom command",
-      category: "Config",
+      category: "config",
       userPermission: "MANAGE_MESSAGES",
       aliases: ["delcommand", "removecommand"],
       usage: ["<command>"],

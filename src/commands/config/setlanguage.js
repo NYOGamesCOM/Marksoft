@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "setlanguage",
       aliases: ["setlang", "lang"],
       description: "Set a guild language",
-      category: "Config",
+      category: "config",
       guildOnly: true,
       userPermission: ["MANAGE_GUILD"],
     });

@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "settings",
       aliases: ["cfg"],
       description: "Show's the current settings for this guild",
-      category: "Config",
+      category: "config",
       guildOnly: true,
       userPermission: ["MANAGE_GUILD"],
     });

@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "createcommand",
       description: "Create a custom command",
-      category: "Config",
+      category: "config",
       aliases: ["cc", "customcommand"],
       usage: ["<command> <reply>"],
       examples: ["createcommand pog Poggers!"],

@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "anti-invites",
       aliases: ["anti-invite", "antiinvite", "antiinvites"],
       description: "Block Invites from the current server!",
-      category: "Config",
+      category: "config",
       usage: ["<enable | disable>"],
       examples: ["anti-invites enable", "anti-invites disable"],
       cooldown: 3,

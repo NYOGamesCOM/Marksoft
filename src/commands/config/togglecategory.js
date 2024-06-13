@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "togglecategory",
       description: "Disable or enable a category in the guild",
-      category: "Config",
+      category: "config",
       examples: ["togglecategory currency"],
       cooldown: 3,
       guildOnly: true,

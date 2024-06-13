@@ -8,7 +8,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "autoresponses",
       description: "Gives a list of auto Responses in a guild",
-      category: "Config",
+      category: "config",
       aliases: ["ars", "autoresponselist"],
       cooldown: 5,
     });

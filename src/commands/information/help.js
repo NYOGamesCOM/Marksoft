@@ -83,7 +83,7 @@ module.exports = class extends Command {
 
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -114,7 +114,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -148,7 +148,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -181,7 +181,7 @@ module.exports = class extends Command {
 
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -200,8 +200,7 @@ module.exports = class extends Command {
               `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
                 ? red
                 : green
-              } \`${cmd.name} ${" ".repeat(14 - Number(cmd.name.length))}:\` ${cmd.description
-              }`
+              } \`${cmd.name} ${" ".repeat(Math.max(0, 13 - cmd.name.length))}:\` ${cmd.description}`
           )
           .join("\n")
       );
@@ -214,7 +213,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -248,7 +247,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -277,7 +276,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -306,7 +305,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -335,7 +334,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -367,7 +366,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -399,7 +398,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -430,7 +429,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -462,7 +461,7 @@ module.exports = class extends Command {
       embed.setTimestamp();
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );
@@ -488,7 +487,7 @@ module.exports = class extends Command {
       );
       embed.addField(
         "\u200b",
-        "**[Invite](http://localhost:3000/invite) | " +
+        "**[Invite Bot](http://localhost:3000/invite) | " +
         "[Support Server](http://localhost:3000/support) | " +
         "[Dashboard](http://localhost:3000/)**"
       );

@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "setprefix",
       description: "Sets the prefix for this server",
-      category: "Config",
+      category: "config",
       usage: ["<prefix>"],
       examples: ["setprefix !"],
       cooldown: 3,

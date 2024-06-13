@@ -9,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             name: "setnaughtywebhook",
             description: "Sets the naughty webhook URL for the current guild.",
-            category: "Admin",
+            category: "config",
             usage: "<webhook_url>",
             guildOnly: true,
             userPermissions: ["ADMINISTRATOR"], // Only administrators can use this command

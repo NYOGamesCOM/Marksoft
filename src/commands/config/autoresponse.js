@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "autoresponse",
       description:
         "Create a auto Response which gets triggered without prefix!",
-      category: "Config",
+      category: "config",
       aliases: ["ar", "aresponse"],
       usage: ["<command> <reply>"],
       examples: ["autoresponse pog Poggers!"],

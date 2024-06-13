@@ -7,7 +7,7 @@ module.exports = class extends Command {
       name: "anti-links",
       aliases: ["anti-link", "antilink", "antilink"],
       description: "Sets anti-invite if the message contains a link",
-      category: "Config",
+      category: "config",
       usage: ["<enable | disable>"],
       examples: ["anti-links enable", "anti-links disable"],
       cooldown: 3,

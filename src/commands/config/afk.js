@@ -9,7 +9,7 @@ module.exports = class extends Command {
       name: "afk",
       aliases: [],
       description: "Set an AFK message!",
-      category: "Config",
+      category: "config",
       usage: ["<reason>"],
       examples: ["afk Have to go!"],
       cooldown: 20,

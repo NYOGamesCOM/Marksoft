@@ -8,7 +8,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "customcommands",
       description: "Gives a list of custom commands",
-      category: "Config",
+      category: "config",
       aliases: ["ccs"],
       cooldown: 5,
     });

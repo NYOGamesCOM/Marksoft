@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "suggestion",
       description: "Enable or disable and approve or decline suggestions",
-      category: "Config",
+      category: "config",
       usage: [
         "<enable #channel | disable> / suggestion approve/decline <message ID>",
       ],

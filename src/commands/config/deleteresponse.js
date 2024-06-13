@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "deleteresponse",
       description: "Deletes an auto Response",
-      category: "Config",
+      category: "config",
       aliases: ["deleteautoresponse", "delresponse", "deleteautoresponse"],
       usage: ["<command>"],
       examples: ["deleteresponse Pog"],
