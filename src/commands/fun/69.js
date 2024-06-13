@@ -9,7 +9,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             name: "69",
-            aliases: ["ngty", "xxxrng"],
+            aliases: ["naughty", "xxxrng"],
             description: "Naughty 69 RNG",
             category: "fun",
             usage: "",

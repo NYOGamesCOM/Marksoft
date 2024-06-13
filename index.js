@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton, WebhookClient } = require("discord.js");
 const MarksoftClient = require("./Marksoft");
 const config = require("./config.json");
 const deploy = require("./src/deployCommands.js");
@@ -10,6 +10,156 @@ const fs = require("node:fs");
 const Marksoft = new MarksoftClient(config);
 let messageCreateEventFired = false;
 
+/*  TWITCH  
+      NAUGHTY
+        COMMAND
+          MERGED 
+            WITH 
+              DISCORD 
+*/
+
+const tmi = require('tmi.js');
+
+const cooldowns = {};
+
+const userDataPath = path.resolve(__dirname, 'data', '../../../naughty_users.json');
+
+// Load user data
+let nuserData = {};
+try {
+    const userDataFileContent = fs.readFileSync(userDataPath, 'utf-8');
+    userData = JSON.parse(userDataFileContent);
+} catch (error) {
+    console.error("Error reading user data file:", error);
+}
+
+const twitchclient = new tmi.Client({
+    connection:{
+        reconnect: true,
+        secure: true
+    },
+    identity:{
+        username: process.env.TWITCH_BOT_USERNAME,
+        password: process.env.TWITCH_OAUTH_TOKEN
+    },
+    channels: ['13Thomas', 'BanKai']
+});
+
+twitchclient.connect();
+
+const commandAliases = {
+  '!naughty': 'naughty',
+  '!69': 'naughty',
+  // Add more aliases here if needed
+}
+
+twitchclient.on('message', (channel, userstate, message, self) => {
+  if (self) return;
+
+  // Normalize message to lowercase and trim whitespace
+  const normalizedMessage = message.toLowerCase().trim();
+
+  // Find the command name using aliases
+  const commandName = commandAliases[normalizedMessage];
+
+  // Handle known commands
+  if (commandName === 'naughty') {
+      handleNaughtyCommand(channel, userstate);
+  }
+});
+
+function handleNaughtyCommand(channel, userstate) {
+  const twitchname = userstate.username;
+
+  // Check if the user is on cooldown
+  if (cooldowns[twitchname]) return;
+
+  // Generate a random number between 1 and 69
+  const randomNumber = Math.floor(Math.random() * 69) + 1;
+
+  if (randomNumber === 69) {
+      twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty 🎉`);
+      // Update the JSON file
+      updateCounter(twitchname);
+      // Send webhook message if webhook is set
+      if (guildData.webhook) {
+        const webhookClient = new WebhookClient({ url: guildData.webhook });
+
+        const embedWebhook = new MessageEmbed()
+            .setTitle('Special Naughty Achievement')
+            .setDescription(`\n **${message.author.username}** hit the magic number **69**!`)
+            .setColor('#FF4500') // Bright orange color
+            .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+            .setFooter({
+                text: `Triggered by ${message.author.username}`,
+                iconURL: message.author.displayAvatarURL({ dynamic: true }),
+            })
+            .setTimestamp();
+
+        webhookClient.send({
+            username: 'Naughty Achievement',
+            avatarURL: 'https://i.imgur.com/sFoSPK7.png', // Replace with your avatar URL if needed
+            embeds: [embedWebhook],
+        }).then(() => {
+            console.log('Special Naughty Achievement message sent successfully!');
+        }).catch(error => {
+            console.error('Error sending webhook message:', error);
+        });
+    } else {
+        console.warn(`No webhook set for guild ${message.guild.id}`);
+    }
+  } else {
+      twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty LUL`);
+  }
+
+  // Set cooldown for the user
+  cooldowns[twitchname] = true;
+  setTimeout(() => {
+      delete cooldowns[twitchname];
+  }, 3000); // Cooldown period in milliseconds (3 seconds)
+}
+
+function updateCounter(twitchname) {
+  const guildId = "342836262060949524"; // Replace with your actual guild ID
+  const guildData = nuserData[guildId];
+
+  if (guildData) {
+      // Find the user by twitchname
+      let user = guildData.users.find(user => user.twitchname === twitchname);
+
+      if (!user) {
+          // Add new user if not found
+          user = {
+              username: "", // Keep this empty if it's not available
+              userId: generateNewUserId(), // Implement this to generate a new ID
+              counter: 0,
+              date: new Date().toISOString(),
+              usage: 0,
+              twitchname: twitchname
+          };
+          guildData.users.push(user);
+      }
+
+      // Increment the counter
+      user.counter += 1;
+      user.date = new Date().toISOString();
+
+      // Save updated data back to the JSON file
+      fs.writeFileSync(userDataPath, JSON.stringify(nuserData, null, 2), 'utf-8');
+      console.log(`Counter updated for ${twitchname}: ${user.counter}`);
+  } else {
+      console.log(`Guild with ID ${guildId} not found.`);
+  }
+}
+
+// Implement the generateNewUserId function as needed
+function generateNewUserId() {
+  // Implement a unique ID generation mechanism here
+  return 'unique_user_id_' + Date.now(); // Example implementation
+}
+/*=====================================================
+=======================================================
+=======================================================*/
 const color = require("./src/data/colors");
 Marksoft.color = color;
 

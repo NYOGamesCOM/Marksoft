@@ -7,97 +7,112 @@
         "userId": "94154416197734400",
         "counter": 2,
         "date": "2024-06-11T14:30:00.000Z",
-        "usage": 61
+        "usage": 77,
+        "twitchname": "13Thomas"
       },
       {
         "username": "zeynepm35",
         "userId": "769646367143362570",
         "counter": 8,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 594
+        "usage": 677,
+        "twitchname": "zeynepm35"
       },
       {
         "username": "gamegirlnaomi4",
         "userId": "789804883871399956",
         "counter": 1,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 3
+        "usage": 3,
+        "twitchname": "gamegirlnaomi4"
       },
       {
         "username": "hannah_h713",
         "userId": "785314096413016124",
         "counter": 23,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 1022
+        "usage": 1024,
+        "twitchname": "vatlynx"
       },
       {
         "username": "meg2731",
         "userId": "1172716872769216593",
         "counter": 2,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 99
+        "usage": 102,
+        "twitchname": "meg2731"
       },
       {
         "username": "izz_aldin",
         "userId": "222014474968629248",
         "counter": 13,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 763
+        "usage": 769,
+        "twitchname": "izz_aldin"
       },
       {
         "username": "hails442",
         "userId": "1161695223194337421",
         "counter": 7,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 518
+        "usage": 541,
+        "twitchname": "hails442"
       },
       {
         "username": "meryem_16209",
         "userId": "1206692785202274316",
         "counter": 1,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 142
+        "usage": 143,
+        "twitchname": "meryem_16209"
       },
       {
         "username": "dazzle19",
         "userId": "400143478647947264",
         "counter": 2,
         "date": "2024-06-11T15:00:00.000Z",
-        "usage": 32
+        "usage": 32,
+        "twitchname": "dazzle19"
       },
       {
         "username": "judi_35959",
         "userId": "1240438960715595857",
         "counter": 1,
         "date": "2024-06-11T00:34:39.277Z",
-        "usage": 282
+        "usage": 284,
+        "twitchname": "judi_35959"
       },
       {
         "username": "avili",
         "userId": "481395898937507851",
         "counter": 2,
         "date": "2024-06-11T01:58:59.856Z",
-        "usage": 66
+        "usage": 68,
+        "twitchname": "avili"
       },
       {
         "username": "krissemarie",
         "userId": "747761668192469062",
         "counter": 3,
         "date": "2024-06-11T20:53:54.692Z",
-        "usage": 369
+        "usage": 369,
+        "twitchname": "krissemarie"
       },
       {
         "username": "finble",
         "userId": "395592162156478465",
         "counter": 2,
         "date": "2024-06-11T23:07:20.478Z",
-        "usage": 9
+        "usage": 10,
+        "twitchname": "finble"
       },
       {
         "username": "amagicspark",
         "userId": "759351619132456980",
         "counter": 1,
-        "date": "2024-06-12T20:42:30.899Z"
+        "date": "2024-06-12T20:42:30.899Z",
+        "usage": 1,
+        "twitchname": "amagicspark"
       }
     ]
   },
@@ -173,6 +188,10 @@
         "counter": 1,
         "date": "2024-06-11T01:58:59.856Z",
         "usage": 3
+      },
+      {
+        "userId": "94154416197734400",
+        "twitchname": "13Thomas"
       }
     ]
   }
