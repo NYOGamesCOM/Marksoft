@@ -8,8 +8,8 @@ const fs = require("node:fs");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            name: "69",
-            aliases: ["naughty", "xxxrng"],
+            name: "naughty",
+            aliases: ["69", "xxxrng"],
             description: "Naughty 69 RNG",
             category: "fun",
             usage: "",
@@ -21,10 +21,6 @@ module.exports = class extends Command {
     async run(message, args) {
         const randomNumber = Math.floor(Math.random() * 69) + 1;
         let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty!\n`;
-
-        // Increment command usage counter
-        //this.incrementCommandUsage(message.guild.id);
-        this.incrementCommandUsage(message.guild.id, message.author.id);
 
         if (randomNumber === 69) {
             responseMessage += '\n Congratulations!';
@@ -64,7 +60,7 @@ module.exports = class extends Command {
                     username: message.author.username,
                     userId: message.author.id,
                     counter: 1,
-                    date: new Date().toISOString()
+                    date: new Date().toISOString(),
                 });
             }
 
@@ -118,37 +114,5 @@ module.exports = class extends Command {
 
         await message.channel.send({ embeds: [embed] });
         //message.delete().catch(err => console.error('Failed to delete the message:', err));
-    }
-    incrementCommandUsage(guildId, userId) {
-        const filePath = path.join(__dirname, "../../../naughty_users.json");
-        let data = {};
-    
-        try {
-            if (fs.existsSync(filePath)) {
-                const fileData = fs.readFileSync(filePath, 'utf8');
-                data = JSON.parse(fileData);
-            }
-        } catch (err) {
-            console.error('Error reading the JSON file:', err);
-        }
-    
-        // Update usage count for the user in the guild
-        if (data[guildId]) {
-            const guildData = data[guildId];
-            if (guildData.users) {
-                const user = guildData.users.find(user => user.userId === userId);
-                if (user) {
-                    user.usage = (user.usage || 0) + 1;
-                }
-            }
-        }
-    
-        // Write updated data back to the file
-        try {
-            fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-            //console.log('User data updated in naughty_users.json');
-        } catch (err) {
-            console.error('Error writing to the JSON file:', err);
-        }
     }
 };

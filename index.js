@@ -19,16 +19,14 @@ let messageCreateEventFired = false;
 */
 
 const tmi = require('tmi.js');
-
 const cooldowns = {};
-
-const userDataPath = path.resolve(__dirname, 'data', '../../../naughty_users.json');
+const userDataPath = path.resolve(__dirname, 'Marksoft', '../naughty_users.json');
 
 // Load user data
 let nuserData = {};
 try {
     const userDataFileContent = fs.readFileSync(userDataPath, 'utf-8');
-    userData = JSON.parse(userDataFileContent);
+    nuserData = JSON.parse(userDataFileContent);
 } catch (error) {
     console.error("Error reading user data file:", error);
 }
@@ -79,35 +77,6 @@ function handleNaughtyCommand(channel, userstate) {
 
   if (randomNumber === 69) {
       twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty 🎉`);
-      // Update the JSON file
-      updateCounter(twitchname);
-      // Send webhook message if webhook is set
-      if (guildData.webhook) {
-        const webhookClient = new WebhookClient({ url: guildData.webhook });
-
-        const embedWebhook = new MessageEmbed()
-            .setTitle('Special Naughty Achievement')
-            .setDescription(`\n **${message.author.username}** hit the magic number **69**!`)
-            .setColor('#FF4500') // Bright orange color
-            .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
-            .setFooter({
-                text: `Triggered by ${message.author.username}`,
-                iconURL: message.author.displayAvatarURL({ dynamic: true }),
-            })
-            .setTimestamp();
-
-        webhookClient.send({
-            username: 'Naughty Achievement',
-            avatarURL: 'https://i.imgur.com/sFoSPK7.png', // Replace with your avatar URL if needed
-            embeds: [embedWebhook],
-        }).then(() => {
-            console.log('Special Naughty Achievement message sent successfully!');
-        }).catch(error => {
-            console.error('Error sending webhook message:', error);
-        });
-    } else {
-        console.warn(`No webhook set for guild ${message.guild.id}`);
-    }
   } else {
       twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty LUL`);
   }
@@ -118,26 +87,26 @@ function handleNaughtyCommand(channel, userstate) {
       delete cooldowns[twitchname];
   }, 3000); // Cooldown period in milliseconds (3 seconds)
 }
-
+/*
 function updateCounter(twitchname) {
   const guildId = "342836262060949524"; // Replace with your actual guild ID
-  const guildData = nuserData[guildId];
+  const nguildData = nuserData[guildId];
 
-  if (guildData) {
+  if (nguildData) {
       // Find the user by twitchname
-      let user = guildData.users.find(user => user.twitchname === twitchname);
+      let user = nguildData.users.find(user => user.twitchname === twitchname);
 
       if (!user) {
           // Add new user if not found
           user = {
               username: "", // Keep this empty if it's not available
-              userId: generateNewUserId(), // Implement this to generate a new ID
+              userId: "",//generateNewUserId(), // Implement this to generate a new ID
               counter: 0,
               date: new Date().toISOString(),
               usage: 0,
               twitchname: twitchname
           };
-          guildData.users.push(user);
+          nguildData.users.push(user);
       }
 
       // Increment the counter
@@ -156,7 +125,7 @@ function updateCounter(twitchname) {
 function generateNewUserId() {
   // Implement a unique ID generation mechanism here
   return 'unique_user_id_' + Date.now(); // Example implementation
-}
+}*/
 /*=====================================================
 =======================================================
 =======================================================*/
@@ -184,10 +153,8 @@ client.on("messageCreate", async (message) => {
     return;
   }
 
-  //const guildConfig = getGuildConfig(guildId);
   const userId = message.author.id;
 
-  // Load user data from file
   const userDataPath = "./src/data/users.json";
   let userData = {};
   try {
@@ -197,12 +164,10 @@ client.on("messageCreate", async (message) => {
     console.error("Error reading user data file:", error);
   }
 
-  // Ensure userData.guilds is defined
   if (!userData.guilds) {
     userData.guilds = {};
   }
 
-  // Ensure userData.guilds[guildId] is defined
   if (!userData.guilds[guildId]) {
     userData.guilds[guildId] = {
       users: {},
@@ -210,7 +175,6 @@ client.on("messageCreate", async (message) => {
     };
   }
 
-  // Ensure userData.guilds[guildId].users[userId] is defined
   if (!userData.guilds[guildId].users[userId]) {
     userData.guilds[guildId].users[userId] = {
       xp: 0,
@@ -222,7 +186,7 @@ client.on("messageCreate", async (message) => {
 
       if (!userData.guilds[guildId].users[userId].background) {
         userData.guilds[guildId].users[userId].background =
-          "https://imgur.com/xymSRRO"; // Replace with your default background URL
+          "https://imgur.com/xymSRRO";
       }
 
       if (!userData.guilds[guildId].users[userId].messageTimeout) {

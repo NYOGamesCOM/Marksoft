@@ -12,13 +12,15 @@ module.exports = class extends Command {
             category: "fun",
             usage: "!linktwitch <twitchUsername>",
             guildOnly: true,
+            ownerOnly: true,
             cooldown: 3,
         });
     }
 
     async run(message, args) {
         // Check if a Twitch username was provided
-        if (!args.length) {
+        message.channel.send("This command is currently disabled");
+       /* if (!args.length) {
             return message.channel.send("Please provide your Twitch username.");
         }
 
@@ -82,6 +84,6 @@ module.exports = class extends Command {
                     .setColor("GREEN");
                 message.channel.send({ embeds: [embed] });
             });
-        });
+        });*/
     }
 };
