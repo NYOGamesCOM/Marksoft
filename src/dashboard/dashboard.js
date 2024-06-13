@@ -812,7 +812,7 @@ app.post("/redeem/:guildID", checkAuth, async (req, res) => {
 
   renderTemplate(res, req, "redeemguild.ejs", {
       guild: guild,
-      alert: `${guild.name} is now a premium guild!!`,
+      alert: `${guild.name} is now a premium guild!`,
       settings: storedSettings,
       result: { success: true, message: `Code is valid! Expires on ${expires}.` }
   });
