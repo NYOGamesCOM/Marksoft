@@ -20,16 +20,6 @@ let messageCreateEventFired = false;
 
 const tmi = require('tmi.js');
 const cooldowns = {};
-const userDataPath = path.resolve(__dirname, 'Marksoft', '../naughty_users.json');
-
-// Load user data
-let nuserData = {};
-try {
-    const userDataFileContent = fs.readFileSync(userDataPath, 'utf-8');
-    nuserData = JSON.parse(userDataFileContent);
-} catch (error) {
-    console.error("Error reading user data file:", error);
-}
 
 const twitchclient = new tmi.Client({
     connection:{
@@ -48,23 +38,122 @@ twitchclient.connect();
 const commandAliases = {
   '!naughty': 'naughty',
   '!69': 'naughty',
-  // Add more aliases here if needed
+  '!accountage': 'accountage'
+//  '!followage': 'followage'
 }
 
+// Event handler for chat messages
 twitchclient.on('message', (channel, userstate, message, self) => {
+  // Ignore messages from the bot itself
   if (self) return;
 
-  // Normalize message to lowercase and trim whitespace
+  // Normalize the message and extract command
   const normalizedMessage = message.toLowerCase().trim();
-
-  // Find the command name using aliases
   const commandName = commandAliases[normalizedMessage];
 
-  // Handle known commands
+  // Handle commands
   if (commandName === 'naughty') {
-      handleNaughtyCommand(channel, userstate);
+    handleNaughtyCommand(channel, userstate);
   }
+  else if (commandName === 'accountage') {
+    handleAccountageCommand(channel, userstate);
+  }
+/*  else if (commandName === 'followage') {
+    handleFollowageCommand(channel, userstate);
+  }*/
+
 });
+
+
+/*
+function handleFollowageCommand(channel, userstate) {
+  const username = userstate['display-name'];
+  console.log(`Received !followage command from ${username}`);
+
+  // Fetch user ID from Twitch API
+  fetch(`https://api.twitch.tv/helix/users?login=${username}`, {
+    headers: {
+      'Client-ID': process.env.TWITCH_CLIENT_ID,
+      'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Twitch API responded with status ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(userData => {
+    if (userData.data.length > 0) {
+      const userId = userData.data[0].id;
+
+      // Fetch follow data from Twitch API
+      return fetch(`https://api.twitch.tv/helix/users/follows?from_id=${userId}&to_id=${channelId}`, {
+        headers: {
+          'Client-ID': process.env.TWITCH_CLIENT_ID,
+          'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`
+        }
+      });
+    } else {
+      throw new Error(`User data not found`);
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Twitch API responded with status ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(followData => {
+    if (followData.data && followData.data.length > 0) {
+      const followDate = new Date(followData.data[0].followed_at);
+      const followAge = calculateAccountAge(followDate);
+      twitchclient.say(channel, `@${username}, you have been following since ${followDate.toDateString()} (${followAge}).`);
+      console.log(`Sent follow age for ${username}`);
+    } else {
+      twitchclient.say(channel, `@${username}, you are not following this channel.`);
+      console.log(`${username} is not following the channel`);
+    }
+  })
+  .catch(err => {
+    console.error(`Error fetching follow data: ${err}`);
+    twitchclient.say(channel, `@${username}, there was an error retrieving your follow data.`);
+  });
+}*/
+
+function handleAccountageCommand(channel, userstate) {
+  const username = userstate['display-name'];
+
+  fetch(`https://api.twitch.tv/helix/users?login=${username}`, {
+    headers: {
+      'Client-ID': process.env.TWITCH_CLIENT_ID,
+      'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Twitch API responded with status ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.data && data.data.length > 0) {
+      const user = data.data[0];
+      const createdDate = new Date(user.created_at);
+      const accountAge = calculateAccountAge(createdDate);
+      twitchclient.say(channel, `@${username} was created ${accountAge} ago on ${createdDate.toDateString()}`);
+    } else {
+      twitchclient.say(channel, `@${username}, no account data found.`);
+      console.log(`No account data found for ${username}`);
+    }
+  })
+  .catch(err => {
+    console.error(`Error fetching user data: ${err}`);
+    twitchclient.say(channel, `@${username}, there was an error retrieving your account data.`);
+  });
+}
+
+
 
 function handleNaughtyCommand(channel, userstate) {
   const twitchname = userstate.username;
@@ -77,8 +166,12 @@ function handleNaughtyCommand(channel, userstate) {
 
   if (randomNumber === 69) {
       twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty 🎉`);
+      //console.log(`[twitch] ${twitchname} is ${randomNumber} out of 69 naughty`);
+      logger.info(`${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
   } else {
       twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty LUL`);
+      //console.log(`[twitch] ${twitchname} is ${randomNumber} out of 69 naughty`);
+      logger.info(`${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
   }
 
   // Set cooldown for the user
@@ -86,6 +179,19 @@ function handleNaughtyCommand(channel, userstate) {
   setTimeout(() => {
       delete cooldowns[twitchname];
   }, 3000); // Cooldown period in milliseconds (3 seconds)
+}
+
+function calculateAccountAge(createdDate) {
+  const now = new Date();
+  const diff = Math.abs(now - createdDate);
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const years = Math.floor(days / 365);
+  const months = Math.floor((days % 365) / 30);
+  if (years > 0) {
+    return `${years} year${years > 1 ? 's' : ''} and ${months} month${months > 1 ? 's' : ''}`;
+  } else {
+    return `${months} month${months > 1 ? 's' : ''}`;
+  }
 }
 /*
 function updateCounter(twitchname) {

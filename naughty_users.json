@@ -12,7 +12,7 @@
       {
         "username": "zeynepm35",
         "userId": "769646367143362570",
-        "counter": 9,
+        "counter": 10,
         "date": "2024-06-11T15:00:00.000Z",
         "usage": 677
       },
@@ -33,14 +33,14 @@
       {
         "username": "meg2731",
         "userId": "1172716872769216593",
-        "counter": 2,
+        "counter": 3,
         "date": "2024-06-11T15:00:00.000Z",
         "usage": 104
       },
       {
         "username": "izz_aldin",
         "userId": "222014474968629248",
-        "counter": 13,
+        "counter": 15,
         "date": "2024-06-11T15:00:00.000Z",
         "usage": 769
       },
@@ -100,6 +100,92 @@
         "date": "2024-06-12T20:42:30.899Z",
         "usage": 1
       },
+      {
+        "username": "",
+        "userId": "unique_user_id_1718301338348",
+        "counter": 2,
+        "date": "2024-06-13T18:02:56.613Z",
+        "usage": 0
+      }
+    ]
+  },
+  "356052883730464768": {
+    "webhook": "https://discord.com/api/webhooks/1170844843438776392/2-5ODXBvECIus79kCHVsL2pl4DU98qi6lxvH_Wki914IvOSP4R_g8dGpmsZZ8MBIZfaL",
+    "users": [
+      {
+        "username": "zeynepm35",
+        "userId": "769646367143362570",
+        "counter": 2,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 60
+      },
+      {
+        "username": "gamegirlnaomi4",
+        "userId": "789804883871399956",
+        "counter": 1,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 2
+      },
+      {
+        "username": "hannah_h713",
+        "userId": "785314096413016124",
+        "counter": 12,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 421
+      },
+      {
+        "username": "meg2731",
+        "userId": "1172716872769216593",
+        "counter": 1,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 9
+      },
+      {
+        "username": "izz_aldin",
+        "userId": "222014474968629248",
+        "counter": 5,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 190
+      },
+      {
+        "username": "hails442",
+        "userId": "1161695223194337421",
+        "counter": 3,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 252
+      },
+      {
+        "username": "meryem_16209",
+        "userId": "1206692785202274316",
+        "counter": 1,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 82
+      },
+      {
+        "username": "dazzle19",
+        "userId": "400143478647947264",
+        "counter": 2,
+        "date": "2024-06-11T15:00:00.000Z",
+        "usage": 25
+      },
+      {
+        "username": "judi_35959",
+        "userId": "1240438960715595857",
+        "counter": 1,
+        "date": "2024-06-11T00:34:39.277Z",
+        "usage": 42
+      },
+      {
+        "username": "avili",
+        "userId": "481395898937507851",
+        "counter": 1,
+        "date": "2024-06-11T01:58:59.856Z",
+        "usage": 3
+      },
+      {
+        "userId": "94154416197734400",
+        "twitchname": "13Thomas"
+      }
     ]
   }
 }

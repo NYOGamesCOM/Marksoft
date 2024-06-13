@@ -97,7 +97,7 @@ module.exports = class extends Command {
       embeds: [embed],
     });
 
-    message.delete().catch(() => { });
+    //message.delete().catch(() => { });
     message.author.send({ embeds: [confirmation] }).catch(() => { });
   }
 };

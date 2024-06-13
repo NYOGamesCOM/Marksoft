@@ -124,7 +124,6 @@ module.exports = class extends Command {
                     for (let i = newStartIndex; i < newEndIndex; i++) {
                         const user = guildUsers[i];
                         newLeaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.counter.toString().padEnd(5, ' ')}\n`;
-                        //leaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.usage.toString().padEnd(7, ' ')}| ${user.counter.toString().padEnd(5, ' ')}\n`;
                     }
                 }
 

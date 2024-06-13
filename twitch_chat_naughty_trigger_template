@@ -1,0 +1,26 @@
+{
+    "content": "",
+    "embed": {
+        "title": "Special Naughty Achievement",
+        "description": "**izz_aldin** hit the magic number **69!**\nhttps://discord.com/api/webhooks/1249727702747840688/Hd1pJ4DWL7NPRuuVLmbKvOxQQzgrv6A76zKgscyH-1uSVj85qag_j7SPWvYN2kzF6dP_",
+        "color": 4321431,
+        "timestamp": "2024-06-13T20:00:05.005Z",
+        "url": "https://Marksoft.ro",
+        "author": {
+            "name": "Twitch chat",
+            "url": "https://Marksoft.ro",
+            "icon_url": "https://i.imgur.com/sFoSPK7.png"
+        },
+        "thumbnail": {
+            "url": "https://i.imgur.com/sFoSPK7.png"
+        },
+        "image": {
+            "url": ""
+        },
+        "footer": {
+            "text": "Triggered by ",
+            "icon_url": "https://i.imgur.com/sFoSPK7.png"
+        },
+        "fields": []
+    }
+}
