@@ -9,7 +9,7 @@ module.exports = class extends Command {
       name: "play",
       aliases: ["p"],
       description: "Plays a song from YouTube",
-      category: "Music",
+      category: "Youtube",
       usage: "<YouTube URL>",
       cooldown: 5,
     });

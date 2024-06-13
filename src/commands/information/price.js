@@ -7,7 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             name: "flea",
             aliases: ["tarkovprice"],
-            description: "Fetches price information for an item from the Tarkov Market API",
+            description: "Price information for an item from the EFT",
             category: "Information",
             usage: "flea <item name>",
             guildOnly: true,
@@ -31,7 +31,7 @@ module.exports = class extends Command {
             // Check if the response is successful
             if (response.status === 200) {
                 const embed = new MessageEmbed()
-                    .setTitle(`Flea market price for: ${query}`)
+                    .setTitle(`Flea market price for: \`${query}\``)
                     .setDescription(response.data)
                     .setColor('#0099ff')
                     .setFooter({

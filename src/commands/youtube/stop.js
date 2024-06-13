@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "stop",
       aliases: ["halt"],
       description: "Stops the currently playing music",
-      category: "Music",
+      category: "Youtube",
       usage: "",
       cooldown: 5,
     });

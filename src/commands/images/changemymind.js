@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "changemymind",
       aliases: ["chmm"],
       description: "Sends a changemymind Text!",
-      category: "Images",
+      category: "images",
       usage: "<text>",
       examples: ["changemymind Poggers"],
       cooldown: 5,

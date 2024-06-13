@@ -73,7 +73,7 @@ module.exports = class extends Command {
     const devs = stripIndent`
      ${language.MarksoftDevelopers}
 
-    • Thomas#3267
+    • 13Thomas#3267
     
     `;
     const embed = new MessageEmbed()

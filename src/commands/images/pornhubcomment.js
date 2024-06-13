@@ -8,9 +8,9 @@ module.exports = class extends Command {
       name: "pornhubcomment",
       aliases: ["phcomment", "phubcomment"],
       description: "Make your own HUB text!",
-      category: "Images",
+      category: "images",
       usage: "<text>",
-      examples: ["pornhub Hello there"],
+      examples: ["pornhubcomment Hello there"],
       cooldown: 5,
     });
   }

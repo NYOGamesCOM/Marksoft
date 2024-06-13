@@ -10,7 +10,7 @@ module.exports = class extends Command {
       name: "addpremium",
       aliases: ["apremium"],
       description: "Add a premium code.",
-      category: "Owner",
+      category: "premium",
       ownerOnly: true,
     });
   }

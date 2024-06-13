@@ -8,12 +8,13 @@ const fs = require("node:fs");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            name: "ngty",
-            aliases: ["69", "xxxrng"],
-            description: "Naughty generator",
-            category: "Fun",
-            usage: "randomnumber",
+            name: "69",
+            aliases: ["ngty", "xxxrng"],
+            description: "Naughty 69 RNG",
+            category: "fun",
+            usage: "",
             guildOnly: true,
+            cooldown: 3,
         });
     }
 

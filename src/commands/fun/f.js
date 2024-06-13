@@ -9,7 +9,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "f",
       description: "Pay your respect!",
-      category: "Fun",
+      category: "fun",
       cooldown: 3,
     });
   }

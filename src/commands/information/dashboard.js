@@ -5,7 +5,7 @@ module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "dashboard",
-      description: "Need a way to get the bot's dashboard link but don't know it? Use this to get it!",
+      description: "bot's web dashboard link",
       category: "Information",
       cooldown: 3,
     });

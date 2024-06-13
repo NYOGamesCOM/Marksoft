@@ -6,7 +6,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "jail",
       description: "Send Someone to jail!",
-      category: "Images",
+      category: "images",
       cooldown: 5,
     });
   }

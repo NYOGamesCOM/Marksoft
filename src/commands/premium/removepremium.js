@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "removepremium",
       description: "Remove premium status from the guild.",
-      category: "Premium",
+      category: "premium",
       ownerOnly: true, // Adjust permissions as needed
       guildOnly: true,
     });

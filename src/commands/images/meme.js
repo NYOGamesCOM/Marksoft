@@ -9,7 +9,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "meme",
       description: "Generate some memes from reddit!",
-      category: "Fun",
+      category: "images",
       cooldown: 5,
     });
   }

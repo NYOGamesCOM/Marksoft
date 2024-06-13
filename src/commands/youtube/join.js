@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "join",
       aliases: ["enter"],
       description: "Joins the voice channel",
-      category: "Music",
+      category: "Youtube",
       usage: "",
       cooldown: 5,
     });

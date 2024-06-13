@@ -6,8 +6,8 @@ module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "checkpremium",
-      description: "Checks if the guild is premium and shows the remaining time and expiry date.",
-      category: "Premium",
+      description: "Checks if the guild is premium.",
+      category: "premium",
       guildOnly: true,
       userPermission: ["MANAGE_GUILD"],
     });

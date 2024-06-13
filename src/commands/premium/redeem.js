@@ -13,7 +13,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "redeem",
       description: `Redeem a Premium code!`,
-      category: "Utility",
+      category: "premium",
       cooldown: 3,
       userPermission: ["MANAGE_GUILD"],
     });

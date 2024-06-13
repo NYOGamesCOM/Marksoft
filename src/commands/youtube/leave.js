@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "leave",
       aliases: ["exit", "quit"],
       description: "Leaves the voice channel",
-      category: "Music",
+      category: "Youtube",
       usage: "",
       cooldown: 5,
     });

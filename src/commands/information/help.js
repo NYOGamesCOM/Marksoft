@@ -41,8 +41,8 @@ module.exports = class extends Command {
       owner: `${emojis.owner}`,
     };
 
-    const green = "<:purple:826033456207233045>";
-    const red = "<:redsquare:803527843661217802>";
+    const green = ":purple_circle: ";
+    const red = ":red_circle: ";
 
     const embed = new MessageEmbed().setColor("PURPLE");
 
@@ -253,20 +253,17 @@ module.exports = class extends Command {
         "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
-    } else if (
-      (args && args[0].toLowerCase() == "economy") ||
-      (args && args[0].toLowerCase() == "currency")
-    ) {
-      embed.setTitle(`Economy`);
+    } else if (args && args[0].toLowerCase() == "fun") {
+      embed.setTitle(`Fun`);
       embed.setDescription(
         this.client.botCommands
-          .filter((cmd) => cmd.category.toLowerCase() === "economy")
+          .filter((cmd) => cmd.category.toLowerCase() === "fun")
           .map(
             (cmd) =>
               `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
                 ? red
                 : green
-              } \`${cmd.name} ${" ".repeat(9 - Number(cmd.name.length))}:\` ${cmd.description
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
               }`
           )
           .join("\n")
@@ -285,17 +282,46 @@ module.exports = class extends Command {
         "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
-    } else if (args && args[0].toLowerCase() == "fun") {
-      embed.setTitle(`Fun`);
+    } else if (args && args[0].toLowerCase() == "premium") {
+      embed.setTitle(`Premium`);
       embed.setDescription(
         this.client.botCommands
-          .filter((cmd) => cmd.category.toLowerCase() === "fun")
+          .filter((cmd) => cmd.category.toLowerCase() === "premium")
           .map(
             (cmd) =>
               `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
                 ? red
                 : green
-              } \`${cmd.name} ${" ".repeat(10 - Number(cmd.name.length))}:\` ${cmd.description
+              } \`${cmd.name} ${" ".repeat(14 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
+    } else if (args && args[0].toLowerCase() == "youtube") {
+      embed.setTitle(`YouTube - BETA!`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "youtube")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(11 - Number(cmd.name.length))}:\` ${cmd.description
               }`
           )
           .join("\n")
