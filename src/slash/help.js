@@ -1,7 +1,7 @@
 module.exports = {
   name: "help",
   description: "Display the bot commands!",
-  category: "general",
+  category: "information",
   slash: "true",
   global: true,
   error: async () => {},

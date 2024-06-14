@@ -8,7 +8,7 @@ module.exports = class CommitsCommand extends Command {
       name: "commits",
       aliases: [],
       description: "Display github commits",
-      category: "General",
+      category: "Owner",
       cooldown: 5,
       ownerOnly: true,
     });

@@ -1,7 +1,7 @@
 module.exports = {
   name: "ping",
   description: "Get the bot's api ping!",
-  category: "general",
+  category: "information",
   slash: "true",
   global: true,
   error: async () => {},
