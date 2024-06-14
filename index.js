@@ -1,14 +1,13 @@
 require("dotenv").config();
-const { MessageEmbed, MessageActionRow, MessageButton, WebhookClient } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const MarksoftClient = require("./Marksoft");
 const config = require("./config.json");
-const deploy = require("./src/deployCommands.js");
-const path = require("node:path");
+//const deploy = require("./src/deployCommands.js");
+//const path = require("node:path");
 const { Collection } = require("discord.js");
 const logger = require("./src/utils/logger");
 const fs = require("node:fs");
 const Marksoft = new MarksoftClient(config);
-let messageCreateEventFired = false;
 
 /*  TWITCH  
       NAUGHTY
@@ -245,7 +244,7 @@ let client = Marksoft;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
 
-const userData = require("./src/data/users.json");
+//const userData = require("./src/data/users.json");
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) {
@@ -365,6 +364,43 @@ client.on("messageCreate", async (message) => {
     );
   }
 });
+
+// Function to get guild configuration, create if not exists
+/*function getGuildConfig(guildId) {
+  if (!userData.guilds[guildId]) {
+    userData.guilds[guildId] = {
+      users: {},
+      levelingEnabled: true, // Add a new property to enable/disable leveling
+    };
+  }
+  return userData.guilds[guildId];
+}*/
+
+// Function to get role ID for the current user's level
+function getRoleForLevel(level, guildId, userId, userData) {
+  if (!userData.guilds[guildId]?.users[userId]) {
+    return null;
+  }
+
+  const { levelUpRoles } = userData.guilds[guildId];
+
+  if (!levelUpRoles) {
+    return null;
+  }
+
+  // Find the role ID for the current user's level
+  const roleForLevel = levelUpRoles.find((role) => role.level === level);
+
+  // If roleForLevel is found, return its roleId; otherwise, use the default mapping
+  return roleForLevel?.roleId || getRoleIdForLevel(level, guildId, userData);
+}
+
+// Default role ID mapping (replace with your actual role IDs)
+function getRoleIdForLevel(level, guildId, userData) {
+  // Retrieve role IDs from the JSON file based on the guild and level
+  const guildRoles = userData.guilds[guildId]?.levelUpRoles || {};
+  return guildRoles[level]?.roleId || null;
+}
 
 client.slashCommands = new Collection();
 const commandsFolders = fs.readdirSync("./src/slashCommands");

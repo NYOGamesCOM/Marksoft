@@ -26,8 +26,8 @@ module.exports = class MarksoftClient extends Client {
         status: "online",
         activities: [
           {
-            type: "WATCHING",
-            name: status,
+            type: "STREAMING",
+            name: 'Starting up...'//status,
           },
         ],
       },
@@ -59,6 +59,26 @@ module.exports = class MarksoftClient extends Client {
     await this.utils.loadCommands();
     await this.utils.loadEvents();
     await this.mongoose.init();
+    this.on('ready', () => {
+      this.updatePresence();
+      setInterval(() => this.updatePresence(), 60000); // Update every minute
+    });
     this.login(token);
+  }
+
+  async updatePresence() {
+    try {
+      const totalMembers = this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+      this.user.setPresence({
+        activities: [{
+          type: "PLAYING",
+          name: `!help to ${totalMembers} members`,
+          url: 'https://www.twitch.tv/bankai'
+        }],
+        status: 'online'
+      });
+    } catch (error) {
+      console.error('Failed to update presence:', error);
+    }
   }
 };

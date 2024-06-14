@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
 const { stripIndent } = require("common-tags");
-const emojis = require("../../assets/emojis.json");
+// const emojis = require("../../assets/emojis.json");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -26,20 +26,20 @@ module.exports = class extends Command {
 
     const prefix = guildDB.prefix;
 
-    const emoji = {
-      altdetector: `${emojis.altdetector}`,
-      applications: `${emojis.applications}`,
-      config: `${emojis.config}`,
-      utility: `${emojis.utility}`,
-      economy: `${emojis.economy}`,
-      fun: `${emojis.fun}`,
-      images: `${emojis.images}`,
-      information: `${emojis.information}`,
-      moderation: `${emojis.moderation}`,
-      reactionrole: `${emojis.reactionrole}`,
-      tickets: `${emojis.tickets}`,
-      owner: `${emojis.owner}`,
-    };
+    // const emoji = {
+    //   altdetector: `${emojis.altdetector}`,
+    //   applications: `${emojis.applications}`,
+    //   config: `${emojis.config}`,
+    //   utility: `${emojis.utility}`,
+    //   economy: `${emojis.economy}`,
+    //   fun: `${emojis.fun}`,
+    //   images: `${emojis.images}`,
+    //   information: `${emojis.information}`,
+    //   moderation: `${emojis.moderation}`,
+    //   reactionrole: `${emojis.reactionrole}`,
+    //   tickets: `${emojis.tickets}`,
+    //   owner: `${emojis.owner}`,
+    // };
 
     const green = ":purple_circle: ";
     const red = ":red_circle: ";
