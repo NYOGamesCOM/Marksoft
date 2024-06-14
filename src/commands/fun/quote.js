@@ -6,7 +6,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "quote",
       description: "Make a quoted text!",
-      category: "Fun",
+      category: "fun",
       cooldown: 3,
     });
   }

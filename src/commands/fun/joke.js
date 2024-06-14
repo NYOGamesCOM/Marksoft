@@ -6,7 +6,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "joke",
       description: "Generate a random joke from jokeAPI",
-      category: "Fun",
+      category: "fun",
     });
   }
 

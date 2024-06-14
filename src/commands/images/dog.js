@@ -7,7 +7,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "dog",
       description: "Get a cute dog picture!",
-      category: "Images",
+      category: "images",
       cooldown: 5,
     });
   }

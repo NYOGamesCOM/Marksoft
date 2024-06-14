@@ -13,7 +13,7 @@ module.exports = class extends Command {
             name: "leaderboard",
             aliases: ["lb"],
             description: "Shows the naughty leaderboard",
-            category: "fun",
+            category: "Information",
             guildOnly: true,
         });
     }

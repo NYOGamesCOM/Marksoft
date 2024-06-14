@@ -23,7 +23,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "emojify",
       description: "Emojifies the given text.",
-      category: "Fun",
+      category: "fun",
       examples: ["emojify POG! "],
       cooldown: 3,
     });

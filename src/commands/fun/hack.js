@@ -9,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             name: "hack",
             description: "Hack someone! (fake)",
-            category: "Fun",
+            category: "fun",
             usage: "<user>",
             examples: [ "hack @13Thomas" ],
             cooldown: 3,

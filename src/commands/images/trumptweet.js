@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "trumptweet",
       aliases: ["trump", "tweet"],
       description: "Make trump say a message!",
-      category: "Images",
+      category: "images",
       usage: "<text>",
       examples: ["trumptweet Hey its me"],
       cooldown: 3,

@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "catfact",
       aliases: ["catfacts", "cf"],
       description: "Generate a random useless cat facts",
-      category: "Fun",
+      category: "fun",
       cooldown: 3,
     });
   }
