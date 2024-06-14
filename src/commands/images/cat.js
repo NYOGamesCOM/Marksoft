@@ -26,7 +26,7 @@ module.exports = class CatCommand extends Command {
       const catEmbed = new MessageEmbed()
         .setColor(message.guild.me.displayHexColor || "#7289DA") 
         .setImage(catImageUrl)
-        .setFooter(`Requested by: ${message.author.tag}`)
+        .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
         .setDescription("Cats :cat:");
       
       

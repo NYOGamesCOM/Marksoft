@@ -25,11 +25,9 @@ module.exports = class extends Command {
         if (randomNumber === 69) {
             responseMessage += '\n Congratulations!';
             
-            // File path for storing naughty user data
             const filePath = path.join(__dirname, "../../../naughty_users.json");
             let data = {};
 
-            // Read existing data from the file
             try {
                 if (fs.existsSync(filePath)) {
                     const fileData = fs.readFileSync(filePath, 'utf8');
@@ -39,23 +37,18 @@ module.exports = class extends Command {
                 console.error('Error reading the JSON file:', err);
             }
 
-            // Ensure data structure exists for the current guild
             if (!data[message.guild.id]) {
                 data[message.guild.id] = { webhook: "", users: [] };
             }
 
-            // Get guild data
             const guildData = data[message.guild.id];
 
-            // Find or create user entry
             let guildUsers = guildData.users;
             const userIndex = guildUsers.findIndex(user => user.userId === message.author.id);
 
             if (userIndex !== -1) {
-                // User exists, increment the counter
                 guildUsers[userIndex].counter += 1;
             } else {
-                // New user, add them with a counter of 1
                 guildUsers.push({
                     username: message.author.username,
                     userId: message.author.id,
@@ -64,7 +57,6 @@ module.exports = class extends Command {
                 });
             }
 
-            // Write updated data back to the file
             try {
                 fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
                 console.log('User data updated in naughty_users.json');
@@ -72,7 +64,6 @@ module.exports = class extends Command {
                 console.error('Error writing to the JSON file:', err);
             }
 
-            // Send webhook message if webhook is set
             if (guildData.webhook) {
                 const webhookClient = new WebhookClient({ url: guildData.webhook });
 
@@ -89,7 +80,7 @@ module.exports = class extends Command {
 
                 webhookClient.send({
                     username: 'Naughty Achievement',
-                    avatarURL: 'https://i.imgur.com/sFoSPK7.png', // Replace with your avatar URL if needed
+                    avatarURL: 'https://i.imgur.com/sFoSPK7.png', 
                     embeds: [embedWebhook],
                 }).then(() => {
                     console.log('Special Naughty Achievement message sent successfully!');
@@ -113,6 +104,5 @@ module.exports = class extends Command {
             .setTimestamp();
 
         await message.channel.send({ embeds: [embed] });
-        //message.delete().catch(err => console.error('Failed to delete the message:', err));
     }
 };

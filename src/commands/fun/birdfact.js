@@ -30,7 +30,7 @@ module.exports = class extends Command {
 
           .setColor(message.client.color.blue)
           .setDescription(`${fact}`)
-          .setFooter({ text: "/some-random-api/bird" }),
+          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       ],
     });
   }
