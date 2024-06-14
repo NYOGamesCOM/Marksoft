@@ -40,7 +40,7 @@ module.exports = class extends Command {
                 `${language.properusage} \`${prefix}deleteresponse <command-name>\`\n\n${language.example} \`${prefix}deleteresponse pog\``
               )
               .setTimestamp()
-              .setFooter({ text: "https://Marksoft.ro" }),
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
           ],
         })
         .setColor(message.guild.me.displayHexColor);
@@ -71,7 +71,7 @@ module.exports = class extends Command {
                 )
                 .setDescription(`${language.deletecmd1} **${name}**`)
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           });
         } else {

@@ -85,7 +85,7 @@ module.exports = class extends Command {
       .addField(`${language.MarksoftGeneral}`, `\`\`\`css\n${tech}\`\`\``, true)
       .addField(`${language.MarksoftTeam}`, `\`\`\`css\n${devs}\`\`\``, true)
       .addField(`${language.MarksoftStats}`, `\`\`\`css\n${serverStats}\`\`\``)
-      .setFooter("https://Marksoft.ro")
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 

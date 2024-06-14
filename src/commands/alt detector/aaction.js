@@ -38,7 +38,7 @@ module.exports = class extends Command {
                 choices.join(", ")
               )}`
             )
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],
@@ -59,7 +59,7 @@ module.exports = class extends Command {
                 choices.join(", ")
               )}`
             )
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],
@@ -90,7 +90,7 @@ module.exports = class extends Command {
               .setDescription(
                 `:white_check_mark: ${language.aactionSuccess.replace("{action}", args[0])}`
               )
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -110,7 +110,7 @@ module.exports = class extends Command {
             .setDescription(
               `:white_check_mark: ${language.aactionSuccess.replace("{action}", args[0])}`
             )
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],

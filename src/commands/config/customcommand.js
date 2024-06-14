@@ -38,7 +38,7 @@ module.exports = class extends Command {
               `${language.properusage} \`${prefix}customcommand <command-name> <text-reply>\`\n\n${language.example} \`${prefix}customcommand ping pong\``
             )
             .setTimestamp()
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -57,7 +57,7 @@ module.exports = class extends Command {
               `${language.properusage} \`${prefix}customcommand <command-name> <text-reply>\`\n\n${language.example} \`${prefix}customcommand ping pong\``
             )
             .setTimestamp()
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -116,7 +116,7 @@ module.exports = class extends Command {
                   `**${language.cc3}** ${name}\n\nDelete the following command using \`${prefix}deletecommand <command-name>\``
                 )
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" })
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setColor(message.guild.me.displayHexColor),
             ],
           });

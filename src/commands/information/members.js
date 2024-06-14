@@ -36,7 +36,7 @@ module.exports = class extends Command {
     let embedValid = new MessageEmbed()
       .setAuthor(message.author.tag, message.author.displayAvatarURL())
       .setDescription(`${language.members2.replace(/{prefix}/g, `${prefix}`)}`)
-      .setFooter({ text: "https://Marksoft.ro" })
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setColor(message.guild.me.displayHexColor);
 
     if (!args[0]) return message.channel.sendCustom(embedValid);

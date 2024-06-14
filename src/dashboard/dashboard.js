@@ -631,7 +631,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor("GREEN");
         } else {
           form.paste.push(`Question #${i + 1} - ${db.questions[i]}`);
@@ -645,7 +645,7 @@ module.exports = async (client) => {
                 "dddd, MMMM Do YYYY HH:mm:ss"
               )}`
             )
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor("GREEN");
         }
       }

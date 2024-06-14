@@ -58,7 +58,7 @@ module.exports = class extends Command {
     let properUsage = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(`${language.tempvc1.replace(/{prefix}/g, `${prefix}`)}`)
-      .setFooter({ text: "https://Marksoft.ro" });
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }));
 
     if (args.length < 1) {
       return message.channel.sendCustom(properUsage);
@@ -77,7 +77,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser} `)
                 .setDescription(`${language.tempvc2}`)
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           })
           .setColor(message.guild.me.displayHexColor);
@@ -95,7 +95,7 @@ module.exports = class extends Command {
               .setDescription(
                 `:x: ${language.tempvc3}`
               )
-              .setFooter({ text: "https://Marksoft.ro" }),
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
           ],
         });
       await Vc.findOne(
@@ -136,7 +136,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `:white_check_mark: ${language.tempvc4}`
                 )
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           });
         }
@@ -155,7 +155,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser} `)
                 .setDescription(`${language.tempvc2}`)
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           })
           .setColor(message.guild.me.displayHexColor);

@@ -40,7 +40,7 @@ module.exports = class extends Command {
                 `${language.properusage} \`${prefix}deletecommand <command-name>\`\n\n${language.example} \`${prefix}deletecommand pog\``
               )
               .setTimestamp()
-              .setFooter({ text: "https://Marksoft.ro" }),
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
           ],
         })
         .setColor(message.guild.me.displayHexColor);
@@ -69,7 +69,7 @@ module.exports = class extends Command {
                 .setTitle(`:white_check_mark: Delete Command`)
                 .setDescription(`${language.deletecmd1} **${name}**`)
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           });
         } else {

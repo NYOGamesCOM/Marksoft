@@ -226,7 +226,7 @@ module.exports = class extends Event {
                   .join(" - ")}**`,
               )
               .setTimestamp()
-              .setFooter("https://marksoft.ro")
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setColor(message.guild.me.displayHexColor);
             return message.channel.sendCustom(embed).catch(() => {});
           }
@@ -252,7 +252,7 @@ module.exports = class extends Event {
                   .join("\n")}**`,
               )
               .setTimestamp()
-              .setFooter("https://marksoft.ro")
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setColor(message.guild.me.displayHexColor);
             return message.channel.sendCustom(embed).catch(() => {});
           }

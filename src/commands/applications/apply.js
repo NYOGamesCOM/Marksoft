@@ -60,7 +60,7 @@ module.exports = class extends Command {
         embeds: [
           new discord.MessageEmbed()
             .setColor(message.client.color.green)
-            .setFooter({ text: "Powered by Marksoft.ro" })
+            .setFooter({ text: "Powered by Marksoft" })
             .setDescription(
               `:white_check_mark: ${language.applaydone} **${message.guild.name}** [by clicking here](http://localhost:3000/apply/${message.guild.id})`
             ),

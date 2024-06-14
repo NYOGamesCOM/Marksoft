@@ -48,7 +48,7 @@ module.exports = class extends Command {
       .setDescription(
         `__**Proper Usage**__\n\n\`1-\` ${prefix}rrdm on\n\`2-\` ${prefix}rrdm off`
       )
-      .setFooter({ text: "https://Marksoft.ro" });
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }));
 
     if (args.length < 1) {
       return message.channel.sendCustom(properUsage);
@@ -70,7 +70,7 @@ module.exports = class extends Command {
                       message.author.displayAvatarURL()
                     )
                     .setDescription(`${fail} DMs are already disabled`)
-                    .setFooter({ text: "https://Marksoft.ro" }),
+                    .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
                 ],
               })
               .setColor(client.color.red);
@@ -87,7 +87,7 @@ module.exports = class extends Command {
           new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription(`${success} Reaction Role DMs have been disabled!`)
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(client.color.red),
         ],
       });
@@ -106,7 +106,7 @@ module.exports = class extends Command {
                     message.author.displayAvatarURL()
                   )
                   .setDescription(`${fail} DMs are already enabled`)
-                  .setFooter({ text: "https://Marksoft.ro" })
+                  .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                   .setColor(client.color.red),
               ],
             });
@@ -126,7 +126,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `${success} Reaction Role DMs have been enabled!`
                 )
-                .setFooter({ text: "https://Marksoft.ro" })
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setColor(client.color.red),
             ],
           });

@@ -36,7 +36,7 @@ module.exports = class extends Command {
           guildDB.time
         ).fromNow()})\`](https://Marksoft.ro)__*\n\n ${guildDB.news}`
       )
-      .setFooter({ text: "https://Marksoft.ro" })
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
 
     message.channel.sendCustom({ embeds: [embed] }).catch(() => {

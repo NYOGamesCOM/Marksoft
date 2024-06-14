@@ -81,7 +81,7 @@ module.exports = class extends Command {
       .addField("Member", `${message.member}`, true)
       .addField("Message", `${report}`, true)
       .addField("Bug Report ID:", `#${id}`, true)
-      .setFooter({ text: "https://Marksoft.ro" })
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor("GREEN");
 

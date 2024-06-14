@@ -39,7 +39,7 @@ module.exports = class extends Command {
               `${language.properusage} \`${prefix}autoResponse <command-name> <text-reply>\`\n\n${language.example} \`${prefix}autoResponse ping pong\``
             )
             .setTimestamp()
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -58,7 +58,7 @@ module.exports = class extends Command {
               `${language.properusage} \`${prefix}autoResponse <command-name> <text-reply>\`\n\n${language.example} \`${prefix}autoResponse ping pong\``
             )
             .setTimestamp()
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });

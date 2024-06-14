@@ -41,7 +41,7 @@ module.exports = class extends Command {
               message.author.displayAvatarURL({ format: "png" })
             )
             .setDescription(`${fail} ${language.suggesting1}`)
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],
@@ -58,7 +58,7 @@ module.exports = class extends Command {
               message.author.displayAvatarURL({ format: "png" })
             )
             .setDescription(`${fail} ${language.suggesting2}`)
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],
@@ -74,7 +74,7 @@ module.exports = class extends Command {
               message.author.displayAvatarURL({ format: "png" })
             )
             .setDescription(`${fail} ${language.suggest1}`)
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],
@@ -89,7 +89,7 @@ module.exports = class extends Command {
               message.author.displayAvatarURL({ format: "png" })
             )
             .setDescription(`${fail} ${language.suggesting17}`)
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("RED"),
         ],
@@ -217,7 +217,7 @@ module.exports = class extends Command {
               message.author.displayAvatarURL({ format: "png" })
             )
             .setDescription(`${language.suggesting6} ${channel}`)
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             .setColor("GREEN"),
         ],

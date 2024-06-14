@@ -38,7 +38,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Invalid User`)
             .setDescription(`Please Mention a Valid user mention / user ID`)
             .setTimestamp()
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -55,7 +55,7 @@ module.exports = class extends Command {
               `The Provided Role has an equal or higher role than you.`
             )
             .setTimestamp()
-            .setFooter({ text: "https://Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -82,7 +82,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Invalid Role`)
             .setDescription(`Please Provide a Valid Role / Role ID`)
             .setTimestamp()
-            .setFooter({ text: "Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });
@@ -98,7 +98,7 @@ module.exports = class extends Command {
             .setTitle(`${fail} Role Error`)
             .setDescription(`The user already has that role.`)
             .setTimestamp()
-            .setFooter({ text: "Marksoft.ro" })
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(message.guild.me.displayHexColor),
         ],
       });

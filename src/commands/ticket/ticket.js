@@ -40,7 +40,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `:x: This Feature is disabled in the current guild`
                 )
-                .setFooter({ text: "https://Marksoft.ro" })
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
                 .setColor("RED"),
             ],
@@ -57,7 +57,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `:x: This Feature is disabled in the current guild`
                 )
-                .setFooter({ text: "https://Marksoft.ro" })
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
                 .setColor("RED"),
             ],
@@ -86,7 +86,7 @@ module.exports = class extends Command {
                   .setDescription(
                     `:x: Please provide a reason`
                   )
-                  .setFooter({ text: "https://Marksoft.ro" })
+                  .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                   .setTimestamp()
                   .setColor("RED"),
               ],
@@ -122,7 +122,7 @@ module.exports = class extends Command {
                       message.author.tag,
                       message.author.displayAvatarURL()
                     )
-                    .setFooter({ text: "https://Marksoft.ro" }),
+                    .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
                 ],
               })
               .then((m) => {
@@ -221,7 +221,7 @@ module.exports = class extends Command {
 
               const embedLog = new discord.MessageEmbed()
                 .setColor(color2)
-                .setFooter({ text: "https://Marksoft.ro" })
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                 .setTitle(language.ticketNewTicketTitle)
                 .setTimestamp()
                 //.addField("Information" , `**User:** ${user}\n**Ticket Channel: **${chan.name}\n**Ticket:** #${serverCase}\n**Date:** ${moment(new Date()).format("dddd, MMMM Do YYYY")} `)

@@ -87,7 +87,7 @@ module.exports = class extends Command {
       .addField("Member", `${message.member}`, true)
       .addField("Message", `${report}`, true)
       .addField("Suggestion ID:", `#${id}`, true)
-      .setFooter({ text: "https://Marksoft.ro" })
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor("GREEN");
 
@@ -96,7 +96,20 @@ module.exports = class extends Command {
       avatarURL: `https://i.imgur.com/sFoSPK7.png`,
       embeds: [embed],
     });
-
+    message.channel
+      .sendCustom({
+        embeds: [
+          new MessageEmbed()
+            .setAuthor(
+              `${message.author.tag}`,
+              message.author.displayAvatarURL({ format: "png" })
+            )
+            .setDescription(`${language.suggesting6} the devs.`)
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+            .setTimestamp()
+            .setColor("GREEN"),
+        ],
+      });
     //message.delete().catch(() => { });
     message.author.send({ embeds: [confirmation] }).catch(() => { });
   }

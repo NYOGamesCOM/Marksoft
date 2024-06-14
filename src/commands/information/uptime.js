@@ -42,7 +42,7 @@ module.exports = class extends Command {
     // const date = moment().subtract(days, 'ms').format('dddd, MMMM Do YYYY');
     const embed = new MessageEmbed()
       .setDescription(`${language.uptime1} \`${uptime}\`.`)
-      .setFooter({ text: `https://Marksoft.ro` })
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setColor(message.guild.me.displayHexColor);
     message.channel.sendCustom({ embeds: [embed] });
   }

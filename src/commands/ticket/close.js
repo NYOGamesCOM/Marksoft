@@ -29,7 +29,7 @@ module.exports = class extends Command {
               .setDescription(
                 `Unable to close ticket, it seems like you aren't in any ticket channel.`
               )
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp(),
           ],
         })
@@ -70,7 +70,7 @@ module.exports = class extends Command {
                     .setDescription(
                       `:x: Only users with the support team role can close this ticket`
                     )
-                    .setFooter({ text: "https://Marksoft.ro" })
+                    .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
                     .setTimestamp()
                     .setColor("RED"),
                 ],

@@ -43,7 +43,7 @@ module.exports = class extends Command {
     let properUsage = new MessageEmbed()
       .setColor(message.guild.me.displayHexColor)
       .setDescription(`${language.reportt1.replace(/{prefix}/g, `${prefix}`)}`)
-      .setFooter({ text: "https://Marksoft.ro" });
+      .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }));
 
     if (args.length < 1) {
       return message.channel.sendCustom(properUsage);
@@ -62,7 +62,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser}`)
                 .setDescription(`${language.missingUser1}`)
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           })
           .setColor(message.guild.me.displayHexColor);
@@ -75,7 +75,7 @@ module.exports = class extends Command {
               .setDescription(
                 `:x: ${language.report4}`
               )
-              .setFooter({ text: "https://Marksoft.ro" }),
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
           ],
         });
       await Guild.findOne(
@@ -93,7 +93,7 @@ module.exports = class extends Command {
                 .setDescription(
                   `:white_check_mark: ${language.report5}`
                 )
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           });
         }
@@ -111,7 +111,7 @@ module.exports = class extends Command {
                 .setTitle(`${fail} ${language.missingUser}`)
                 .setDescription(`${language.missingUser1}`)
                 .setTimestamp()
-                .setFooter({ text: "https://Marksoft.ro" }),
+                .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
             ],
           })
           .setColor(message.guild.me.displayHexColor);
@@ -125,7 +125,7 @@ module.exports = class extends Command {
             new MessageEmbed()
               .setColor(message.guild.me.displayHexColor)
               .setDescription(`${fail} ${channel} ${language.report6}`)
-              .setFooter({ text: "https://Marksoft.ro" }),
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true })),
           ],
         });
       await Guild.findOne(
@@ -168,7 +168,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report11}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -184,7 +184,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report12}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -199,7 +199,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report13}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -214,7 +214,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report14}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -226,7 +226,7 @@ module.exports = class extends Command {
           message.author.displayAvatarURL({ format: "png" })
         )
         .setDescription(`${language.report15}`)
-        .setFooter({ text: "https://Marksoft.ro" })
+        .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.client.color.green);
 
@@ -312,7 +312,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report8}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -327,7 +327,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report9}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -345,7 +345,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report10}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -362,7 +362,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report11}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -378,7 +378,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report12}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -393,7 +393,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report13}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -408,7 +408,7 @@ module.exports = class extends Command {
                 message.author.displayAvatarURL({ format: "png" })
               )
               .setDescription(`${fail} ${language.report14}`)
-              .setFooter({ text: "https://Marksoft.ro" })
+              .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
               .setTimestamp()
               .setColor("RED"),
           ],
@@ -420,7 +420,7 @@ module.exports = class extends Command {
           message.author.displayAvatarURL({ format: "png" })
         )
         .setDescription(`${language.report15}`)
-        .setFooter({ text: "https://Marksoft.ro" })
+        .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.client.color.green);
 
