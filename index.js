@@ -4,15 +4,23 @@ const MarksoftClient = require("./Marksoft");
 const config = require("./config.json");
 const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
+const axios = require('axios');
 
 /*  TWITCH  
       MERGED 
         WITH 
           DISCORD 
 */
-
 const tmi = require('tmi.js');
 const cooldowns = {};
+let clipCount = 0;
+//const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9]+|https:\/\/www\.twitch\.tv\/(?:.*\/)?clip\/[A-Za-z0-9]+/gi;
+const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9-]+/gi;
+const ClipChannel = 'bankai';
+const discordChannelId = '1251330095101120523';
+const ignoredUsers = ['nightbot', 'streamelements', 'marksoftbot'];
+const NaughtydiscordChannelId = '1249727604051677317';
+
 
 const twitchclient = new tmi.Client({
     connection:{
@@ -34,10 +42,6 @@ const commandAliases = {
   '!accountage': 'accountage'
 }
 
-//const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9]+|https:\/\/www\.twitch\.tv\/(?:.*\/)?clip\/[A-Za-z0-9]+/gi;
-const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9-]+/gi;
-const ClipChannel = 'bankai';
-
 twitchclient.on('message', (channel, userstate, message, self) => {
 
   if (self) return;
@@ -55,6 +59,14 @@ twitchclient.on('message', (channel, userstate, message, self) => {
       });
     }
   }
+  // if (message.trim() === '!clip') {
+  //   clipCount++;
+  //   console.log('clip creation begun');
+  //   if (clipCount === 1) {
+  //       clipCount = 0; // Reset the counter immediately to avoid race conditions
+  //       processClipCreation(channel); // Call async function separately
+  //   }
+  // }
   if (commandName === 'naughty') {
     handleNaughtyCommand(channel, userstate);
   }
@@ -64,9 +76,67 @@ twitchclient.on('message', (channel, userstate, message, self) => {
 
 });
 
-const discordChannelId = '1251330095101120523';
-const ignoredUsers = ['nightbot', 'streamelements'];
-const NaughtydiscordChannelId = '1249727604051677317';
+// Async function to handle the clip creation process
+async function processClipCreation(channel) {
+  try {
+      const broadcasterId = await getBroadcasterId();
+      await createClip(channel, broadcasterId);
+  } catch (error) {
+      console.error('Error processing clip request:', error);
+      twitchclient.say(channel, 'Failed to create clip.');
+  }
+}
+
+// Function to get broadcaster_id using Twitch API
+async function getBroadcasterId() {
+  try {
+      const response = await axios.get('https://api.twitch.tv/helix/users', {
+          headers: {
+              'Authorization': `Bearer ${process.env.TWITCH_ACCESS_TOKEN}`,
+              'Client-ID': process.env.TWITCH_CLIENT_ID,
+          },
+          params: {
+              login: process.env.TWITCH_CHANNEL_NAME
+          }
+      });
+
+      if (response.data.data && response.data.data.length > 0) {
+          return response.data.data[0].id;
+      } else {
+          throw new Error('Broadcaster ID not found');
+      }
+  } catch (error) {
+      console.error('Error fetching broadcaster_id:', error.response ? error.response.data : error.message);
+      throw error;
+  }
+}
+
+// Function to create a clip using Twitch API
+async function createClip(channel, broadcasterId) {
+  try {
+      const response = await axios.post('https://api.twitch.tv/helix/clips', null, {
+          headers: {
+              'Authorization': `Bearer ${process.env.TWITCH_ACCESS_TOKEN}`,
+              'Client-ID': process.env.TWITCH_CLIENT_ID,
+          },
+          params: {
+              broadcaster_id: broadcasterId
+          }
+      });
+
+      if (response.data.data && response.data.data.length > 0) {
+          const clipUrl = response.data.data[0].edit_url;
+          console.log(`Clip created: ${clipUrl}`);
+          //twitchclient.say(channel, `Clip created: ${clipUrl}`);
+      } else {
+          throw new Error('Clip creation failed');
+      }
+  } catch (error) {
+      console.error('Error creating clip:', error.response ? error.response.data : error.message);
+      //twitchclient.say(channel, `Failed to create clip.`);
+      console.log('Failed to create clip.');
+  }
+}
 
 function shouldIgnoreUser(username) {
   return ignoredUsers.includes(username.toLowerCase());
@@ -102,8 +172,9 @@ function sendNaughtyToDiscord(twitchname) {
   
   const embed = new MessageEmbed()
     .setTitle(`Twitch Chat`)
-    .setDescription(`**${twitchname}** hit the magic number 69! `)
+    .setDescription(`**${twitchname}** hit the magic number 69! \n`)
     .setFooter(`Triggered  by ${twitchname}`)
+    .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
     .setColor('#9146FF'); // Twitch purple color
 
   if (Marksoft.isReady()) {
