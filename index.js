@@ -76,8 +76,8 @@ function shouldIgnoreUser(username) {
   return ignoredUsers.includes(username.toLowerCase());
 }
 
-function sendClipToDiscord(url, username) {
 
+function sendClipToDiscord(url, username) {
   if (shouldIgnoreUser(username)) {
     console.log(`Ignoring clip from ${username}: ${url}`);
     return;
