@@ -81,15 +81,11 @@ Our Discord bot provides the following key features:
 - Developers can log events directly using webhooks from the configuration file.
 - Keep track of important server activities effortlessly.
 
-#### 13. Twitch Integration<a name="twitch"></a>
-- **Multi-Channel Support**
-   - Handles clips from multiple Twitch channels and sends them to specific Discord channels.
+#### 13. Twitch-Discord Integration<a name="twitch"></a>
 
-- **Dynamic Mapping**
-   - Easily update mappings between Twitch and Discord channels through commands.
-
-- **Ignore Users**
-   - Ignore clips posted by specified users.
+- Detects Twitch clip URLs in specified Twitch channels.
+- Fetches clip details (title, creator, views) using Twitch API.
+- Sends enriched embed messages to a designated Discord channel.
 
 ### 3. Website Features<a name="website-features"></a>
 

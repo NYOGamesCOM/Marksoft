@@ -27,7 +27,7 @@ module.exports = class MarksoftClient extends Client {
         activities: [
           {
             type: "STREAMING",
-            name: 'Starting up...'//status,
+            name: 'Starting up...'
           },
         ],
       },
