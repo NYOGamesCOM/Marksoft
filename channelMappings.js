@@ -1,47 +1,44 @@
-/*
 const fs = require('fs');
 const path = require('path');
+const mappingsPath = path.join(__dirname, 'channelMappings.json');
 
-const mappingsFilePath = path.join(__dirname, 'channelMappings.json');
-
-// Load mappings from file or initialize an empty object
-let channelMappings = {};
-if (fs.existsSync(mappingsFilePath)) {
-  channelMappings = JSON.parse(fs.readFileSync(mappingsFilePath));
-}
-
-function saveMappings() {
-  fs.writeFileSync(mappingsFilePath, JSON.stringify(channelMappings, null, 2));
+function getMapping(twitchChannel) {
+    const mappings = getMappings();
+    return mappings[twitchChannel.toLowerCase()] || null;
 }
 
 function setMapping(twitchChannel, discordChannelId) {
-  channelMappings[twitchChannel] = discordChannelId;
-  saveMappings();
+    const mappings = getMappings();
+    mappings[twitchChannel.toLowerCase()] = discordChannelId;
+    saveMappings(mappings);
 }
 
 function removeMapping(twitchChannel) {
-  delete channelMappings[twitchChannel];
-  saveMappings();
+    const mappings = getMappings();
+    delete mappings[twitchChannel.toLowerCase()];
+    saveMappings(mappings);
 }
 
-function getMapping(twitchChannel) {
-  return channelMappings[twitchChannel];
+function getMappings() {
+    if (fs.existsSync(mappingsPath)) {
+        const data = fs.readFileSync(mappingsPath, 'utf-8');
+        return JSON.parse(data);
+    }
+    return {};
 }
 
-function getAllMappings() {
-  return channelMappings;
+function saveMappings(mappings) {
+    fs.writeFileSync(mappingsPath, JSON.stringify(mappings, null, 2));
 }
 
 function getAllTwitchChannels() {
-  return Object.keys(channelMappings);
+    const mappings = getMappings();
+    return Object.keys(mappings);
 }
 
 module.exports = {
-  setMapping,
-  removeMapping,
-  getMapping,
-  getAllMappings,
-  getAllTwitchChannels
+    getMapping,
+    setMapping,
+    removeMapping,
+    getAllTwitchChannels
 };
-
-*/

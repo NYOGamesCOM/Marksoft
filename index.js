@@ -20,6 +20,8 @@ const Marksoft = new MarksoftClient(config);
 const tmi = require('tmi.js');
 const cooldowns = {};
 
+const { setMapping, removeMapping, getAllMappings } = require('./channelMappings');
+
 const twitchclient = new tmi.Client({
     connection:{
         reconnect: true,
