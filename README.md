@@ -19,6 +19,7 @@ Welcome to the documentation for our versatile Discord bot. This document will g
    - [10. Reaction Roles](#reaction-roles)
    - [11. Tickets](#tickets)
    - [12. Webhooks](#webhooks)
+   - [13. Twitch Integration](#twitch)
 3. [Website Features](#website-features)
 4. [Conclusion](#conclusion)
 
@@ -79,6 +80,16 @@ Our Discord bot provides the following key features:
 #### 12. Webhooks<a name="webhooks"></a>
 - Developers can log events directly using webhooks from the configuration file.
 - Keep track of important server activities effortlessly.
+
+#### 13. Twitch Integration<a name="twitch"></a>
+- **Multi-Channel Support**
+- Handles clips from multiple Twitch channels and sends them to specific Discord channels.
+
+- **Dynamic Mapping**
+- Easily update mappings between Twitch and Discord channels through commands.
+
+- **Ignore Users**
+- Ignore clips posted by specified users.
 
 ### 3. Website Features<a name="website-features"></a>
 
