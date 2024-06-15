@@ -19,9 +19,8 @@ module.exports = class extends Command {
     }
 
     async run(message) {
-
         const randomNumber = Math.floor(Math.random() * 69) + 1;
-        let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty!\n`;
+        let responseMessage = `**${message.member.displayName}** is **${randomNumber}** out of **69** naughty!\n`;
 
         if (randomNumber === 69) {
             responseMessage += '\n Congratulations!';
@@ -70,7 +69,7 @@ module.exports = class extends Command {
 
                 const embedWebhook = new MessageEmbed()
                     .setTitle('Special Naughty Achievement')
-                    .setDescription(`\n **${message.author.username}** hit the magic number **69**!`)
+                    .setDescription(`\n **${message.member.displayName}** hit the magic number **69**!`)
                     .setColor('#FF4500') // Bright orange color
                     .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                     .setFooter({
