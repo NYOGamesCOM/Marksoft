@@ -41,84 +41,67 @@ const commandAliases = {
 //  '!followage': 'followage'
 }
 
-// Event handler for chat messages
+//const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9]+|https:\/\/www\.twitch\.tv\/(?:.*\/)?clip\/[A-Za-z0-9]+/gi;
+const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9-]+/gi;
+
+
 twitchclient.on('message', (channel, userstate, message, self) => {
   // Ignore messages from the bot itself
   if (self) return;
 
-  // Normalize the message and extract command
   const normalizedMessage = message.toLowerCase().trim();
   const commandName = commandAliases[normalizedMessage];
+  const clipUrls = message.match(clipUrlRegex);
 
-  // Handle commands
+  if (clipUrls) {
+    clipUrls.forEach(url => {
+      console.log(`Detected clip URL: ${url}`);
+      const username = userstate['display-name'];
+      sendClipToDiscord(url, username);
+    });
+  }
   if (commandName === 'naughty') {
     handleNaughtyCommand(channel, userstate);
   }
   else if (commandName === 'accountage') {
     handleAccountageCommand(channel, userstate);
   }
-/*  else if (commandName === 'followage') {
-    handleFollowageCommand(channel, userstate);
-  }*/
 
 });
 
+const discordChannelId = '1251330095101120523';
+const ignoredUsers = ['nightbot', 'streamelements'];
 
-/*
-function handleFollowageCommand(channel, userstate) {
-  const username = userstate['display-name'];
-  console.log(`Received !followage command from ${username}`);
+function shouldIgnoreUser(username) {
+  return ignoredUsers.includes(username.toLowerCase());
+}
 
-  // Fetch user ID from Twitch API
-  fetch(`https://api.twitch.tv/helix/users?login=${username}`, {
-    headers: {
-      'Client-ID': process.env.TWITCH_CLIENT_ID,
-      'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Twitch API responded with status ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(userData => {
-    if (userData.data.length > 0) {
-      const userId = userData.data[0].id;
+function sendClipToDiscord(url, username) {
 
-      // Fetch follow data from Twitch API
-      return fetch(`https://api.twitch.tv/helix/users/follows?from_id=${userId}&to_id=${channelId}`, {
-        headers: {
-          'Client-ID': process.env.TWITCH_CLIENT_ID,
-          'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`
-        }
-      });
+  if (shouldIgnoreUser(username)) {
+    console.log(`Ignoring clip from ${username}: ${url}`);
+    return;
+  }
+
+  const embed = new MessageEmbed()
+    .setTitle(`Twitch Chat Clip`)
+    .setDescription(`**${username}** shared a clip in the twitch chat \n\n ${url}`)
+    .setFooter(`Sent by ${username}`)
+    .setColor('#9146FF'); // Twitch purple color
+
+  if (Marksoft.isReady()) {
+    const channel = Marksoft.channels.cache.get(discordChannelId);
+    if (channel) {
+      channel.send({ embeds: [embed] })
+        .then(message => console.log(`Sent embed: ${message.id}`))
+        .catch(console.error);
     } else {
-      throw new Error(`User data not found`);
+      console.error('Discord channel not found.');
     }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Twitch API responded with status ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(followData => {
-    if (followData.data && followData.data.length > 0) {
-      const followDate = new Date(followData.data[0].followed_at);
-      const followAge = calculateAccountAge(followDate);
-      twitchclient.say(channel, `@${username}, you have been following since ${followDate.toDateString()} (${followAge}).`);
-      console.log(`Sent follow age for ${username}`);
-    } else {
-      twitchclient.say(channel, `@${username}, you are not following this channel.`);
-      console.log(`${username} is not following the channel`);
-    }
-  })
-  .catch(err => {
-    console.error(`Error fetching follow data: ${err}`);
-    twitchclient.say(channel, `@${username}, there was an error retrieving your follow data.`);
-  });
-}*/
+  } else {
+    console.error('Discord client not ready.');
+  }
+}
 
 function handleAccountageCommand(channel, userstate) {
   const username = userstate['display-name'];
@@ -151,8 +134,6 @@ function handleAccountageCommand(channel, userstate) {
     twitchclient.say(channel, `@${username}, there was an error retrieving your account data.`);
   });
 }
-
-
 
 function handleNaughtyCommand(channel, userstate) {
   const twitchname = userstate.username;

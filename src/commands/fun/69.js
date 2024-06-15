@@ -19,6 +19,7 @@ module.exports = class extends Command {
     }
 
     async run(message) {
+
         const randomNumber = Math.floor(Math.random() * 69) + 1;
         let responseMessage = `**${message.author.username}** is **${randomNumber}** out of **69** naughty!\n`;
 
