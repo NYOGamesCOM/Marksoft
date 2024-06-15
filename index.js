@@ -85,7 +85,7 @@ function sendClipToDiscord(url, username) {
 
   const embed = new MessageEmbed()
     .setTitle(`Twitch Chat Clip`)
-    .setDescription(`**${username}** shared a clip in the twitch chat \n\n ${url}`)
+    .setDescription(`**${username}** shared a clip in the twitch chat \n\n ${url} `)
     .setFooter(`Sent by ${username}`)
     .setColor('#9146FF'); // Twitch purple color
 
