@@ -83,13 +83,13 @@ Our Discord bot provides the following key features:
 
 #### 13. Twitch Integration<a name="twitch"></a>
 - **Multi-Channel Support**
-- Handles clips from multiple Twitch channels and sends them to specific Discord channels.
+   - Handles clips from multiple Twitch channels and sends them to specific Discord channels.
 
 - **Dynamic Mapping**
-- Easily update mappings between Twitch and Discord channels through commands.
+   - Easily update mappings between Twitch and Discord channels through commands.
 
 - **Ignore Users**
-- Ignore clips posted by specified users.
+   - Ignore clips posted by specified users.
 
 ### 3. Website Features<a name="website-features"></a>
 
