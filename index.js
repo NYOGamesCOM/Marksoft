@@ -137,25 +137,20 @@ function handleAccountageCommand(channel, userstate) {
 }
 
 function handleNaughtyCommand(channel, userstate) {
+
   const twitchname = userstate.username;
-
-  // Check if the user is on cooldown
-  if (cooldowns[twitchname]) return;
-
-  // Generate a random number between 1 and 69
   const randomNumber = Math.floor(Math.random() * 69) + 1;
 
+  if (cooldowns[twitchname]) return;
+  
   if (randomNumber === 69) {
       twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty 🎉`);
-      //console.log(`[twitch] ${twitchname} is ${randomNumber} out of 69 naughty`);
       logger.info(`${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
   } else {
       twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty LUL`);
-      //console.log(`[twitch] ${twitchname} is ${randomNumber} out of 69 naughty`);
       logger.info(`${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
   }
 
-  // Set cooldown for the user
   cooldowns[twitchname] = true;
   setTimeout(() => {
       delete cooldowns[twitchname];
