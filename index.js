@@ -6,19 +6,14 @@ const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const axios = require('axios');
 
-/*  TWITCH  
-      MERGED 
-        WITH 
-          DISCORD 
-*/
+//===============================================
 const tmi = require('tmi.js');
 const cooldowns = {};
-let clipCount = 0;
-//const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9]+|https:\/\/www\.twitch\.tv\/(?:.*\/)?clip\/[A-Za-z0-9]+/gi;
+
 const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/[A-Za-z0-9-]+/gi;
 const ClipChannel = 'bankai';
 const discordChannelId = '1251330095101120523';
-const ignoredUsers = ['nightbot', 'streamelements', 'marksoftbot'];
+const ignoredUsers = ['nightbot'];
 const NaughtydiscordChannelId = '1249727604051677317';
 
 
@@ -43,100 +38,35 @@ const commandAliases = {
 }
 
 twitchclient.on('message', (channel, userstate, message, self) => {
-
   if (self) return;
 
   const normalizedMessage = message.toLowerCase().trim();
-  const commandName = commandAliases[normalizedMessage];
+  const commandPattern = /^(\!\w+)\b/; // Match a command at the beginning
+  const match = normalizedMessage.match(commandPattern);
+
+  if (!match) return; // If no command is found, exit
+
+  const command = match[1]; // Extract command from the matched result
+  const commandName = commandAliases[command];
+  const args = normalizedMessage.slice(command.length).trim().split(/\s+/); // Extract arguments if any
   const clipUrls = message.match(clipUrlRegex);
 
-  if (channel.toLowerCase() === ClipChannel) {
+  if (normalizedMessage.includes(ClipChannel.toLowerCase())) {
     if (clipUrls) {
+      console.log(`Twitch clip detected: ${clipUrls}`);
       clipUrls.forEach(url => {
-        console.log(`Detected clip URL: ${url}`);
         const username = userstate['display-name'];
         sendClipToDiscord(url, username);
       });
     }
   }
-  // if (message.trim() === '!clip') {
-  //   clipCount++;
-  //   console.log('clip creation begun');
-  //   if (clipCount === 1) {
-  //       clipCount = 0; // Reset the counter immediately to avoid race conditions
-  //       processClipCreation(channel); // Call async function separately
-  //   }
-  // }
+  // Trigger commands based on the detected command name
   if (commandName === 'naughty') {
-    handleNaughtyCommand(channel, userstate);
+    handleNaughtyCommand(channel, userstate, args);
+  } else if (commandName === 'accountage') {
+    handleAccountageCommand(channel, userstate, args);
   }
-  else if (commandName === 'accountage') {
-    handleAccountageCommand(channel, userstate);
-  }
-
 });
-
-// Async function to handle the clip creation process
-async function processClipCreation(channel) {
-  try {
-      const broadcasterId = await getBroadcasterId();
-      await createClip(channel, broadcasterId);
-  } catch (error) {
-      console.error('Error processing clip request:', error);
-      twitchclient.say(channel, 'Failed to create clip.');
-  }
-}
-
-// Function to get broadcaster_id using Twitch API
-async function getBroadcasterId() {
-  try {
-      const response = await axios.get('https://api.twitch.tv/helix/users', {
-          headers: {
-              'Authorization': `Bearer ${process.env.TWITCH_ACCESS_TOKEN}`,
-              'Client-ID': process.env.TWITCH_CLIENT_ID,
-          },
-          params: {
-              login: process.env.TWITCH_CHANNEL_NAME
-          }
-      });
-
-      if (response.data.data && response.data.data.length > 0) {
-          return response.data.data[0].id;
-      } else {
-          throw new Error('Broadcaster ID not found');
-      }
-  } catch (error) {
-      console.error('Error fetching broadcaster_id:', error.response ? error.response.data : error.message);
-      throw error;
-  }
-}
-
-// Function to create a clip using Twitch API
-async function createClip(channel, broadcasterId) {
-  try {
-      const response = await axios.post('https://api.twitch.tv/helix/clips', null, {
-          headers: {
-              'Authorization': `Bearer ${process.env.TWITCH_ACCESS_TOKEN}`,
-              'Client-ID': process.env.TWITCH_CLIENT_ID,
-          },
-          params: {
-              broadcaster_id: broadcasterId
-          }
-      });
-
-      if (response.data.data && response.data.data.length > 0) {
-          const clipUrl = response.data.data[0].edit_url;
-          console.log(`Clip created: ${clipUrl}`);
-          //twitchclient.say(channel, `Clip created: ${clipUrl}`);
-      } else {
-          throw new Error('Clip creation failed');
-      }
-  } catch (error) {
-      console.error('Error creating clip:', error.response ? error.response.data : error.message);
-      //twitchclient.say(channel, `Failed to create clip.`);
-      console.log('Failed to create clip.');
-  }
-}
 
 function shouldIgnoreUser(username) {
   return ignoredUsers.includes(username.toLowerCase());
@@ -223,25 +153,37 @@ function handleAccountageCommand(channel, userstate) {
   });
 }
 
-function handleNaughtyCommand(channel, userstate) {
-
+function handleNaughtyCommand(channel, userstate, args) {
   const twitchname = userstate.username;
-  const randomNumber = Math.floor(Math.random() * 69) + 1;
+  const randomNumber = Math.floor(Math.random() * 70);
 
   if (cooldowns[twitchname]) return;
-  
-  if (randomNumber === 69) {
-      twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty 🎉`);
+
+  const guessedNumber = parseInt(args[0]);
+
+  let responseMessage = '';
+
+  if (!isNaN(guessedNumber) && guessedNumber === randomNumber) {
+    responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber}. Congratulations! bankai1Y `;
+  } else {
+    if (randomNumber === 69) {
+      responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty  bankai1Y `;
       logger.info(`${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
       sendNaughtyToDiscord(twitchname);
-  } else {
-      twitchclient.say(channel, `${twitchname} is ${randomNumber} out of 69 naughty LUL`);
+    } else if (randomNumber === 0) {
+      responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty  bankai1Rip `;
+      logger.info(`${twitchname} is ${randomNumber} out of 69 naughty  bankai1Rip `, { label: "Command" });
+    } else {
+      responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty LUL`;
       logger.info(`${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
+    }
   }
+
+  twitchclient.say(channel, responseMessage);
 
   cooldowns[twitchname] = true;
   setTimeout(() => {
-      delete cooldowns[twitchname];
+    delete cooldowns[twitchname];
   }, 3000); // Cooldown period in milliseconds (3 seconds)
 }
 
@@ -259,7 +201,6 @@ function calculateAccountAge(createdDate) {
 }
 
 /*=====================================================
-=======================================================
 =======================================================*/
 const color = require("./src/data/colors");
 Marksoft.color = color;
@@ -270,7 +211,6 @@ Marksoft.emoji = emoji;
 let client = Marksoft;
 const jointocreate = require("./src/structures/jointocreate");
 jointocreate(client);
-
 
 Marksoft.react = new Map();
 Marksoft.fetchforguild = new Map();
