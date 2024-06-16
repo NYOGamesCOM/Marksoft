@@ -5,7 +5,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const fs = require('fs');
 const path = require('path');
 
-const USERS_PER_PAGE = 10;
+const USERS_PER_PAGE = 15;
 
 module.exports = class extends Command {
     constructor(...args) {
@@ -79,7 +79,6 @@ module.exports = class extends Command {
             .setColor('#FFD700') // Gold color for leaderboard
             .setTimestamp();
     
-        // Add pagination buttons if there are multiple pages
         if (totalPages > 1) {
             const previousButton = new MessageButton()
                 .setCustomId('previousPage')
