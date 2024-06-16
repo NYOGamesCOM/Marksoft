@@ -5,7 +5,9 @@ const config = require("./config.json");
 const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const axios = require('axios');
+//const OBSWebSocket = require('obs-websocket-js');
 
+//const obs = new OBSWebSocket(); // Create a new instance of OBSWebSocket
 //===============================================
 const tmi = require('tmi.js');
 const cooldowns = {};
@@ -56,6 +58,9 @@ function resetClipRequestCounter() {
   }
 }
 
+let clipQueue = []; // Queue to store clip URLs
+let isPlaying = false; // Flag to track if a clip is currently playing
+
 twitchclient.on('message', async (channel, userstate, message, self) => {
   if (self) return;
 
@@ -101,6 +106,15 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
       }
     }
   }
+    // Check if the message is the !playclip command
+  else  if (message.toLowerCase().startsWith('!playclip ') && userstate['mod']) {
+    const clipLink = message.slice('!playclip '.length).trim(); // Extract the clip link
+    clipQueue.push(clipLink); // Add clip to the queue
+
+    if (!isPlaying) {
+        //playNextClip(); // Start playing clips if queue was empty
+    }
+}
   // Trigger commands based on the detected command name
   else if (commandName === 'naughty') {
     handleNaughtyCommand(channel, userstate, args);
@@ -305,6 +319,41 @@ function calculateAccountAge(createdDate) {
   }
 }
 
+async function playNextClip() {
+  if (clipQueue.length > 0 && !isPlaying) {
+      const nextClip = clipQueue.shift(); // Get next clip URL from the queue
+      isPlaying = true;
+
+      try {
+          await updateBrowserSourceUrl(nextClip); // Update OBS Browser Source with the clip URL
+      } catch (error) {
+          console.error('Error playing clip:', error);
+      } finally {
+          isPlaying = false;
+          playNextClip(); // Play the next clip in the queue
+      }
+  }
+}
+
+async function updateBrowserSourceUrl(url) {
+  try {
+      await obs.connect({ address: 'localhost:4444' }); // Connect to OBS WebSocket (default is localhost:4444)
+
+      // Change 'Twitch Clip Player' to the name of your Browser Source in OBS
+      await obs.send('SetSourceSettings', {
+          'sourceName': 'Twitch Clip Player',
+          'sourceSettings': {
+              'url': url // Update the URL of the Browser Source
+          }
+      });
+
+      console.log(`Browser source updated with URL: ${url}`);
+  } catch (error) {
+      console.error('Error updating browser source:', error);
+  } finally {
+      obs.disconnect(); // Disconnect from OBS WebSocket
+  }
+}
 /*=====================================================
 =======================================================*/
 const color = require("./src/data/colors");
@@ -339,4 +388,13 @@ process.on("uncaughtExceptionMonitor", (err, origin) => {
 process.on("multipleResolves", (type, promise, reason) => {
   logger.info(`[multipleResolves] MULTIPLE RESOLVES`, { label: "ERROR" });
   console.log(type, promise, reason);
+});
+
+obs.on('error', err => {
+  console.error('Socket error:', err);
+  obs.disconnect();
+});
+
+obs.on('ConnectionClosed', data => {
+  console.log('OBS WebSocket connection closed.');
 });
