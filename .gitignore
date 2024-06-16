@@ -6,7 +6,6 @@ node_modules
 .env.template
 package-lock.json
 package.json
-w
 .replit
 replit_zip_error_log
 replit.nix
