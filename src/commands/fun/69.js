@@ -22,10 +22,15 @@ module.exports = class extends Command {
 
         let responseMessage = `**${message.member.displayName}** is **${randomNumber}** out of **69** naughty!\n`;
 
-        if (guessedNumber === randomNumber) {
+        if (guessedNumber === randomNumber && randomNumber === 69) {
+            responseMessage += `\n🎉 Congratulations ${message.author.username}! You guessed the number **${randomNumber}** correctly and hit the magic number **69**! 🎉`;
+            sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber);
+        }
+        else if (guessedNumber === randomNumber) {
             responseMessage += `\n🎉 Congratulations ${message.author.username}! You guessed the number **${randomNumber}** correctly! 🎉`;
             //sendGuessMessageToWebhook(message, message.author.username, randomNumber); // Call function to send special message
-        } else if (randomNumber === 69) {
+        } 
+        else if (randomNumber === 69) {
             responseMessage += '\n Congratulations!';
             sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber); // Call function to send special message
         }
