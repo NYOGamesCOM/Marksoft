@@ -1,0 +1,24 @@
+{
+    "342836262060949524": {
+        "webhook": "https://discord.com/api/webhooks/your_webhook_id/your_webhook_token",
+        "users": [
+            {
+                "username": "13Thomas",
+                "userId": "94154416197734400",
+                "points": 1,
+                "date": "2024-06-17T02:44:26.801Z"
+            }
+        ]
+    },
+    "356052883730464768": {
+        "webhook": "https://discord.com/api/webhooks/your_webhook_id/your_webhook_token",
+        "users": [
+            {
+                "username": "13thomas",
+                "userId": "94154416197734400",
+                "points": 2,
+                "date": "2024-06-17T06:03:27.709Z"
+            }
+        ]
+    }
+}
