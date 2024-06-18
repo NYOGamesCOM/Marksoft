@@ -31,7 +31,7 @@ module.exports = class extends Command {
             //sendGuessMessageToWebhook(message, message.author.username, randomNumber); // Call function to send special message
         } 
         else if (randomNumber === 69) {
-            responseMessage += '\n Congratulations!';
+            responseMessage += '\n \`Congratulations!\` \n';
             sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber); // Call function to send special message
         }
 

@@ -4,14 +4,21 @@ const MarksoftClient = require("./Marksoft");
 const config = require("./config.json");
 const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
-
+const fs = require('fs');
 //===============================================
 const axios = require('axios');
 //const OBSWebSocket = require('obs-websocket-js');
-
 //const obs = new OBSWebSocket(); // Create a new instance of OBSWebSocket
+
 const tmi = require('tmi.js');
 const cooldowns = {};
+
+let winCounts = {};
+const WIN_COUNTS_FILE = 'winCounts.json';
+if (fs.existsSync(WIN_COUNTS_FILE)) {
+    const data = fs.readFileSync(WIN_COUNTS_FILE);
+    winCounts = JSON.parse(data);
+}
 
 const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/\S+/gi;
 const discordChannelId = '1251330095101120523';
@@ -37,7 +44,11 @@ const commandAliases = {
   '!naughty': 'naughty',
   '!69': 'naughty',
   '!accountage': 'accountage',
-  '!clip': 'clip'
+  '!clip': 'clip',
+  '!addwin': 'addwin',
+  '!resetwins': 'resetwins',
+  '!wins': 'wins',
+  '!clearwins': 'clearwins'
 }
 
 let clipRequestCount = 0;
@@ -104,13 +115,69 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
     if (!isPlaying) {
         //playNextClip();
     }
-}
+  }
   else if (commandName === 'naughty') {
     handleNaughtyCommand(channel, userstate, args);
-  } else if (commandName === 'accountage') {
+  } 
+  else if (commandName === 'accountage') {
     handleAccountageCommand(channel, userstate, args);
   }
+  else if (commandName === 'addwin') {
+    handleAddwinCommand(channel, userstate, args);
+  }
+  else if (commandName === 'resetwins') {
+    handleResetwinsCommand(channel, userstate, args);
+  }
+  else if (commandName === 'wins') {
+    handleWinsCommand(channel, userstate, args);
+  }
+  else if (commandName === 'clearwins') {
+    twitchclient.say(channel, `I'm not a dodo bot like @Nightbot :) !resetwins will do the work.`);
+  }
 });
+
+// Add a win
+function handleAddwinCommand(channel, userstate) {
+  // Check if the user is a moderator or broadcaster
+  if (userstate.mod || userstate['user-type'] === 'mod' || userstate.badges.broadcaster) {
+      if (!winCounts[channel]) {
+          winCounts[channel] = 0;
+      }
+      winCounts[channel] += 1;
+      saveWinCounts();
+      twitchclient.say(channel, `Win added for ${channel}! Current win count: ${winCounts[channel]}`);
+  } else {
+    twitchclient.say(channel, 'Only moderators can use the !addwin command.');
+  }
+}
+
+// Reset the win count
+function handleResetwinsCommand(channel, userstate) {
+  // Check if the user is the broadcaster or a moderator
+  if (userstate.badges.broadcaster || userstate.mod || userstate['user-type'] === 'mod') {
+      if (winCounts[channel]) {
+          winCounts[channel] = 0;
+          saveWinCounts();
+          twitchclient.say(channel, `Win count reset for ${channel} to 0.`);
+      } else {
+        twitchclient.say(channel, `No win count found for ${channel}.`);
+      }
+  } else {
+    twitchclient.say(channel, 'Only moderators can use the !resetwins command.');
+  }
+}
+
+function handleWinsCommand(channel) {
+  if (winCounts[channel]) {
+    twitchclient.say(channel, `Wins today: ${winCounts[channel]}`);
+  } else {
+    twitchclient.say(channel, `No win found for ${channel}.`);
+  }
+}
+
+function saveWinCounts() {
+  fs.writeFileSync(WIN_COUNTS_FILE, JSON.stringify(winCounts));
+}
 
 async function getBroadcasterId(channel) {
   try {
