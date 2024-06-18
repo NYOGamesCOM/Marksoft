@@ -1,13 +1,21 @@
 {
-    "version": "2.0.0",
-    "tasks": [
+  "version": "2.0.0",
+  "tasks": [
       {
-        "type": "npm",
-        "script": "start",
-        "problemMatcher": [],
-        "label": "npm: start",
-        "detail": "node ."
+          "label": "Start App",
+          "type": "shell",
+          "command": "node .",
+          "windows": {
+              "command": "node ."
+          },
+          "group": "none",
+          "presentation": {
+              "reveal": "always",
+              "panel": "new"
+          },
+          "runOptions": {
+              "runOn": "folderOpen",
+          }
       }
-    ]
-  }
-  
+  ]
+}
