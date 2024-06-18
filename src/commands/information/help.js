@@ -50,7 +50,7 @@ module.exports = class extends Command {
       let categories;
       categories = this.client.utils.removeDuplicates(
         this.client.botCommands
-          .filter((cmd) => cmd.category !== "Dev")
+          .filter((cmd) => cmd.category !== "Owner")
           .map((cmd) => cmd.category)
       );
 
@@ -119,7 +119,7 @@ module.exports = class extends Command {
         "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
-    } else if (args && args[0].toLowerCase() == "owner") {
+    } else if (args && args[0].toLowerCase() == "dev") {
       if (!this.client.config.developers.includes(message.author.id))
         return message.channel.sendCustom(
           `:x: You are not allowed to view this category`
@@ -128,7 +128,7 @@ module.exports = class extends Command {
       embed.setTitle(`Owner Commands`);
       embed.setDescription(
         this.client.botCommands
-          .filter((cmd) => cmd.category.toLowerCase() === "owner")
+          .filter((cmd) => cmd.category.toLowerCase() === "dev")
           .map(
             (cmd) =>
               `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)

@@ -12,7 +12,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "unblacklist",
       description: "Removes a user from the blacklist.",
-      category: "Dev",
+      category: "dev",
       usage: ["<user>"],
       ownerOnly: true,
     });

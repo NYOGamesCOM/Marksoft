@@ -6,7 +6,7 @@ module.exports = class extends Command {
       name: "maintenance",
       aliases: ["maintenance"],
       description: "Sets the bot to maintenance",
-      category: "Dev",
+      category: "dev",
       ownerOnly: true,
     });
   }

@@ -7,7 +7,7 @@ module.exports = class extends Command {
       name: "servers",
       aliases: [],
       description: "Check the servers!",
-      category: "Dev",
+      category: "dev",
       ownerOnly: true,
     });
   }

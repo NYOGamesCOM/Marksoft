@@ -67,7 +67,7 @@ module.exports = class extends Command {
         } else {
             for (let i = startIndex; i < endIndex; i++) {
                 const user = guildUsers[i];
-                leaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.counter.toString().padEnd(5, ' ')}\n`;
+                leaderboardMessage += `${(i + 1).toString().padEnd(5, ' ')}| ${user.username.padEnd(20, ' ')}| ${user.counter.toString().padEnd(15, ' ')}\n`;
             }
         }
 

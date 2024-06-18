@@ -1,9 +1,9 @@
 {
-  "settings": {
-    "launch.autoRun": [
+  "autorunCommand.commands": [
       {
-        "name": "marksoft"
+          "match": ".*",
+          "cmd": "node .",
+          "runOn": "onWorkspaceOpen"
       }
-    ]
-  }
+  ]
 }

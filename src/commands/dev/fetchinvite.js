@@ -7,7 +7,7 @@ module.exports = class extends Command {
       name: "fetchinvite",
       aliases: ["finvite", "finv"],
       description: "Fetch an invite!",
-      category: "Dev",
+      category: "dev",
       ownerOnly: true,
     });
   }
