@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
 const NewsSchema = require("../../database/schemas/Marksoft");
-const config = require("../../config.json");
+const config = require("../../../config.json");
 
 module.exports = class extends Command {
   constructor(...args) {
