@@ -50,7 +50,7 @@ module.exports = class extends Command {
       let categories;
       categories = this.client.utils.removeDuplicates(
         this.client.botCommands
-          .filter((cmd) => cmd.category !== "Owner")
+          .filter((cmd) => cmd.category !== "Dev")
           .map((cmd) => cmd.category)
       );
 

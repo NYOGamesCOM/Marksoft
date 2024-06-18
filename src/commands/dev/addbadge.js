@@ -6,7 +6,7 @@ module.exports = class extends Command {
       name: "addbadge",
       aliases: ["ab"],
       description: "Add a certain badge to a user.",
-      category: "Owner",
+      category: "Dev",
       ownerOnly: true,
     });
   }

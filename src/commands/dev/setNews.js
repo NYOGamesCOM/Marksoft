@@ -6,7 +6,7 @@ module.exports = class extends Command {
     super(...args, {
       name: "setnews",
       description: "This is for the developers.",
-      category: "Owner",
+      category: "Dev",
       usage: ["<text>"],
       ownerOnly: true,
     });

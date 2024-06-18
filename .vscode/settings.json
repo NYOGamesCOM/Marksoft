@@ -1,3 +1,9 @@
 {
-    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+  "settings": {
+    "launch.autoRun": [
+      {
+        "name": "marksoft"
+      }
+    ]
+  }
 }

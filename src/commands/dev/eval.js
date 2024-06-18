@@ -6,7 +6,7 @@ module.exports = class extends Command {
       name: "eval",
       aliases: ["ev"],
       description: "This is for the developers.",
-      category: "Owner",
+      category: "Dev",
       usage: ["<thing-to-eval>"],
       ownerOnly: true,
     });

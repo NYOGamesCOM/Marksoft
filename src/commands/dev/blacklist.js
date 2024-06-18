@@ -11,7 +11,7 @@ module.exports = class extends Command {
       name: "blacklist",
       aliases: ["bl"],
       description: "Adds a user to the blacklist.",
-      category: "Owner",
+      category: "Dev",
       usage: ["<user> <reason>"],
       ownerOnly: true,
     });

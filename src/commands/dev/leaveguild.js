@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "leaveguild",
       aliases: ["lg"],
       description: "Leave a guild!",
-      category: "Owner",
+      category: "Dev",
       ownerOnly: true,
     });
   }

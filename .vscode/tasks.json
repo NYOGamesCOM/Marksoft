@@ -1,0 +1,12 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "marksoft",
+        "type": "shell",
+        "command": "node .", // Replace with your start command
+        "problemMatcher": []
+      }
+    ]
+  }
+  
