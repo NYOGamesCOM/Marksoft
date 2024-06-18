@@ -1,17 +1,22 @@
 const Command = require("../../structures/Command");
 const Maintenance = require("../../database/schemas/maintenance");
+const config = require("../../config.json");
+
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "maintenance",
       aliases: ["maintenance"],
-      description: "Sets the bot to maintenance",
+      description: "This is for the developers.",
       category: "dev",
       ownerOnly: true,
     });
   }
 
   async run(message, args) {
+    if (!config.developers.includes(message.author.id)) {
+      return message.channel.send("Sorry but this is a developer command only!");
+    }
     if (!args[0])
       return message.channel.sendCustom(
         "Would you like to enable or disable maintenance mode?"

@@ -1,5 +1,5 @@
 const Command = require("../../structures/Command");
-
+const config = require("../../config.json");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
@@ -13,6 +13,9 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
+    if (!config.developers.includes(message.author.id)) {
+      return message.channel.send("Sorry but this is a developer command only!");
+    }
     const input = args.join(" ");
     if (!input) return message.channel.sendCustom(`What do I evaluate?`);
     if (!input.toLowerCase().includes("token")) {

@@ -1,13 +1,14 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const axios = require("axios");
+const config = require("../../config.json");
 
 module.exports = class CommitsCommand extends Command {
   constructor(...args) {
     super(...args, {
       name: "commits",
       aliases: [],
-      description: "Display github commits",
+      description: "This is for the developers.",
       category: "dev",
       cooldown: 5,
       ownerOnly: true,
@@ -15,6 +16,9 @@ module.exports = class CommitsCommand extends Command {
   }
 
   async run(message) {
+    if (!config.developers.includes(message.author.id)) {
+      return message.channel.send("Sorry but this is a developer command only!");
+    }
     try {
       const getCommits = async () => {
         try {

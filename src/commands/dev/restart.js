@@ -1,18 +1,22 @@
 const { MessageEmbed } = require("discord.js");
 const Command = require("../../structures/Command");
+const config = require("../../config.json");
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "restart",
       aliases: ["reboot"],
-      description: "Restart the bot!",
+      description: "This is for the developers.",
       category: "dev",
       ownerOnly: true,
     });
   }
 
   async run(message) {
+    if (!config.developers.includes(message.author.id)) {
+      return message.channel.send("Sorry but this is a developer command only!");
+    }
     const restartEmbed = new MessageEmbed()
       .setColor("#7289DA")
       .setTitle("🚀 Restarting the Bot!")

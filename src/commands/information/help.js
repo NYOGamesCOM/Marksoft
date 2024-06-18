@@ -125,7 +125,7 @@ module.exports = class extends Command {
           `:x: You are not allowed to view this category`
         );
 
-      embed.setTitle(`Owner Commands`);
+      embed.setTitle(`Developer Commands`);
       embed.setDescription(
         this.client.botCommands
           .filter((cmd) => cmd.category.toLowerCase() === "dev")

@@ -1,19 +1,23 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
+const config = require("../../config.json");
 
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       name: "server",
       aliases: [],
-      description: "Check the server",
+      description: "This is for the developers.",
       category: "dev",
       ownerOnly: true,
     });
   }
 
   async run(message, args) {
+    if (!config.developers.includes(message.author.id)) {
+      return message.channel.send("Sorry but this is a developer command only!");
+    }
     function checkDays(date) {
       let now = new Date();
       let diff = now.getTime() - date.getTime();
