@@ -426,23 +426,23 @@ function handleNaughtyCommand(channel, userstate, args) {
   if (guessedCorrectly) {
     if (hit69) {
       responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber} and it's a perfect 69! Congratulations! bankai1Y `;
-      logger.info(`${twitchname} guessed correctly and hit 69 🎉`, { label: "Command" });
+      logger.info(`${channel} | ${twitchname} guessed correctly and hit 69 🎉`, { label: "Command" });
       sendNaughtyToDiscord(channel, twitchname); 
     } else {
       responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber}. Congratulations! bankai1Y `;
-      logger.info(`${twitchname} guessed correctly: ${randomNumber}`, { label: "Command" });
+      logger.info(`${channel} | ${twitchname} guessed correctly: ${randomNumber}`, { label: "Command" });
     }
   } else {
     if (hit69) {
       responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Y `;
-      logger.info(`${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
+      logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
       sendNaughtyToDiscord(channel, twitchname);
     } else if (randomNumber === 0) {
       responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `;
-      logger.info(`${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `, { label: "Command" });
+      logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `, { label: "Command" });
     } else {
       responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty LUL`;
-      logger.info(`${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
+      logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
     }
   }
   twitchclient.say(channel, responseMessage);
