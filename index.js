@@ -6,6 +6,7 @@ const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const fs = require('fs');
 //===============================================
+
 const axios = require('axios');
 const tmi = require('tmi.js');
 const cooldowns = {};
@@ -62,8 +63,6 @@ const twitchclient = new tmi.Client({
     channels: channels 
 });
 
-//twitchclient.connect();
-
 const commandAliases = {
   '!naughty': 'naughty',
   '!69': 'naughty',
@@ -100,7 +99,7 @@ function handleSetClipsChannelCommand(channel, userstate, args) {
     twitchclient.say(channel, 'You are not authorized to use this command.');
     return;
   }
-  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
+  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId;
 
   fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
@@ -131,7 +130,7 @@ function handleSetDiscordChannelCommand(channel, userstate, args) {
     twitchclient.say(channel, 'You are not authorized to use this command.');
     return;
   }
-  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
+  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId;
 
   fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
@@ -169,9 +168,7 @@ function handleJoinToChannel(channel, userstate, args) {
   });
 }
 
-// Add a win
 function handleAddwinCommand(channel, userstate) {
-  // Check if the user is a moderator or broadcaster
   if (userstate.mod || userstate['user-type'] === 'mod' || userstate.badges.broadcaster) {
       if (!winCounts[channel]) {
           winCounts[channel] = 0;
@@ -184,9 +181,7 @@ function handleAddwinCommand(channel, userstate) {
   }
 }
 
-// Reset the win count
 function handleResetwinsCommand(channel, userstate) {
-  // Check if the user is the broadcaster or a moderator
   if (userstate.badges.broadcaster || userstate.mod || userstate['user-type'] === 'mod') {
       if (winCounts[channel]) {
           winCounts[channel] = 0;
@@ -268,7 +263,6 @@ function sendClipToDiscord(url, username, channel) {
     return;
   }
 
-  // Retrieve Discord channel ID for the Twitch channel
   const normalizedChannelName = channel.startsWith('#') ? channel.slice(1).toLowerCase() : channel.toLowerCase();
   const discordChannelId = clipsMappings[normalizedChannelName];
 
@@ -285,7 +279,6 @@ function sendClipToDiscord(url, username, channel) {
     .setFooter(`Sent by ${username}`)
     .setColor('#9146FF'); // Twitch purple color
 
-  // Send embed to Discord
   if (Marksoft.isReady()) {
     const channel = Marksoft.channels.cache.get(discordChannelId);
     if (channel) {
@@ -304,12 +297,10 @@ function sendNaughtyToDiscord(channel, twitchname) {
   try {
       console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
 
-      // Read channel mappings from JSON file
       const channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8'));
       console.log('Channel mappings:', channelMappings);
 
-      // Get NaughtydiscordChannelId based on Twitch channel
-      const lowercaseChannelName = channel.slice(1).toLowerCase(); // Remove '#' and convert to lowercase
+      const lowercaseChannelName = channel.slice(1).toLowerCase();
       const NaughtydiscordChannelId = channelMappings[lowercaseChannelName];
 
       if (!NaughtydiscordChannelId) {
@@ -323,7 +314,6 @@ function sendNaughtyToDiscord(channel, twitchname) {
           .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
           .setColor('#9146FF'); // Twitch purple color
 
-      // Send embed to Discord
       if (Marksoft.isReady()) {
           const discordChannel = Marksoft.channels.cache.get(NaughtydiscordChannelId);
           if (discordChannel) {
