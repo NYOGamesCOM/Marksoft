@@ -62,10 +62,8 @@ module.exports = class CommitsCommand extends Command {
               await i.deferUpdate();
               await i.editReply({
                 content: "View more commits on GitHub:",
-                embeds: [],
                 components: [],
                 allowedMentions: { repliedUser: false },
-                components: [],
                 embeds: [
                   new MessageEmbed()
                     .setDescription(`[View All Commits on GitHub](https://github.com/NYOGamesCOM/Marksoft/commits)`)

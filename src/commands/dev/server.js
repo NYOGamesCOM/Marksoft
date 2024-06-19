@@ -1,6 +1,5 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
-const moment = require("moment");
 const config = require("../../../config.json");
 
 module.exports = class extends Command {
