@@ -18,9 +18,7 @@ if (fs.existsSync(WIN_COUNTS_FILE)) {
 }
 
 const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/\S+/gi;
-const discordChannelId = '1251330095101120523';
 const ignoredUsers = ['nightbot', 'streamelements'];
-//const NaughtydiscordChannelId = '1249727604051677317';
 
 
 const channelsFile = './channels.json';
@@ -34,9 +32,22 @@ if (fs.existsSync(channelsFile)) {
 }
 
 const channelMappingsFile = './channelMappings.json';
-let channelMappings = {};
+let channelMappings = [];
+
 if (fs.existsSync(channelMappingsFile)) {
     channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
+} else {
+  console.error('channelMappings.json not found.');
+}
+
+const clipsMappingsFile = './clipsMappings.json';
+let clipsMappings = [];
+
+if (fs.existsSync(clipsMappingsFile)) {
+  const data = fs.readFileSync(clipsMappingsFile, 'utf8');
+  clipsMappings = JSON.parse(data).clipsMappings;
+} else {
+  console.error('clipsMappings.json not found.');
 }
 
 const twitchclient = new tmi.Client({
@@ -63,7 +74,9 @@ const commandAliases = {
   '!wins': 'wins',
   '!clearwins': 'clearwins',
   '!jointo': 'jointo',
-  '!setdiscordchannel': 'setdiscordchannel'
+  '!setdiscordchannel': 'setdiscordchannel',
+  '!setclipschannel': 'setclipschannel',
+  '!channels': 'channels'
 }
 
 let clipRequestCount = 0;
@@ -80,34 +93,35 @@ function resetClipRequestCounter() {
   }
 }
 
-twitchclient.connect().then(() => {
-  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
-  console.log(`[${timestamp}] Bot connected to Twitch.`);
-  const channelsData = JSON.parse(fs.readFileSync(channelsFile, 'utf8'));
-  let channels = channelsData.channels;
-  channels.forEach(channel => {
-      twitchclient.join(channel);
-      console.log(`[${timestamp}] Joined channel ${channel}.`);
-  });
-}).catch(err => {
-  console.error(`Error connecting to Twitch: ${err}`);
-});
+function handleSetClipsChannelCommand(channel, userstate, args) {
+  const twitchname = userstate.username;
+  const discordChannelId = args[0];
+  if (twitchname.toLowerCase() !== '13thomas') {
+    twitchclient.say(channel, 'You are not authorized to use this command.');
+    return;
+  }
+  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
 
-twitchclient.on('join', onJoinHandler);
-twitchclient.on('part', onPartHandler);
+  fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
-const moment = require("moment");
-
-function onJoinHandler(channel, username, self) {
-  if (self) return;
-  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
-  console.log(`[${timestamp}] ${username} has joined ${channel}`);
+  twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
+  logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
-function onPartHandler(channel, username, self) {
-  if (self) return;
-  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-  console.log(`[${timestamp}] ${username} has left ${channel}`);
+function handleChannelsCommand(channel, userstate) {
+  const twitchname = userstate.username;
+
+  if (twitchname.toLowerCase() !== '13thomas') {
+    twitchclient.say(channel, 'You are not authorized to use this command.');
+    return;
+  }
+
+  const channelList = channels.map(channel => channel.startsWith('#') ? channel.slice(1) : channel);
+  if (channelList.length === 0) {
+    twitchclient.say(channel, `The bot is not currently in any Twitch channels.`);
+  } else {
+    twitchclient.say(channel, `The bot is used by: ${channelList.join(', ')}`);
+  }
 }
 
 function handleSetDiscordChannelCommand(channel, userstate, args) {
@@ -117,106 +131,43 @@ function handleSetDiscordChannelCommand(channel, userstate, args) {
     twitchclient.say(channel, 'You are not authorized to use this command.');
     return;
   }
-  channelMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
+  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
 
-  fs.writeFileSync(channelMappingsFile, JSON.stringify({ channelMappings }, null, 2));
+  fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
-  twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
-  logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
+  twitchclient.say(channel, `Clips channel ID set for ${channel} to ${discordChannelId}`);
+  logger.info(`${twitchname} set clips ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
 function handleJoinToChannel(channel, userstate, args) {
   const channelName = args[0];
   const twitchname = userstate.username;
+
   if (twitchname.toLowerCase() !== '13thomas') {
     twitchclient.say(channel, 'You are not authorized to use this command.');
     return;
   }
-  if (channels.includes(channelName)) {
+
+  const normalizedChannelName = channelName.toLowerCase();
+
+  if (channels.includes(normalizedChannelName)) {
     twitchclient.say(channel, `I'm already in ${channelName}'s chat!`);
-      return;
+    return;
   }
-  channels.push(channelName);
+
+  channels.push(normalizedChannelName);
+
   fs.writeFileSync(channelsFile, JSON.stringify({ channels }, null, 2));
 
   twitchclient.join(channelName).then(() => {
-      console.log(`Bot joined channel ${channelName}`);
-      logger.info(`${twitchname} joined the bot to ${channelName}`, { label: "Command" });
-      twitchclient.say(channel, `Successfully joined ${channelName}'s chat!`);
+    console.log(`Bot joined channel ${channelName}`);
+    logger.info(`${twitchname} joined the bot to ${channelName}`, { label: "Command" });
+    twitchclient.say(channel, `Successfully joined ${channelName}'s chat!`);
   }).catch((err) => {
-      console.error(`Error joining channel ${channelName}: ${err}`);
-      twitchclient.say(channel, `Failed to join ${channelName}'s chat: ${err}`);
+    console.error(`Error joining channel ${channelName}: ${err}`);
+    twitchclient.say(channel, `Failed to join ${channelName}'s chat: ${err}`);
   });
 }
-
-twitchclient.on('message', async (channel, userstate, message, self) => {
-  if (self) return;
-
-  const normalizedMessage = message.toLowerCase().trim();
-  const commandPattern = /^(\!\w+)\b/;
-  const match = normalizedMessage.match(commandPattern);
-
-  const clipUrls = message.match(clipUrlRegex);
-  if (clipUrls) {
-    console.log(`Twitch clip detected: ${clipUrls}`);
-    clipUrls.forEach(url => {
-      const username = userstate['display-name'];
-      sendClipToDiscord(url, username);
-    });
-  }
-
-  if (!match) return;
-
-  const command = match[1];
-  const commandName = commandAliases[command];
-  const args = normalizedMessage.slice(command.length).trim().split(/\s+/);
-
-
-  if (command  === '!clip') {
-    clipRequestCount++;
-    console.log('!clip triggered');
-    if (clipRequestCount === 1 || !clipRequestTimer) {
-      clipRequestTimer = setTimeout(resetClipRequestCounter, clipRequestTimeout);
-    }
-    if (clipRequestCount >= clipRequestThreshold) {
-      try {
-        const broadcasterId = await getBroadcasterId(channel);
-        const clipUrl = await createTwitchClip(broadcasterId);
-        twitchclient.say(channel, `Clip created! Watch it here: ${clipUrl}`);
-        resetClipRequestCounter();
-      } catch (error) {
-        twitchclient.say(channel, `Failed to create clip.`);
-        console.error(`Clip creation failed: ${error.message}`);
-        resetClipRequestCounter();
-      }
-    }
-  }
-  else if (commandName === 'naughty') {
-    handleNaughtyCommand(channel, userstate, args);
-  } 
-  else if (commandName === 'accountage') {
-    handleAccountageCommand(channel, userstate, args);
-  }
-  else if (commandName === 'addwin') {
-    handleAddwinCommand(channel, userstate, args);
-  }
-  else if (commandName === 'resetwins') {
-    handleResetwinsCommand(channel, userstate, args);
-  }
-  else if (commandName === 'wins') {
-    handleWinsCommand(channel, userstate, args);
-  }
-  else if (commandName === 'clearwins') {
-    twitchclient.say(channel, `I'm not a dodo bot like @Nightbot :) !resetwins will do the work.`);
-  }
-  else if (commandName === 'jointo') {
-    handleJoinToChannel(channel, userstate, args);
-  }
-  else if (commandName === 'setdiscordchannel') {
-    handleSetDiscordChannelCommand(channel, userstate, args);
-  }
-});
-
 
 // Add a win
 function handleAddwinCommand(channel, userstate) {
@@ -311,19 +262,30 @@ function shouldIgnoreUser(username) {
   return ignoredUsers.includes(username.toLowerCase());
 }
 
-function sendClipToDiscord(url, username, twitchChannel) {
+function sendClipToDiscord(url, username, channel) {
   if (shouldIgnoreUser(username)) {
     console.log(`Ignoring clip from ${username}: ${url}`);
     return;
   }
 
+  // Retrieve Discord channel ID for the Twitch channel
+  const normalizedChannelName = channel.startsWith('#') ? channel.slice(1).toLowerCase() : channel.toLowerCase();
+  const discordChannelId = clipsMappings[normalizedChannelName];
+
+  console.log(`Discord Channel ID for ${channel}: ${discordChannelId}`);
+
+  if (!discordChannelId) {
+    console.error(`Discord channel ID not found for Twitch channel: ${channel}`);
+    return;
+  }
+
   const embed = new MessageEmbed()
     .setTitle(`Twitch Chat Clip`)
-    .setDescription(`**${username}** shared a clip in **${twitchChannel}** channel\n\n[Watch the clip](${url})`)
-    //.setDescription(`**${username}** shared a clip in the twitch chat \n\n ${url} `)
+    .setDescription(`**${username}** shared a clip in **${channel}** channel\n\n[Watch the clip](${url})`)
     .setFooter(`Sent by ${username}`)
     .setColor('#9146FF'); // Twitch purple color
 
+  // Send embed to Discord
   if (Marksoft.isReady()) {
     const channel = Marksoft.channels.cache.get(discordChannelId);
     if (channel) {
@@ -466,6 +428,110 @@ function calculateAccountAge(createdDate) {
   }
 }
 
+
+twitchclient.on('message', async (channel, userstate, message, self) => {
+  if (self) return;
+
+  const normalizedMessage = message.toLowerCase().trim();
+  const commandPattern = /^(\!\w+)\b/;
+  const match = normalizedMessage.match(commandPattern);
+
+  const clipUrls = message.match(clipUrlRegex);
+  if (clipUrls) {
+    console.log(`Twitch clip detected: ${clipUrls}`);
+    clipUrls.forEach(url => {
+      const username = userstate['display-name'];
+      sendClipToDiscord(url, username, channel);
+    });
+  }
+
+  if (!match) return;
+
+  const command = match[1];
+  const commandName = commandAliases[command];
+  const args = normalizedMessage.slice(command.length).trim().split(/\s+/);
+
+
+  if (command  === '!clip') {
+    clipRequestCount++;
+    console.log('!clip triggered');
+    if (clipRequestCount === 1 || !clipRequestTimer) {
+      clipRequestTimer = setTimeout(resetClipRequestCounter, clipRequestTimeout);
+    }
+    if (clipRequestCount >= clipRequestThreshold) {
+      try {
+        const broadcasterId = await getBroadcasterId(channel);
+        const clipUrl = await createTwitchClip(broadcasterId);
+        twitchclient.say(channel, `Clip created! Watch it here: ${clipUrl}`);
+        resetClipRequestCounter();
+      } catch (error) {
+        twitchclient.say(channel, `Failed to create clip.`);
+        console.error(`Clip creation failed: ${error.message}`);
+        resetClipRequestCounter();
+      }
+    }
+  }
+  else if (commandName === 'naughty') {
+    handleNaughtyCommand(channel, userstate, args);
+  } 
+  else if (commandName === 'accountage') {
+    handleAccountageCommand(channel, userstate, args);
+  }
+  else if (commandName === 'addwin') {
+    handleAddwinCommand(channel, userstate, args);
+  }
+  else if (commandName === 'resetwins') {
+    handleResetwinsCommand(channel, userstate, args);
+  }
+  else if (commandName === 'wins') {
+    handleWinsCommand(channel, userstate, args);
+  }
+  else if (commandName === 'clearwins') {
+    twitchclient.say(channel, `I'm not a dodo bot like @Nightbot :) !resetwins will do the work.`);
+  }
+  else if (commandName === 'jointo') {
+    handleJoinToChannel(channel, userstate, args);
+  }
+  else if (commandName === 'setdiscordchannel') {
+    handleSetDiscordChannelCommand(channel, userstate, args);
+  }
+  else if (commandName === 'setclipschannel') {
+    handleSetClipsChannelCommand(channel, userstate, args);
+  }
+  else if (commandName === 'channels') {
+    handleChannelsCommand(channel, userstate);
+  }
+});
+
+twitchclient.connect().then(() => {
+  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
+  console.log(`[${timestamp}] Bot connected to Twitch.`);
+  const channelsData = JSON.parse(fs.readFileSync(channelsFile, 'utf8'));
+  let channels = channelsData.channels;
+  channels.forEach(channel => {
+      twitchclient.join(channel);
+      console.log(`[${timestamp}] Joined channel ${channel}.`);
+  });
+}).catch(err => {
+  console.error(`Error connecting to Twitch: ${err}`);
+});
+
+twitchclient.on('join', onJoinHandler);
+twitchclient.on('part', onPartHandler);
+
+const moment = require("moment");
+
+function onJoinHandler(channel, username, self) {
+  if (self) return;
+  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
+  console.log(`[${timestamp}] ${username} has joined ${channel}`);
+}
+
+function onPartHandler(channel, username, self) {
+  if (self) return;
+  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+  console.log(`[${timestamp}] ${username} has left ${channel}`);
+}
 /*=====================================================
 =======================================================*/
 const color = require("./src/data/colors");
