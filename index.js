@@ -111,43 +111,42 @@ function onPartHandler(channel, username, self) {
 }
 
 function handleSetDiscordChannelCommand(channel, userstate, args) {
-  if (userstate.mod || userstate['user-type'] === 'mod' || userstate.badges.broadcaster) {
-    const twitchname = userstate.username;
-    const discordChannelId = args[0];
-
-    channelMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
-
-    fs.writeFileSync(channelMappingsFile, JSON.stringify({ channelMappings }, null, 2));
-
-    twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
-    logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
-  } else {
-      twitchclient.say(channel, 'Only moderators can use this command!');
+  const twitchname = userstate.username;
+  const discordChannelId = args[0];
+  if (twitchname.toLowerCase() !== '13thomas') {
+    twitchclient.say(channel, 'You are not authorized to use this command.');
+    return;
   }
+  channelMappings[channel.slice(1).toLowerCase()] = discordChannelId; // Slice to remove the '#' from the channel name
+
+  fs.writeFileSync(channelMappingsFile, JSON.stringify({ channelMappings }, null, 2));
+
+  twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
+  logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
 function handleJoinToChannel(channel, userstate, args) {
-  if (userstate.mod || userstate['user-type'] === 'mod' || userstate.badges.broadcaster) {
-    const channelName = args[0];
+  const channelName = args[0];
+  const twitchname = userstate.username;
+  if (twitchname.toLowerCase() !== '13thomas') {
+    twitchclient.say(channel, 'You are not authorized to use this command.');
+    return;
+  }
+  if (channels.includes(channelName)) {
+    twitchclient.say(channel, `I'm already in ${channelName}'s chat!`);
+      return;
+  }
+  channels.push(channelName);
+  fs.writeFileSync(channelsFile, JSON.stringify({ channels }, null, 2));
 
-    if (channels.includes(channelName)) {
-      twitchclient.say(channel, `I'm already in ${channelName}'s chat!`);
-        return;
-    }
-    channels.push(channelName);
-    fs.writeFileSync(channelsFile, JSON.stringify({ channels }, null, 2));
-
-    twitchclient.join(channelName).then(() => {
-        console.log(`Bot joined channel ${channelName}`);
-        logger.info(`${twitchname} joined the bot to ${channelName}`, { label: "Command" });
-        twitchclient.say(channel, `Successfully joined ${channelName}'s chat!`);
-    }).catch((err) => {
-        console.error(`Error joining channel ${channelName}: ${err}`);
-        twitchclient.say(channel, `Failed to join ${channelName}'s chat: ${err}`);
-    });
-  } else {
-      twitchclient.say(channel, 'Only moderators can use this command!');
-    }
+  twitchclient.join(channelName).then(() => {
+      console.log(`Bot joined channel ${channelName}`);
+      logger.info(`${twitchname} joined the bot to ${channelName}`, { label: "Command" });
+      twitchclient.say(channel, `Successfully joined ${channelName}'s chat!`);
+  }).catch((err) => {
+      console.error(`Error joining channel ${channelName}: ${err}`);
+      twitchclient.say(channel, `Failed to join ${channelName}'s chat: ${err}`);
+  });
 }
 
 twitchclient.on('message', async (channel, userstate, message, self) => {
