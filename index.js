@@ -339,33 +339,43 @@ function sendClipToDiscord(url, username, twitchChannel) {
 }
 
 function sendNaughtyToDiscord(channel, twitchname) {
-  const channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8'));
+  try {
+      console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
 
-  const NaughtydiscordChannelId = channelMappings[channel.slice(1).toLowerCase()];
+      // Read channel mappings from JSON file
+      const channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8'));
+      console.log('Channel mappings:', channelMappings);
 
-  if (!NaughtydiscordChannelId) {
-      console.error(`Discord channel ID not found for Twitch channel: ${channel}`);
-      return;
-  }
+      // Get NaughtydiscordChannelId based on Twitch channel
+      const lowercaseChannelName = channel.slice(1).toLowerCase(); // Remove '#' and convert to lowercase
+      const NaughtydiscordChannelId = channelMappings[lowercaseChannelName];
 
-  const embed = new MessageEmbed()
-      .setTitle(`Twitch Chat`)
-      .setDescription(`**${twitchname}** hit the magic number 69! \n`)
-      .setFooter(`Triggered by ${twitchname}`)
-      .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
-      .setColor('#9146FF'); // Twitch purple color
-
-  if (Marksoft.isReady()) {
-      const discordChannel = Marksoft.channels.cache.get(NaughtydiscordChannelId);
-      if (discordChannel) {
-          discordChannel.send({ embeds: [embed] })
-              .then(message => console.log(`Sent embed: ${message.id}`))
-              .catch(console.error);
-      } else {
-          console.error(`Discord channel not found for ID: ${NaughtydiscordChannelId}`);
+      if (!NaughtydiscordChannelId) {
+          throw new Error(`Discord channel ID not found for Twitch channel: ${channel}`);
       }
-  } else {
-      console.error('Discord client not ready.');
+
+      const embed = new MessageEmbed()
+          .setTitle(`Twitch Chat`)
+          .setDescription(`**${twitchname}** hit the magic number 69! \n`)
+          .setFooter(`Triggered by ${twitchname}`)
+          .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
+          .setColor('#9146FF'); // Twitch purple color
+
+      // Send embed to Discord
+      if (Marksoft.isReady()) {
+          const discordChannel = Marksoft.channels.cache.get(NaughtydiscordChannelId);
+          if (discordChannel) {
+              discordChannel.send({ embeds: [embed] })
+                  .then(message => console.log(`Sent embed: ${message.id}`))
+                  .catch(error => console.error(`Error sending embed to Discord: ${error}`));
+          } else {
+              throw new Error(`Discord channel not found for ID: ${NaughtydiscordChannelId}`);
+          }
+      } else {
+          throw new Error('Discord client not ready.');
+      }
+  } catch (error) {
+      console.error(`Error in sendNaughtyToDiscord: ${error}`);
   }
 }
 
