@@ -3,39 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Race</title>
+    <title>Settings Management</title>
     <style>
-        .car {
-            width: 50px;
-            height: 30px;
-            background-color: red;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: left 5s linear;
-        }
+        /* Same styles as before */
     </style>
 </head>
 <body>
-    <div class="track" style="position: relative; width: 600px; height: 100px; border: 1px solid black;">
-        <div class="car" id="car"></div>
+    <div class="container">
+        <h1>Settings Management</h1>
+        <button id="loginButton">Login with Twitch</button>
+        <form id="settingsForm" style="display: none;">
+            <label>
+                Twitch Channel:
+                <input type="text" id="twitchChannel" required>
+            </label>
+            <label>
+                Discord Channel for General:
+                <input type="text" id="discordChannel">
+            </label>
+            <label>
+                Discord Channel for Clips:
+                <input type="text" id="clipsChannel">
+            </label>
+            <label>
+                Discord Channel for Live Notifications:
+                <input type="text" id="liveChannel">
+            </label>
+            <button type="submit">Save Settings</button>
+        </form>
+        <p id="responseMessage"></p>
     </div>
-
-    <button onclick="startRace()">Start Race</button>
-
     <script>
-        function startRace() {
-            const car = document.getElementById('car');
-            const trackWidth = document.querySelector('.track').offsetWidth;
-            car.style.transition = 'none';
-            car.style.left = '0px';
+        const clientId = 'gp762nuuoqcoxypju8c569th9wz7q5';  // Replace with your Twitch Client ID
+        const redirectUri = 'http://localhost:3000'; // Replace with your redirect URI
 
-            // Move the car to the end of the track
-            setTimeout(() => {
-                car.style.transition = `left 5s linear`;
-                car.style.left = `${trackWidth - car.offsetWidth}px`;
-            }, 100);
-        }
+        document.getElementById('loginButton').addEventListener('click', () => {
+            const url = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user:read:email`;
+            window.location = url;
+        });
+
+        window.onload = () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const token = new URLSearchParams(hash.substring(1)).get('mqmaru8ef1xsf8l7xfm2q5vjqmpyrm');
+                if (token) {
+                    fetch('https://api.twitch.tv/helix/users', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Client-Id': clientId
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const user = data.data[0];
+                        document.getElementById('twitchChannel').value = user.display_name;
+                        document.getElementById('loginButton').style.display = 'none';
+                        document.getElementById('settingsForm').style.display = 'block';
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            }
+        };
+
+        document.getElementById('settingsForm').addEventListener('submit', async (event) => {
+            // Same form submit handler as before
+        });
     </script>
 </body>
 </html>

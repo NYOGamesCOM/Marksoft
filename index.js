@@ -5,6 +5,10 @@ const config = require("./config.json");
 const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const fs = require('fs');
+
+//const { twitchclient, checkStreamerLiveStatus } = require('./twitch/twitch');
+//const { loadStreamers } = require('./twitch/fileManager');
+//const streamers = loadStreamers();
 //===============================================
 const path = require('path');
 const axios = require('axios');
@@ -33,7 +37,7 @@ if (fs.existsSync(channelsFile)) {
 }
 
 const channelMappingsFile = './channelMappings.json';
-let channelMappings = [];
+let channelMappings = {};
 
 if (fs.existsSync(channelMappingsFile)) {
     channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
@@ -87,7 +91,7 @@ let clipRequestTimer;
 
 
 
-let liveStatus = {}; // Object to keep track of live status
+let liveStatus = {};
 
 function loadStreamers() {
   try {
@@ -111,7 +115,6 @@ const streamers = loadStreamers();
 
 async function checkStreamerLiveStatus(streamer) {
   try {
-    //console.log(`Checking live status for: ${streamer.twitchUsername}`);
     const response = await axios.get(
       `https://api.twitch.tv/helix/streams?user_login=${streamer.twitchUsername}`,
       {
@@ -152,7 +155,6 @@ async function sendLiveNotificationToDiscord(streamer, stream) {
       { name: 'Game', value: stream.game_name, inline: true },
       { name: 'Viewers', value: stream.viewer_count.toString(), inline: true }
     );
-  twitchclient.say(channel, `${streamer.twitchUsername} is now live`);
   const channel = await Marksoft.channels.fetch(streamer.discordChannelId);
   if (channel) {
     try {
@@ -179,27 +181,18 @@ function resetClipRequestCounter() {
 }
 
 function handleSetLiveChannelCommand(channel, userstate, args) {
-  const twitchChannel = channel.slice(1); // Assuming the Twitch channel name is derived this way
+  const twitchChannel = channel.slice(1);
   const discordChannelId = args[0];
 
-  // Load existing streamers from JSON file
   let streamers = loadStreamers();
-
-  // Find the streamer entry corresponding to the Twitch channel
   let streamer = streamers.find(s => s.twitchUsername.toLowerCase() === twitchChannel.toLowerCase());
 
   if (streamer) {
-    // Update the Discord channel ID
     streamer.discordChannelId = discordChannelId;
   } else {
-    // If streamer entry doesn't exist, create a new entry
     streamers.push({ twitchUsername: twitchChannel, discordChannelId });
   }
-
-  // Save updated streamers array back to JSON file
   saveStreamers(streamers);
-
-  // Send confirmation message to Twitch chat
   twitchclient.say(channel, `Live notification channel ID set for ${twitchChannel} to ${discordChannelId}`);
 }
 
@@ -237,17 +230,20 @@ function handleChannelsCommand(channel, userstate) {
 function handleSetDiscordChannelCommand(channel, userstate, args) {
   const twitchname = userstate.username;
   const discordChannelId = args[0];
+
   if (twitchname.toLowerCase() !== '13thomas') {
-    twitchclient.say(channel, 'You are not authorized to use this command.');
-    return;
+      twitchclient.say(channel, 'You are not authorized to use this command.');
+      return;
   }
+
   clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId;
 
   fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
   twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
-  logger.info(`${twitchname} set clips ${discordChannelId} for ${channel}`, { label: "Command" });
+  logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
+
 
 function handleJoinToChannel(channel, userstate, args) {
   const channelName = args[0];
@@ -386,7 +382,7 @@ function sendClipToDiscord(url, username, channel) {
 
   const embed = new MessageEmbed()
     .setTitle(`Twitch Chat Clip`)
-    .setDescription(`**${username}** shared a clip in **${channel}** channel\n\n[Watch the clip](${url})`)
+    .setDescription(`**${username}** shared a clip in **${channel}** channel\n\n[Watch the clip](${url})\n\n`)
     .setFooter(`Sent by ${username}`)
     .setColor('#9146FF'); // Twitch purple color
 
@@ -407,32 +403,30 @@ function sendClipToDiscord(url, username, channel) {
 function sendNaughtyToDiscord(channel, twitchname) {
   try {
       console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
+      const channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
+      const lowercaseChannelName = channel.toLowerCase();
+      const discordChannelId = channelMappings[lowercaseChannelName];
 
-      const channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8'));
-      console.log('Channel mappings:', channelMappings);
-
-      const lowercaseChannelName = channel.slice(1).toLowerCase();
-      const NaughtydiscordChannelId = channelMappings[lowercaseChannelName];
-
-      if (!NaughtydiscordChannelId) {
+      if (!discordChannelId) {
           throw new Error(`Discord channel ID not found for Twitch channel: ${channel}`);
       }
 
       const embed = new MessageEmbed()
           .setTitle(`Twitch Chat`)
-          .setDescription(`**${twitchname}** hit the magic number 69! \n`)
+          .setDescription(`**${twitchname}** hit the magic number 69!`)
           .setFooter(`Triggered by ${twitchname}`)
           .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
-          .setColor('#9146FF'); // Twitch purple color
+          .setColor('#9146FF');
 
+      // Replace 'Marksoft' with your actual Discord client instance
       if (Marksoft.isReady()) {
-          const discordChannel = Marksoft.channels.cache.get(NaughtydiscordChannelId);
+          const discordChannel = Marksoft.channels.cache.get(discordChannelId);
           if (discordChannel) {
               discordChannel.send({ embeds: [embed] })
                   .then(message => console.log(`Sent embed: ${message.id}`))
                   .catch(error => console.error(`Error sending embed to Discord: ${error}`));
           } else {
-              throw new Error(`Discord channel not found for ID: ${NaughtydiscordChannelId}`);
+              throw new Error(`Discord channel not found for ID: ${discordChannelId}`);
           }
       } else {
           throw new Error('Discord client not ready.');
