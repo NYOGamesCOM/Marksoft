@@ -36,13 +36,15 @@ if (fs.existsSync(channelsFile)) {
     fs.writeFileSync(channelsFile, JSON.stringify({ channels: [] }, null, 2));
 }
 
-const channelMappingsFile = './channelMappings.json';
+const channelMappingsFile = './channelMappings.json'; // Adjust path as needed
 let channelMappings = {};
 
+// Load channel mappings from JSON file
 if (fs.existsSync(channelMappingsFile)) {
     channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
+    console.log('Loaded channel mappings:', channelMappings);
 } else {
-  console.error('channelMappings.json not found.');
+    console.error('channelMappings.json not found.');
 }
 
 const clipsMappingsFile = './clipsMappings.json';
@@ -401,40 +403,46 @@ function sendClipToDiscord(url, username, channel) {
 }
 
 function sendNaughtyToDiscord(channel, twitchname) {
-  try {
-      console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
-      const channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
-      const lowercaseChannelName = channel.toLowerCase();
-      const discordChannelId = channelMappings[lowercaseChannelName];
+    try {
+        console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
 
-      if (!discordChannelId) {
-          throw new Error(`Discord channel ID not found for Twitch channel: ${channel}`);
-      }
+        const mappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
+        console.log('Loaded channel mappings:', mappings);
 
-      const embed = new MessageEmbed()
-          .setTitle(`Twitch Chat`)
-          .setDescription(`**${twitchname}** hit the magic number 69!`)
-          .setFooter(`Triggered by ${twitchname}`)
-          .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
-          .setColor('#9146FF');
+        const lowercaseChannelName = channel.toLowerCase();
+        console.log(`Converted channel name to lowercase: ${lowercaseChannelName}`);
 
-      // Replace 'Marksoft' with your actual Discord client instance
-      if (Marksoft.isReady()) {
-          const discordChannel = Marksoft.channels.cache.get(discordChannelId);
-          if (discordChannel) {
-              discordChannel.send({ embeds: [embed] })
-                  .then(message => console.log(`Sent embed: ${message.id}`))
-                  .catch(error => console.error(`Error sending embed to Discord: ${error}`));
-          } else {
-              throw new Error(`Discord channel not found for ID: ${discordChannelId}`);
-          }
-      } else {
-          throw new Error('Discord client not ready.');
-      }
-  } catch (error) {
-      console.error(`Error in sendNaughtyToDiscord: ${error}`);
-  }
+        const discordChannelId = mappings[lowercaseChannelName];
+        console.log(`Retrieved Discord channel ID: ${discordChannelId}`);
+
+        if (!discordChannelId) {
+            throw new Error(`Discord channel ID not found for Twitch channel: ${channel}`);
+        }
+
+        const embed = new MessageEmbed()
+            .setTitle(`Twitch Chat`)
+            .setDescription(`**${twitchname}** hit the magic number 69!`)
+            .setFooter(`Triggered by ${twitchname}`)
+            .setThumbnail(`https://i.imgur.com/2yXFtac.png`)
+            .setColor('#9146FF');
+
+        if (Marksoft.isReady()) {
+            const discordChannel = Marksoft.channels.cache.get(discordChannelId);
+            if (discordChannel) {
+                discordChannel.send({ embeds: [embed] })
+                    .then(message => console.log(`Sent embed: ${message.id}`))
+                    .catch(error => console.error(`Error sending embed to Discord: ${error}`));
+            } else {
+                throw new Error(`Discord channel not found for ID: ${discordChannelId}`);
+            }
+        } else {
+            throw new Error('Discord client not ready.');
+        }
+    } catch (error) {
+        console.error(`Error in sendNaughtyToDiscord: ${error}`);
+    }
 }
+
 
 function handleAccountageCommand(channel, userstate) {
   const username = userstate['display-name'];
