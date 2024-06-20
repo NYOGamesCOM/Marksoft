@@ -10,3 +10,9 @@ package.json
 replit_zip_error_log
 replit.nix
 naughty_users.json
+channelMappings.json
+channels.json
+clipsMappings.json
+points.json
+streamers.json
+trivia.json
