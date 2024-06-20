@@ -6,7 +6,7 @@ const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const fs = require('fs');
 //===============================================
-
+const path = require('path');
 const axios = require('axios');
 const tmi = require('tmi.js');
 const cooldowns = {};
@@ -75,7 +75,8 @@ const commandAliases = {
   '!jointo': 'jointo',
   '!setdiscordchannel': 'setdiscordchannel',
   '!setclipschannel': 'setclipschannel',
-  '!channels': 'channels'
+  '!channels': 'channels',
+  '!setlivechannel': 'setlivechannel'
 }
 
 let clipRequestCount = 0;
@@ -84,12 +85,122 @@ const clipRequestThreshold = 5;
 const clipRequestTimeout = 5 * 60 * 1000; // 5 minutes
 let clipRequestTimer;
 
+
+
+let liveStatus = {}; // Object to keep track of live status
+
+function loadStreamers() {
+  try {
+    const data = fs.readFileSync(path.join(__dirname, 'streamers.json'));
+    return JSON.parse(data).streamers;
+  } catch (error) {
+    console.error('Error reading streamers file:', error);
+    return [];
+  }
+}
+
+function saveStreamers(streamers) {
+  try {
+    fs.writeFileSync(path.join(__dirname, 'streamers.json'), JSON.stringify({ streamers }, null, 2));
+  } catch (error) {
+    console.error('Error saving streamers file:', error);
+  }
+}
+
+const streamers = loadStreamers();
+
+async function checkStreamerLiveStatus(streamer) {
+  try {
+    //console.log(`Checking live status for: ${streamer.twitchUsername}`);
+    const response = await axios.get(
+      `https://api.twitch.tv/helix/streams?user_login=${streamer.twitchUsername}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`,
+          'Client-Id': process.env.TWITCH_CLIENT_ID,
+        },
+      }
+    );
+
+    const stream = response.data.data[0];
+    const isLive = !!stream;
+    if (isLive && !liveStatus[streamer.twitchUsername]) {
+      console.log(`${streamer.twitchUsername} is live!`);
+      liveStatus[streamer.twitchUsername] = true;
+      sendLiveNotificationToDiscord(streamer, stream);
+    } else if (!isLive && liveStatus[streamer.twitchUsername]) {
+      console.log(`${streamer.twitchUsername} is no longer live.`);
+      liveStatus[streamer.twitchUsername] = false;
+    } else {
+      //console.log(`${streamer.twitchUsername} live status unchanged.`);
+    }
+  } catch (error) {
+    console.error(`Error fetching live status for ${streamer.twitchUsername}: ${error.message}`);
+  }
+}
+
+async function sendLiveNotificationToDiscord(streamer, stream) {
+  const textMessage = `🔴 **${streamer.twitchUsername}** is now live on Twitch! Check out their stream here: https://www.twitch.tv/${streamer.twitchUsername}`;
+
+  const embed = new MessageEmbed()
+    .setTitle(`${streamer.twitchUsername} is Live!`)
+    .setDescription(stream.title)
+    .setURL(`https://www.twitch.tv/${streamer.twitchUsername}`)
+    .setColor('#9146FF')
+    .setImage(stream.thumbnail_url.replace('{width}', '640').replace('{height}', '360'))
+    .addFields(
+      { name: 'Game', value: stream.game_name, inline: true },
+      { name: 'Viewers', value: stream.viewer_count.toString(), inline: true }
+    );
+  twitchclient.say(channel, `${streamer.twitchUsername} is now live`);
+  const channel = await Marksoft.channels.fetch(streamer.discordChannelId);
+  if (channel) {
+    try {
+      await channel.send({ content: textMessage, embeds: [embed] });
+      console.log(`Sent live notification for ${streamer.twitchUsername} in channel ${streamer.discordChannelId}`);
+    } catch (error) {
+      console.error(`Error sending message to Discord channel: ${error.message}`);
+    }
+  } else {
+    console.error(`Discord channel not found for ${streamer.twitchUsername}: ${streamer.discordChannelId}`);
+  }
+}
+
+setInterval(() => {
+  streamers.forEach(checkStreamerLiveStatus);
+}, 60 * 1000);
+
 function resetClipRequestCounter() {
   clipRequestCount = 0;
   if (clipRequestTimer) {
     clearTimeout(clipRequestTimer);
     clipRequestTimer = null;
   }
+}
+
+function handleSetLiveChannelCommand(channel, userstate, args) {
+  const twitchChannel = channel.slice(1); // Assuming the Twitch channel name is derived this way
+  const discordChannelId = args[0];
+
+  // Load existing streamers from JSON file
+  let streamers = loadStreamers();
+
+  // Find the streamer entry corresponding to the Twitch channel
+  let streamer = streamers.find(s => s.twitchUsername.toLowerCase() === twitchChannel.toLowerCase());
+
+  if (streamer) {
+    // Update the Discord channel ID
+    streamer.discordChannelId = discordChannelId;
+  } else {
+    // If streamer entry doesn't exist, create a new entry
+    streamers.push({ twitchUsername: twitchChannel, discordChannelId });
+  }
+
+  // Save updated streamers array back to JSON file
+  saveStreamers(streamers);
+
+  // Send confirmation message to Twitch chat
+  twitchclient.say(channel, `Live notification channel ID set for ${twitchChannel} to ${discordChannelId}`);
 }
 
 function handleSetClipsChannelCommand(channel, userstate, args) {
@@ -103,7 +214,7 @@ function handleSetClipsChannelCommand(channel, userstate, args) {
 
   fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
-  twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
+  twitchclient.say(channel, `Clips channel ID set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
@@ -134,7 +245,7 @@ function handleSetDiscordChannelCommand(channel, userstate, args) {
 
   fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
-  twitchclient.say(channel, `Clips channel ID set for ${channel} to ${discordChannelId}`);
+  twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set clips ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
@@ -490,6 +601,9 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   }
   else if (commandName === 'channels') {
     handleChannelsCommand(channel, userstate);
+  }
+  else if (commandName === 'setlivechannel') {
+    handleSetLiveChannelCommand(channel, userstate, args);
   }
 });
 
