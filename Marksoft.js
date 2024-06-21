@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { status } = config;
 
+
 module.exports = class MarksoftClient extends Client {
   constructor(options = {}) {
     super({
@@ -81,4 +82,5 @@ module.exports = class MarksoftClient extends Client {
       console.error('Failed to update presence:', error);
     }
   }
+
 };

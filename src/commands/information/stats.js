@@ -40,12 +40,12 @@ module.exports = class extends Command {
     if (heapUsed instanceof Array) heapUsed = heapUsed.reduce((sum, val) => sum + val, 0);
     const { totalMemMb } = await mem.info();
     const serverStats = stripIndent`
-      OS: ${await os.oos()}
-      CPU: ${cpu.model()}
-      Cores: ${cpu.count()}
-      CPU Usage: ${await cpu.usage()}%
-      RAM: ${totalMemMb} MB
-      RAM Usage: ${(heapUsed / 1024 / 1024).toFixed(2)} MB
+      OS -- ${await os.oos()}
+      CPU -- ${cpu.model()}
+      Cores -- ${cpu.count()}
+      CPU Usage -- ${await cpu.usage()}%
+      RAM -- ${totalMemMb} MB
+      RAM Usage -- ${(heapUsed / 1024 / 1024).toFixed(2)} MB
     `;
 
     // Gather tech stats
@@ -72,8 +72,8 @@ module.exports = class extends Command {
     const embed = new MessageEmbed()
       .setAuthor(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTitle(`${language.MarksoftInfo}`)
-      .addField(`${language.MarksoftGeneral}`, `\`\`\`css\n${tech}\`\`\``, true) // Use `true` to keep it inline if you prefer
-      .addField(`${language.MarksoftTeam}`, `\`\`\`css\n${devs}\`\`\``, true) // Use `true` to keep it inline if you prefer
+      .addField(`${language.MarksoftGeneral}`, `\`\`\`css\n${tech}\`\`\``, true) // Inline if possible
+      .addField(`${language.MarksoftTeam}`, `\`\`\`css\n${devs}\`\`\``, true) // Inline if possible
       .addField(`${language.MarksoftStats}`, `\`\`\`css\n${serverStats}\`\`\``, false) // Full width
       .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
