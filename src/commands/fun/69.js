@@ -14,9 +14,13 @@ module.exports = class extends Command {
             guildOnly: true,
             cooldown: 3,
         });
+        this.allowedChannelID = '964565502578016266';
     }
 
     async run(message) {
+        if (message.channel.id !== this.allowedChannelID) {
+            return message.reply(`This command can only be used in <#${this.allowedChannelID}>.`);
+        }
         const randomNumber = Math.floor(Math.random() * 70);
         const guessedNumber = parseInt(message.content.split(' ')[1]); // Extract guessed number from message
 
@@ -85,7 +89,7 @@ function sendSpecialMessageToWebhook(message, username, number) {
 
     try {
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-        console.log('User data updated in naughty_users.json');
+        //console.log('User data updated in naughty_users.json');
     } catch (err) {
         console.error('Error writing to the JSON file:', err);
     }

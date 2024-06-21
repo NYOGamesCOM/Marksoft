@@ -5,7 +5,7 @@ const config = require("./config.json");
 const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const fs = require('fs');
-
+const moment = require("moment");
 //const { twitchclient, checkStreamerLiveStatus } = require('./twitch/twitch');
 //const { loadStreamers } = require('./twitch/fileManager');
 //const streamers = loadStreamers();
@@ -14,8 +14,33 @@ const path = require('path');
 const axios = require('axios');
 const tmi = require('tmi.js');
 const cooldowns = {};
+const WATCHTIME_FILE = path.join(__dirname, 'watchtime.json');
 
+let watchtimes = {};
+let joinTimes = {};
 let winCounts = {};
+
+function loadWatchtimes() {
+  try {
+      if (fs.existsSync(WATCHTIME_FILE)) {
+          const data = fs.readFileSync(WATCHTIME_FILE, 'utf8');
+          watchtimes = JSON.parse(data);
+          //console.log('Watchtimes loaded:', watchtimes);
+      }
+  } catch (err) {
+      console.error('Error reading watchtime file:', err);
+  }
+}
+
+function saveWatchtimes() {
+  try {
+      fs.writeFileSync(WATCHTIME_FILE, JSON.stringify(watchtimes, null, 2));
+      //console.log('Watchtimes saved:', watchtimes);
+  } catch (err) {
+      console.error('Error saving watchtime file:', err);
+  }
+}
+
 const WIN_COUNTS_FILE = 'winCounts.json';
 if (fs.existsSync(WIN_COUNTS_FILE)) {
     const data = fs.readFileSync(WIN_COUNTS_FILE);
@@ -42,7 +67,7 @@ let channelMappings = {};
 // Load channel mappings from JSON file
 if (fs.existsSync(channelMappingsFile)) {
     channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
-    console.log('Loaded channel mappings:', channelMappings);
+    //console.log('Loaded channel mappings:', channelMappings);
 } else {
     console.error('channelMappings.json not found.');
 }
@@ -58,6 +83,7 @@ if (fs.existsSync(clipsMappingsFile)) {
 }
 
 const twitchclient = new tmi.Client({
+    options: {debug: false},
     connection:{
         reconnect: true,
         secure: true
@@ -82,7 +108,8 @@ const commandAliases = {
   '!setdiscordchannel': 'setdiscordchannel',
   '!setclipschannel': 'setclipschannel',
   '!channels': 'channels',
-  '!setlivechannel': 'setlivechannel'
+  '!setlivechannel': 'setlivechannel',
+  '!watchtime': 'watchtime'
 }
 
 let clipRequestCount = 0;
@@ -91,7 +118,7 @@ const clipRequestThreshold = 5;
 const clipRequestTimeout = 5 * 60 * 1000; // 5 minutes
 let clipRequestTimer;
 
-
+loadWatchtimes();
 
 let liveStatus = {};
 
@@ -130,11 +157,11 @@ async function checkStreamerLiveStatus(streamer) {
     const stream = response.data.data[0];
     const isLive = !!stream;
     if (isLive && !liveStatus[streamer.twitchUsername]) {
-      console.log(`${streamer.twitchUsername} is live!`);
+      //console.log(`${streamer.twitchUsername} is live!`);
       liveStatus[streamer.twitchUsername] = true;
       sendLiveNotificationToDiscord(streamer, stream);
     } else if (!isLive && liveStatus[streamer.twitchUsername]) {
-      console.log(`${streamer.twitchUsername} is no longer live.`);
+      //console.log(`${streamer.twitchUsername} is no longer live.`);
       liveStatus[streamer.twitchUsername] = false;
     } else {
       //console.log(`${streamer.twitchUsername} live status unchanged.`);
@@ -161,7 +188,7 @@ async function sendLiveNotificationToDiscord(streamer, stream) {
   if (channel) {
     try {
       await channel.send({ content: textMessage, embeds: [embed] });
-      console.log(`Sent live notification for ${streamer.twitchUsername} in channel ${streamer.discordChannelId}`);
+      //console.log(`Sent live notification for ${streamer.twitchUsername} in channel ${streamer.discordChannelId}`);
     } catch (error) {
       console.error(`Error sending message to Discord channel: ${error.message}`);
     }
@@ -172,7 +199,7 @@ async function sendLiveNotificationToDiscord(streamer, stream) {
 
 setInterval(() => {
   streamers.forEach(checkStreamerLiveStatus);
-}, 60 * 1000);
+}, 2 * 60 * 1000);
 
 function resetClipRequestCounter() {
   clipRequestCount = 0;
@@ -197,6 +224,17 @@ function handleSetLiveChannelCommand(channel, userstate, args) {
   saveStreamers(streamers);
   twitchclient.say(channel, `Live notification channel ID set for ${twitchChannel} to ${discordChannelId}`);
 }
+
+function handleWatchtimeCommand(channel, userstate, args) {
+  updateWatchtime(channel, userstate.username);
+  if (!watchtimes[channel]) watchtimes[channel] = {};
+  if (!watchtimes[channel][userstate.username]) watchtimes[channel][userstate.username] = 0;
+
+  const watchtime = watchtimes[channel][userstate.username];
+  const formattedWatchtime = formatDuration(watchtime);
+  twitchclient.say(channel, `${userstate.username}, you have watched for ${formattedWatchtime}!`);
+}
+
 
 function handleSetClipsChannelCommand(channel, userstate, args) {
   const twitchname = userstate.username;
@@ -238,14 +276,13 @@ function handleSetDiscordChannelCommand(channel, userstate, args) {
       return;
   }
 
-  clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId;
+  channelMappings[channel.slice(1).toLowerCase()] = discordChannelId;
 
-  fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
+  fs.writeFileSync(channelMappingsFile, JSON.stringify({ channelMappings }, null, 2));
 
-  twitchclient.say(channel, `Discord channel ID set for ${channel} to ${discordChannelId}`);
+  twitchclient.say(channel, `Clips channel ID set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
-
 
 function handleJoinToChannel(channel, userstate, args) {
   const channelName = args[0];
@@ -268,7 +305,7 @@ function handleJoinToChannel(channel, userstate, args) {
   fs.writeFileSync(channelsFile, JSON.stringify({ channels }, null, 2));
 
   twitchclient.join(channelName).then(() => {
-    console.log(`Bot joined channel ${channelName}`);
+    //console.log(`Bot joined channel ${channelName}`);
     logger.info(`${twitchname} joined the bot to ${channelName}`, { label: "Command" });
     twitchclient.say(channel, `Successfully joined ${channelName}'s chat!`);
   }).catch((err) => {
@@ -354,7 +391,7 @@ async function createTwitchClip(broadcasterId) {
     );
 
     const clipUrl = `https://clips.twitch.tv/${response.data.data[0].id}`;
-    console.log(`Clip created: ${clipUrl}`);
+    //console.log(`Clip created: ${clipUrl}`);
     return clipUrl;
   } catch (error) {
     console.error(`Error creating clip: ${error.response ? error.response.data : error.message}`);
@@ -368,14 +405,14 @@ function shouldIgnoreUser(username) {
 
 function sendClipToDiscord(url, username, channel) {
   if (shouldIgnoreUser(username)) {
-    console.log(`Ignoring clip from ${username}: ${url}`);
+    //console.log(`Ignoring clip from ${username}: ${url}`);
     return;
   }
 
   const normalizedChannelName = channel.startsWith('#') ? channel.slice(1).toLowerCase() : channel.toLowerCase();
   const discordChannelId = clipsMappings[normalizedChannelName];
 
-  console.log(`Discord Channel ID for ${channel}: ${discordChannelId}`);
+  //console.log(`Discord Channel ID for ${channel}: ${discordChannelId}`);
 
   if (!discordChannelId) {
     console.error(`Discord channel ID not found for Twitch channel: ${channel}`);
@@ -404,16 +441,16 @@ function sendClipToDiscord(url, username, channel) {
 
 function sendNaughtyToDiscord(channel, twitchname) {
     try {
-        console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
+        //console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
 
         const mappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
-        console.log('Loaded channel mappings:', mappings);
+        //console.log('Loaded channel mappings:', mappings);
 
         const lowercaseChannelName = channel.toLowerCase();
-        console.log(`Converted channel name to lowercase: ${lowercaseChannelName}`);
+        //console.log(`Converted channel name to lowercase: ${lowercaseChannelName}`);
 
         const discordChannelId = mappings[lowercaseChannelName];
-        console.log(`Retrieved Discord channel ID: ${discordChannelId}`);
+        //console.log(`Retrieved Discord channel ID: ${discordChannelId}`);
 
         if (!discordChannelId) {
             throw new Error(`Discord channel ID not found for Twitch channel: ${channel}`);
@@ -442,7 +479,6 @@ function sendNaughtyToDiscord(channel, twitchname) {
         console.error(`Error in sendNaughtyToDiscord: ${error}`);
     }
 }
-
 
 function handleAccountageCommand(channel, userstate) {
   const username = userstate['display-name'];
@@ -531,7 +567,6 @@ function calculateAccountAge(createdDate) {
   }
 }
 
-
 twitchclient.on('message', async (channel, userstate, message, self) => {
   if (self) return;
 
@@ -607,6 +642,9 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   else if (commandName === 'setlivechannel') {
     handleSetLiveChannelCommand(channel, userstate, args);
   }
+  else if (commandName === 'watchtime') {
+    handleWatchtimeCommand(channel, userstate, args);
+  }
 });
 
 twitchclient.connect().then(() => {
@@ -625,18 +663,81 @@ twitchclient.connect().then(() => {
 twitchclient.on('join', onJoinHandler);
 twitchclient.on('part', onPartHandler);
 
-const moment = require("moment");
-
 function onJoinHandler(channel, username, self) {
-  if (self) return;
-  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
-  console.log(`[${timestamp}] ${username} has joined ${channel}`);
+  if (!self) { // Skip bot itself
+  if (!joinTimes[channel]) joinTimes[channel] = {};
+    joinTimes[channel][username] = Date.now();
+  }
+  // const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
+  // console.log(`[${timestamp}] ${username} has joined ${channel}`);
 }
 
 function onPartHandler(channel, username, self) {
-  if (self) return;
-  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-  console.log(`[${timestamp}] ${username} has left ${channel}`);
+  if (!self) { // Skip bot itself
+    updateWatchtime(channel, username);
+  }
+  // const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+  // console.log(`[${timestamp}] ${username} has left ${channel}`);
+}
+
+// Update watch time for a user
+function updateWatchtime(channel, username) {
+  if (joinTimes[channel] && joinTimes[channel][username]) {
+      const currentTime = Date.now();
+      const sessionTime = (currentTime - joinTimes[channel][username]) / 1000; // in seconds
+
+      // Ensure channel and user exist in watchtimes object
+      if (!watchtimes[channel]) watchtimes[channel] = {};
+      if (!watchtimes[channel][username]) watchtimes[channel][username] = 0;
+
+      watchtimes[channel][username] += sessionTime;
+      //console.log(`[${channel}] Updated watchtime for ${username}: ${watchtimes[channel][username]} seconds`);
+
+      delete joinTimes[channel][username];
+      saveWatchtimes();
+  }
+}
+
+// Format duration in months, days, hours, minutes, seconds
+function formatDuration(seconds) {
+  const SEC_IN_MIN = 60;
+  const SEC_IN_HOUR = 3600;
+  const SEC_IN_DAY = 86400;
+  const SEC_IN_MONTH = 2592000;
+  const SEC_IN_YEAR = 31536000;
+
+  let years = Math.floor(seconds / SEC_IN_YEAR);
+  seconds %= SEC_IN_YEAR;
+  let months = Math.floor(seconds / SEC_IN_MONTH);
+  seconds %= SEC_IN_MONTH;
+  let days = Math.floor(seconds / SEC_IN_DAY);
+  seconds %= SEC_IN_DAY;
+  let hours = Math.floor(seconds / SEC_IN_HOUR);
+  seconds %= SEC_IN_HOUR;
+  let minutes = Math.floor(seconds / SEC_IN_MIN);
+
+  let formatted = '';
+
+  if (years > 0) {
+      formatted += `${years} year${years !== 1 ? 's' : ''}, `;
+  }
+  if (months > 0) {
+      formatted += `${months} month${months !== 1 ? 's' : ''}, `;
+  }
+  if (days > 0) {
+      formatted += `${days} day${days !== 1 ? 's' : ''}, `;
+  }
+  if (hours > 0) {
+      formatted += `${hours} hour${hours !== 1 ? 's' : ''}, `;
+  }
+  if (minutes > 0) {
+      formatted += `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+  }
+  if (formatted === '') {
+      formatted = 'less than a minute'; // Default if no time accumulated
+  }
+
+  return formatted;
 }
 /*=====================================================
 =======================================================*/
