@@ -222,7 +222,7 @@ function handleSetLiveChannelCommand(channel, userstate, args) {
     streamers.push({ twitchUsername: twitchChannel, discordChannelId });
   }
   saveStreamers(streamers);
-  twitchclient.say(channel, `Live notification channel ID set for ${twitchChannel} to ${discordChannelId}`);
+  twitchclient.say(channel, `Live notification channel set for ${twitchChannel} to ${discordChannelId}`);
 }
 
 function handleWatchtimeCommand(channel, userstate, args) {
@@ -247,7 +247,7 @@ function handleSetClipsChannelCommand(channel, userstate, args) {
 
   fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
 
-  twitchclient.say(channel, `Clips channel ID set for ${channel} to ${discordChannelId}`);
+  twitchclient.say(channel, `Clips channel set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
@@ -280,7 +280,7 @@ function handleSetDiscordChannelCommand(channel, userstate, args) {
 
   fs.writeFileSync(channelMappingsFile, JSON.stringify({ channelMappings }, null, 2));
 
-  twitchclient.say(channel, `Clips channel ID set for ${channel} to ${discordChannelId}`);
+  twitchclient.say(channel, `Naughty achievement channel set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
