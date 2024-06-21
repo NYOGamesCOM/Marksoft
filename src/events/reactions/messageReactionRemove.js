@@ -54,7 +54,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have recieved the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+          //.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
           .setColor(message.client.color.green);
 
         let remEmbed = new MessageEmbed()
@@ -66,7 +66,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have removed the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+          //.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
           .setColor(message.client.color.green);
 
         let errorReaction = new MessageEmbed()
@@ -76,7 +76,7 @@ module.exports = class extends Event {
             `${message.url}`
           )
           .setDescription(`A reaction error has occured!`)
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+          //.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
           .setColor(message.client.color.green);
 
         if (reactionCooldown.has(user.id)) return;

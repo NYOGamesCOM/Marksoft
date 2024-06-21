@@ -20,7 +20,7 @@ module.exports = class extends Command {
         "delreaction",
         "deletereaction",
       ],
-      description: "Create a reaction role",
+      description: "Remove a reaction role",
       category: "Reaction Role",
       cooldown: 3,
       usage: "<channel> <messageID> <emoji>",

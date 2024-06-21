@@ -72,7 +72,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have recieved the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+          //.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
           .setColor(message.client.color.green);
 
         let remEmbed = new MessageEmbed()
@@ -84,7 +84,7 @@ module.exports = class extends Event {
           .setDescription(
             `You have removed the **${rrRole.name}** Role by reacting in ${guildName}`
           )
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+          //.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
           .setColor(message.client.color.green);
 
         let errorReaction = new MessageEmbed()
@@ -96,7 +96,7 @@ module.exports = class extends Event {
           .setDescription(
             `:x: Failed to Add the role, since I'm Missing the Manage Roles Permission.\n\nPlease let an admin Know.`
           )
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
+          //.setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
           .setColor(message.client.color.green);
 
         if (reactionCooldown.has(user.id)) {
