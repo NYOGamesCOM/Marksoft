@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             name: "naughty",
             aliases: ["69", "xxxrng"],
-            description: "Naughty 69 RNG",
+            description: "How naughty am I feeling today",
             category: "fun",
             usage: "",
             guildOnly: true,

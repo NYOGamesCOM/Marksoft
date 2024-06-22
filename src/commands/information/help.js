@@ -339,6 +339,35 @@ module.exports = class extends Command {
         "[Dashboard](http://localhost:3000/)**"
       );
       return message.channel.sendCustom({ embeds: [embed] });
+    } else if (args && args[0].toLowerCase() == "twitch") {
+      embed.setTitle(`Twitch chat commands ONLY!`);
+      embed.setDescription(
+        this.client.botCommands
+          .filter((cmd) => cmd.category.toLowerCase() === "twitch")
+          .map(
+            (cmd) =>
+              `${cmd.disabled || disabledCommands.includes(cmd.name || cmd)
+                ? red
+                : green
+              } \`${cmd.name} ${" ".repeat(24 - Number(cmd.name.length))}:\` ${cmd.description
+              }`
+          )
+          .join("\n")
+      );
+
+      embed.setFooter({
+        text: `Requested by ${message.author.username}`,
+        iconURL: message.author.displayAvatarURL({ dynamic: true }),
+      });
+
+      embed.setTimestamp();
+      embed.addField(
+        "\u200b",
+        "**[Invite Bot](http://localhost:3000/invite) | " +
+        "[Support Server](http://localhost:3000/support) | " +
+        "[Dashboard](http://localhost:3000/)**"
+      );
+      return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args[0].toLowerCase() == "images") ||
       (args && args[0].toLowerCase() == "image")

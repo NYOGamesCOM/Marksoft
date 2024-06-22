@@ -630,7 +630,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   else if (commandName === 'jointo') {
     handleJoinToChannel(channel, userstate, args);
   }
-  else if (commandName === 'setdiscordchannel') {
+  else if (commandName === 'setachievementchannel') {
     handleSetDiscordChannelCommand(channel, userstate, args);
   }
   else if (commandName === 'setclipschannel') {
