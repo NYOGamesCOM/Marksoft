@@ -1,4 +1,4 @@
-const Command = require("../../structures/Command");
+const Command = require("../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const { joinVoiceChannel } = require('@discordjs/voice');
 
