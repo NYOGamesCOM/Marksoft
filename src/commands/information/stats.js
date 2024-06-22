@@ -50,22 +50,23 @@ module.exports = class extends Command {
 
     // Gather tech stats
     const tech = stripIndent`
-      Ping: ${Math.round(message.client.ws.ping)}ms
-      Uptime: ${uptime}
+      Ping -- ${Math.round(message.client.ws.ping)}ms
+      Uptime -- ${uptime}
       ${language.MarksoftVersion}: 2.0
-      Library: Discord.js v13.6.0
-      Environment: Node.js v16.9.1
-      Servers: ${message.client.guilds.cache.size}
+      Library -- Discord.js v13.6.0
+      Environment -- Node.js v16.9.1
+      Servers -- ${message.client.guilds.cache.size}
       ${language.users}: ${this.client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}
       ${language.channels}: ${message.client.channels.cache.size}
       ${language.MarksoftCommands}: ${message.client.botCommands.size}
-      Aliases: ${message.client.aliases.size}
+      Aliases -- ${message.client.aliases.size}
     `;
 
-    // Developer team
     const devs = stripIndent`
-      ${language.MarksoftDevelopers}
-      • Thomas#3267
+     -------
+     ${language.pogyDevelopers}
+    • 13Thomas#3267
+    -------
     `;
 
     // Embed
