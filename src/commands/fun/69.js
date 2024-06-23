@@ -27,7 +27,7 @@ module.exports = class extends Command {
         let responseMessage = `**${message.member.displayName}** is **${randomNumber}** out of **69** naughty!\n`;
 
         if (guessedNumber === randomNumber && randomNumber === 69) {
-            responseMessage += `\n🎉 Congratulations ${message.author.username}! You guessed the number **${randomNumber}** correctly and hit the magic number **69**! 🎉`;
+            responseMessage += `\n🎉 Congratulations ${message.author.username}! You guessed the number **${randomNumber}** correctly and hit the magic number **69**! 😈`;
             sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber);
         }
         else if (guessedNumber === randomNumber) {
@@ -35,14 +35,14 @@ module.exports = class extends Command {
             //sendGuessMessageToWebhook(message, message.author.username, randomNumber); // Call function to send special message
         } 
         else if (randomNumber === 69) {
-            responseMessage += '\n \`Congratulations!\` \n';
+            responseMessage += '\n \`😈 Congratulations! 😈\` \n';
             sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber); // Call function to send special message
         }
 
         const embed = new MessageEmbed()
-            .setTitle('Naughty')
+            .setTitle(':naughty: Naughty Meter')
             .setDescription(responseMessage)
-            .setColor('#0099ff')
+            .setColor(getRandomColor())
             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
             .setFooter({
                 text: `Requested by ${message.author.username}`,
@@ -53,6 +53,10 @@ module.exports = class extends Command {
         await message.channel.send({ embeds: [embed] });
     }
 };
+
+function getRandomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+}
 
 function sendSpecialMessageToWebhook(message, username, number) {
     const filePath = path.join(__dirname, "../../../naughty_users.json");

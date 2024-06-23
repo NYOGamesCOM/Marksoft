@@ -100,11 +100,6 @@ module.exports = class extends Command {
       .setLabel("📨 Invite Bot")
       .setURL("http://localhost:3000/invite");
 
-    const supportButton = new MessageButton()
-      .setStyle("LINK")
-      .setLabel("🛠️ Support Server")
-      .setURL("http://localhost:3000/support");
-
     const dashboardButton = new MessageButton()
       .setStyle("LINK")
       .setLabel("📊 Dashboard")
@@ -115,7 +110,7 @@ module.exports = class extends Command {
       .setLabel("🧑‍💻 DevTeam")
       .setURL("http://localhost:3000/team");
 
-    const row = new MessageActionRow().addComponents(inviteButton, supportButton, dashboardButton, devTeamButton);
+    const row = new MessageActionRow().addComponents(inviteButton, dashboardButton, devTeamButton);
 
     message.channel.send({ embeds: [embed], components: [row] });
   }
