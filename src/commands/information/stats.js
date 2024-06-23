@@ -64,8 +64,8 @@ module.exports = class extends Command {
 
     const devs = stripIndent`
      -------
-     ${language.pogyDevelopers}
-    • 13Thomas#3267
+     ${language.MarksoftDevelopers}
+    13Thomas#3267
     -------
     `;
 

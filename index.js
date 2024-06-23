@@ -224,7 +224,7 @@ function handleSetLiveChannelCommand(channel, userstate, args) {
   saveStreamers(streamers);
   twitchclient.say(channel, `Live notification channel set for ${twitchChannel} to ${discordChannelId}`);
 }
-
+/* eslint-disable-next-line no-unused-vars */
 function handleWatchtimeCommand(channel, userstate, args) {
   updateWatchtime(channel, userstate.username);
   if (!watchtimes[channel]) watchtimes[channel] = {};
@@ -514,45 +514,54 @@ function handleAccountageCommand(channel, userstate) {
 
 function handleNaughtyCommand(channel, userstate, args) {
   const twitchname = userstate.username;
-  const randomNumber = Math.floor(Math.random() * 70);
   const guessedNumber = parseInt(args[0]);
+
+  let randomNumber = Math.floor(Math.random() * 70);
+
+  if (twitchname === "avili") {
+    randomNumber = 0;
+  }
 
   if (cooldowns[twitchname]) return;
 
   let responseMessage = '';
-
-  const guessedCorrectly = !isNaN(guessedNumber) && guessedNumber === randomNumber;
-  const hit69 = randomNumber === 69;
   
-  if (guessedCorrectly) {
-    if (hit69) {
-      responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber} and it's a perfect 69! Congratulations! bankai1Y `;
-      logger.info(`${channel} | ${twitchname} guessed correctly and hit 69 🎉`, { label: "Command" });
-      sendNaughtyToDiscord(channel, twitchname); 
-    } else {
-      responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber}. Congratulations! bankai1Y `;
-      logger.info(`${channel} | ${twitchname} guessed correctly: ${randomNumber}`, { label: "Command" });
-    }
+  if (twitchname === "avili") {
+    responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Y `;
+    logger.info(`${channel} | ${twitchname} is 0 out of 69 naughty bankai1Y`, { label: "Command" });
   } else {
-    if (hit69) {
-      responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Y `;
-      logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
-      sendNaughtyToDiscord(channel, twitchname);
-    } else if (randomNumber === 0) {
-      responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `;
-      logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `, { label: "Command" });
+    const guessedCorrectly = !isNaN(guessedNumber) && guessedNumber === randomNumber;
+    const hit69 = randomNumber === 69;
+    if (guessedCorrectly) {
+      if (hit69) {
+        responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber} and it's a perfect 69! Congratulations! bankai1Y `;
+        logger.info(`${channel} | ${twitchname} guessed correctly and hit 69 🎉`, { label: "Command" });
+        sendNaughtyToDiscord(channel, twitchname);
+      } else {
+        responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber}. Congratulations! bankai1Y `;
+        logger.info(`${channel} | ${twitchname} guessed correctly: ${randomNumber}`, { label: "Command" });
+      }
     } else {
-      responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty LUL`;
-      logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
+      if (hit69) {
+        responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Y `;
+        logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
+        sendNaughtyToDiscord(channel, twitchname);
+      } else if (randomNumber === 0) {
+        responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `;
+        logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `, { label: "Command" });
+      } else {
+        responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty LUL`;
+        logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty`, { label: "Command" });
+      }
     }
   }
   twitchclient.say(channel, responseMessage);
-
   cooldowns[twitchname] = true;
   setTimeout(() => {
     delete cooldowns[twitchname];
   }, 3000); // Cooldown period in milliseconds (3 seconds)
 }
+
 
 function calculateAccountAge(createdDate) {
   const now = new Date();
@@ -571,6 +580,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   if (self) return;
 
   const normalizedMessage = message.toLowerCase().trim();
+  // eslint-disable-next-line no-useless-escape
   const commandPattern = /^(\!\w+)\b/;
   const match = normalizedMessage.match(commandPattern);
 
