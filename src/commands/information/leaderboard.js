@@ -82,12 +82,12 @@ module.exports = class extends Command {
         if (totalPages > 1) {
             const previousButton = new MessageButton()
                 .setCustomId('previousPage')
-                .setLabel('Previous')
+                .setLabel(':track_previous: Previous')
                 .setStyle('PRIMARY');
     
             const nextButton = new MessageButton()
                 .setCustomId('nextPage')
-                .setLabel('Next')
+                .setLabel(':track_next: Next')
                 .setStyle('PRIMARY');
     
             const row = new MessageActionRow()

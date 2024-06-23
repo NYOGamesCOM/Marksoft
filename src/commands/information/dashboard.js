@@ -21,22 +21,22 @@ module.exports = class extends Command {
 
     const inviteButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("Invite")
+      .setLabel("📨 Invite Bot")
       .setURL("http://localhost:3000/invite");
 
     const supportButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("Support Server")
+      .setLabel("🛠️ Support Server")
       .setURL("http://localhost:3000/support");
 
     const dashboardButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("Dashboard")
+      .setLabel("📊 Dashboard")
       .setURL("http://localhost:3000/");
 
     const devTeamButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("DevTeam")
+      .setLabel("🧑‍💻 DevTeam")
       .setURL("http://localhost:3000/team");
 
     const row = new MessageActionRow().addComponents(
