@@ -40,7 +40,7 @@ module.exports = class extends Command {
         }
 
         const embed = new MessageEmbed()
-            .setTitle(':naughty: Naughty Meter')
+            .setTitle('Naughty Meter')
             .setDescription(responseMessage)
             .setColor(getRandomColor())
             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const MarksoftClient = require("./Marksoft");
 const config = require("./config.json");
 const logger = require("./src/utils/logger");
@@ -184,10 +184,20 @@ async function sendLiveNotificationToDiscord(streamer, stream) {
       { name: 'Game', value: stream.game_name, inline: true },
       { name: 'Viewers', value: stream.viewer_count.toString(), inline: true }
     );
+
+  // Adding a button to watch the stream
+  const button = new MessageButton()
+    .setLabel('Watch Stream')
+    .setStyle('LINK')
+    .setURL(`https://www.twitch.tv/${streamer.twitchUsername}`);
+
+  const row = new MessageActionRow()
+    .addComponents(button);
+
   const channel = await Marksoft.channels.fetch(streamer.discordChannelId);
   if (channel) {
     try {
-      await channel.send({ content: textMessage, embeds: [embed] });
+      await channel.send({ content: textMessage, embeds: [embed], components: [row] });
       //console.log(`Sent live notification for ${streamer.twitchUsername} in channel ${streamer.discordChannelId}`);
     } catch (error) {
       console.error(`Error sending message to Discord channel: ${error.message}`);
@@ -353,6 +363,34 @@ function saveWinCounts() {
   fs.writeFileSync(WIN_COUNTS_FILE, JSON.stringify(winCounts));
 }
 
+// Function to create a Twitch clip
+async function createTwitchClip(broadcasterId) {
+  try {
+    const response = await axios.post(
+      `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`,
+      null,
+      {
+        headers: {
+          'Authorization': `Bearer ${process.env.TWITCH_OAUTH_TOKEN}`,
+          'Client-Id': process.env.TWITCH_CLIENT_ID,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    if (response.status === 202 && response.data.data.length > 0) {
+      const clipUrl = `https://clips.twitch.tv/${response.data.data[0].id}`;
+      return clipUrl;
+    } else {
+      throw new Error('Clip creation failed: No clip ID returned from Twitch API.');
+    }
+  } catch (error) {
+    console.error(`Error creating clip: ${error.message}`);
+    throw new Error('Clip creation failed.');
+  }
+}
+
+// Function to get broadcaster ID from channel name
 async function getBroadcasterId(channel) {
   try {
     const response = await axios.get(
@@ -365,7 +403,7 @@ async function getBroadcasterId(channel) {
       }
     );
 
-    if (response.data.data.length > 0) {
+    if (response.status === 200 && response.data.data.length > 0) {
       return response.data.data[0].id;
     } else {
       throw new Error('Broadcaster not found.');
@@ -373,29 +411,6 @@ async function getBroadcasterId(channel) {
   } catch (error) {
     console.error(`Error fetching broadcaster ID: ${error.message}`);
     throw new Error('Failed to fetch broadcaster ID.');
-  }
-}
-
-async function createTwitchClip(broadcasterId) {
-  try {
-    const response = await axios.post(
-      `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`,
-      null,
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.TWITCH_ACCESS_TOKEN}`,
-          'Client-Id': process.env.TWITCH_CLIENT_ID,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    const clipUrl = `https://clips.twitch.tv/${response.data.data[0].id}`;
-    //console.log(`Clip created: ${clipUrl}`);
-    return clipUrl;
-  } catch (error) {
-    console.error(`Error creating clip: ${error.response ? error.response.data : error.message}`);
-    throw new Error('Failed to create clip.');
   }
 }
 
@@ -421,14 +436,24 @@ function sendClipToDiscord(url, username, channel) {
 
   const embed = new MessageEmbed()
     .setTitle(`Twitch Chat Clip`)
-    .setDescription(`**${username}** shared a clip in **${channel}** channel\n\n[Watch the clip](${url})\n\n`)
+    .setDescription(`**${username}** shared a clip in **${channel}** channel`)
+    .addField('Watch the Clip', `[Watch Now](${url})`)
     .setFooter(`Sent by ${username}`)
     .setColor('#9146FF'); // Twitch purple color
+
+  // Adding a button to watch the clip
+  const button = new MessageButton()
+    .setLabel('Watch Clip')
+    .setStyle('LINK')
+    .setURL(url);
+
+  const row = new MessageActionRow()
+    .addComponents(button);
 
   if (Marksoft.isReady()) {
     const channel = Marksoft.channels.cache.get(discordChannelId);
     if (channel) {
-      channel.send({ embeds: [embed] })
+      channel.send({ embeds: [embed], components: [row] })
         .then(message => console.log(`Sent embed: ${message.id}`))
         .catch(console.error);
     } else {
@@ -438,6 +463,7 @@ function sendClipToDiscord(url, username, channel) {
     console.error('Discord client not ready.');
   }
 }
+
 
 function sendNaughtyToDiscord(channel, twitchname) {
     try {
