@@ -105,7 +105,7 @@ const commandAliases = {
   '!wins': 'wins',
   '!clearwins': 'clearwins',
   '!jointo': 'jointo',
-  '!setdiscordchannel': 'setdiscordchannel',
+  '!setachievementchannel': 'setachievementchannel',
   '!setclipschannel': 'setclipschannel',
   '!channels': 'channels',
   '!setlivechannel': 'setlivechannel',
