@@ -503,7 +503,7 @@ function sendNaughtyToDiscord(channel, twitchname) {
 
 function incrementNaughtyCounter(twitchname) {
   try {
-      const filePath = path.join(__dirname, '../../../naughty_users.json');
+      const filePath = path.join(__dirname, 'naughty_users.json');
       let data = {};
 
       if (fs.existsSync(filePath)) {

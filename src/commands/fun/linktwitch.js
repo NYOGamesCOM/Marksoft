@@ -8,7 +8,7 @@ module.exports = class extends Command {
             name: "link",
             aliases: ["linktwitch", "setTwitch"],
             description: "Link your Twitch username to your Discord account.",
-            category: "utility",
+            category: "fun",
             usage: "<twitch_username>",
             guildOnly: true,
             cooldown: 5,
