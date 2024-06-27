@@ -1,4 +1,4 @@
-const { Command } = require("../../structures/Command");
+const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const path = require('path');
 const fs = require("fs");
@@ -6,22 +6,28 @@ const fs = require("fs");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            name: "sync",
-            aliases: ["synclb"],
-            description: "Sync leaderboard [twitch - discord]",
+            name: "syncronize",
+            aliases: ["sync"],
+            description: "Syncronize the naughty counter for a specified user",
             category: "dev",
-            usage: "",
+            usage: "<username>",
             guildOnly: true,
             cooldown: 3,
         });
     }
 
     async run(message) {
-        // Define the path to the JSON file
+        // Extract arguments from the message
+        const args = message.content.split(' ').slice(1);
+        if (!args.length) {
+            return message.reply('Please provide a username.');
+        }
+        const targetUsername = args.join(' ').toLowerCase();
+
         const filePath = path.join(__dirname, '../../../naughty_users.json');
         let data = {};
 
-        // Read the existing data from the JSON file
+        // Read existing data from JSON file
         try {
             if (fs.existsSync(filePath)) {
                 const fileData = fs.readFileSync(filePath, 'utf8');
@@ -32,10 +38,8 @@ module.exports = class extends Command {
             return message.reply('There was an error reading the leaderboard data.');
         }
 
-        // Extract guild ID and author details
+        // Extract guild ID
         const guildId = message.guild.id;
-        const userId = message.author.id;
-        const username = message.author.username;
 
         // Initialize guild data if not present
         if (!data[guildId]) {
@@ -45,18 +49,13 @@ module.exports = class extends Command {
         const guildData = data[guildId];
         let guildUsers = guildData.users;
 
-        // Find or create the user entry
-        let user = guildUsers.find(u => u.userId === userId);
+        // Find user in the JSON by username
+        let user = guildUsers.find(u => u.username.toLowerCase() === targetUsername);
 
         if (user) {
             user.counter += 1;
         } else {
-            guildUsers.push({
-                username: username,
-                userId: userId,
-                counter: 1,
-                date: new Date().toISOString()
-            });
+            return message.reply(`No user found with the username "${targetUsername}" in the leaderboard.`);
         }
 
         // Save updated data back to JSON file
@@ -69,12 +68,12 @@ module.exports = class extends Command {
 
         // Create and send the response embed
         const embed = new MessageEmbed()
-            .setTitle('Sync linked Twitch-Discord usernames')
-            .setDescription(`**${message.member.displayName}** hit 69 in twitch chat and now has **${user ? user.counter : 1}** 69s!`)
+            .setTitle('Syncronize twitch-discord usernames')
+            .setDescription(`**${user.username}**'s win on twitch has been syncronized with the leaderboard`)
             .setColor('#00FF00')
             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
             .setFooter({
-                text: `Updated by ${message.author.username}`,
+                text: `Syncronized by ${message.author.username}`,
                 iconURL: message.author.displayAvatarURL({ dynamic: true }),
             })
             .setTimestamp();

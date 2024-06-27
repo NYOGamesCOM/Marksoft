@@ -470,13 +470,8 @@ function sendNaughtyToDiscord(channel, twitchname) {
         //console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
 
         const mappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
-        //console.log('Loaded channel mappings:', mappings);
-
         const lowercaseChannelName = channel.toLowerCase();
-        //console.log(`Converted channel name to lowercase: ${lowercaseChannelName}`);
-
         const discordChannelId = mappings[lowercaseChannelName];
-        //console.log(`Retrieved Discord channel ID: ${discordChannelId}`);
 
         if (!discordChannelId) {
             throw new Error(`Discord channel ID not found for Twitch channel: ${channel}`);
@@ -504,6 +499,40 @@ function sendNaughtyToDiscord(channel, twitchname) {
     } catch (error) {
         console.error(`Error in sendNaughtyToDiscord: ${error}`);
     }
+}
+
+function incrementNaughtyCounter(twitchname) {
+  try {
+      const filePath = path.join(__dirname, '../../../naughty_users.json');
+      let data = {};
+
+      if (fs.existsSync(filePath)) {
+          const fileData = fs.readFileSync(filePath, 'utf8');
+          data = JSON.parse(fileData);
+      }
+
+      let userFound = false;
+
+      for (const guildId in data) {
+          const guildData = data[guildId];
+          const guildUsers = guildData.users;
+
+          for (const user of guildUsers) {
+              if (user.username === twitchname || (user.twitch && user.twitch === twitchname)) {
+                  user.counter += 1;
+                  userFound = true;
+                  break;
+              }
+          }
+          if (userFound) {
+              break;
+          }
+      }
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+      console.log('Naughty counter incremented successfully.');
+  } catch (error) {
+      console.error('Error incrementing naughty counter:', error);
+  }
 }
 
 function handleAccountageCommand(channel, userstate) {
@@ -567,6 +596,7 @@ function handleNaughtyCommand(channel, userstate, args) {
         responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber} and it's a perfect 69! Congratulations! bankai1Y `;
         logger.info(`${channel} | ${twitchname} guessed correctly and hit 69 🎉`, { label: "Command" });
         sendNaughtyToDiscord(channel, twitchname);
+        incrementNaughtyCounter(twitchname);
       } else {
         responseMessage = `${twitchname} guessed correctly! The number is ${randomNumber}. Congratulations! bankai1Y `;
         logger.info(`${channel} | ${twitchname} guessed correctly: ${randomNumber}`, { label: "Command" });
@@ -576,6 +606,7 @@ function handleNaughtyCommand(channel, userstate, args) {
         responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Y `;
         logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty 🎉`, { label: "Command" });
         sendNaughtyToDiscord(channel, twitchname);
+        incrementNaughtyCounter(twitchname);
       } else if (randomNumber === 0) {
         responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `;
         logger.info(`${channel} | ${twitchname} is ${randomNumber} out of 69 naughty bankai1Rip `, { label: "Command" });

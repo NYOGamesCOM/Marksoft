@@ -1,89 +1,128 @@
 const Command = require("../../structures/Command");
-const { MessageEmbed } = require("discord.js");
-const path = require('path');
+const path = require("path");
 const fs = require("fs");
 
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            name: "linktwitch",
-            aliases: ["linkmytwitch"],
-            description: "Link your Twitch account with Discord",
-            category: "fun",
-            usage: "!linktwitch <twitchUsername>",
+            name: "link",
+            aliases: ["linktwitch", "setTwitch"],
+            description: "Link your Twitch username to your Discord account.",
+            category: "utility",
+            usage: "<twitch_username>",
             guildOnly: true,
-            ownerOnly: true,
-            cooldown: 3,
+            cooldown: 5,
         });
     }
 
-    async run(message, args) {
-        // Check if a Twitch username was provided
-        message.channel.send("This command is currently disabled");
-       /* if (!args.length) {
-            return message.channel.send("Please provide your Twitch username.");
+    async run(message) {
+        const args = message.content.split(' ').slice(1); // Get command arguments
+        const twitchUsername = args.join(' ').trim();
+
+        if (!twitchUsername) {
+            return message.reply("Please provide a Twitch username to link.");
         }
 
-        const twitchUsername = args[0];
-        const userId = message.author.id; // User ID of the person running the command
-        const filePath = path.join(__dirname, '../../../naughty_users.json'); // Adjust path if needed
+        try {
+            const isAlreadyLinked = checkIfTwitchUsernameExists(message, twitchUsername);
 
-        // Read and parse the JSON file
-        fs.readFile(filePath, 'utf8', (err, data) => {
-            if (err) {
-                console.error('Error reading the JSON file:', err);
-                return message.channel.send("There was an error reading the data file.");
+            if (isAlreadyLinked) {
+                return message.reply(`Your Twitch username **${twitchUsername}** has already been linked.`);
             }
 
-            let jsonData = {};
-            try {
-                jsonData = JSON.parse(data);
-            } catch (parseError) {
-                console.error('Error parsing JSON data:', parseError);
-                return message.channel.send("There was an error parsing the data file.");
-            }
+            updateTwitchUsername(message, twitchUsername);
 
-            // Find the guild data or initialize if not exists
-            const guildId = message.guild.id;
-            if (!jsonData[guildId]) {
-                jsonData[guildId] = { users: [] };
-            }
-
-            // Find the user in the users array
-            const users = jsonData[guildId].users;
-            let user = users.find(u => u.userId === userId);
-
-            if (user && user.twitchname === twitchUsername) {
-                // User's Twitch username is already set to the same value
-                return message.channel.send(`Your Discord account is already linked with "${twitchUsername}".`);
-            }
-
-            if (!user) {
-                // If user doesn't exist, create a new entry
-                user = {
-                    userId: userId,
-                    twitchname: twitchUsername
-                };
-                users.push(user);
-            } else {
-                // If user exists, update their Twitch username
-                user.twitchname = twitchUsername;
-            }
-
-            // Write the updated JSON back to the file
-            fs.writeFile(filePath, JSON.stringify(jsonData, null, 4), 'utf8', (writeErr) => {
-                if (writeErr) {
-                    console.error('Error writing to the JSON file:', writeErr);
-                    return message.channel.send("There was an error saving your Twitch username.");
-                }
-
-                // Success message
-                const embed = new MessageEmbed()
-                    .setTitle("Twitch Linked to Discord")
-                    .setDescription(`Your Twitch account (${twitchUsername}) has been linked to ${message.author.username}`)
-                    .setColor("GREEN");
-                message.channel.send({ embeds: [embed] });
-            });
-        });*/
+            return message.reply(`Your Twitch username **${twitchUsername}** has been successfully linked with discord!`);
+        } catch (error) {
+            console.error('Error linking Twitch username:', error);
+            return message.reply('There was an error linking your Twitch username. Please try again later.');
+        }
     }
 };
+
+// Utility function to check if the Twitch username is already linked
+function checkIfTwitchUsernameExists(message, twitchUsername) {
+    const filePath = path.join(__dirname, "../../../naughty_users.json");
+    let data = {};
+
+    // Read existing data from JSON file
+    try {
+        if (fs.existsSync(filePath)) {
+            const fileData = fs.readFileSync(filePath, 'utf8');
+            data = JSON.parse(fileData);
+        }
+    } catch (err) {
+        console.error('Error reading the JSON file:', err);
+        throw err; // Rethrow to handle it in the command
+    }
+
+    // Extract guild ID
+    const guildId = message.guild.id;
+
+    // Initialize guild data if not present
+    if (!data[guildId]) {
+        data[guildId] = { webhook: "", users: [] };
+    }
+
+    const guildData = data[guildId];
+    let guildUsers = guildData.users;
+
+    // Check if the provided Twitch username already exists for any user
+    const isAlreadyLinked = guildUsers.some(user => user.userId === message.author.id && user.twitch === twitchUsername);
+
+    return isAlreadyLinked;
+}
+
+// Utility function to update the Twitch username in the JSON file
+function updateTwitchUsername(message, twitchUsername) {
+    const filePath = path.join(__dirname, "../../../naughty_users.json");
+    let data = {};
+
+    // Read existing data from JSON file
+    try {
+        if (fs.existsSync(filePath)) {
+            const fileData = fs.readFileSync(filePath, 'utf8');
+            data = JSON.parse(fileData);
+        }
+    } catch (err) {
+        console.error('Error reading the JSON file:', err);
+        throw err; // Rethrow to handle it in the command
+    }
+
+    // Extract guild ID
+    const guildId = message.guild.id;
+
+    // Initialize guild data if not present
+    if (!data[guildId]) {
+        data[guildId] = { webhook: "", users: [] };
+    }
+
+    const guildData = data[guildId];
+    let guildUsers = guildData.users;
+
+    // Find or create the user entry
+    const userId = message.author.id;
+    let user = guildUsers.find(user => user.userId === userId);
+
+    if (user) {
+        user.twitch = twitchUsername;
+    } else {
+        user = {
+            username: message.author.username,
+            userId: userId,
+            counter: 0, // Default counter if user doesn't exist
+            date: new Date().toISOString(),
+            twitch: twitchUsername
+        };
+        guildUsers.push(user);
+    }
+
+    // Save updated data back to JSON file
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+        console.log('User data updated with twitch username in naughty_users.json');
+    } catch (err) {
+        console.error('Error writing to the JSON file:', err);
+        throw err; // Rethrow to handle it in the command
+    }
+}
