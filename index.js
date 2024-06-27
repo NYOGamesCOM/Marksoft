@@ -546,6 +546,10 @@ function handleNaughtyCommand(channel, userstate, args) {
 
   if (twitchname === "avili") {
     randomNumber = 0;
+  } else if (twitchname === "izz_aldin") {
+    randomNumber = Math.random() < 0.4 ? 69 : Math.floor(Math.random() * 69);
+  } else {
+    randomNumber = Math.floor(Math.random() * 70);
   }
 
   if (cooldowns[twitchname]) return;

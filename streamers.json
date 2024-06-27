@@ -1,24 +1,12 @@
 {
   "streamers": [
     {
-      "twitchUsername": "bankai",
-      "discordChannelId": "964565502578016266"
-    },
-    {
       "twitchUsername": "13thomas",
       "discordChannelId": "1003637445880979567"
     },
     {
       "twitchUsername": "marksoftbot",
       "discordChannelId": "1003637445880979567"
-    },
-    {
-      "twitchUsername": "coachzanqo",
-      "discordChannelId": "423948715225645067"
-    },
-    {
-      "twitchUsername": "max_fewtrell",
-      "discordChannelId": "423948715225645067"
     }
   ]
 }
