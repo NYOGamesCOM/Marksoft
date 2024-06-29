@@ -219,6 +219,46 @@ function resetClipRequestCounter() {
   }
 }
 
+
+// =================================================== CUSTOM COMMANDS =================================================
+// =====================================================================================================================
+let customCommands = {};
+
+// Load custom commands from file
+function loadCommands(channel) {
+    const filePath = path.join(__dirname, 'commands', `${channel}.json`);
+    if (fs.existsSync(filePath)) {
+        const data = fs.readFileSync(filePath);
+        customCommands[channel] = JSON.parse(data);
+    } else {
+        customCommands[channel] = {};
+    }
+}
+
+// Save custom commands to file
+function saveCommands(channel) {
+    const dirPath = path.join(__dirname, 'commands');
+    if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath);
+    }
+    const filePath = path.join(dirPath, `${channel}.json`);
+    fs.writeFileSync(filePath, JSON.stringify(customCommands[channel], null, 2));
+}
+
+// Create a new command
+function createCommand(channel, command, response) {
+    customCommands[channel][command] = response;
+    saveCommands(channel);
+}
+
+// Load commands for all channels on startup
+twitchclient.getChannels().forEach(channel => {
+  loadCommands(channel.slice(1)); // Remove the '#' from channel name
+});
+
+//================================================================================================================================
+//================================================================================================================================
+
 function handleSetLiveChannelCommand(channel, userstate, args) {
   const twitchChannel = channel.slice(1);
   const discordChannelId = args[0];
@@ -573,9 +613,9 @@ function handleNaughtyCommand(channel, userstate, args) {
 
   let randomNumber = Math.floor(Math.random() * 70);
 
-  if (twitchname === "avili") {
+  if (twitchname === "marksoftbot") {
     randomNumber = 0;
-  } else if (twitchname === "izz_aldin") {
+  } else if (twitchname === "marksoftbot") {
     randomNumber = Math.random() < 0.2 ? 69 : Math.floor(Math.random() * 69);
   } else {
     randomNumber = Math.floor(Math.random() * 70);
@@ -585,7 +625,7 @@ function handleNaughtyCommand(channel, userstate, args) {
 
   let responseMessage = '';
   
-  if (twitchname === "avili") {
+  if (twitchname === "marksoftbot") {
     responseMessage = `${twitchname} is ${randomNumber} out of 69 naughty bankai1Y `;
     logger.info(`${channel} | ${twitchname} is 0 out of 69 naughty bankai1Y`, { label: "Command" });
   } else {
@@ -639,11 +679,14 @@ function calculateAccountAge(createdDate) {
 
 twitchclient.on('message', async (channel, userstate, message, self) => {
   if (self) return;
-
+  
   const normalizedMessage = message.toLowerCase().trim();
   // eslint-disable-next-line no-useless-escape
   const commandPattern = /^(\!\w+)\b/;
   const match = normalizedMessage.match(commandPattern);
+
+  const isMod = userstate.mod || userstate['user-type'] === 'mod';
+  const normalizedChannel = channel.slice(1);
 
   const clipUrls = message.match(clipUrlRegex);
   if (clipUrls) {
@@ -660,8 +703,66 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   const commandName = commandAliases[command];
   const args = normalizedMessage.slice(command.length).trim().split(/\s+/);
 
+  if (!customCommands[normalizedChannel]) {
+    loadCommands(normalizedChannel);
+  }
+  // !cc (create command) usage: !cc <commandName> <response>
+  if (message.startsWith('!cc ') && isMod) {
+    const parts = message.split(' ');
+    if (parts.length > 2) {
+        const commandName = parts[1].toLowerCase();
+        const response = parts.slice(2).join(' ');
+        createCommand(normalizedChannel, commandName, response);
+        twitchclient.say(channel, `Command !${commandName} has been created!`);
+    } else {
+        twitchclient.say(channel, `Usage: !cc <commandName> <response>`);
+    }
+    return;
+  }
 
-  if (command  === '!clip') {
+  // !editcmd (edit command) usage: !editcmd <commandName> <newResponse>
+  else if (message.startsWith('!ec ') && isMod) {
+      const parts = message.split(' ');
+      if (parts.length > 2) {
+          const commandName = parts[1].toLowerCase();
+          const newResponse = parts.slice(2).join(' ');
+          if (customCommands[normalizedChannel][commandName]) {
+              customCommands[normalizedChannel][commandName] = newResponse;
+              saveCommands(normalizedChannel);
+              twitchclient.say(channel, `Command !${commandName} has been updated!`);
+          } else {
+              twitchclient.say(channel, `Command !${commandName} does not exist.`);
+          }
+      } else {
+          twitchclient.say(channel, `Usage: !editcmd <commandName> <newResponse>`);
+      }
+      return;
+  }
+
+  // !delcmd (delete command) usage: !delcmd <commandName>
+  else if (message.startsWith('!dc ') && isMod) {
+      const parts = message.split(' ');
+      if (parts.length === 2) {
+          const commandName = parts[1].toLowerCase();
+          if (customCommands[normalizedChannel][commandName]) {
+              delete customCommands[normalizedChannel][commandName];
+              saveCommands(normalizedChannel);
+              twitchclient.say(channel, `Command !${commandName} has been deleted!`);
+          } else {
+              twitchclient.say(channel, `Command !${commandName} does not exist.`);
+          }
+      } else {
+          twitchclient.say(channel, `Usage: !delcmd <commandName>`);
+      }
+      return;
+  }
+  // Handle custom commands
+  else if (customCommands[normalizedChannel][normalizedMessage]) {
+    const response = customCommands[normalizedChannel][normalizedMessage];
+    console.log('Responding with:', response); // Debug statement
+    twitchclient.say(channel, response);
+  }
+  else if (command  === '!clip') {
     clipRequestCount++;
     console.log('!clip triggered');
     if (clipRequestCount === 1 || !clipRequestTimer) {
