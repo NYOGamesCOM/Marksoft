@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
-const Guild = require("../../database/schemas/Guild");
+// const Guild = require("../../database/schemas/Guild");
 
 function checkDays(date) {
   let now = new Date();
@@ -22,11 +22,7 @@ module.exports = class extends Command {
   }
 
   async run(message) {
-    const guildDB = await Guild.findOne({
-      guildId: message.guild.id,
-    });
 
-    //const language = require(`../../data/language/${guildDB.language}.json`);
     const owner = await message.guild.fetchOwner();
     const guild = message.guild;
 

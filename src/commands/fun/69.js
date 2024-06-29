@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 const Command = require("../../structures/Command");
 const { MessageEmbed, WebhookClient } = require("discord.js");
 const path = require('path');
@@ -35,6 +36,7 @@ module.exports = class extends Command {
             //sendGuessMessageToWebhook(message, message.author.username, randomNumber); // Call function to send special message
         } 
         else if (randomNumber === 69) {
+            
             responseMessage += '\n \`😈 Congratulations! 😈\` \n';
             sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber); // Call function to send special message
         }
@@ -91,7 +93,8 @@ function sendSpecialMessageToWebhook(message, username, number) {
     if (user) {
         user.counter += 1;
         // Ensure the twitch field is present in the user data
-        if (!user.hasOwnProperty('twitch')) {
+        //if (!user.hasOwnProperty('twitch')) {
+        if (!Object.prototype.hasOwnProperty.call(user, 'twitch')) {
             user.twitch = ""; // Initialize if not present
         }
     } else {
