@@ -120,7 +120,7 @@ In addition to the Discord bot, our system offers the following features on your
 
 Custom commands allow moderators to create, edit, and delete commands that the bot can respond to. These commands are created using specific triggers and responses defined by moderators.
 
-*** Creating a Custom Command***
+**Creating a Custom Command**
 
 - **Command:** `!cc <commandName> <response>`
 - **Usage:** Allows moderators to create a new custom command.
