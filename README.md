@@ -81,12 +81,6 @@ Our Discord bot provides the following key features:
 - Developers can log events directly using webhooks from the configuration file.
 - Keep track of important server activities effortlessly.
 
-#### 13. Twitch-Discord Integration<a name="twitch"></a>
-
-- Detects Twitch clip URLs in specified Twitch channels.
-- Fetches clip details (title, creator, views) using Twitch API.
-- Sends enriched embed messages to a designated Discord channel.
-
 ### 3. Website Features<a name="website-features"></a>
 
 In addition to the Discord bot, our system offers the following features on your website:
@@ -122,7 +116,67 @@ In addition to the Discord bot, our system offers the following features on your
   - Showcase your server's members and their contributions.
   - Recognize and celebrate your community.
 
-### 4. Conclusion<a name="conclusion"></a>
+### 4. Twitch Integration<a name="twitch"></a>
+
+Custom commands allow moderators to create, edit, and delete commands that the bot can respond to. These commands are created using specific triggers and responses defined by moderators.
+
+*** Creating a Custom Command***
+
+- **Command:** `!cc <commandName> <response>`
+- **Usage:** Allows moderators to create a new custom command.
+
+In addition to custom commands, the bot supports predefined commands for specific functionalities.
+
+- **!naughty**
+- Handles the naughty command functionality.
+- Usage example: `!naughty`
+
+- **!accountage**
+- Retrieves account age information for a user.
+- Usage example: `!accountage`
+
+- **!addwin**
+- Adds a win to a user's stats.
+- Usage example: `!addwin`
+
+- **!resetwins**
+- Resets a user's win stats.
+- Usage example: `!resetwins`
+
+- **!wins**
+- Displays a user's win stats.
+- Usage example: `!wins`
+
+- **!clearwins**
+- Provides instructions regarding clearing wins.
+- Usage example: `!clearwins`
+
+- **!jointo**
+- Handles the join to channel functionality.
+- Usage example: `!jointo`
+
+- **!setachievementchannel**
+- Sets the Discord channel for achievements.
+- Usage example: `!setachievementchannel`
+
+- **!setclipschannel**
+- Sets the channel for clips.
+- Usage example: `!setclipschannel`
+
+- **!channels**
+- Displays channel information.
+- Usage example: `!channels`
+
+- **!setlivechannel**
+- Sets the live channel.
+- Usage example: `!setlivechannel`
+
+- **!watchtime**
+- Displays watch time information.
+- Usage example: `!watchtime`
+
+Creates a command !hello with the response "Hello, welcome to the stream!".
+### 5. Conclusion<a name="conclusion"></a>
 
 Our all-in-one Discord bot and web features offer an extensive array of tools to enhance your server's functionality, user engagement, and community management. Elevate your server today by incorporating our versatile bot and utilizing the website features.
 
