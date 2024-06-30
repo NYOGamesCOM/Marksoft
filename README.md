@@ -125,57 +125,62 @@ Custom commands allow moderators to create, edit, and delete commands that the b
 - **Command:** `!cc <commandName> <response>`
 - **Usage:** Allows moderators to create a new custom command.
 
+- **Command:** `!ec <commandName> <newResponse>`
+- **Usage:** Allows moderators to edit an existing custom command.
+
+- **Command:** `!dc <commandName>`
+- **Usage:** Allows moderators to delete an existing custom command.
+
 In addition to custom commands, the bot supports predefined commands for specific functionalities.
 
 - **!naughty**
 - Handles the naughty command functionality.
 - Usage example: `!naughty`
 
-- **!accountage**
+**!accountage**
 - Retrieves account age information for a user.
 - Usage example: `!accountage`
 
-- **!addwin**
+**!addwin**
 - Adds a win to a user's stats.
 - Usage example: `!addwin`
 
-- **!resetwins**
+**!resetwins**
 - Resets a user's win stats.
 - Usage example: `!resetwins`
 
-- **!wins**
+**!wins**
 - Displays a user's win stats.
 - Usage example: `!wins`
 
-- **!clearwins**
+**!clearwins**
 - Provides instructions regarding clearing wins.
 - Usage example: `!clearwins`
 
-- **!jointo**
+**!jointo**
 - Handles the join to channel functionality.
 - Usage example: `!jointo`
 
-- **!setachievementchannel**
+**!setachievementchannel**
 - Sets the Discord channel for achievements.
 - Usage example: `!setachievementchannel`
 
-- **!setclipschannel**
+**!setclipschannel**
 - Sets the channel for clips.
 - Usage example: `!setclipschannel`
 
-- **!channels**
+**!channels**
 - Displays channel information.
 - Usage example: `!channels`
 
-- **!setlivechannel**
+**!setlivechannel**
 - Sets the live channel.
 - Usage example: `!setlivechannel`
 
-- **!watchtime**
+**!watchtime**
 - Displays watch time information.
 - Usage example: `!watchtime`
 
-Creates a command !hello with the response "Hello, welcome to the stream!".
 ### 5. Conclusion<a name="conclusion"></a>
 
 Our all-in-one Discord bot and web features offer an extensive array of tools to enhance your server's functionality, user engagement, and community management. Elevate your server today by incorporating our versatile bot and utilizing the website features.
