@@ -8,7 +8,7 @@ module.exports = class extends Command {
       name: "createcommand",
       description: "Create a custom command",
       category: "config",
-      aliases: ["cc", "customcommand"],
+      aliases: ["customcommand"],
       usage: ["<command> <reply>"],
       examples: ["createcommand pog Poggers!"],
       cooldown: 3,

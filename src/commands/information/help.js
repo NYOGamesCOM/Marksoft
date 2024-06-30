@@ -81,12 +81,12 @@ module.exports = class extends Command {
       });
       embed.setTimestamp();
 
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args.join(" ").toLowerCase() == "alt detector") ||
@@ -112,12 +112,12 @@ module.exports = class extends Command {
         iconURL: message.author.displayAvatarURL({ dynamic: true }),
       });
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "dev") {
       if (!this.client.config.developers.includes(message.author.id))
@@ -146,12 +146,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args[0].toLowerCase() == "applications") ||
@@ -179,12 +179,12 @@ module.exports = class extends Command {
 
       embed.setTimestamp();
 
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
 
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -211,12 +211,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args[0].toLowerCase() == "utility") ||
@@ -245,12 +245,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "fun") {
       embed.setTitle(`Fun`);
@@ -274,12 +274,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "premium") {
       embed.setTitle(`Premium`);
@@ -303,12 +303,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (args && args[0].toLowerCase() == "twitch") {
       embed.setTitle(`Twitch chat commands ONLY!`);
@@ -332,12 +332,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args[0].toLowerCase() == "images") ||
@@ -364,12 +364,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args[0].toLowerCase() == "information") ||
@@ -396,12 +396,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args[0].toLowerCase() == "moderation") ||
@@ -427,12 +427,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
       (args && args.slice(0).join(" ").toLowerCase() == "reaction role") ||
@@ -459,12 +459,12 @@ module.exports = class extends Command {
       });
 
       embed.setTimestamp();
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
 
       return message.channel.sendCustom({ embeds: [embed] });
     } else if (
@@ -485,12 +485,12 @@ module.exports = class extends Command {
           )
           .join("\n")
       );
-      embed.addField(
-        "\u200b",
-        "**[Invite Bot](http://localhost:3000/invite) | " +
-        "[Support Server](http://localhost:3000/support) | " +
-        "[Dashboard](http://localhost:3000/)**"
-      );
+      // embed.addField(
+      //   "\u200b",
+      //   "**[Invite Bot](http://localhost:3000/invite) | " +
+      //   "[Support Server](http://localhost:3000/support) | " +
+      //   "[Dashboard](http://localhost:3000/)**"
+      // );
       embed.setFooter({
         text: `Requested by ${message.author.username}`,
         iconURL: message.author.displayAvatarURL({ dynamic: true }),

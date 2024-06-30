@@ -47,7 +47,6 @@ if (fs.existsSync(WIN_COUNTS_FILE)) {
     winCounts = JSON.parse(data);
 }
 
-const clipUrlRegex = /https:\/\/clips\.twitch\.tv\/\S+/gi;
 const ignoredUsers = ['nightbot', 'streamelements'];
 
 
@@ -615,7 +614,7 @@ function handleNaughtyCommand(channel, userstate, args) {
 
   if (twitchname === "marksoftbot") {
     randomNumber = 0;
-  } else if (twitchname === "marksoftbot") {
+  } else if (twitchname === "nightbot") {
     randomNumber = Math.random() < 0.2 ? 69 : Math.floor(Math.random() * 69);
   } else {
     randomNumber = Math.floor(Math.random() * 70);
@@ -681,14 +680,16 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   if (self) return;
   
   const normalizedMessage = message.toLowerCase().trim();
-  // eslint-disable-next-line no-useless-escape
   const commandPattern = /^(\!\w+)\b/;
   const match = normalizedMessage.match(commandPattern);
 
   const isMod = userstate.mod || userstate['user-type'] === 'mod';
   const normalizedChannel = channel.slice(1);
 
-  const clipUrls = message.match(clipUrlRegex);
+  // Define regex for detecting clip URLs
+  const clipUrlRegex = /(?:https?:\/\/)?clips\.twitch\.tv\/\S+/g;
+  const clipUrls = normalizedMessage.match(clipUrlRegex);
+
   if (clipUrls) {
     console.log(`Twitch clip detected: ${clipUrls}`);
     clipUrls.forEach(url => {
@@ -700,69 +701,76 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   if (!match) return;
 
   const command = match[1];
-  const commandName = commandAliases[command];
+  const commandName = commandAliases[command] || command.slice(1);
   const args = normalizedMessage.slice(command.length).trim().split(/\s+/);
 
   if (!customCommands[normalizedChannel]) {
-    loadCommands(normalizedChannel);
+    await loadCommands(normalizedChannel);
   }
-  // !cc (create command) usage: !cc <commandName> <response>
-  if (message.startsWith('!cc ') && isMod) {
-    const parts = message.split(' ');
-    if (parts.length > 2) {
-        const commandName = parts[1].toLowerCase();
-        const response = parts.slice(2).join(' ');
-        createCommand(normalizedChannel, commandName, response);
+
+  // Command creation: !cc <commandName> <response>
+  if (command === '!cc' && isMod) {
+    if (args.length > 1) {
+        const [commandName, ...responseParts] = args;
+        let response = responseParts.join(' ');
+
+        // Replace all occurrences of ${me} with the user's display name
+        const username = userstate['display-name'];
+        response = response.replace(/\${me}/gi, username);
+
+        await createCommand(normalizedChannel, commandName, response);
         twitchclient.say(channel, `Command !${commandName} has been created!`);
     } else {
-        twitchclient.say(channel, `Usage: !cc <commandName> <response>`);
+        twitchclient.say(channel, 'Usage: !cc <commandName> <response>');
     }
     return;
   }
 
-  // !editcmd (edit command) usage: !editcmd <commandName> <newResponse>
-  else if (message.startsWith('!ec ') && isMod) {
-      const parts = message.split(' ');
-      if (parts.length > 2) {
-          const commandName = parts[1].toLowerCase();
-          const newResponse = parts.slice(2).join(' ');
-          if (customCommands[normalizedChannel][commandName]) {
-              customCommands[normalizedChannel][commandName] = newResponse;
-              saveCommands(normalizedChannel);
-              twitchclient.say(channel, `Command !${commandName} has been updated!`);
-          } else {
-              twitchclient.say(channel, `Command !${commandName} does not exist.`);
-          }
+  // Command editing: !ec <commandName> <newResponse>
+  if (command === '!ec' && isMod) {
+    if (args.length > 1) {
+      const [commandName, ...responseParts] = args;
+      const newResponse = responseParts.join(' ');
+      if (customCommands[normalizedChannel][commandName]) {
+        customCommands[normalizedChannel][commandName] = newResponse;
+        await saveCommands(normalizedChannel);
+        twitchclient.say(channel, `Command !${commandName} has been updated!`);
       } else {
-          twitchclient.say(channel, `Usage: !editcmd <commandName> <newResponse>`);
+        twitchclient.say(channel, `Command !${commandName} does not exist.`);
       }
-      return;
+    } else {
+      twitchclient.say(channel, 'Usage: !ec <commandName> <newResponse>');
+    }
+    return;
   }
 
-  // !delcmd (delete command) usage: !delcmd <commandName>
-  else if (message.startsWith('!dc ') && isMod) {
-      const parts = message.split(' ');
-      if (parts.length === 2) {
-          const commandName = parts[1].toLowerCase();
-          if (customCommands[normalizedChannel][commandName]) {
-              delete customCommands[normalizedChannel][commandName];
-              saveCommands(normalizedChannel);
-              twitchclient.say(channel, `Command !${commandName} has been deleted!`);
-          } else {
-              twitchclient.say(channel, `Command !${commandName} does not exist.`);
-          }
+  // Command deletion: !dc <commandName>
+  if (command === '!dc' && isMod) {
+    if (args.length === 1) {
+      const [commandName] = args;
+      if (customCommands[normalizedChannel][commandName]) {
+        delete customCommands[normalizedChannel][commandName];
+        await saveCommands(normalizedChannel);
+        twitchclient.say(channel, `Command !${commandName} has been deleted!`);
       } else {
-          twitchclient.say(channel, `Usage: !delcmd <commandName>`);
+        twitchclient.say(channel, `Command !${commandName} does not exist.`);
       }
-      return;
+    } else {
+      twitchclient.say(channel, 'Usage: !dc <commandName>');
+    }
+    return;
   }
+
   // Handle custom commands
-  else if (customCommands[normalizedChannel][normalizedMessage]) {
-    const response = customCommands[normalizedChannel][normalizedMessage];
+  if (customCommands[normalizedChannel][commandName]) {
+    const response = customCommands[normalizedChannel][commandName];
     console.log('Responding with:', response); // Debug statement
     twitchclient.say(channel, response);
+    return;
   }
-  else if (command  === '!clip') {
+
+  // Clip creation: !clip
+  if (command === '!clip') {
     clipRequestCount++;
     console.log('!clip triggered');
     if (clipRequestCount === 1 || !clipRequestTimer) {
@@ -775,49 +783,36 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
         twitchclient.say(channel, `Clip created! Watch it here: ${clipUrl}`);
         resetClipRequestCounter();
       } catch (error) {
-        twitchclient.say(channel, `Failed to create clip.`);
+        twitchclient.say(channel, 'Failed to create clip.');
         console.error(`Clip creation failed: ${error.message}`);
         resetClipRequestCounter();
       }
     }
+    return;
   }
-  else if (commandName === 'naughty') {
-    handleNaughtyCommand(channel, userstate, args);
-  } 
-  else if (commandName === 'accountage') {
-    handleAccountageCommand(channel, userstate, args);
-  }
-  else if (commandName === 'addwin') {
-    handleAddwinCommand(channel, userstate, args);
-  }
-  else if (commandName === 'resetwins') {
-    handleResetwinsCommand(channel, userstate, args);
-  }
-  else if (commandName === 'wins') {
-    handleWinsCommand(channel, userstate, args);
-  }
-  else if (commandName === 'clearwins') {
-    twitchclient.say(channel, `I'm not a dodo bot like @Nightbot :) !resetwins will do the work.`);
-  }
-  else if (commandName === 'jointo') {
-    handleJoinToChannel(channel, userstate, args);
-  }
-  else if (commandName === 'setachievementchannel') {
-    handleSetDiscordChannelCommand(channel, userstate, args);
-  }
-  else if (commandName === 'setclipschannel') {
-    handleSetClipsChannelCommand(channel, userstate, args);
-  }
-  else if (commandName === 'channels') {
-    handleChannelsCommand(channel, userstate);
-  }
-  else if (commandName === 'setlivechannel') {
-    handleSetLiveChannelCommand(channel, userstate, args);
-  }
-  else if (commandName === 'watchtime') {
-    handleWatchtimeCommand(channel, userstate, args);
+  // Handle other specific commands
+  const commandHandlers = {
+    naughty: handleNaughtyCommand,
+    accountage: handleAccountageCommand,
+    addwin: handleAddwinCommand,
+    resetwins: handleResetwinsCommand,
+    wins: handleWinsCommand,
+    clearwins: (channel) => {
+      twitchclient.say(channel, "I'm not a dodo bot like @Nightbot :) !resetwins will do the work.");
+    },
+    jointo: handleJoinToChannel,
+    setachievementchannel: handleSetDiscordChannelCommand,
+    setclipschannel: handleSetClipsChannelCommand,
+    channels: handleChannelsCommand,
+    setlivechannel: handleSetLiveChannelCommand,
+    watchtime: handleWatchtimeCommand,
+  };
+
+  if (commandName in commandHandlers) {
+    commandHandlers[commandName](channel, userstate, args);
   }
 });
+
 
 twitchclient.connect().then(() => {
   const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
@@ -834,6 +829,7 @@ twitchclient.connect().then(() => {
 
 twitchclient.on('join', onJoinHandler);
 twitchclient.on('part', onPartHandler);
+twitchclient.on('subscription', onSubscriptionHandler);
 
 function onJoinHandler(channel, username, self) {
   if (!self) { // Skip bot itself
@@ -852,6 +848,13 @@ function onPartHandler(channel, username, self) {
   // console.log(`[${timestamp}] ${username} has left ${channel}`);
 }
 
+function onSubscriptionHandler(channel, username, methods, message, userstate) {
+  // Log the subscription event (optional)
+  console.log(`* ${username} subscribed to ${channel} (${methods.plan} plan)`);
+
+  // Send a message to chat acknowledging the subscription
+  twitchclient.say(channel, `bankai1Y bankai1Y bankai1Y`);
+}
 // Update watch time for a user
 function updateWatchtime(channel, username) {
   if (joinTimes[channel] && joinTimes[channel][username]) {
