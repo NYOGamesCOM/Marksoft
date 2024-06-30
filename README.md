@@ -123,63 +123,63 @@ Custom commands allow moderators to create, edit, and delete commands that the b
 **Creating a Custom Command**
 
 - **Command:** `!cc <commandName> <response>`
-- **Usage:** Allows moderators to create a new custom command.
+  - **Usage:** Allows moderators to create a new custom command.
 
 - **Command:** `!ec <commandName> <newResponse>`
-- **Usage:** Allows moderators to edit an existing custom command.
+  - **Usage:** Allows moderators to edit an existing custom command.
 
 - **Command:** `!dc <commandName>`
-- **Usage:** Allows moderators to delete an existing custom command.
+  - **Usage:** Allows moderators to delete an existing custom command.
 
 In addition to custom commands, the bot supports predefined commands for specific functionalities.
 
 - **!naughty**
-- Handles the naughty command functionality.
-- Usage example: `!naughty`
+  - Handles the naughty command functionality.
+  - Usage example: `!naughty`
 
 **!accountage**
-- Retrieves account age information for a user.
-- Usage example: `!accountage`
+  - Retrieves account age information for a user.
+  - Usage example: `!accountage`
 
 **!addwin**
-- Adds a win to a user's stats.
-- Usage example: `!addwin`
+  - Adds a win to a user's stats.
+  - Usage example: `!addwin`
 
 **!resetwins**
-- Resets a user's win stats.
-- Usage example: `!resetwins`
+  - Resets a user's win stats.
+  - Usage example: `!resetwins`
 
 **!wins**
-- Displays a user's win stats.
-- Usage example: `!wins`
+  - Displays a user's win stats.
+  - Usage example: `!wins`
 
 **!clearwins**
-- Provides instructions regarding clearing wins.
-- Usage example: `!clearwins`
+  - Provides instructions regarding clearing wins.
+  - Usage example: `!clearwins`
 
 **!jointo**
-- Handles the join to channel functionality.
-- Usage example: `!jointo`
+  - Handles the join to channel functionality.
+  - Usage example: `!jointo`
 
 **!setachievementchannel**
-- Sets the Discord channel for achievements.
-- Usage example: `!setachievementchannel`
+  - Sets the Discord channel for achievements.
+  - Usage example: `!setachievementchannel`
 
 **!setclipschannel**
-- Sets the channel for clips.
-- Usage example: `!setclipschannel`
+  - Sets the channel for clips.
+  - Usage example: `!setclipschannel`
 
 **!channels**
-- Displays channel information.
-- Usage example: `!channels`
+  - Displays channel information.
+  - Usage example: `!channels`
 
 **!setlivechannel**
-- Sets the live channel.
-- Usage example: `!setlivechannel`
+  - Sets the live channel.
+  - Usage example: `!setlivechannel`
 
 **!watchtime**
-- Displays watch time information.
-- Usage example: `!watchtime`
+  - Displays watch time information.
+  - Usage example: `!watchtime`
 
 ### 5. Conclusion<a name="conclusion"></a>
 
