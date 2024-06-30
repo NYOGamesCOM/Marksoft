@@ -137,47 +137,47 @@ In addition to custom commands, the bot supports predefined commands for specifi
   - Handles the naughty command functionality.
   - Usage example: `!naughty`
 
-**!accountage**
+- **!accountage**
   - Retrieves account age information for a user.
   - Usage example: `!accountage`
 
-**!addwin**
+- **!addwin**
   - Adds a win to a user's stats.
   - Usage example: `!addwin`
 
-**!resetwins**
+- **!resetwins**
   - Resets a user's win stats.
   - Usage example: `!resetwins`
 
-**!wins**
+- **!wins**
   - Displays a user's win stats.
   - Usage example: `!wins`
 
-**!clearwins**
+- **!clearwins**
   - Provides instructions regarding clearing wins.
   - Usage example: `!clearwins`
 
-**!jointo**
+- **!jointo**
   - Handles the join to channel functionality.
   - Usage example: `!jointo`
 
-**!setachievementchannel**
+- **!setachievementchannel**
   - Sets the Discord channel for achievements.
   - Usage example: `!setachievementchannel`
 
-**!setclipschannel**
+- **!setclipschannel**
   - Sets the channel for clips.
   - Usage example: `!setclipschannel`
 
-**!channels**
+- **!channels**
   - Displays channel information.
   - Usage example: `!channels`
 
-**!setlivechannel**
+- **!setlivechannel**
   - Sets the live channel.
   - Usage example: `!setlivechannel`
 
-**!watchtime**
+- **!watchtime**
   - Displays watch time information.
   - Usage example: `!watchtime`
 
