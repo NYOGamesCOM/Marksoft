@@ -1,0 +1,72 @@
+# Project Structure
+
+```markdown
+# Project Structure
+
+## src
+- **assets**
+  - `json`
+  - `logs`
+- **commands**
+  - `alt detector`
+  - `applications`
+  - `config`
+  - `dev`
+  - `fun`
+  - `images`
+  - `information`
+  - `moderation`
+  - `premium`
+  - `profi`
+  - `reactionrole`
+  - `ticket`
+  - `twitch`
+  - `utility`
+- **dashboard**
+  - `passport`
+  - **static**
+    - `404`
+    - `avatars`
+    - `cards`
+    - `css`
+    - `fonts`
+    - `footer`
+    - `js`
+    - **libs**
+      - `color-picker`
+    - `media`
+    - `premium`
+  - **templates**
+    - `partials`
+- **data**
+  - `language`
+  - `profi`
+  - `structures`
+  - `twitch`
+- **database**
+  - **models**
+    - `application`
+    - `economy`
+  - `schemas`
+- **events**
+  - `channels`
+  - `emojis`
+  - `errors`
+  - `guild`
+  - `members`
+  - `message`
+  - `reactions`
+  - `roles`
+  - `voice`
+- `filters`
+- **packages**
+  - `logs`
+  - **reactionrole**
+    - `models`
+- `slash`
+- `slashCommands`
+- `structures`
+- `twitch`
+- **utils**
+  - `other`
+- `youtube`
