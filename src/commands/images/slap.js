@@ -15,6 +15,7 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
+    incrementCommandCounter('slap');
     const client = message.client;
     const guildDB = await Guild.findOne({
       guildId: message.guild.id,

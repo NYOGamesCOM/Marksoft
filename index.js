@@ -628,6 +628,7 @@ function handleAccountageCommand(channel, userstate) {
 
 function handleNaughtyCommand(channel, userstate, args) {
   incrementCommandCounter('naughty');
+  incrementCommandCounter('69');
   const twitchname = userstate.username;
   const guessedNumber = parseInt(args[0]);
 

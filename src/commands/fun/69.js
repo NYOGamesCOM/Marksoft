@@ -44,7 +44,8 @@ module.exports = class extends Command {
             responseMessage += '\n \`😈 Congratulations! 😈\` \n';
             sendSpecialMessageToWebhook(message, message.member.displayName, randomNumber); // Call function to send special message
         }
-        incrementCommandCounter('naughty');    
+        incrementCommandCounter('naughty');
+        incrementCommandCounter('69');
         const embed = new MessageEmbed()
             .setTitle('Naughty Meter')
             .setDescription(responseMessage)

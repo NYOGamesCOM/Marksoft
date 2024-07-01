@@ -20,7 +20,8 @@ module.exports = class extends Command {
 
     async run(message, args) {
         const filePath = path.join(__dirname, '..', '..', '..', 'src', 'assets', 'json', 'naughty_users.json');
-
+        incrementCommandCounter('lb');
+        incrementCommandCounter('leaderboard');
         let data = {};
         let guildUsers = [];
     

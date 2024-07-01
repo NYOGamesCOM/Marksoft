@@ -171,6 +171,7 @@ function loadCommandCounter() {
         console.error('Error loading command counter:', err);
         commandCounter = {};
     }
+    return commandCounter;
 }
 
 function saveCommandCounter() {

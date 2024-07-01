@@ -17,7 +17,7 @@ module.exports = class extends Command {
     const guildDB = await Guild.findOne({
       guildId: message.guild.id,
     });
-
+    incrementCommandCounter('dog');
     const language = require(`../../data/language/${guildDB.language}.json`);
     try {
       const res = await fetch("https://dog.ceo/api/breeds/image/random");

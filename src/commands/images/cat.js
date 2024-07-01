@@ -14,6 +14,7 @@ module.exports = class CatCommand extends Command {
   }
 
   async run(message) {
+    incrementCommandCounter('cat');
     try {
       const { data } = await axios.get("https://api.thecatapi.com/v1/images/search");
 
