@@ -19,6 +19,9 @@ module.exports = class extends Command {
     }
 
     async run(message) {
+        if (isUserBanned(message.author.id)) {
+            return message.reply('You are banned from using this command.');
+        }
         if (message.channel.id !== this.allowedChannelID) {
             return message.reply(`This command can only be used in <#${this.allowedChannelID}>.`);
         }
@@ -60,6 +63,21 @@ function getRandomColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 }
 
+function isUserBanned(userId) {
+    const filePath = path.join(__dirname, "../../../banned_users.json");
+
+    try {
+        if (fs.existsSync(filePath)) {
+            const fileData = fs.readFileSync(filePath, 'utf8');
+            const bannedUsers = JSON.parse(fileData);
+            return bannedUsers.includes(userId);
+        }
+    } catch (err) {
+        console.error('Error reading the JSON file:', err);
+    }
+    return false;
+}
+
 function sendSpecialMessageToWebhook(message, username, number) {
     const filePath = path.join(__dirname, "../../../naughty_users.json");
     let data = {};
@@ -86,16 +104,13 @@ function sendSpecialMessageToWebhook(message, username, number) {
     const guildData = data[guildId];
     let guildUsers = guildData.users;
 
-    // Find or create the user entry
     const userId = message.author.id;
     let user = guildUsers.find(user => user.userId === userId);
 
     if (user) {
         user.counter += 1;
-        // Ensure the twitch field is present in the user data
-        //if (!user.hasOwnProperty('twitch')) {
         if (!Object.prototype.hasOwnProperty.call(user, 'twitch')) {
-            user.twitch = ""; // Initialize if not present
+            user.twitch = ""; 
         }
     } else {
         user = {
@@ -103,12 +118,11 @@ function sendSpecialMessageToWebhook(message, username, number) {
             userId: userId,
             counter: 1,
             date: new Date().toISOString(),
-            twitch: "" // Initialize the twitch field
+            twitch: "" 
         };
         guildUsers.push(user);
     }
 
-    // Save updated data back to JSON file
     try {
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
         console.log('User data updated in naughty_users.json');
@@ -116,7 +130,6 @@ function sendSpecialMessageToWebhook(message, username, number) {
         console.error('Error writing to the JSON file:', err);
     }
 
-    // Send a message to the webhook if configured
     if (guildData.webhook) {
         const webhookClient = new WebhookClient({ url: guildData.webhook });
 

@@ -3,8 +3,8 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            name: "naughty",
-            aliases: [" 69 "],
+            name: "-naughty",
+            aliases: ["699"],
             description: "Naughty meter",
             category: "twitch",
             guildOnly: true,
