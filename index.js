@@ -708,7 +708,6 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   const isMod = userstate.mod || userstate['user-type'] === 'mod';
   const normalizedChannel = channel.slice(1);
 
-  // Define regex for detecting clip URLs
   const clipUrlRegex = /(?:https?:\/\/)?clips\.twitch\.tv\/\S+/g;
   const clipUrls = normalizedMessage.match(clipUrlRegex);
 
