@@ -4,7 +4,7 @@ const config = require("../../../config.json");
 const webhookClient = new WebhookClient({
   url: config.webhooks.blacklist,
 });
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const Blacklist = require("../../database/schemas/blacklist");
 
 module.exports = class extends Command {

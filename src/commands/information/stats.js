@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const { mem, cpu, os } = require("node-os-utils");
 const { stripIndent } = require("common-tags");
 const Guild = require("../../database/schemas/Guild");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

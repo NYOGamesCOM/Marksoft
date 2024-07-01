@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const Guild = require("../../database/schemas/Guild");
 
 module.exports = class extends Command {

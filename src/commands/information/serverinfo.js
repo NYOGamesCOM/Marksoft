@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 // const Guild = require("../../database/schemas/Guild");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 function checkDays(date) {
   let now = new Date();
   let diff = now.getTime() - date.getTime();

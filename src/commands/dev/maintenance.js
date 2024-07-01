@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const Maintenance = require("../../database/schemas/maintenance");
 const config = require("../../../config.json");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

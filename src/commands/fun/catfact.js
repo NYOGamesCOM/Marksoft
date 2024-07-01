@@ -1,6 +1,6 @@
 const Command = require("../../structures/Command");
 const fetch = require("node-fetch");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const { MessageEmbed } = require("discord.js");
 module.exports = class extends Command {
   constructor(...args) {

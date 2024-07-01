@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const axios = require('axios');
 const { MessageEmbed } = require("discord.js");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {

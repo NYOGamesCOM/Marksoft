@@ -3,7 +3,7 @@
 const Command = require("../../structures/Command");
 const Discord = require("discord.js");
 const got = require("got");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

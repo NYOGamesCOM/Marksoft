@@ -6,6 +6,7 @@ const transcriptSchema = require("../../database/models/transcript.js");
 const randoStrings = require("../../packages/randostrings.js");
 const random = new randoStrings();
 const moment = require("moment");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

@@ -5,6 +5,7 @@ const randoStrings = require("../../packages/randostrings.js");
 const random = new randoStrings();
 const talkedRecently = new Set();
 const ShortUrl = require("../../database/models/ShortUrl.js");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

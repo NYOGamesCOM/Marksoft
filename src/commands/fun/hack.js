@@ -3,7 +3,7 @@ const Guild = require("../../database/schemas/Guild");
 const darkrandom = require("random");
 const darkemail = require("random-email");
 const darkpassword = require("generate-password");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {

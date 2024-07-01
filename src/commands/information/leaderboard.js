@@ -4,7 +4,7 @@ const Command = require("../../structures/Command");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const fs = require('fs');
 const path = require('path');
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const USERS_PER_PAGE = 15;
 
 module.exports = class extends Command {
@@ -19,7 +19,8 @@ module.exports = class extends Command {
     }
 
     async run(message, args) {
-        const filePath = path.join(__dirname, "../../../naughty_users.json");
+        const filePath = path.join(__dirname, '..', '..', '..', 'src', 'assets', 'json', 'naughty_users.json');
+
         let data = {};
         let guildUsers = [];
     

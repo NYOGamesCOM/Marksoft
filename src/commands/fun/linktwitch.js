@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const path = require("path");
 const fs = require("fs");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
@@ -42,7 +42,7 @@ module.exports = class extends Command {
 
 // Utility function to check if the Twitch username is already linked
 function checkIfTwitchUsernameExists(message, twitchUsername) {
-    const filePath = path.join(__dirname, "../../../naughty_users.json");
+    const filePath = path.join(__dirname, '..', '..', '..', 'src', 'assets', 'json', 'naughty_users.json');
     let data = {};
 
     // Read existing data from JSON file
@@ -75,7 +75,8 @@ function checkIfTwitchUsernameExists(message, twitchUsername) {
 
 // Utility function to update the Twitch username in the JSON file
 function updateTwitchUsername(message, twitchUsername) {
-    const filePath = path.join(__dirname, "../../../naughty_users.json");
+    const filePath = path.join(__dirname, '..', '..', '..', 'src', 'assets', 'json', 'naughty_users.json');
+
     let data = {};
 
     // Read existing data from JSON file

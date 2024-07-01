@@ -8,6 +8,7 @@ const webhookClient = new discord.WebhookClient({
   url: config.webhooks.premium,
 });
 let uniqid = require("uniqid");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

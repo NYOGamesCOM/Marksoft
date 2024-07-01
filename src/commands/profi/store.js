@@ -1,8 +1,22 @@
 const Command = require("../../structures/Command");
 const fs = require('fs');
+const path = require('path');
 const { MessageEmbed } = require("discord.js");
+const { incrementCommandCounter } = require("../../utils/utils.js");
+// Adjust the path to stores.json
+const filePath = path.join(__dirname, '..', '..', 'assets', 'json', 'stores.json');
 
-const storesData = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
+// Wrap the file reading and parsing in a try-catch block
+let storesData;
+try {
+    const fileData = fs.readFileSync(filePath, 'utf8');
+    storesData = JSON.parse(fileData);
+} catch (error) {
+    console.error('Error reading or parsing stores.json:', error);
+    // Handle the error appropriately (e.g., throw an error, return early, etc.)
+    // For simplicity, we'll log the error and exit the script in case of failure.
+    process.exit(1); // Exit with an error status
+}
 
 module.exports = class extends Command {
     constructor(...args) {
@@ -14,23 +28,17 @@ module.exports = class extends Command {
             usage: "store ID",
             guildOnly: true,
         });
-        // #servicedesk - 1045732570148651170
-        // #general (testing) - 1166025888882757682
         this.allowedChannelID = '1045732570148651170';
-        // @Profi IT - kernel
-        //this.allowedRoleID = ['1045731837076574438', '1181351425272459347'];
     }
 
     async run(message, args) {
         const storeID = parseInt(args[0]);
         if (isNaN(storeID)) return message.reply('Please provide a valid store ID.');
- 
+
         if (message.channel.id !== this.allowedChannelID) {
             return message.reply(`This command can only be used in <#${this.allowedChannelID}>.`);
         }
-/*        if (!message.member.roles.cache.has(this.allowedRoleID)) {
-            return message.reply("You don't have permission to use this command.");
-        }*/
+
         const store = storesData.stores.find(store => store.storeID === storeID);
         if (!store) return message.reply('Store ID not found.');
 
@@ -63,14 +71,15 @@ module.exports = class extends Command {
             **• Sectiune speciala:** \`${store.special_section}\` \n
             `);
 
-            embed.setFooter({
-                text: `Requested by ${message.author.username}`,
-                iconURL: message.author.displayAvatarURL({ dynamic: true }),
-              });
-        
-            embed.setTimestamp();
-            embed.setThumbnail(message.guild.iconURL())
-            embed.setColor(message.guild.me.displayHexColor);
-        message.channel.sendCustom({ embeds: [embed] });    
+        embed.setFooter({
+            text: `Requested by ${message.author.username}`,
+            iconURL: message.author.displayAvatarURL({ dynamic: true }),
+        });
+
+        embed.setTimestamp();
+        embed.setThumbnail(message.guild.iconURL());
+        embed.setColor(message.guild.me.displayHexColor);
+
+        message.channel.send({ embeds: [embed] });
     }
 };

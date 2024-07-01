@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 const Guild = require("../../database/schemas/Guild");
 const User = require("../../database/schemas/User");
 const Nickname = require("../../database/schemas/nicknames");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const Usernames = require("../../database/schemas/usernames");
 const moment = require("moment");
 const emojis = require("../../assets/emojis.json");

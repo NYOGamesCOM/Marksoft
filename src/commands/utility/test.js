@@ -1,7 +1,7 @@
 const discord = require("discord.js");
 const Command = require("../../structures/Command");
 const fs = require("fs");
-// Add this function at the top of your code
+const { incrementCommandCounter } = require("../../utils/utils.js");
 async function fetchGuildRoles(guildId) {
   try {
     const guild = await client.guilds.fetch(guildId);

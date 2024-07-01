@@ -2,7 +2,7 @@ const discord = require("discord.js");
 const ticketSchema = require("../../database/models/tickets.js");
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

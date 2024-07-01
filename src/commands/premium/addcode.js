@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const Premium = require("../../database/schemas/GuildPremium");
 const discord = require("discord.js");
 const moment = require("moment");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 var voucher_codes = require("voucher-code-generator");
 module.exports = class extends Command {
   constructor(...args) {

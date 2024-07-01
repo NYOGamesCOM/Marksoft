@@ -2,6 +2,7 @@ const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
 const permissions = require("../../assets/json/permissions.json");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 moment.suppressDeprecationWarnings = true;
 
 module.exports = class extends Command {

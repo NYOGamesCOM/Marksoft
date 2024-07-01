@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const path = require('path');
 const fs = require("fs");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {

@@ -1,8 +1,6 @@
 const { Client, Collection } = require("discord.js");
 const Util = require("./src/structures/Util.js");
 const config = require("./config.json");
-const fs = require("node:fs");
-const path = require("node:path");
 const { status } = config;
 
 

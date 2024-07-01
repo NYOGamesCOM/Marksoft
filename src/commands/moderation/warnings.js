@@ -5,7 +5,7 @@ const Guild = require("../../database/schemas/Guild.js");
 const { MessageEmbed } = require("discord.js");
 const warnModel = require("../../database/models/moderation.js");
 const ReactionMenu = require("../../data/ReactionMenu.js");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

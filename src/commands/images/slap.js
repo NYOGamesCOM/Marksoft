@@ -3,7 +3,7 @@ const Guild = require("../../database/schemas/Guild");
 const discord = require("discord.js");
 const { MessageAttachment } = require("discord.js");
 const Canvacord = require("canvacord/src/Canvacord");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

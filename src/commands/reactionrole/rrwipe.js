@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const ReactionRole = require("../../packages/reactionrole/models/schema");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

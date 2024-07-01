@@ -7,6 +7,7 @@ const webhookClient = new discord.WebhookClient({
   url: config.webhooks.suggestions,
 });
 const Guild = require("../../database/schemas/Guild");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

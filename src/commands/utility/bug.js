@@ -5,7 +5,7 @@ const config = require("../../../config.json");
 const webhookClient = new Discord.WebhookClient({ url: config.webhooks.bugs });
 const Guild = require("../../database/schemas/Guild");
 const crypto = require("crypto");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

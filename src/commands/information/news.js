@@ -3,6 +3,7 @@ const Guild = require("../../database/schemas/Marksoft");
 const Guildd = require("../../database/schemas/Guild");
 const { MessageEmbed } = require("discord.js");
 const moment = require("moment");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 moment.suppressDeprecationWarnings = true;
 
 module.exports = class extends Command {

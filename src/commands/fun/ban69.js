@@ -2,7 +2,7 @@
 const Command = require("../../structures/Command");
 const fs = require("fs");
 const path = require("path");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
@@ -35,7 +35,7 @@ module.exports = class extends Command {
         }
 
         const userId = userToBan.id;
-        const filePath = path.join(__dirname, "../../../banned_users.json");
+        const filePath = path.join(__dirname, '..', '..', '..', 'src', 'assets', 'json', 'banned_users.json');
 
         // Read existing banned users
         let bannedUsers = [];

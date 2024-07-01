@@ -2,6 +2,7 @@ const discord = require("discord.js");
 const Command = require("../../structures/Command");
 const Paste = require("../../database/models/transcript.js");
 const ReactionMenu = require("../../data/ReactionMenu.js");
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

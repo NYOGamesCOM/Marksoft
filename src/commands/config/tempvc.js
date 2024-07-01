@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
 const Vc = require("../../database/schemas/tempvc");
 const { MessageEmbed } = require("discord.js");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const mongoose = require("mongoose");
 module.exports = class extends Command {
   constructor(...args) {

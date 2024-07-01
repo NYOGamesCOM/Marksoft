@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const NewsSchema = require("../../database/schemas/Marksoft");
 const config = require("../../../config.json");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

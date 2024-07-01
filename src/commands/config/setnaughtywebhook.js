@@ -3,7 +3,7 @@
 const Command = require("../../structures/Command");
 const path = require('path');
 const fs = require("node:fs");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {

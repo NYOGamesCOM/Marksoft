@@ -1,7 +1,7 @@
 const Command = require("../../structures/Command");
 const Guild = require("../../database/schemas/Guild");
 const afk = require("../../database/models/afk.js");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 const discord = require("discord.js");
 module.exports = class extends Command {
   constructor(...args) {

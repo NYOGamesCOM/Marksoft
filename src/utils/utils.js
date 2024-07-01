@@ -156,7 +156,35 @@ async function createProfile(user, guild) {
   }
   return false;
 }
+const jsonFilePath = path.join(__dirname, '..', 'assets', 'json', 'command_counter.json');
 
+let commandCounter = {};
+
+function loadCommandCounter() {
+    try {
+        if (fs.existsSync(jsonFilePath)) {
+            commandCounter = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'));
+        } else {
+            commandCounter = {};
+        }
+    } catch (err) {
+        console.error('Error loading command counter:', err);
+        commandCounter = {};
+    }
+}
+
+function saveCommandCounter() {
+    fs.writeFileSync(jsonFilePath, JSON.stringify(commandCounter, null, 4), 'utf8');
+}
+
+function incrementCommandCounter(commandName) {
+    if (commandCounter[commandName]) {
+        commandCounter[commandName]++;
+    } else {
+        commandCounter[commandName] = 1;
+    }
+    saveCommandCounter();
+}
 module.exports = {
   capitalize,
   removeElement,
@@ -167,4 +195,6 @@ module.exports = {
   getCaseNumber,
   getStatus,
   createProfile,
+  loadCommandCounter,
+  incrementCommandCounter,
 };

@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const axios = require("axios");
 const config = require("../../../config.json");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class CommitsCommand extends Command {
   constructor(...args) {
     super(...args, {

@@ -4,7 +4,7 @@ const ReactionRole = require("../../packages/reactionrole/index.js");
 const react = new ReactionRole();
 require("dotenv").config();
 react.setURL(process.env.MONGO);
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {

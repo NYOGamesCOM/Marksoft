@@ -2,7 +2,7 @@ const Command = require("../../structures/Command");
 const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
@@ -16,7 +16,8 @@ module.exports = class extends Command {
     }
     async run(message) {
         // Path to the trivia questions file
-        const triviaPath = path.join(__dirname, "../../../trivia.json");
+        const triviaPath = path.join(__dirname, '..', '..', '..', 'src', 'assets', 'json', 'trivia.json');
+
         
         // Load trivia questions from file
         let triviaQuestions = [];

@@ -6,19 +6,30 @@ const logger = require("./src/utils/logger");
 const Marksoft = new MarksoftClient(config);
 const fs = require('fs');
 const moment = require("moment");
-//const { twitchclient, checkStreamerLiveStatus } = require('./twitch/twitch');
-//const { loadStreamers } = require('./twitch/fileManager');
-//const streamers = loadStreamers();
+const { incrementCommandCounter, loadCommandCounter } = require("./src/utils/utils.js");
 //===============================================
 const path = require('path');
 const axios = require('axios');
 const tmi = require('tmi.js');
+
 const cooldowns = {};
-const WATCHTIME_FILE = path.join(__dirname, 'watchtime.json');
+const WATCHTIME_FILE = path.join(__dirname, 'src', 'assets', 'json', 'watchtime.json');
+const WIN_COUNTS_FILE = path.join(__dirname, 'src', 'assets', 'json', 'winCounts.json');
+const CHANNELS_FILE = path.join(__dirname, 'src', 'assets', 'json', 'channels.json');
+const CHANNEL_MAPPINGS_FILE = path.join(__dirname, 'src', 'assets', 'json', 'channelMappings.json');
+const CLIPS_MAPPINGS_FILE = path.join(__dirname, 'src', 'assets', 'json', 'clipsMappings.json');
+const STREAMERS_FILE = path.join(__dirname, 'src', 'assets', 'json', 'streamers.json');
+
+const ignoredUsers = ['nightbot', 'streamelements', 'marksoftbot'];
 
 let watchtimes = {};
 let joinTimes = {};
 let winCounts = {};
+let channels = [];
+let channelMappings = {};
+let clipsMappings = [];
+
+loadCommandCounter();
 
 function loadWatchtimes() {
   try {
@@ -41,44 +52,29 @@ function saveWatchtimes() {
   }
 }
 
-const WIN_COUNTS_FILE = 'winCounts.json';
 if (fs.existsSync(WIN_COUNTS_FILE)) {
-    const data = fs.readFileSync(WIN_COUNTS_FILE);
+    const data = fs.readFileSync(WIN_COUNTS_FILE, 'utf8');
     winCounts = JSON.parse(data);
 }
 
-const ignoredUsers = ['nightbot', 'streamelements'];
-
-
-const channelsFile = './channels.json';
-let channels = [];
-
-if (fs.existsSync(channelsFile)) {
-    const channelsData = JSON.parse(fs.readFileSync(channelsFile, 'utf8'));
+if (fs.existsSync(CHANNELS_FILE)) {
+    const channelsData = JSON.parse(fs.readFileSync(CHANNELS_FILE, 'utf8'));
     channels = channelsData.channels;
 } else {
-    fs.writeFileSync(channelsFile, JSON.stringify({ channels: [] }, null, 2));
+    fs.writeFileSync(CHANNELS_FILE, JSON.stringify({ channels: [] }, null, 2), 'utf8');
 }
 
-const channelMappingsFile = './channelMappings.json'; // Adjust path as needed
-let channelMappings = {};
-
-// Load channel mappings from JSON file
-if (fs.existsSync(channelMappingsFile)) {
-    channelMappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
-    //console.log('Loaded channel mappings:', channelMappings);
+if (fs.existsSync(CHANNEL_MAPPINGS_FILE)) {
+    channelMappings = JSON.parse(fs.readFileSync(CHANNEL_MAPPINGS_FILE, 'utf8')).channelMappings;
 } else {
     console.error('channelMappings.json not found.');
 }
 
-const clipsMappingsFile = './clipsMappings.json';
-let clipsMappings = [];
-
-if (fs.existsSync(clipsMappingsFile)) {
-  const data = fs.readFileSync(clipsMappingsFile, 'utf8');
-  clipsMappings = JSON.parse(data).clipsMappings;
+if (fs.existsSync(CLIPS_MAPPINGS_FILE)) {
+    const data = fs.readFileSync(CLIPS_MAPPINGS_FILE, 'utf8');
+    clipsMappings = JSON.parse(data).clipsMappings;
 } else {
-  console.error('clipsMappings.json not found.');
+    console.error('clipsMappings.json not found.');
 }
 
 const twitchclient = new tmi.Client({
@@ -123,19 +119,19 @@ let liveStatus = {};
 
 function loadStreamers() {
   try {
-    const data = fs.readFileSync(path.join(__dirname, 'streamers.json'));
-    return JSON.parse(data).streamers;
+      const data = fs.readFileSync(STREAMERS_FILE, 'utf8');
+      return JSON.parse(data).streamers || [];
   } catch (error) {
-    console.error('Error reading streamers file:', error);
-    return [];
+      console.error('Error reading streamers file:', error);
+      return [];
   }
 }
 
 function saveStreamers(streamers) {
   try {
-    fs.writeFileSync(path.join(__dirname, 'streamers.json'), JSON.stringify({ streamers }, null, 2));
+      fs.writeFileSync(STREAMERS_FILE, JSON.stringify({ streamers }, null, 2), 'utf8');
   } catch (error) {
-    console.error('Error saving streamers file:', error);
+      console.error('Error saving streamers file:', error);
   }
 }
 
@@ -224,7 +220,7 @@ let customCommands = {};
 
 // Load custom commands from file
 function loadCommands(channel) {
-    const filePath = path.join(__dirname, 'commands', `${channel}.json`);
+    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'commands', `${channel}.json`);
     if (fs.existsSync(filePath)) {
         const data = fs.readFileSync(filePath);
         customCommands[channel] = JSON.parse(data);
@@ -235,7 +231,7 @@ function loadCommands(channel) {
 
 // Save custom commands to file
 function saveCommands(channel) {
-    const dirPath = path.join(__dirname, 'commands');
+    const dirPath = path.join(__dirname, 'src', 'assets', 'json', 'commands');
     if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
     }
@@ -260,7 +256,7 @@ twitchclient.getChannels().forEach(channel => {
 function handleSetLiveChannelCommand(channel, userstate, args) {
   const twitchChannel = channel.slice(1);
   const discordChannelId = args[0];
-
+  incrementCommandCounter('setlivechannel');
   let streamers = loadStreamers();
   let streamer = streamers.find(s => s.twitchUsername.toLowerCase() === twitchChannel.toLowerCase());
 
@@ -285,6 +281,7 @@ function handleWatchtimeCommand(channel, userstate, args) {
 
 
 function handleSetClipsChannelCommand(channel, userstate, args) {
+  incrementCommandCounter('setclipschannel');
   const twitchname = userstate.username;
   const discordChannelId = args[0];
   if (twitchname.toLowerCase() !== '13thomas') {
@@ -293,13 +290,14 @@ function handleSetClipsChannelCommand(channel, userstate, args) {
   }
   clipsMappings[channel.slice(1).toLowerCase()] = discordChannelId;
 
-  fs.writeFileSync(clipsMappingsFile, JSON.stringify({ clipsMappings }, null, 2));
+  fs.writeFileSync(CHANNELS_FILE, JSON.stringify({ clipsMappings }, null, 2));
 
   twitchclient.say(channel, `Clips channel set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
 function handleChannelsCommand(channel, userstate) {
+  incrementCommandCounter('botchannels');
   const twitchname = userstate.username;
 
   if (twitchname.toLowerCase() !== '13thomas') {
@@ -316,6 +314,7 @@ function handleChannelsCommand(channel, userstate) {
 }
 
 function handleSetDiscordChannelCommand(channel, userstate, args) {
+  incrementCommandCounter('setachievementchannel');
   const twitchname = userstate.username;
   const discordChannelId = args[0];
 
@@ -326,13 +325,14 @@ function handleSetDiscordChannelCommand(channel, userstate, args) {
 
   channelMappings[channel.slice(1).toLowerCase()] = discordChannelId;
 
-  fs.writeFileSync(channelMappingsFile, JSON.stringify({ channelMappings }, null, 2));
+  fs.writeFileSync(CHANNEL_MAPPINGS_FILE, JSON.stringify({ channelMappings }, null, 2));
 
   twitchclient.say(channel, `Naughty achievement channel set for ${channel} to ${discordChannelId}`);
   logger.info(`${twitchname} set discord ${discordChannelId} for ${channel}`, { label: "Command" });
 }
 
 function handleJoinToChannel(channel, userstate, args) {
+  incrementCommandCounter('jointo');
   const channelName = args[0];
   const twitchname = userstate.username;
 
@@ -350,7 +350,7 @@ function handleJoinToChannel(channel, userstate, args) {
 
   channels.push(normalizedChannelName);
 
-  fs.writeFileSync(channelsFile, JSON.stringify({ channels }, null, 2));
+  fs.writeFileSync(CHANNELS_FILE, JSON.stringify({ channels }, null, 2));
 
   twitchclient.join(channelName).then(() => {
     //console.log(`Bot joined channel ${channelName}`);
@@ -363,6 +363,7 @@ function handleJoinToChannel(channel, userstate, args) {
 }
 
 function handleAddwinCommand(channel, userstate) {
+  incrementCommandCounter('addwin');
   if (userstate.mod || userstate['user-type'] === 'mod' || userstate.badges.broadcaster) {
       if (!winCounts[channel]) {
           winCounts[channel] = 0;
@@ -376,6 +377,7 @@ function handleAddwinCommand(channel, userstate) {
 }
 
 function handleResetwinsCommand(channel, userstate) {
+  incrementCommandCounter('resetwins');
   if (userstate.badges.broadcaster || userstate.mod || userstate['user-type'] === 'mod') {
       if (winCounts[channel]) {
           winCounts[channel] = 0;
@@ -390,6 +392,7 @@ function handleResetwinsCommand(channel, userstate) {
 }
 
 function handleWinsCommand(channel) {
+  incrementCommandCounter('wins');
   if (winCounts[channel]) {
     twitchclient.say(channel, `Wins today: ${winCounts[channel]}`);
   } else {
@@ -507,7 +510,7 @@ function sendNaughtyToDiscord(channel, twitchname) {
     try {
         //console.log(`Sending naughty message to Discord for Twitch channel: ${channel}`);
 
-        const mappings = JSON.parse(fs.readFileSync(channelMappingsFile, 'utf8')).channelMappings;
+        const mappings = JSON.parse(fs.readFileSync(CHANNEL_MAPPINGS_FILE, 'utf8')).channelMappings;
         const lowercaseChannelName = channel.toLowerCase();
         const discordChannelId = mappings[lowercaseChannelName];
 
@@ -539,11 +542,24 @@ function sendNaughtyToDiscord(channel, twitchname) {
     }
 }
 
+function ensureDirectoryExists(directory) {
+  if (!fs.existsSync(directory)) {
+      fs.mkdirSync(directory, { recursive: true });
+  }
+}
+
+// Function to increment the naughty counter
 function incrementNaughtyCounter(twitchname) {
   try {
-      const filePath = path.join(__dirname, 'naughty_users.json');
+      // Define the path to naughty_users.json in src/assets/json
+      const filePath = path.join(__dirname, 'src', 'assets', 'json', 'naughty_users.json');
+      
+      // Ensure the directory exists
+      ensureDirectoryExists(path.dirname(filePath));
+      
       let data = {};
 
+      // Check if the file exists and read its content
       if (fs.existsSync(filePath)) {
           const fileData = fs.readFileSync(filePath, 'utf8');
           data = JSON.parse(fileData);
@@ -551,21 +567,26 @@ function incrementNaughtyCounter(twitchname) {
 
       let userFound = false;
 
+      // Iterate through each guild and its users
       for (const guildId in data) {
           const guildData = data[guildId];
           const guildUsers = guildData.users;
 
           for (const user of guildUsers) {
+              // Check if the user matches the twitchname
               if (user.username === twitchname || (user.twitch && user.twitch === twitchname)) {
-                  user.counter += 1;
+                  user.counter = (user.counter || 0) + 1; // Increment counter
                   userFound = true;
                   break;
               }
           }
+
           if (userFound) {
-              break;
+              break; // Exit loop if user is found and counter is incremented
           }
       }
+
+      // Write the updated data back to the file
       fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
       console.log('Naughty counter incremented successfully.');
   } catch (error) {
@@ -575,7 +596,7 @@ function incrementNaughtyCounter(twitchname) {
 
 function handleAccountageCommand(channel, userstate) {
   const username = userstate['display-name'];
-
+  incrementCommandCounter('accountage');
   fetch(`https://api.twitch.tv/helix/users?login=${username}`, {
     headers: {
       'Client-ID': process.env.TWITCH_CLIENT_ID,
@@ -606,6 +627,7 @@ function handleAccountageCommand(channel, userstate) {
 }
 
 function handleNaughtyCommand(channel, userstate, args) {
+  incrementCommandCounter('naughty');
   const twitchname = userstate.username;
   const guessedNumber = parseInt(args[0]);
 
@@ -709,6 +731,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
 
   // Command creation: !cc <commandName> <response>
   if (command === '!cc' && isMod) {
+    incrementCommandCounter('cc');
     if (args.length > 1) {
         const [commandName, ...responseParts] = args;
         let response = responseParts.join(' ');
@@ -727,6 +750,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
 
   // Command editing: !ec <commandName> <newResponse>
   if (command === '!ec' && isMod) {
+    incrementCommandCounter('ec');
     if (args.length > 1) {
       const [commandName, ...responseParts] = args;
       const newResponse = responseParts.join(' ');
@@ -745,6 +769,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
 
   // Command deletion: !dc <commandName>
   if (command === '!dc' && isMod) {
+    incrementCommandCounter('dc');
     if (args.length === 1) {
       const [commandName] = args;
       if (customCommands[normalizedChannel][commandName]) {
@@ -763,6 +788,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   // Handle custom commands
   if (customCommands[normalizedChannel][commandName]) {
     const response = customCommands[normalizedChannel][commandName];
+    incrementCommandCounter(commandName);
     console.log('Responding with:', response); // Debug statement
     twitchclient.say(channel, response);
     return;
@@ -772,6 +798,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
   if (command === '!clip') {
     clipRequestCount++;
     console.log('!clip triggered');
+    incrementCommandCounter('clip');
     if (clipRequestCount === 1 || !clipRequestTimer) {
       clipRequestTimer = setTimeout(resetClipRequestCounter, clipRequestTimeout);
     }
@@ -816,7 +843,7 @@ twitchclient.on('message', async (channel, userstate, message, self) => {
 twitchclient.connect().then(() => {
   const timestamp = moment().format('YYYY-MM-DD HH:mm:ss'); // Format timestamp
   console.log(`[${timestamp}] Bot connected to Twitch.`);
-  const channelsData = JSON.parse(fs.readFileSync(channelsFile, 'utf8'));
+  const channelsData = JSON.parse(fs.readFileSync(CHANNELS_FILE, 'utf8'));
   let channels = channelsData.channels;
   channels.forEach(channel => {
       twitchclient.join(channel);
@@ -847,7 +874,7 @@ function onPartHandler(channel, username, self) {
   // console.log(`[${timestamp}] ${username} has left ${channel}`);
 }
 
-function onSubscriptionHandler(channel, username, methods, message, userstate) {
+function onSubscriptionHandler(channel, username, methods) {
   // Log the subscription event (optional)
   console.log(`* ${username} subscribed to ${channel} (${methods.plan} plan)`);
 

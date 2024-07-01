@@ -3,7 +3,7 @@ const Guild = require("../../database/schemas/Guild");
 const { MessageEmbed } = require("discord.js");
 const ReactionRole = require("../../packages/reactionrole/index.js");
 const react = new ReactionRole();
-
+const { incrementCommandCounter } = require("../../utils/utils.js");
 require("dotenv").config();
 react.setURL(process.env.MONGO);
 
