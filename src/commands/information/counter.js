@@ -31,13 +31,16 @@ module.exports = class extends Command {
         if (!commandCounter || !commandCounter[commandName]) {
             return message.reply(`Command \`${commandName}\` has not been used yet.`);
         }
-
+        const formattedCount = commandCounter[commandName].toLocaleString();
         const embed = new MessageEmbed()
-            .setColor("#4CAF50") // Green color
+            .setColor("#ffcc00") // Gold color
             .setTitle(`Command Usage Counter: ${commandName}`)
-            .setDescription(`\`This command has been used ${commandCounter[commandName]} time(s).\``)
-            .addField("Usage Details", `Command: \`${commandName}\`\nUsage Count: ${commandCounter[commandName]}`)
-            .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
+            .setDescription(`\`This command has been used ${formattedCount} time(s).\``)
+            .addFields(
+                { name: "Command Name", value: `\`${commandName}\``, inline: true },
+                { name: "Usage Count", value: `\`${formattedCount}\``, inline: true }
+            )
+            .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
 
         await message.channel.send({ embeds: [embed] });
